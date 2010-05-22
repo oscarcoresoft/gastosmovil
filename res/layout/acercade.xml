@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp"
+              >
+    <ImageView android:id="@+id/image"
+    			android:layout_width="fill_parent"
+              	android:layout_height="40dp"
+               	android:layout_marginBottom="10dp"
+               	android:src="@drawable/icon"
+               	android:scaleType="centerInside"
+               />
+    <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:textColor="#FFF"
+              android:layout_marginBottom="0dp"
+              android:text="@string/acercade_titulo"
+              android:textSize="25dp"
+              />           
+    <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:textColor="#AAA"
+              android:textSize="14dp"
+              android:text="@string/acercade_texto"
+              android:layout_marginBottom="15dp"
+              />
+              
+     <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/acercade_autor_cab"
+              style="?android:attr/listSeparatorTextViewStyle"
+              android:layout_marginBottom="15dp"
+              /> 
+              
+     <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:textColor="#FFF"
+              android:textSize="14dp"
+              android:text="@string/acercade_autor"
+              android:layout_marginBottom="5dp"
+              android:autoLink="email"
+              />
+              
+     <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:textColor="#AAA"
+              android:textSize="14dp"
+              android:text="@string/acercade_licencia"
+              android:layout_marginBottom="5dp"
+              />        
+              
+     <ImageView android:id="@+id/image"
+    			android:layout_width="fill_parent"
+              	android:layout_height="30dp"
+              	android:maxHeight="20dp"
+               	android:src="@drawable/gplv3"
+               	android:scaleType="centerInside"
+               	android:layout_marginBottom="5dp"
+               />
+          <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:textColor="#AAA"
+              android:textSize="14dp"
+              android:text="http://www.gnu.org/licenses/gpl.html"
+              android:layout_marginBottom="15dp"
+              android:autoLink="web"
+              />  
+              
+     <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/acercade_traduccion_cab"
+              style="?android:attr/listSeparatorTextViewStyle"
+              android:layout_marginBottom="15dp"
+              />
+              
+      <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:textColor="#FFF"
+              android:textSize="14dp"
+              android:text="@string/acercade_traduccion_en"
+              android:autoLink="email"
+              />
+              
+       <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:textColor="#FFF"
+              android:textSize="14dp"
+              android:text="@string/acercade_traduccion_it"
+              android:layout_marginBottom="15dp"
+              android:autoLink="email"
+              />
+              
+</LinearLayout>

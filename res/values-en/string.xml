@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gastos Móvil</string>
+    <string name="lista_vacia">Empty list</string>
+    <string name="cabDatos">Data summary</string>
+    <string name="cabRegistros">Calls register</string>
+    <string name="separador">    </string>
+
+    <string name="aj_tarifaNormal">Price list</string>
+    <string name="aj_tarifaNormal_des"> Different prices</string>
+    <string name="aj_tarifaLlamadas">Calls Price list</string>
+    <string name="aj_tarifaLlamadas_des">Only price: per minute, in cents and taxes not included.</string>
+    <string name="aj_tarifaSMS">Text  messages prices</string>
+    <string name="aj_tarifaSMS_des">Text  messages prices : each text message,expressed in cents and taxes not included.</string>
+    <string name="aj_tarifaEstLlamada">Connection fee price</string>
+    <string name="aj_tarifaEstLlamada_des">Connection fee: expressed in cents and taxes not icluded </string>
+
+
+
+    <string name="aj_limite">Limit</string>
+    <string name="aj_limite_des">Cost limit. Calls that exceed this limit, red icon..</string>
+    <string name="aj_mes">Month</string>
+    <string name="aj_mes_des">Choose the month you wish to check.</string>
+    <string name="aj_duracion">Modified length</string>
+    <string name="aj_duracion_des">Seconds added to the calls length.</string> 
+    <string name="aj_numGratis">Free phone numbers</string>
+    <string name="aj_numGratis_des">Numbers separated by a comma and are free.</string>
+    <string name="aj_establecimiento">Connection fee</string>
+    <string name="aj_establecimiento_des"> Show the % from the connection fee</string>
+    <string name="mn_actualizar">Update</string>
+    <string name="mn_ajustes">Settings</string>
+    <string name="mn_salir">Exit</string>
+    <string name="mn_acercade">About</string>
+    <string name="mn_estadisticas">CostPerCall</string>
+
+    <string name="mnctx_titulo">Free numbers register</string>
+    <string name="mnctx_opc1">Adding a number to the register .</string>
+    <string name="mnctx_opc2"> Deleting a number from the register </string>
+
+    <string name="error_ajustes">Some settings are wrong or invalid.  The prices will be taken as the default price.S.</string>
+    <string name="actualizar">Update...</string>
+    <string name="acercade_activity">About ... GASTOS MÓVIL</string>
+    <string name="acercade_titulo">GASTOS MÓVIL</string>
+    <string name="acercade_texto">Control  your telephone cost and your mobile company.</string>
+    <string name="acercade_autor_cab">Author and licence</string>
+    <string name="acercade_autor">Antonio C. A. Abellán - acabellan@gmail.com</string>
+    <string name="acercade_licencia">Mobile costs is a free software; under the terms of the Public General Licence GNU V3</string>
+    <string name="acercade_traduccion_cab">Translated by</string>
+    <string name="acercade_traduccion_en">en - M. Jose Flamil - joseperr@hotmail.com</string>
+    <string name="acercade_traduccion_it">it - Suma Enzo Tagliatelli - suma.enzo@libero.it</string>
+    <string name="mensaje_noexiste">The number is not included in the register.</string>
+	<string name="mensaje_existe"> The number  is already included in the register.</string> 
+	<string name="mensaje_noexistellamadas">There are no phone calls in the selected month.</string>
+	<string name="estadistica_titulo">Total cost per call.</string>
+	<string name="estadisticas_activity">Gastos Móvil</string>   
+</resources> 

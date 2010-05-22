@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gastos Móvil</string>
+    <string name="lista_vacia">Lista vuota</string>
+    <string name="cabDatos">Sintesi dei dati</string>
+    <string name="cabRegistros">Registro delle chiamate</string>
+    <string name="separador">    </string>
+
+    <string name="aj_tarifaNormal">Tariffe</string> 
+    <string name="aj_tarifaNormal_des">Valori dei differenti tipi di tariffa</string> 
+    <string name="aj_tarifaLlamadas">Tariffa chiamate</string>
+    <string name="aj_tarifaLlamadas_des">Tariffa unica: per minuti, in centesimi e senza IVA.</string>
+    <string name="aj_tarifaSMS">Tariffa SMS</string>
+    <string name="aj_tarifaSMS_des">Tariffa SMS: per messaggio, in centesimi e senza IVA.</string>
+    <string name="aj_tarifaEstLlamada">Tariffa scatto alla risposta</string>
+    <string name="aj_tarifaEstLlamada_des">Tariffa scatto alla risposta: in centesimi e senza IVA</string>
+
+
+
+    <string name="aj_limite">Limite</string>
+    <string name="aj_limite_des">Limite delle spese. Chiamata che supera questo limite, icona rossa.</string>
+    <string name="aj_mes">Mese</string>
+    <string name="aj_mes_des">Seleziona il mese che vuoi visualizzare.</string>
+    <string name="aj_duracion">Durata modificata</string>
+    <string name="aj_duracion_des">Secondi che si aggiungono alla durata delle chiamate.</string> 
+    <string name="aj_numGratis">Numeri senza costo</string>
+    <string name="aj_numGratis_des">Numeri, separati per virgola, che hanno un costo di chiamata di 0€.</string>
+    <string name="aj_establecimiento">Scatto alla risposta</string>
+    <string name="aj_establecimiento_des">Mostrare la percentuale(%)corrispondente allo scatto alla risposta</string>
+    <string name="mn_actualizar">Aggiornare</string>
+    <string name="mn_ajustes">Modifiche</string>
+    <string name="mn_salir">Uscire</string>
+    <string name="mn_acercade">Riguardo A</string>
+    <string name="mn_estadisticas">SpesaPerNumero</string>
+
+    <string name="mnctx_titulo">Registro dei Numeri Senza Costo</string>
+    <string name="mnctx_opc1">Aggiungere numero al registro</string>
+    <string name="mnctx_opc2">Eliminare numero dal registro</string>
+
+    <string name="error_ajustes">Alcune modifiche hanno valori errati o sono nulli. Si prenderanno i suoi valori per difetto.</string>
+    <string name="actualizar">aggiornare...</string>
+    <string name="acercade_activity">Riguardo a ... GASTOS MÓVIL</string>
+    <string name="acercade_titulo">GASTOS MÓVIL</string>
+    <string name="acercade_texto">Controlla la tua spesa del telefono e al tuo operatore.</string>
+    <string name="acercade_autor_cab">Autore e Licenza</string>
+    <string name="acercade_autor">Antonio C. A. Abellán - acabellan@gmail.com</string>
+    <string name="acercade_licencia">Gastos Móvil è un software libero; secondo i termini della Licenza Pubblica Generale di GNU V3</string>
+    <string name="acercade_traduccion_cab">Traduzione</string>
+    <string name="acercade_traduccion_en">en - M. Jose Flamil - joseperr@hotmail.com</string>
+    <string name="acercade_traduccion_it">it - Suma Enzo Tagliatelli - suma.enzo@libero.it</string>
+    <string name="mensaje_noexiste">Il numero non esiste nel registro.</string>
+	<string name="mensaje_existe">Il numero è già nel registro.</string>
+	<string name="mensaje_noexistellamadas">Non esistono chiamate per il mese selezionato.</string>
+	<string name="estadistica_titulo">Totale della spesa per numero.</string>
+	<string name="estadisticas_activity">Gastos Móvil</string>
+</resources>
