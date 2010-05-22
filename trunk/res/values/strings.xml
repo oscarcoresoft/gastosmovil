@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gastos Móvil</string>
+    <string name="lista_vacia">Lista vacía</string>
+    <string name="cabDatos">Resumen de los datos</string>
+    <string name="cabRegistros">Registro de llamadas</string>
+    <string name="separador">    </string>
+    
+    <string name="aj_tarifaNormal">Tarifa Normal</string>
+    <string name="aj_tarifaNormal_des">Tarifas que se aplican a los números que no tienes tarifas especiales</string>
+    <string name="aj_tarifaLlamadas">Tarifa llamadas</string>
+    <string name="aj_tarifaLlamadas_des">Tarifa única: por minuto, en centimos y sin IVA.</string>
+    <string name="aj_tarifaSMS">Tarifa SMS</string>
+    <string name="aj_tarifaSMS_des">Tarifa SMS: por mensaje, en centimos y sin IVA.</string>
+    <string name="aj_tarifaEstLlamada">Tarifa establecimiento de llamadas</string>
+    <string name="aj_tarifaEstLlamada_des">Tarifa establecimiento de llamadas: en centimos y sin IVA</string>
+    <string name="aj_color">Color</string>
+    <string name="aj_color_des">Selecciona el color que identifica esta tarifa.</string>
+    
+    <string name="aj_tarifaEsp1">Tarifa Especial 1</string>
+    <string name="aj_tarifaEsp1_des">Tarifas especiales que se aplican a ciertos números.</string>
+    <string name="aj_tarifaEsp1Nombre">Nombre de la tarifa</string>
+    <string name="aj_tarifaEsp1Nombre_des">Nombre que identifica a la tarifa.</string>
+    <string name="aj_tarifaEsp1Llamadas">Tarifa llamadas</string>
+    <string name="aj_tarifaEsp1Llamadas_des">Tarifa única: por minuto, en centimos y sin IVA.</string>
+    <string name="aj_tarifaEsp1SMS">Tarifa SMS</string>
+    <string name="aj_tarifaEsp1SMS_des">Tarifa SMS: por mensaje, en centimos y sin IVA.</string>
+    <string name="aj_tarifaEsp1EstLlamada">Tarifa establecimiento de llamadas</string>
+    <string name="aj_tarifaEsp1EstLlamada_des">Tarifa establecimiento de llamadas: en centimos y sin IVA</string>
+    <string name="aj_tarifaEsp1Activada">Activar tarifa</string>
+    <string name="aj_tarifaEsp1Activada_des">Activar o desactivar la tarifa.</string>
+   	<string name="aj_colorEsp1">Color</string>
+    <string name="aj_colorEsp1_des">Selecciona el color que identifica esta tarifa.</string>
+    
+    <string name="aj_tarifaEsp2">Tarifa Especial 2</string>
+    <string name="aj_tarifaEsp2_des">Tarifas especiales que se aplican a ciertos números.</string>
+    <string name="aj_tarifaEsp2Nombre">Nombre de la tarifa</string>
+    <string name="aj_tarifaEsp2Nombre_des">Nombre que identifica a la tarifa.</string>
+    <string name="aj_tarifaEsp2Llamadas">Tarifa llamadas</string>
+    <string name="aj_tarifaEsp2Llamadas_des">Tarifa única: por minuto, en centimos y sin IVA.</string>
+    <string name="aj_tarifaEsp2SMS">Tarifa SMS</string>
+    <string name="aj_tarifaEsp2SMS_des">Tarifa SMS: por mensaje, en centimos y sin IVA.</string>
+    <string name="aj_tarifaEsp2EstLlamada">Tarifa establecimiento de llamadas</string>
+    <string name="aj_tarifaEsp2EstLlamada_des">Tarifa establecimiento de llamadas: en centimos y sin IVA</string>
+    <string name="aj_tarifaEsp2Activada">Activar tarifa</string>
+    <string name="aj_tarifaEsp2Activada_des">Activar o desactivar la tarifa.</string>
+    <string name="aj_colorEsp2">Color</string>
+    <string name="aj_colorEsp2_des">Selecciona el color que identifica esta tarifa.</string>
+    
+    <string name="aj_limite">Límite</string>
+    <string name="aj_limite_des">Límite de gastos. Llamada que supera este límite, icono rojo.</string>
+    <string name="aj_mes">Mes</string>
+    <string name="aj_mes_des">Selecciona el mes que quieres comprobar.</string>
+    <string name="aj_duracion">Duración modificada</string>
+    <string name="aj_duracion_des">Segundos que se le añaden a la duración de las llamadas.</string> 
+    <string name="aj_numGratis">Números sin coste</string>
+    <string name="aj_numGratis_des">Números, separados por coma, que tienen coste de llamada 0€.</string>
+    <string name="aj_establecimiento">Establecimiento de llamada</string>
+    <string name="aj_establecimiento_des">Mostrar el % correspondiente al establecimiento de llamada</string>
+    <string name="mn_actualizar">Actualizar</string>
+    <string name="mn_ajustes">Ajustes</string>
+    <string name="mn_salir">Salir</string>
+    <string name="mn_acercade">Acerca De</string>
+    <string name="mn_estadisticas">GastosxNumero</string>
+    
+    <string name="mnctx_titulo">Números especiales</string>
+    <string name="mnctx_opc1">Añadir a números sin coste</string>
+    <string name="mnctx_opc2">Eliminar de números sin coste</string>
+    
+    <string name="error_ajustes">Algunos ajustes tienen valores incorrectos o son nulos. Se tomaran sus valores por defecto.</string>
+    <string name="actualizar">Actualizando...</string>
+    <string name="acercade_activity">Acerca de ... GASTOS MÓVIL</string>
+    <string name="acercade_titulo">GASTOS MÓVIL</string>
+    <string name="acercade_texto">Controla tu gasto de teléfono y a tu operador.</string>
+    <string name="acercade_autor_cab">Autor y Licencia</string>
+    <string name="acercade_autor">Antonio C. A. Abellán - acabellan@gmail.com</string>
+    <string name="acercade_licencia">Gastos Móvil es software libre; bajo los términos de la Licencia Pública General de GNU V3</string>
+    <string name="acercade_traduccion_cab">Traducción</string>
+    <string name="acercade_traduccion_en">en - M. Jose Flamil - joseperr@hotmail.com</string>
+    <string name="acercade_traduccion_it">it - Suma Enzo Tagliatelli - suma.enzo@libero.it</string>
+    <string name="mensaje_noexiste">El número no existe en el registro.</string>
+	<string name="mensaje_existe">El número ya está en el registro.</string>
+	<string name="mensaje_noexistellamadas">No existen llamadas para el mes seleccionado.</string>
+	<string name="estadistica_titulo">Total de gastos por número.</string>
+	<string name="estadisticas_activity">Gastos Móvil</string>
+	
+	<string name="mensaje_existeoerror">El número ya esta asociado a alguna tarifa o error de escritura en la memoria SD.</string>
+</resources> 
+

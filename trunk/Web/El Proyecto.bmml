@@ -1,0 +1,51 @@
+<mockup version="1.0" skin="sketch" measuredW="528" measuredH="719" mockupW="494" mockupH="697">
+  <controls>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::List" x="375" y="130" w="100" h="133" measuredW="100" measuredH="126" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>El%20Proyecto%0ADescargas%0AManual%0AMejoras%0ALicencias</text>
+        <rowHeight>24</rowHeight>
+        <borderStyle>none</borderStyle>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Paragraph" x="32" y="131" w="328" h="578" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>La%20aplicaci%F3n%20naci%F3%20con%20la%20idea%20de%20aprender%20e%20investigar%20el%20mundo%20de%20Android%20y%20que%20mejor%20manera%20que%20crear%20una%20peque%F1a%20aplicaci%F3n%20que%20me%20permitiera%20conocer%20un%20poco%20el%20desarrollo%20de%20aplicaciones%20para%20este%20sistema.%0A%20%0AComo%20ten%EDa%20un%20nuevo%20operador%2C%20Simyo%20y%20quer%EDa%20comprobar%20si%20mis%20facturas%20eran%20correctas%2C%20decid%ED%20crear%20una%20aplicaci%F3n%20en%20Android%20que%20me%20facilitara%20ese%20trabajo%2C%20de%20esa%20manera%20nacio%20Gastos%20M%F3vil.%0A%20%0AMi%20intenci%F3n%20no%20era%20publicarla%2C%20pero%20como%20me%20esta%20resultando%20%FAtil%2C%20he%20pensado%20que%20quizas%20pueda%20interesarle%20a%20alguien.</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::SubTitle" x="164" y="67" w="-1" h="-1" measuredW="313" measuredH="26" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Controlando%20el%20gasto%20con%20la%20ayuda%20de%20Android</text>
+        <size>14</size>
+      </controlProperties>
+    </control>
+    <control controlID="21" controlTypeID="com.balsamiq.mockups::Paragraph" x="383" y="263" w="135" h="51" measuredW="200" measuredH="140" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Contacto</text>
+        <underline>true</underline>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Link" x="386" y="289" w="-1" h="-1" measuredW="132" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>acabellan@gmail.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Image" x="24" y="12" w="99" h="103" measuredW="282" measuredH="293" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+        <src>http%3A//deeloco.homedns.org/GastosMovil/imagenes/logo2.png</src>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Image" x="123" y="448" w="116" h="68" measuredW="300" measuredH="175" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+        <src>http%3A//deeloco.homedns.org/GastosMovil/imagenes/cabeza_android.png</src>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="159" y="28" w="-1" h="-1" measuredW="201" measuredH="40" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>GASTOS%20M%D3VIL</text>
+        <size>24</size>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
