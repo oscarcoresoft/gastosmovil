@@ -14,8 +14,38 @@
     <string name="aj_tarifaSMS_des">Text  messages prices : each text message,expressed in cents and taxes not included.</string>
     <string name="aj_tarifaEstLlamada">Connection fee price</string>
     <string name="aj_tarifaEstLlamada_des">Connection fee: expressed in cents and taxes not icluded </string>
+    <string name="aj_color">Color</string>
+    <string name="aj_color_des">Select color for this price list.</string>
 
-
+    <string name="aj_tarifaEsp1">Special Price list 1</string>
+    <string name="aj_tarifaEsp1_des">Special price list apply to certain numbers.</string>
+    <string name="aj_tarifaEsp1Nombre">Name of the price list</string>
+    <string name="aj_tarifaEsp1Nombre_des">Name that identifies the price list.</string>
+    <string name="aj_tarifaEsp1Llamadas">Calls Price list</string>
+    <string name="aj_tarifaEsp1Llamadas_des">Only price: per minute, in cents and taxes not included.</string>
+    <string name="aj_tarifaEsp1SMS">Text  messages prices</string>
+    <string name="aj_tarifaEsp1SMS_des">Text  messages prices : each text message,expressed in cents and taxes not included.</string>
+    <string name="aj_tarifaEsp1EstLlamada">Connection fee price</string>
+    <string name="aj_tarifaEsp1EstLlamada_des">Connection fee: expressed in cents and taxes not included</string>
+    <string name="aj_tarifaEsp1Activada">Activate Price list</string>
+    <string name="aj_tarifaEsp1Activada_des">Activate or deactivate price list.</string>
+   	<string name="aj_colorEsp1">Color</string>
+    <string name="aj_colorEsp1_des">Select color for this price list.</string>
+    
+    <string name="aj_tarifaEsp2">Special Price list 2</string>
+    <string name="aj_tarifaEsp2_des">Special price list apply to certain numbers.</string>
+    <string name="aj_tarifaEsp2Nombre">Name of the price list</string>
+    <string name="aj_tarifaEsp2Nombre_des">Name that identifies the price list.</string>
+    <string name="aj_tarifaEsp2Llamadas">Calls Price list</string>
+    <string name="aj_tarifaEsp2Llamadas_des">Only price: per minute, in cents and taxes not included.</string>
+    <string name="aj_tarifaEsp2SMS">Text  messages prices</string>
+    <string name="aj_tarifaEsp2SMS_des">Text  messages prices : each text message,expressed in cents and taxes not included.</string>
+    <string name="aj_tarifaEsp2EstLlamada">Connection fee price</string>
+    <string name="aj_tarifaEsp2EstLlamada_des">Connection fee: expressed in cents and taxes not included</string>
+    <string name="aj_tarifaEsp2Activada">Activate Price list</string>
+    <string name="aj_tarifaEsp2Activada_des">Activate or deactivate price list.</string>
+    <string name="aj_colorEsp2">Color</string>
+    <string name="aj_colorEsp2_des">Select color for this price list.</string>
 
     <string name="aj_limite">Limit</string>
     <string name="aj_limite_des">Cost limit. Calls that exceed this limit, red icon..</string>
