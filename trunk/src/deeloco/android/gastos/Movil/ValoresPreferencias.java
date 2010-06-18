@@ -216,5 +216,22 @@ public class ValoresPreferencias {
     	}
     	return c;
     }
+    
+    
+    public int getPreferenciasInicioMes(){
+    	//Retorna el valor de Duración, un parámetro de ajuste.
+    	
+    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtInicioMes", "1");
+    	int duracion=1; //Valor por defecto
+    	try
+    	{
+    		duracion=Integer.parseInt(valor);
+    	}
+    	catch(Exception e)
+    	{
+    		duracion=1; //Valor en caso de una excepción.
+    	}
+    	return duracion; 
+    }
 
 }
