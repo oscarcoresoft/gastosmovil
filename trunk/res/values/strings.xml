@@ -51,6 +51,8 @@
     <string name="aj_limite_des">Límite de gastos. Llamada que supera este límite, icono rojo.</string>
     <string name="aj_mes">Mes</string>
     <string name="aj_mes_des">Selecciona el mes que quieres comprobar.</string>
+    <string name="aj_inicioMes">Día de inicio de facturación</string>
+    <string name="aj_inicio_mes">Día del mes en que se inicia la facturación.</string>
     <string name="aj_duracion">Duración modificada</string>
     <string name="aj_duracion_des">Segundos que se le añaden a la duración de las llamadas.</string> 
     <string name="aj_numGratis">Números sin coste</string>
