@@ -254,6 +254,7 @@ public class gastoMovil extends ListActivity {
        /*Vamos a hacer una consulta de un mes concreto*/
     	/*De momento, para las pruebas, estamos utilizando 2009, pero hay que utilizar el año en curso, el mes, ... */
     	   // Seleccionado un mes, tenemos que saber a que año corresponde
+    	   int valorIncioMes=vp.getPreferenciasInicioMes();
     	   Date hoy=new Date();
     	   int anyo=hoy.getYear()+1900;
     	   int mesActual=hoy.getMonth()+1;
@@ -261,8 +262,8 @@ public class gastoMovil extends ListActivity {
     	   {
     		   anyo--;
     	   }
-           Calendar c1=new GregorianCalendar(anyo,mes-1,1,0,0);
-           Calendar c2=new GregorianCalendar(anyo,mes,1,0,0);
+           Calendar c1=new GregorianCalendar(anyo,mes-1,valorIncioMes,0,0);
+           Calendar c2=new GregorianCalendar(anyo,mes,valorIncioMes-1,0,0);
            Date d1=new Date();
            Date d2=new Date();
            d1=c1.getTime();
