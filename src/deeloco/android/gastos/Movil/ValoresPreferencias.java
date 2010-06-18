@@ -11,7 +11,7 @@ import android.preference.PreferenceManager;
 
 public class ValoresPreferencias {
 	
-    private final int NUMSC=1;
+    //private final int NUMSC=1;
     private final int NUMESP1=2;
     private final int NUMESP2=3;
     private final int NUM=4;
