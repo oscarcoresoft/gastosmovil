@@ -31,9 +31,11 @@ public class ValoresPreferencias {
 	// Funciones que recogen los valores de preferencias
 	//***************************************************
 	
-    /**
-     * Retorna el valor del mes seleccionado en las preferencias.
-         */
+    /*
+     * CONTEXT_ID_CP_PROPERTY_PAGE =
+     * Basic profile name/description/auto-connect property page
+     */
+
     public int getPreferenciasMes(){
     	//Retorno del valor de Mes, variable de ajuste.
     	int mesRetorno;
