@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * GastosPorNumero: Acumula el gasto de teléfono por número.
+     */
+
 public class GastosPorNumero {
 	
 	private ArrayList <String> numeros=new ArrayList <String>();
@@ -58,6 +62,7 @@ public class GastosPorNumero {
 		numeros.clear();
 		gastos.clear();
 	}
+	
 	
 	public void ordenaGastos(){
 		ArrayList <String> GastosYNumeros=new ArrayList <String>();
