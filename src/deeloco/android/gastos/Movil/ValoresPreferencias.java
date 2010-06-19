@@ -7,7 +7,9 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 
-
+/**
+ * ValoresPreferencias: Retorna el valor almacenado en las preferencias de la aplicación.
+     */
 
 public class ValoresPreferencias {
 	
@@ -18,7 +20,9 @@ public class ValoresPreferencias {
     
     Context contexto;
 	
-    
+    /**
+     * Constructor: Constructor de la clase. Se le pasa el Contexto de la preferencias que se quiere.
+         */
     public ValoresPreferencias(Context c)
     {
     	contexto=c;
@@ -27,6 +31,9 @@ public class ValoresPreferencias {
 	// Funciones que recogen los valores de preferencias
 	//***************************************************
 	
+    /**
+     * Retorna el valor del mes seleccionado en las preferencias.
+         */
     public int getPreferenciasMes(){
     	//Retorno del valor de Mes, variable de ajuste.
     	int mesRetorno;
