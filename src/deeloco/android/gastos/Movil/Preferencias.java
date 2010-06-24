@@ -98,7 +98,7 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
     			||key.equals("txtTarifaEsp1EstLlamada")||key.equals("cboxTarifaEsp1")||key.equals("listColoresEsp1")
     			||key.equals("txtTarifaEsp2Llamadas")||key.equals("txtTarifaEsp2SMS")||key.equals("txtTarifaEsp2EstLlamada")
     			||key.equals("cboxTarifaEsp2")||key.equals("listColoresEsp2")||key.equals("listMes")
-    			||key.equals("txtDuracion")||key.equals("chbox_establecimiento"))
+    			||key.equals("txtDuracion")||key.equals("chbox_establecimiento")||key.equals("txtInicioMes"))
     	{
     		setResult(RESULT_OK);
     	}
