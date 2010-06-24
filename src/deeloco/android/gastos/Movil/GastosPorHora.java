@@ -40,7 +40,7 @@ public class GastosPorHora {
 		return horas.size();
 	}
 	
-	public String getNumero(int posicion){
+	public String getHora(int posicion){
 		if (posicion>this.horas.size()-1)
 			return "";
 		else
