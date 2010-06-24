@@ -4,6 +4,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -13,14 +16,16 @@ import java.util.List;
 
 public class GastosPorHora {
 	
-	private ArrayList <String> numeros=new ArrayList <String>();
+	private ArrayList <String> horas=new ArrayList <String>();
 	private ArrayList <Double> gastos=new ArrayList <Double>();
 	private boolean listaOrdenada=false;
 	
-	public void add (String numero, double gasto){
-		int posicion=numeros.indexOf(numero);
-		if (posicion==-1) {//El número no existe
-			numeros.add(numero);
+	public void add (Date fechayhora, double gasto){
+		String hora=""+fechayhora.getHours();
+		//Comprobamos que la hora esta creada
+		int posicion=horas.indexOf(hora);
+		if (posicion==-1) {//La hora no existe
+			horas.add(hora);
 			gastos.add(gasto);
 		}
 		else { //El número existe, se le suma gastos
@@ -32,14 +37,14 @@ public class GastosPorHora {
 	}
 
 	public int longitud(){
-		return numeros.size();
+		return horas.size();
 	}
 	
 	public String getNumero(int posicion){
-		if (posicion>this.numeros.size()-1)
+		if (posicion>this.horas.size()-1)
 			return "";
 		else
-			return this.numeros.get(posicion);
+			return this.horas.get(posicion);
 	}
 	
 	public double getGasto(int posicion){
@@ -49,9 +54,9 @@ public class GastosPorHora {
 			return this.gastos.get(posicion);
 	}
 	
-    public List<String> getNumeros()
+    public List<String> gethoras()
     {
-    	return numeros;
+    	return horas;
     }
     
     public List<Double> getGastos()
@@ -60,31 +65,31 @@ public class GastosPorHora {
     }
 	
 	public void clear(){
-		numeros.clear();
+		horas.clear();
 		gastos.clear();
 	}
 	
 	
 	public void ordenaGastos(){
-		ArrayList <String> GastosYNumeros=new ArrayList <String>();
+		ArrayList <String> GastosYhoras=new ArrayList <String>();
 		if (!this.listaOrdenada){
-			//System.out.println("TOTAL DE NÚMEROS ***************** "+numeros.size());
-	        for (int i=0;i<numeros.size();i++)
+			//System.out.println("TOTAL DE NÚMEROS ***************** "+horas.size());
+	        for (int i=0;i<horas.size();i++)
 	        {
-	        	//sNumeros=numeros.get(i)+","+sNumeros;
-	        	GastosYNumeros.add(ponerCeros(FunGlobales.redondear(gastos.get(i),2))+";"+numeros.get(i));
+	        	//shoras=horas.get(i)+","+shoras;
+	        	GastosYhoras.add(ponerCeros(FunGlobales.redondear(gastos.get(i),2))+";"+horas.get(i));
 	        }
 	        
-	        Collections.sort(GastosYNumeros);
-	        numeros.clear();
+	        Collections.sort(GastosYhoras);
+	        horas.clear();
 	        gastos.clear();
 	        
-	        for (int i=0;i<GastosYNumeros.size();i++)
+	        for (int i=0;i<GastosYhoras.size();i++)
 	        {
-	        	//sNumeros=numeros.get(i)+","+sNumeros;
-	        	//System.out.println("***************** "+GastosYNumeros.get(i));
-	        	String data[]=GastosYNumeros.get(i).split(";");
-	        	numeros.add(data[1]);
+	        	//shoras=horas.get(i)+","+shoras;
+	        	//System.out.println("***************** "+GastosYhoras.get(i));
+	        	String data[]=GastosYhoras.get(i).split(";");
+	        	horas.add(data[1]);
 	        	gastos.add(Double.parseDouble(data[0]));
 	        }
 	        this.listaOrdenada=true;
