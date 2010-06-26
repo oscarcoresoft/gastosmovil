@@ -28,7 +28,10 @@
 				android:name=".Estadisticas"
 				android:label="@string/estadisticas_activity">
 		</activity>
-        
+		<activity
+				android:name=".GastosPorHoraActivity"
+				android:label="@string/estadisticas_activity">
+		</activity>
     </application>
     <uses-sdk android:minSdkVersion="4" />
 <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
