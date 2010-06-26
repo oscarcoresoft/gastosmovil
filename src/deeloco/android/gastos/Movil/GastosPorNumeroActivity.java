@@ -44,7 +44,7 @@ public class GastosPorNumeroActivity extends Activity {
       String sHoras;
       double dPorciento;
       double dGasto;
-      Cursor c;
+      //Cursor c;
       
       
       //Hay que recorrer horas para rellenar toda la lista
