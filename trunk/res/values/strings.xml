@@ -63,7 +63,7 @@
     <string name="mn_ajustes">Ajustes</string>
     <string name="mn_salir">Salir</string>
     <string name="mn_acercade">Acerca De</string>
-    <string name="mn_estadisticas">GastosxNumero</string>
+    <string name="mn_estadisticas">Estadisticas</string>
     
     <string name="mnctx_titulo">Números especiales</string>
     <string name="mnctx_opc1">Añadir a números sin coste</string>
