@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 public class GastosPorNumeroActivity extends Activity {
 	
-	private ArrayList <String> numeros=new ArrayList <String>();
+	private ArrayList <String> horas=new ArrayList <String>();
 	private ArrayList <String> gastos=new ArrayList <String>();
 	private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
 	
@@ -31,32 +31,33 @@ public class GastosPorNumeroActivity extends Activity {
       String sTotal=extras.getString("total");
       sTotal=sTotal.substring(0, sTotal.length()-2); 
       double dTotal=Double.parseDouble(sTotal); //dTotal = total de gastos
-      numeros=extras.getStringArrayList("Numeros"); //numeros = Listado de números en los que se ha gastado
+      horas=extras.getStringArrayList("horas"); //horas = Listado de números en los que se ha gastado
       gastos=extras.getStringArrayList("Gastos"); //gastos = total de gastos para números.
       
       //Construir el listview para presentar los datos de gastos por número y el porcentaje de cada uno con respecto al total
       Resources res = getResources();
       Drawable rIcono = null;
+      //rIcono=res.getDrawable(android.R.drawable.sym_action_call);
       rIcono=res.getDrawable(android.R.drawable.sym_action_call);
       lista.clear();
-      String sNombre;
-      String sNumero;
+      //String sNombre;
+      String sHoras;
       double dPorciento;
       double dGasto;
       Cursor c;
       
       
-      //Hay que recorrer numeros para rellenar toda la lista
-      for (int i=numeros.size()-1;i>-1;i--)
+      //Hay que recorrer horas para rellenar toda la lista
+      for (int i=horas.size()-1;i>-1;i--)
       {
     	  dGasto=Double.parseDouble(gastos.get(i)); //gasto para el número en que estamos
-    	  sNumero=numeros.get(i);
-    	  sNombre="XXXXXXX XXXX";
+    	  sHoras=horas.get(i);
+    	  //sNombre="XXXXXXX XXXX";
     	  dPorciento=(dGasto/dTotal)*100;
     	  
     	  //Obtenemos el nombre de contacto de la agenda, dado el número
-    	  System.out.println("****** "+People._ID+"="+'"'+i+'"');
-    	  c=managedQuery(People.CONTENT_URI,null, People.NUMBER+"="+sNumero , null, null);
+    	  /*System.out.println("****** "+People._ID+"="+'"'+i+'"');
+    	  c=managedQuery(People.CONTENT_URI,null, People.NUMBER+"="+sHoras , null, null);
     	  
     	  startManagingCursor(c);
     	  c.moveToFirst();
@@ -68,12 +69,12 @@ public class GastosPorNumeroActivity extends Activity {
     	  }
     	  else
     	  {//No existe el número
-    		  sNombre=sNumero;
-    		  sNumero="";
-    	  }
+    		  sNombre=sHoras;
+    		  sHoras="";
+    	  }*/
     	  
-    	  lista.add(new IconoYTexto(rIcono,sNombre,FunGlobales.redondear(dPorciento,2)+"",sNumero,dGasto));
-    	  c.close();
+    	  lista.add(new IconoYTexto(rIcono,sHoras,FunGlobales.redondear(dPorciento,2)+"",sHoras,dGasto));
+    	  //c.close();
       }
       
       
