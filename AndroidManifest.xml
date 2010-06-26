@@ -25,6 +25,10 @@
 				android:label="@string/acercade_activity">
 		</activity>
 		<activity
+				android:name=".Estadisticas"
+				android:label="@string/estadisticas_activity">
+		</activity>
+		<activity
 				android:name=".GastosPorNumeroActivity"
 				android:label="@string/estadisticas_activity">
 		</activity>
