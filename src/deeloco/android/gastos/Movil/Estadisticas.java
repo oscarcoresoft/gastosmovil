@@ -20,15 +20,19 @@ public class Estadisticas extends TabActivity {
 
 	    // Create an Intent to launch an Activity for the tab (to be reused)
 	    intent = new Intent().setClass(this, GastosPorNumeroActivity.class);
+	    Bundle extras=getIntent().getExtras();
+	    intent.putExtra("total",extras.getString("total"));
+	    intent.putExtra("Numeros", extras.getStringArrayList("Numeros"));
+	    intent.putExtra("Gastos",extras.getStringArrayList("Gastos"));
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
 	    spec = tabHost.newTabSpec("artists").setIndicator("Artists",res.getDrawable(R.drawable.icon)).setContent(intent);
 	    tabHost.addTab(spec);
 
 	    // Do the same for the other tabs
-	    intent = new Intent().setClass(this, GastosPorHoraActivity.class);
+	   /* intent = new Intent().setClass(this, GastosPorHoraActivity.class);
 	    spec = tabHost.newTabSpec("albums").setIndicator("Albums",res.getDrawable(R.drawable.icon)).setContent(intent);
-	    tabHost.addTab(spec);
+	    tabHost.addTab(spec);*/
 
 	    tabHost.setCurrentTab(0);
 	}
