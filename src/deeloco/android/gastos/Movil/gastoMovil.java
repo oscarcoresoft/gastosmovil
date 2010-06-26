@@ -132,7 +132,7 @@ public class gastoMovil extends ListActivity {
         		break;
         	}
         	gpn.ordenaGastos();
-        	Intent ii = new Intent(getBaseContext(), Estadisticas.class);
+        	Intent ii = new Intent(getBaseContext(), GastosPorNumeroActivity.class);
         	ArrayList<String> numeros=new ArrayList <String>();
         	ArrayList<String> gastos=new ArrayList <String>();
         	String total= ((TextView) findViewById(R.id.txtTotal)).getText().toString();
