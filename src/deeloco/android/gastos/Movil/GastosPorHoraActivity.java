@@ -29,7 +29,7 @@ public class GastosPorHoraActivity extends Activity {
       String sTotal=extras.getString("total");
       sTotal=sTotal.substring(0, sTotal.length()-2); 
       double dTotal=Double.parseDouble(sTotal); //dTotal = total de gastos
-      horas=extras.getStringArrayList("horas"); //horas = Listado de números en los que se ha gastado
+      horas=extras.getStringArrayList("Horas"); //horas = Listado de números en los que se ha gastado
       gastos=extras.getStringArrayList("Gastos"); //gastos = total de gastos para números.
       
       //Construir el listview para presentar los datos de gastos por número y el porcentaje de cada uno con respecto al total
