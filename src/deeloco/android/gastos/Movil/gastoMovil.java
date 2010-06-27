@@ -73,6 +73,7 @@ public class gastoMovil extends ListActivity {
     
     private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     GastosPorNumero gpn=new GastosPorNumero();
+    GastosPorHora gph=new GastosPorHora();
     ValoresPreferencias vp=new ValoresPreferencias(this);
     
     
@@ -132,10 +133,13 @@ public class gastoMovil extends ListActivity {
         		break;
         	}
         	gpn.ordenaGastos();
+        	gph.ordenaGastos();
         	//Intent ii = new Intent(getBaseContext(), GastosPorNumeroActivity.class);
         	Intent ii = new Intent(getBaseContext(), Estadisticas.class);
         	ArrayList<String> numeros=new ArrayList <String>();
         	ArrayList<String> gastos=new ArrayList <String>();
+        	ArrayList<String> horas=new ArrayList <String>();
+        	ArrayList<String> gastos2=new ArrayList <String>();
         	String total= ((TextView) findViewById(R.id.txtTotal)).getText().toString();
         	
         	numeros=(ArrayList<String>) gpn.getNumeros();
@@ -143,9 +147,18 @@ public class gastoMovil extends ListActivity {
         	for (Object x:ObjGastos){
         		gastos.add(""+x);
         	}
+        	
+        	horas=(ArrayList<String>) gph.gethoras();
+        	Object ObjGastos2[]=gph.getGastos().toArray();
+        	for (Object x:ObjGastos2){
+        		gastos2.add(""+x);
+        	}
+        	
         	ii.putExtra("total",total);
         	ii.putExtra("Numeros", numeros);
         	ii.putExtra("Gastos",gastos);
+        	ii.putExtra("Horas", horas);
+        	ii.putExtra("Gastos2",gastos2);
         	startActivity(ii);
         	break;
         }
@@ -243,6 +256,7 @@ public class gastoMovil extends ListActivity {
     	//List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     	lista.clear();
     	gpn.clear(); //limpiamos los gastos por numero (gpn)
+    	gph.clear();
         Resources res = getResources();
 
        Cursor c; //Cursor con el que recorreremos la base de datos de registros de llamadas
@@ -354,6 +368,7 @@ public class gastoMovil extends ListActivity {
         		{  
         			//Ya tenemos el coste y el numero y es una llamada > 0, lo metemos en GastosPorNumero
             		gpn.add(telefono, coste);
+            		gph.add(new Date(fechaHora), coste);
             		
         			if (coste>0)
         			{
