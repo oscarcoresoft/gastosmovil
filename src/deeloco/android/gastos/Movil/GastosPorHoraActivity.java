@@ -39,7 +39,7 @@ public class GastosPorHoraActivity extends Activity {
       rIcono=res.getDrawable(android.R.drawable.sym_action_call);
       lista.clear();
       //String sNombre;
-      String sHoras;
+      int sHoras;
       double dPorciento;
       double dGasto;
       //Cursor c;
@@ -49,29 +49,11 @@ public class GastosPorHoraActivity extends Activity {
       for (int i=horas.size()-1;i>-1;i--)
       {
     	  dGasto=Double.parseDouble(gastos.get(i)); //gasto para el número en que estamos
-    	  sHoras=horas.get(i);
+    	  sHoras=Integer.parseInt(horas.get(i));
     	  //sNombre="XXXXXXX XXXX";
     	  dPorciento=(dGasto/dTotal)*100;
     	  
-    	  //Obtenemos el nombre de contacto de la agenda, dado el número
-    	  /*System.out.println("****** "+People._ID+"="+'"'+i+'"');
-    	  c=managedQuery(People.CONTENT_URI,null, People.NUMBER+"="+sHoras , null, null);
-    	  
-    	  startManagingCursor(c);
-    	  c.moveToFirst();
-    	  //Toast.makeText(getBaseContext(),"Posición:"+c.getPosition(),Toast.LENGTH_LONG).show();
-    	  if (c.isFirst())
-    	  { //Existe el número en la agenda de contactos
-    		  int iNombre = c.getColumnIndex(People.NAME);
-    		  sNombre=c.getString(iNombre);
-    	  }
-    	  else
-    	  {//No existe el número
-    		  sNombre=sHoras;
-    		  sHoras="";
-    	  }*/
-    	  
-    	  lista.add(new IconoYTexto(rIcono,sHoras,FunGlobales.redondear(dPorciento,2)+"",sHoras,dGasto));
+    	  lista.add(new IconoYTexto(rIcono,""+sHoras,FunGlobales.redondear(dPorciento,2)+"","de las "+sHoras+":00 a las "+(sHoras+1)+":00",dGasto));
     	  //c.close();
       }
       
