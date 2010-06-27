@@ -12,6 +12,7 @@ import android.os.Bundle;
 //import android.widget.Toast;
 import android.widget.ListView;
 //import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class GastosPorHoraActivity extends Activity {
 	
@@ -63,6 +64,8 @@ public class GastosPorHoraActivity extends Activity {
       //setListAdapter(ad);
       ListView listaGastos=(ListView) findViewById(R.id.lv_gastos);
       listaGastos.setAdapter(ad);
+      TextView titulo=(TextView) findViewById(R.id.estadistica_titulo);
+      titulo.setText(R.string.gph_titulo);
 
    }
 }
