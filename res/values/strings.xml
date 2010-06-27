@@ -85,6 +85,8 @@
 	<string name="mensaje_noexistellamadas">No existen llamadas para el mes seleccionado.</string>
 	
 	<string name="estadistica_titulo">Total de gastos por número.</string>
+	<string name="gpn_resumen">Total de gastos por números</string>
+	<string name="gph_resumen">Total de gastos por horas</string>
 	<string name="gpn_titulo">Total de gastos por números</string>
 	<string name="gph_titulo">Total de gastos por horas</string>
 	<string name="estadisticas_activity">Gastos Móvil</string>
