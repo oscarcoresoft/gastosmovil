@@ -83,7 +83,10 @@
     <string name="mensaje_noexiste">El número no existe en el registro.</string>
 	<string name="mensaje_existe">El número ya está en el registro.</string>
 	<string name="mensaje_noexistellamadas">No existen llamadas para el mes seleccionado.</string>
+	
 	<string name="estadistica_titulo">Total de gastos por número.</string>
+	<string name="gpn_titulo">Total de gastos por números</string>
+	<string name="gph_titulo">Total de gastos por horas</string>
 	<string name="estadisticas_activity">Gastos Móvil</string>
 	
 	<string name="mensaje_existeoerror">El número ya esta asociado a alguna tarifa o error de escritura en la memoria SD.</string>
