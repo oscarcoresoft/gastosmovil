@@ -30,9 +30,13 @@ public class Estadisticas extends TabActivity {
 	    tabHost.addTab(spec);
 
 	    // Do the same for the other tabs
-	   /* intent = new Intent().setClass(this, GastosPorHoraActivity.class);
+	    intent = new Intent().setClass(this, GastosPorHoraActivity.class);
+	    intent.putExtra("total",extras.getString("total"));
+	    intent.putExtra("Horas", extras.getStringArrayList("Horas"));
+	    intent.putExtra("Gastos",extras.getStringArrayList("Gastos2"));	    
+	    
 	    spec = tabHost.newTabSpec("albums").setIndicator("Albums",res.getDrawable(R.drawable.icon)).setContent(intent);
-	    tabHost.addTab(spec);*/
+	    tabHost.addTab(spec);
 
 	    tabHost.setCurrentTab(0);
 	}
