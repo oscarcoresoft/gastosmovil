@@ -26,7 +26,7 @@ public class Estadisticas extends TabActivity {
 	    intent.putExtra("Gastos",extras.getStringArrayList("Gastos"));
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
-	    spec = tabHost.newTabSpec("numeros").setIndicator("Numeros",res.getDrawable(android.R.drawable.ic_lock_idle_alarm)).setContent(intent);
+	    spec = tabHost.newTabSpec("numeros").setIndicator("GastoxNumeros",res.getDrawable(android.R.drawable.ic_menu_call)).setContent(intent);
 	    tabHost.addTab(spec);
 
 	    // Do the same for the other tabs
@@ -35,7 +35,7 @@ public class Estadisticas extends TabActivity {
 	    intent.putExtra("Horas", extras.getStringArrayList("Horas"));
 	    intent.putExtra("Gastos",extras.getStringArrayList("Gastos2"));	    
 	    
-	    spec = tabHost.newTabSpec("horas").setIndicator("Horas",res.getDrawable(R.drawable.icon)).setContent(intent);
+	    spec = tabHost.newTabSpec("horas").setIndicator("GastosxHoras",res.getDrawable(android.R.drawable.ic_menu_agenda)).setContent(intent);
 	    tabHost.addTab(spec);
 
 	    tabHost.setCurrentTab(0);
