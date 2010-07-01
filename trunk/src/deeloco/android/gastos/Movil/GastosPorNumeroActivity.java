@@ -30,6 +30,7 @@ public class GastosPorNumeroActivity extends Activity {
       Bundle extras=getIntent().getExtras();
       //Extraemos el valor del total de la cadena, que es del tipo x.xx €
       String sTotal=extras.getString("total");
+      sTotal="10.5";
       sTotal=sTotal.substring(0, sTotal.length()-2); 
       double dTotal=Double.parseDouble(sTotal); //dTotal = total de gastos
       numeros=extras.getStringArrayList("Numeros"); //numeros = Listado de números en los que se ha gastado
