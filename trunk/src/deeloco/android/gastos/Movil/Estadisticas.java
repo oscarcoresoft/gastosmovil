@@ -34,7 +34,7 @@ public class Estadisticas extends TabActivity {
 	    intent.putExtra("total",extras.getString("total"));
 	    intent.putExtra("Horas", extras.getStringArrayList("Horas"));
 	    intent.putExtra("Gastos",extras.getStringArrayList("Gastos2"));	    
-	    spec = tabHost.newTabSpec("horas").setIndicator(getString(R.string.gph_resumen),res.getDrawable(android.R.drawable.ic_menu_recent_history)).setContent(intent);
+	    spec = tabHost.newTabSpec("horas").setIndicator(getString(R.string.gph_resumen),res.getDrawable(R.drawable.ic_menu_recent_history)).setContent(intent);
 	    tabHost.addTab(spec);
 
 	    tabHost.setCurrentTab(0);
