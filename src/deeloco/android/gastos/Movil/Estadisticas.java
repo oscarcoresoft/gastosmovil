@@ -26,7 +26,7 @@ public class Estadisticas extends TabActivity {
 	    intent.putExtra("Gastos",extras.getStringArrayList("Gastos"));
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
-	    spec = tabHost.newTabSpec("numeros").setIndicator("GastosPorNumeros",res.getDrawable(android.R.drawable.ic_menu_call)).setContent(intent);
+	    spec = tabHost.newTabSpec("numeros").setIndicator(getString(R.string.gpn_resumen),res.getDrawable(android.R.drawable.ic_menu_call)).setContent(intent);
 	    tabHost.addTab(spec);
 
 	    // Do the same for the other tabs
