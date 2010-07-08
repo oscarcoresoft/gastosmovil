@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 public class ValoresPreferencias {
 	
     //private final int NUMSC=1;
+	double iva=1.16;
     private final int NUMESP1=2;
     private final int NUMESP2=3;
     private final int NUM=4;
@@ -87,7 +88,7 @@ public class ValoresPreferencias {
     		tarifa=8; //Valor en caso de una excepción (null, puntuación, ...)    		
     	}
     	tarifa=tarifa/100; //Ya lo tengo pasado a euros
-    	tarifa=tarifa*1.16; //Con IVA
+    	tarifa=tarifa*iva; //Con IVA
     	tarifa=tarifa/60; //Por segundos
     	return  tarifa;
     }
@@ -108,7 +109,7 @@ public class ValoresPreferencias {
     	//System.out.println("tarifa:***************** "+tarifa);
     	tarifa=tarifa/100; //Ya lo tengo pasado a euros
     	//System.out.println("tarifa/100:***************** "+tarifa);
-    	tarifa=tarifa*1.16; //Con IVA
+    	tarifa=tarifa*iva; //Con IVA
     	//System.out.println("tarifa*1.16:***************** "+tarifa);
     	return  tarifa;
     }
@@ -140,7 +141,7 @@ public class ValoresPreferencias {
     		tarifa=15; //Valor en caso de una excepción (null, puntuación, ...)    		
     	}
     	tarifa=tarifa/100; //Pasado a euros
-    	tarifa=tarifa*1.16; //Con IVA
+    	tarifa=tarifa*iva; //Con IVA
     	return tarifa;
     }
     
