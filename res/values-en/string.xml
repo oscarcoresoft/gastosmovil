@@ -51,6 +51,8 @@
     <string name="aj_limite_des">Cost limit. Calls that exceed this limit, red icon..</string>
     <string name="aj_mes">Month</string>
     <string name="aj_mes_des">Choose the month you wish to check.</string>
+    <string name="aj_inicioMes">Billing Start Date</string>
+    <string name="aj_inicio_mes">Day of month in which billing begins.</string>
     <string name="aj_duracion">Modified length</string>
     <string name="aj_duracion_des">Seconds added to the calls length.</string> 
     <string name="aj_numGratis">Free phone numbers</string>
@@ -61,7 +63,7 @@
     <string name="mn_ajustes">Settings</string>
     <string name="mn_salir">Exit</string>
     <string name="mn_acercade">About</string>
-    <string name="mn_estadisticas">CostPerCall</string>
+    <string name="mn_estadisticas">Statistics</string>
 
     <string name="mnctx_titulo">Free numbers register</string>
     <string name="mnctx_opc1">Adding a number to the register .</string>
@@ -81,6 +83,14 @@
     <string name="mensaje_noexiste">The number is not included in the register.</string>
 	<string name="mensaje_existe"> The number  is already included in the register.</string> 
 	<string name="mensaje_noexistellamadas">There are no phone calls in the selected month.</string>
+	
+	
 	<string name="estadistica_titulo">Total cost per call.</string>
-	<string name="estadisticas_activity">Gastos Móvil</string>   
+	<string name="gpn_resumen">Number - Total cost per call.</string>
+	<string name="gph_resumen">Hours - Total cost per hour.</string>
+	<string name="gpn_titulo">Total cost per call</string>
+	<string name="gph_titulo">Total cost per hour</string>
+	<string name="estadisticas_activity">Gastos Móvil</string>
+	
+	<string name="mensaje_existeoerror">The number is already associated with any fees or clerical error in the SD memory.</string>
 </resources> 
