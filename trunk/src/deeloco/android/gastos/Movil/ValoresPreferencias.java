@@ -40,7 +40,7 @@ public class ValoresPreferencias {
     public int getPreferenciasMes(){
     	//Retorno del valor de Mes, variable de ajuste.
     	int mesRetorno;
-    	String mes= PreferenceManager.getDefaultSharedPreferences(contexto).getString("listMes", "0");
+    	String mes= PreferenceManager.getDefaultSharedPreferences(contexto).getString("listMes", "1");
     	int retorno=Integer.parseInt(mes);
     	switch (retorno)
     	{
