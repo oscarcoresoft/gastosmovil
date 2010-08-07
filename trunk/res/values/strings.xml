@@ -92,5 +92,11 @@
 	<string name="estadisticas_activity">Gastos Móvil</string>
 	
 	<string name="mensaje_existeoerror">El número ya esta asociado a alguna tarifa o error de escritura en la memoria SD.</string>
+	
+	
+	
+	<string name="aj_tarifa_defecto">Tarifa por defecto</string>
+	<string name="aj_tarifa_defecto_des">Tarifa que se aplica cuando un número de teléfono no está asociado a una tarifa</string>
+	
 </resources> 
 
