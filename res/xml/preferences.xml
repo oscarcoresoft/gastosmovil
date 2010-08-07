@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory android:title="Tarifas">
+	<PreferenceCategory android:title="Tarifas">	
+		<ListPreference
+           android:title="@string/aj_tarifa_defecto"
+           android:summary="@string/aj_tarifa_defecto_des"
+           android:key="defecto"/>
 		<PreferenceScreen
 			android:key="psTarifaNormal"
 			android:title="@string/aj_tarifaNormal"
