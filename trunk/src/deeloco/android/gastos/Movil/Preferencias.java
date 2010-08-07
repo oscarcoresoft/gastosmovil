@@ -29,6 +29,7 @@ import android.preference.PreferenceScreen;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Preferencias extends PreferenceActivity  implements OnSharedPreferenceChangeListener {
@@ -51,6 +52,7 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
 		ps.setSummary(vp.getPrefEsp1Nombre());
 		ps = (PreferenceScreen) psRaiz.findPreference("psTarifaEsp2");
 		ps.setSummary(vp.getPrefEsp2Nombre());
+		getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
 
 		
 	}
@@ -114,6 +116,10 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
 
     		ps = (PreferenceScreen) psRaiz.findPreference("psTarifaEsp2");
     		ps.setSummary(vp.getPrefEsp2Nombre());
+        }
+        if (key.equals("defecto")) {
+        	getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
+    
         }
     }
 
