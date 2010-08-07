@@ -59,7 +59,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 public class gastoMovil extends ListActivity {
     /** Called when the activity is first created. */
 		
-	private static final int ACTUALIZAR = Menu.FIRST;
+	private static final int TARIFAS = Menu.FIRST;
 	private static final int ESTADISTICAS = Menu.FIRST+1;
     private static final int AJUSTES = Menu.FIRST+2;
     private static final int ACERCADE=Menu.FIRST+3;
@@ -90,7 +90,7 @@ public class gastoMovil extends ListActivity {
     private NumCoste numEsp=new NumCoste();
 
     public boolean onCreateOptionsMenu(Menu menu){
-    	menu.add(Menu.NONE, ACTUALIZAR, 0, R.string.mn_actualizar).setIcon(android.R.drawable.ic_menu_rotate);
+    	menu.add(Menu.NONE, TARIFAS, 0, R.string.mn_tarifas).setIcon(android.R.drawable.ic_menu_recent_history);
     	menu.add(Menu.NONE, ESTADISTICAS, 0, R.string.mn_estadisticas).setIcon(android.R.drawable.ic_menu_agenda);
     	menu.add(Menu.NONE, AJUSTES, 0, R.string.mn_ajustes).setIcon(android.R.drawable.ic_menu_preferences);
     	menu.add(Menu.NONE, ACERCADE, 0, R.string.mn_acercade).setIcon(android.R.drawable.ic_menu_info_details);
@@ -146,8 +146,8 @@ public class gastoMovil extends ListActivity {
       		startActivityForResult(settingsActivity, SHOW_SUBACTIVITY);
             break;
             
-        case ACTUALIZAR:
-        	listado(vp.getPreferenciasMes());
+        case TARIFAS:
+        	//listado(vp.getPreferenciasMes());
         	break;
         	
         case SALIR:
