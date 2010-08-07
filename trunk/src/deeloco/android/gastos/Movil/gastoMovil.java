@@ -45,6 +45,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -119,6 +120,7 @@ public class gastoMovil extends ListActivity {
 	        xr.setContentHandler(tarifasXML);
 	        xr.parse(new InputSource (new FileReader("\\sdcard\\gastosmovil\\datosTarifas.xml")));
 	        /* Parsing has finished. */
+	        Log.d("Gastos Móvil","Numero de tarifas cargadas -> "+ts.numTarifas());
         }
         catch (Exception e)
         {
@@ -129,11 +131,18 @@ public class gastoMovil extends ListActivity {
     
 	public boolean onOptionsItemSelected (MenuItem item) {
 		
+		Bundle extras = new Bundle();
         switch(item.getItemId()) {
         
         case AJUSTES:
       		Intent settingsActivity = new Intent(getBaseContext(), Preferencias.class );
       		//startActivity(settingsActivity);
+      		extras = new Bundle();
+      		List <String> nom=ts.nombresTarifas();
+      		String [] nomTarifas = nom.toArray(new String[nom.size()]);
+
+        	extras.putStringArray("nombresTarifas", nomTarifas);
+        	settingsActivity.putExtras(extras);
       		startActivityForResult(settingsActivity, SHOW_SUBACTIVITY);
             break;
             

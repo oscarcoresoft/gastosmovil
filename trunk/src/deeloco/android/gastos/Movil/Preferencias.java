@@ -23,6 +23,7 @@
 package deeloco.android.gastos.Movil;
 
 import deeloco.android.gastos.Movil.R;
+import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
@@ -52,7 +53,12 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
 		ps.setSummary(vp.getPrefEsp1Nombre());
 		ps = (PreferenceScreen) psRaiz.findPreference("psTarifaEsp2");
 		ps.setSummary(vp.getPrefEsp2Nombre());
+		ListPreference lp = (ListPreference) findPreference("defecto");
+		String valores[]=getIntent().getStringArrayExtra("nombresTarifas");
 		getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
+		getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
+		lp.setEntryValues(valores);
+		lp.setEntries(valores);
 
 		
 	}
