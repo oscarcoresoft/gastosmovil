@@ -21,11 +21,18 @@
 
 package deeloco.android.gastos.Movil;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 import deeloco.android.gastos.Movil.R;
 
@@ -75,6 +82,7 @@ public class gastoMovil extends ListActivity {
     GastosPorNumero gpn=new GastosPorNumero();
     GastosPorHora gph=new GastosPorHora();
     ValoresPreferencias vp=new ValoresPreferencias(this);
+    private tarifas ts=new tarifas();
     
     
     //******************** AQUI ***************************
@@ -97,6 +105,25 @@ public class gastoMovil extends ListActivity {
 
         listado(vp.getPreferenciasMes());
         //apagar_led();
+        
+        /* Cargamos los valores de las tarifas */
+        try
+        {
+	        SAXParserFactory spf = SAXParserFactory.newInstance();
+	        SAXParser sp = spf.newSAXParser();
+	        /* Get the XMLReader of the SAXParser we created. */
+	        XMLReader xr = sp.getXMLReader();
+	        /* Create a new ContentHandler and apply it to the XML-Reader*/
+	        TarifasParserXML tarifasXML = new TarifasParserXML();
+	        tarifasXML.setTarifas(ts);
+	        xr.setContentHandler(tarifasXML);
+	        xr.parse(new InputSource (new FileReader("\\sdcard\\gastosmovil\\datosTarifas.xml")));
+	        /* Parsing has finished. */
+        }
+        catch (Exception e)
+        {
+        	System.out.println("ERROR:"+e.toString());
+        } 
 
     }
     
