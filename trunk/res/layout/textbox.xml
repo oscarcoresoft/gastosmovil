@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+   
+    <EditText 
+    	android:id="@+id/EditText01" 
+    	android:layout_height="wrap_content" 
+    	android:text="HOLA" 
+    	android:layout_width="250dip"></EditText>
+
+</LinearLayout>
