@@ -107,6 +107,23 @@ public class tarifa implements Serializable{
 	}
 	
 	/**
+	 * 
+	 * @param nombre
+	 * @return
+	 */
+	public int getIdentificador(String nombre){
+		
+        for (int i=0;i<this.franjas.size();i++)
+        {
+        	if (nombre.equals(this.franjas.get(i).getNombre()))
+        	{
+        		return this.franjas.get(i).getIdentificador();
+        	}
+        }
+		return -1; //El nombre no pertenece a ninguna franja de esta tarifa
+	}
+	
+	/**
 	 * Devuelve el consumo mínimo que tiene la tarifa
 	 * @return
 	 */
@@ -176,9 +193,6 @@ public class tarifa implements Serializable{
 		return this.franjas;
 	}
 	
-	
-	
-	
 	/**
 	 * Asigna el idetificador de la tarifa
 	 * @param id
@@ -236,10 +250,7 @@ public class tarifa implements Serializable{
 		this.franjas=f;
 	}
 	
-	
-	
 	// resto de métodos
-	
 	
 	void addFranja(Franja f){
 		this.franjas.add(f);
@@ -287,6 +298,18 @@ public class tarifa implements Serializable{
 	}
 
 	
+	public Franja getFranja(int id){
+		
+        for (int i=0;i<this.franjas.size();i++)
+        {
+        	if (this.franjas.get(i).getIdentificador()==id)
+        	{
+        		return this.franjas.get(i);
+        	}
+        }
+		
+        return null;
+	}
 	
 	
 	
