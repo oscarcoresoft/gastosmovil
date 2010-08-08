@@ -35,7 +35,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 import deeloco.android.gastos.Movil.R;
+import deeloco.android.gastos.Movil.PreferencesTarifas;
+import deeloco.android.gastos.Movil.tarifas;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -77,7 +80,10 @@ public class gastoMovil extends ListActivity {
     private final int NUMESP2=3;
     private final int NUM=4;
     
-    private static final int SHOW_SUBACTIVITY = 1;
+    private static final int RETURN_PREFERENCES_AJUSTES = 1;
+    private static final int RETURN_PREFERENCES_TARIFAS=2;
+    private static final String TARIFAS_RETORNO = "tarifas_retorno";
+    private static final String TAG = "GastosMóvil";
     
     private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     GastosPorNumero gpn=new GastosPorNumero();
@@ -143,11 +149,17 @@ public class gastoMovil extends ListActivity {
 
         	extras.putStringArray("nombresTarifas", nomTarifas);
         	settingsActivity.putExtras(extras);
-      		startActivityForResult(settingsActivity, SHOW_SUBACTIVITY);
+      		startActivityForResult(settingsActivity, RETURN_PREFERENCES_AJUSTES);
             break;
             
         case TARIFAS:
         	//listado(vp.getPreferenciasMes());
+           	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifas.class );
+        	extras = new Bundle();
+        	extras.putSerializable("tarifas", ts);
+        	settingsActivity2.putExtras(extras);
+        	//startActivity(settingsActivity2);
+        	startActivityForResult(settingsActivity2, RETURN_PREFERENCES_TARIFAS);
         	break;
         	
         case SALIR:
@@ -600,16 +612,32 @@ public class gastoMovil extends ListActivity {
     	}
     
   //--- Eventos de devolución de parámetros de preferencias.class
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
     {
-			if (requestCode == SHOW_SUBACTIVITY) 
+    	super.onActivityResult(requestCode, resultCode, data);
+    	switch (requestCode){
+    	case RETURN_PREFERENCES_AJUSTES:
+			if (resultCode == RESULT_OK) 
 			{
-					if (resultCode == RESULT_OK) 
-					{
-					     listado(vp.getPreferenciasMes());
-					}
+			     listado(vp.getPreferenciasMes());
 			}
-    }
+    		break;
+		case RETURN_PREFERENCES_TARIFAS:
+			Log.d(TAG,"resultCode en onActivityResult = "+resultCode+" - Activity.RESULT_OK = "+Activity.RESULT_OK);
+			if (resultCode==Activity.RESULT_OK)
+			{
+				ts=(tarifas) data.getSerializableExtra(TARIFAS_RETORNO);
+				//Log.d(TAG,"La tarifa retornada es "+t.getNombre());
+				//GUARDAR ts EN EL DOCUMENTO XML
 
-    
+			}
+			break;
+
+		default:
+			break; 
+    	
+    	
+    	}
+    }
 }
