@@ -52,6 +52,7 @@
 	<string-array name="listaGastos"></string-array>
 
 	<string-array name="colores">
+		<item>Blanco</item>
         <item>Amarillo</item>
         <item>Azul</item>
         <item>Naranja</item>
@@ -62,6 +63,7 @@
     </string-array>
     
     <string-array name="colores_valores">
+    	<item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

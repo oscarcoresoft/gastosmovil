@@ -29,6 +29,10 @@
 				android:label="@string/app_name">
 		</activity>
 		<activity
+				android:name=".PreferencesFranja"
+				android:label="@string/app_name">
+		</activity>
+		<activity
 				android:name=".AcercaDe"
 				android:label="@string/acercade_activity">
 		</activity>
