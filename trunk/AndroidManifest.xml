@@ -21,6 +21,10 @@
 				android:label="@string/app_name">
 		</activity>
 		<activity
+				android:name=".PreferencesTarifas"
+				android:label="@string/app_name">
+		</activity>
+		<activity
 				android:name=".AcercaDe"
 				android:label="@string/acercade_activity">
 		</activity>
