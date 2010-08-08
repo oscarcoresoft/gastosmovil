@@ -91,7 +91,7 @@ public class PreferencesTarifas extends ListActivity{
         
         case NUEVA_TARIFA:
         	//Creamos un objeto tarifa con id=0 y se lo pasamos a la activity PreferencesTarifa
-        	/*
+        	
         	tarifa t=new tarifa(0);
         	t.setNombre("Tarifa Nueva");
         	t.setMinimo(0.0);
@@ -102,7 +102,7 @@ public class PreferencesTarifas extends ListActivity{
         	extras.putSerializable("tarifa", t);
         	settingsActivity2.putExtras(extras);
         	startActivity(settingsActivity2);
-        	*/
+        	
             break;
             
         }
@@ -113,7 +113,7 @@ public class PreferencesTarifas extends ListActivity{
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		//Aqui es donde hay que pasar a la pantalla de Tarifas
-		/*
+		
 		IconoYTexto2 iyt=(IconoYTexto2) l.getItemAtPosition(position);
 		Log.d(TAG, "Tarifa seleccionada -> "+iyt.titulo);
 		int idTarifa=ts.getId(iyt.titulo);
@@ -127,7 +127,7 @@ public class PreferencesTarifas extends ListActivity{
     	settingsActivity2.putExtras(extras);
     	//startActivity(settingsActivity2);
     	startActivityForResult(settingsActivity2, RETURN_PREFERENCES_TARIFA);
-    	*/
+    	
 	}
 	
 	@Override

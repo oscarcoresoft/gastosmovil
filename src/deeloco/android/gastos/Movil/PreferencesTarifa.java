@@ -24,7 +24,6 @@ import android.widget.TimePicker;
 import android.app.TimePickerDialog;
 
 
-
 public class PreferencesTarifa extends ListActivity{
 	
 	private static final int NUEVA_FRANJA = Menu.FIRST;
