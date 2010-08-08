@@ -116,7 +116,7 @@ public class Franja implements Serializable{
 	 * Retorna el valor del identificar
 	 * @return
 	 */
-	int getIdentificar(){
+	int getIdentificador(){
 		return this.identificador;
 	}
 	
