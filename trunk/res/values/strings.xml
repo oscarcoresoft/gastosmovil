@@ -101,6 +101,7 @@
 	<string name="mn_nueva_tarifa">Nueva Tarifa</string>
 	<string name="mn_eliminar_tarifa">Eliminar Tarifa</string>
 	<string name="mn_nueva_franja">Nueva Franja</string>
+	<string name="mn_eliminar_franja">Nueva Franja</string>
 	<string name="tituloInputBox">Introduce texto</string>
 	<string name="cabTarifa">TARIFA</string>
 	<string name="cabTarifas">TARIFAS</string>

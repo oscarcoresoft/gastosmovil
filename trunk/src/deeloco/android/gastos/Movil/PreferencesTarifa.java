@@ -30,7 +30,7 @@ public class PreferencesTarifa extends ListActivity{
 	private static final int ELIMINAR_TARIFA = Menu.FIRST+1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesFranja";
-	private static final int RETURN_PREFERENCES_TARIFA=1;
+	private static final int RETURN_PREFERENCES_FRANJA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
 	private tarifa t;
 	private int idTarifa;
@@ -226,7 +226,7 @@ public class PreferencesTarifa extends ListActivity{
 	    	extras.putSerializable("franja", f);
 	    	settingsActivity2.putExtras(extras);
 	    	//startActivity(settingsActivity2);
-	    	startActivityForResult(settingsActivity2, RETURN_PREFERENCES_TARIFA);
+	    	startActivityForResult(settingsActivity2, RETURN_PREFERENCES_FRANJA);
 			break;
 		}
 		
