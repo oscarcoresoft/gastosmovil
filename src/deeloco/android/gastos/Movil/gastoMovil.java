@@ -156,6 +156,7 @@ public class gastoMovil extends ListActivity {
         	//listado(vp.getPreferenciasMes());
            	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifas.class );
         	extras = new Bundle();
+        	extras.putString("tarifaDefecto", vp.getPreferenciasDefecto());
         	extras.putSerializable("tarifas", ts);
         	settingsActivity2.putExtras(extras);
         	//startActivity(settingsActivity2);
