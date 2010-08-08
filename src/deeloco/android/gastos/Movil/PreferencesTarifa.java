@@ -29,6 +29,7 @@ public class PreferencesTarifa extends ListActivity{
 	private static final int NUEVA_FRANJA = Menu.FIRST;
 	private static final int ELIMINAR_TARIFA = Menu.FIRST+1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
+	private static final String FRANJA_RETORNO = "franja_retorno";
 	private static final String TAG = "PreferencesFranja";
 	private static final int RETURN_PREFERENCES_FRANJA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
@@ -244,21 +245,41 @@ public class PreferencesTarifa extends ListActivity{
 			Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
 			
 		}
-		
-		/*@Override
-		public void onCancelClick() {
-			// TODO Auto-generated method stub
-			Toast.makeText(getBaseContext(),"CANCELAR ",Toast.LENGTH_LONG).show();
-			
-		}*/
 	};
+	
+	
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		Log.d(TAG,"requestCode en onActivityResult = "+requestCode+" - RETURN_PREFERENCES_TARIFA = "+RETURN_PREFERENCES_FRANJA);
+		switch (requestCode) {
+		case RETURN_PREFERENCES_FRANJA:
+			Log.d(TAG,"resultCode en onActivityResult = "+resultCode+" - Activity.RESULT_OK = "+Activity.RESULT_OK);
+			if (resultCode==Activity.RESULT_OK)
+			{
+				Franja f=(Franja) data.getSerializableExtra(FRANJA_RETORNO);
+				Log.d(TAG,"La franja retornada es "+f.getNombre());
+				//Añadir la tarifa al ArrayList de tarifas
+				
+				//if (f.getIdentificador()==0)
+					//t.addTarifa(f); //Franja Nueva
+				//else
+					//f.modificarFranja(f.getIdentificador(), f);
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
 	
 	// FUNCIONES
 	
 	private int indiceColor(String color){
-		
-		
-		
+
 		String[] colores = getResources().getStringArray(R.array.colores);
 		for (int a=0;a<colores.length;a++){
 			Log.d(TAG,"colores["+a+"] ="+colores[a]+", comparado con "+color);
