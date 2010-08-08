@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,22 +19,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.app.TimePickerDialog;
+import android.widget.Toast;
 
-
-public class PreferencesTarifa extends ListActivity{
+public class PreferencesFranja extends ListActivity{
 	
-	private static final int NUEVA_FRANJA = Menu.FIRST;
-	private static final int ELIMINAR_TARIFA = Menu.FIRST+1;
+	private static final int ELIMINAR_FRANJA = Menu.FIRST;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesFranja";
 	private static final int RETURN_PREFERENCES_TARIFA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
-	private tarifa t;
-	private int idTarifa;
+	private Franja f;
+	int idFranja;
 	private List<IconoYTexto2> listaIYT = new ArrayList<IconoYTexto2>();
 	TextView tv;
 	private int mHour;
@@ -42,8 +40,7 @@ public class PreferencesTarifa extends ListActivity{
 	
 	
     public boolean onCreateOptionsMenu(Menu menu){
-    	menu.add(Menu.NONE, NUEVA_FRANJA, 0, R.string.mn_nueva_franja).setIcon(android.R.drawable.ic_menu_add);
-    	menu.add(Menu.NONE, ELIMINAR_TARIFA, 0, R.string.mn_eliminar_tarifa).setIcon(android.R.drawable.ic_menu_delete);
+    	menu.add(Menu.NONE, ELIMINAR_FRANJA, 0, R.string.mn_nueva_franja).setIcon(android.R.drawable.ic_menu_delete);
     	return true;
     }
 	
@@ -61,24 +58,23 @@ public class PreferencesTarifa extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarifas);
-        t = (tarifa) getIntent().getExtras().get("tarifa");
-        idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
+        f = (Franja) getIntent().getExtras().get("franja");
+        idFranja=(int) getIntent().getIntExtra("idFranja", 0);
         
-    	Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());
-    	//Editar una tarifa existente
-    	//Nombre de la tarifa
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", t.getNombre()));
-    	//Gasto Mínimo
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Gasto Mínimo Mensual", ""+t.getMinimo()));
-    	//Color
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Color", t.getColor()));
-    	//Numeros
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Numeros Asociados a la tarifa", t.getNumeros()));
-    	//Una entrada para cada franja que tiene la tarifa
-    	for (int a=0;a<t.getNumFranjas();a++)
-    	{
-    		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more),"Franja Horaria" ,t.getFranjas().get(a).getNombre()));
-    	}
+    	Log.d(TAG, "Nombre de la franja:"+f.getNombre());
+    	//Editar una franja existente
+    	//Nombre de la franja
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", f.getNombre()));
+    	//Hora Inicio
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Hora de Inicio", ""+f.getHoraInicio()));
+    	//Hora Final
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Color", ""+f.getHoraFinal()));
+    	//Dias
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Días de la semana", f.getDias().toString()));
+    	//Coste de la llamada
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste de la llamada", ""+f.getCoste()));
+    	//Establecimiento de la llamada
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste del establecimiento de la llamada", ""+f.getEstablecimiento()));
 
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
         setListAdapter(ad);
@@ -89,7 +85,7 @@ public class PreferencesTarifa extends ListActivity{
 		
         switch(item.getItemId()) {
         
-        case NUEVA_FRANJA:
+        case ELIMINAR_FRANJA:
       		//Intent settingsActivity = new Intent(getBaseContext(), Preferencias.class );
       		//startActivity(settingsActivity);
         	TextBox dialog = new TextBox(this);
@@ -99,10 +95,6 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.show();
         	//Toast.makeText(getBaseContext(),"Valor: "+dialog.getValor(),Toast.LENGTH_LONG).show();
             break;
-            
-        case ELIMINAR_TARIFA:
-        	//Hay que eliminar la franja actual
-        	break;
         }
         return true;
 	}
@@ -134,63 +126,51 @@ public class PreferencesTarifa extends ListActivity{
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
         					tv.setText(valor);
-        					t.setNombre(valor);
+        					f.setNombre(valor);
         					//Retorno
         			    	Intent resultIntent=new Intent();
-        			    	resultIntent.putExtra(TARIFA_RETORNO, t);
+        			    	resultIntent.putExtra(TARIFA_RETORNO, f);
         			    	setResult(Activity.RESULT_OK, resultIntent);
         				}
         			});
         	dialog.show();
         	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
-		case 1: // Gasto Mínimo
+		case 1: // Hora de Inicio
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
-        	dialog.setTitle(iyt.titulo);
-        	Log.d(TAG,"Valor incial de Gastos Mínimo = "+tv.getText().toString());
-        	dialog.setValorInicial(iyt.subtitulo);
-        	dialog.setTextBoxListener(
-        			new TextBoxListener() {
-        				@Override
-        				public void onOkClick(String valor) {
-        					// TODO Auto-generated method stub
-        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
-        					tv.setText(valor);
-        					t.setMinimo(Double.parseDouble(valor));
-        					//Retorno
-        			    	Intent resultIntent=new Intent();
-        			    	resultIntent.putExtra(TARIFA_RETORNO, t);
-        			    	setResult(Activity.RESULT_OK, resultIntent);
-        				}
-        			});
-        	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+			//Data Picker
+			mTimeSetListener_horaInicio =
+		        new TimePickerDialog.OnTimeSetListener() {
+		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		                mHour = hourOfDay;
+		                mMinute = minute;
+    					tv.setText(mHour+":"+mMinute);
+    					f.setHoraInicio(mHour+":"+mMinute);
+    					//Retorno
+    			    	Intent resultIntent=new Intent();
+    			    	resultIntent.putExtra(TARIFA_RETORNO, f);
+    			    	setResult(Activity.RESULT_OK, resultIntent);
+		            }
+		        };
 			break;
-		case 2: // Color
+		case 2: // Hora Final
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Selecciona un color");
-			
-			int indColor=indiceColor(tv.getText().toString());
-			Log.d(TAG,"Valor incial de Color = "+tv.getText().toString()+", con indice "+indColor);
-			builder.setSingleChoiceItems(R.array.colores,indColor, new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog, int item) {
-			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
-			    	String colorSeleccionado=getResources().getStringArray(R.array.colores)[item];
-			        Log.d(TAG,"Color seleccionado = "+colorSeleccionado);
-			        tv.setText(colorSeleccionado);
-			        t.setColor(colorSeleccionado);
-					//Retorno
-			    	Intent resultIntent=new Intent();
-			    	resultIntent.putExtra(TARIFA_RETORNO, t);
-			    	setResult(Activity.RESULT_OK, resultIntent);
-			        
-			    }
-			});
-			AlertDialog alert = builder.create();
-			alert.show();
+			//Data Picker
+			mTimeSetListener_horaInicio =
+		        new TimePickerDialog.OnTimeSetListener() {
+		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		                mHour = hourOfDay;
+		                mMinute = minute;
+    					tv.setText(mHour+":"+mMinute);
+    					f.setHoraFinal(mHour+":"+mMinute);
+    					//Retorno
+    			    	Intent resultIntent=new Intent();
+    			    	resultIntent.putExtra(TARIFA_RETORNO, f);
+    			    	setResult(Activity.RESULT_OK, resultIntent);
+		            }
+		        };
 			break;
-		case 3: //Numeros
+		case 3: //Dias
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(iyt.subtitulo);
@@ -201,10 +181,52 @@ public class PreferencesTarifa extends ListActivity{
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
         					tv.setText(valor);
-        					t.setNumeros(valor);
+        					f.setDias(valor);
         					//Retorno
         			    	Intent resultIntent=new Intent();
-        			    	resultIntent.putExtra(TARIFA_RETORNO, t);
+        			    	resultIntent.putExtra(TARIFA_RETORNO, f);
+        			    	setResult(Activity.RESULT_OK, resultIntent);
+        				}
+        			});
+        	dialog.show();
+        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+			break;
+		case 4://Coste de la llamada
+			//Data Picker
+        	dialog.setTitle(iyt.titulo);
+        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setTextBoxListener(
+        			new TextBoxListener() {
+        				@Override
+        				public void onOkClick(String valor) {
+        					// TODO Auto-generated method stub
+        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
+        					tv.setText(valor);
+        					f.setCoste(valor);
+        					//Retorno
+        			    	Intent resultIntent=new Intent();
+        			    	resultIntent.putExtra(TARIFA_RETORNO, f);
+        			    	setResult(Activity.RESULT_OK, resultIntent);
+        				}
+        			});
+        	dialog.show();
+        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+			break;
+		case 5: //Establecimento de llamada
+			//Data Picker
+        	dialog.setTitle(iyt.titulo);
+        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setTextBoxListener(
+        			new TextBoxListener() {
+        				@Override
+        				public void onOkClick(String valor) {
+        					// TODO Auto-generated method stub
+        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
+        					tv.setText(valor);
+        					f.setEstablecimiento(valor);
+        					//Retorno
+        			    	Intent resultIntent=new Intent();
+        			    	resultIntent.putExtra(TARIFA_RETORNO, f);
         			    	setResult(Activity.RESULT_OK, resultIntent);
         				}
         			});
@@ -212,21 +234,6 @@ public class PreferencesTarifa extends ListActivity{
         	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 		default: // Es una franja horaria
-			//Aqui es donde hay que pasar a la pantalla de Franjas
-			
-			iyt=(IconoYTexto2) l.getItemAtPosition(position);
-			Log.d(TAG, "Franja seleccionada -> "+iyt.subtitulo);
-			int idFranja=t.getIdentificador(iyt.subtitulo);
-			Log.d(TAG, "ID Franja seleccionada -> "+idTarifa);
-	    	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesFranja.class );
-	    	Franja f = t.getFranja(idFranja);
-	    	Bundle extras = new Bundle();
-	    	Log.d(TAG,"Pasamos la tarifa : "+t.getNombre());
-	    	extras.putInt("idFranja", idFranja);
-	    	extras.putSerializable("franja", f);
-	    	settingsActivity2.putExtras(extras);
-	    	//startActivity(settingsActivity2);
-	    	startActivityForResult(settingsActivity2, RETURN_PREFERENCES_TARIFA);
 			break;
 		}
 		
@@ -255,17 +262,6 @@ public class PreferencesTarifa extends ListActivity{
 	
 	// FUNCIONES
 	
-	private int indiceColor(String color){
-		
-		
-		
-		String[] colores = getResources().getStringArray(R.array.colores);
-		for (int a=0;a<colores.length;a++){
-			Log.d(TAG,"colores["+a+"] ="+colores[a]+", comparado con "+color);
-			if (colores[a].compareTo(color)==0) return a;
-		}
-		
-		return 0;
-	}
 	
+
 }
