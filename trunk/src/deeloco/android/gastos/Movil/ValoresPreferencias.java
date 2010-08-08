@@ -227,9 +227,11 @@ public class ValoresPreferencias {
     	return c;
     }
     
-    
+    /**
+     * Retorna el valor de Duración, un parámetro de ajuste.
+     * @return
+     */
     public int getPreferenciasInicioMes(){
-    	//Retorna el valor de Duración, un parámetro de ajuste.
     	
     	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtInicioMes", "1");
     	int duracion=1; //Valor por defecto
@@ -242,6 +244,15 @@ public class ValoresPreferencias {
     		duracion=1; //Valor en caso de una excepción.
     	}
     	return duracion; 
+    }
+    
+    /**
+     * Retorna el valor de la preferencia defecto = Tarifa por defecto aplicada.
+     * @return
+     */
+    public String getPreferenciasDefecto(){
+    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("defecto", "");
+    	return valor;
     }
 
 }
