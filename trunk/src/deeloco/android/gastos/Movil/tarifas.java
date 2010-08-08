@@ -118,6 +118,14 @@ public class tarifas implements Serializable{
 	}
 	
 	/**
+	 * 
+	 * @return
+	 */
+	int ultimoId(){
+		return 0;
+	}
+	
+	/**
 	 * Controla que no exista incompatibilidad de una franja con las existentes
 	 */
 	boolean incompatibilidad(int id,String nombre,Time horaIni,Time horaFinal,List <String> dias){

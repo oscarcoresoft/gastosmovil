@@ -62,6 +62,8 @@ public class PreferencesTarifa extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarifas);
+        TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
+        cabecera.setText("TARIFA");
         t = (tarifa) getIntent().getExtras().get("tarifa");
         idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
         
