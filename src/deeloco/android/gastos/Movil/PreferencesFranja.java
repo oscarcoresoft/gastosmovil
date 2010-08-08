@@ -46,7 +46,8 @@ public class PreferencesFranja extends ListActivity{
     protected Dialog onCreateDialog(int id) {
         switch (id) {
         case TIME_DIALOG_HORA_INICIO:
-            return new TimePickerDialog(this, mTimeSetListener_horaInicio, mHour, mMinute, true);
+        	Time hora=Time.valueOf(listaIYT.get(1).subtitulo);
+            return new TimePickerDialog(this, mTimeSetListener_horaInicio, hora.getHours(), hora.getMinutes(), true);
         }
         return null;
     }
@@ -56,6 +57,8 @@ public class PreferencesFranja extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarifas);
+        TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
+        cabecera.setText("FRANJA");
         f = (Franja) getIntent().getExtras().get("franja");
         idFranja=(int) getIntent().getIntExtra("idFranja", 0);
         
