@@ -252,34 +252,6 @@ public class PreferencesFranja extends ListActivity{
 		}
 	};
 	
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		Log.d(TAG,"requestCode en onActivityResult = "+requestCode+" - RETURN_PREFERENCES_TARIFA = "+RETURN_PREFERENCES_FRANJA);
-		switch (requestCode) {
-		case RETURN_PREFERENCES_FRANJA:
-			Log.d(TAG,"resultCode en onActivityResult = "+resultCode+" - Activity.RESULT_OK = "+Activity.RESULT_OK);
-			if (resultCode==Activity.RESULT_OK)
-			{
-				Franja f=(Franja) data.getSerializableExtra(FRANJA_RETORNO);
-				Log.d(TAG,"La franja retornada es "+f.getNombre());
-				//Añadir la tarifa al ArrayList de tarifas
-				
-				//if (f.getIdentificador()==0)
-					//t.addTarifa(f); //Franja Nueva
-				//else
-					//f.modificarFranja(f.getIdentificador(), f);
-			}
-			break;
-
-		default:
-			break;
-		}
-	}
-	
-	
 	// FUNCIONES
 	
 	
