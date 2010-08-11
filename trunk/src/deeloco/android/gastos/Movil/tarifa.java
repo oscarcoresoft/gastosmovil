@@ -252,8 +252,26 @@ public class tarifa implements Serializable{
 	
 	// resto de métodos
 	
+	/**
+	 * Añade una nueva franja al arraylist de franjas
+	 */
 	void addFranja(Franja f){
 		this.franjas.add(f);
+	}
+	
+	void modificarFranja(int id,Franja f){
+		Log.i(TAG,"Modificar Franja");
+		Franja factual=this.getFranja(id);
+		Log.i(TAG,"Nombre de la franja que se va ha modificar -> "+factual.getNombre());
+		Log.i(TAG,"Nombre de la franja que se va a añadir -> "+f.getNombre());
+		factual.setNombre(f.getNombre());
+		factual.setHoraInicio(f.getHoraInicio());
+		factual.setHoraFinal(f.getHoraFinal());
+		factual.setDias((ArrayList <String>) f.getDias());
+		factual.setCoste(f.getCoste());
+		factual.setEstablecimiento(f.getEstablecimiento());
+		factual.setLimite(f.getLimite());
+		factual.setCosteFueraLimite(f.getCosteFueraLimite());
 	}
 
 	/**
@@ -297,7 +315,11 @@ public class tarifa implements Serializable{
 		return this.franjas.size();
 	}
 
-	
+	/**
+	 * Retorna una Franja cuyo identificador es igual a id. Si no existe retorna null
+	 * @param id
+	 * @return
+	 */
 	public Franja getFranja(int id){
 		
         for (int i=0;i<this.franjas.size();i++)
@@ -310,8 +332,5 @@ public class tarifa implements Serializable{
 		
         return null;
 	}
-	
-	
-	
 
 }
