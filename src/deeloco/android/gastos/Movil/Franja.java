@@ -5,11 +5,14 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 public class Franja implements Serializable{
 	
 	/**
 	 * 
 	 */
+	private static final String TAG = "Clase Franja";
 	private static final long serialVersionUID = 1L;
 
 	private final double iva=1.18;
@@ -38,7 +41,7 @@ public class Franja implements Serializable{
 	/**
 	 * dias de la semana en la que se aplica la franja
 	 */
-	private ArrayList <Integer> dias=new ArrayList <Integer>();
+	private ArrayList <String> dias=new ArrayList <String>();
 	
 	/**
 	 * Coste, en centimos, de las llamadas llevadas a cabo en esta franja (sin iva y por minuto). 
@@ -74,7 +77,7 @@ public class Franja implements Serializable{
 	 * @param limite
 	 * @param costeFueraLimite
 	 */
-	Franja(int id,String nombre,Time horaIni,Time horaFinal,ArrayList <Integer> dias, double coste, double establecimiento, int limite, double costeFueraLimite){
+	Franja(int id,String nombre,Time horaIni,Time horaFinal,ArrayList <String> dias, double coste, double establecimiento, int limite, double costeFueraLimite){
 		this.identificador=id; //hay que calcularlo
 		this.nombre=nombre;
 		this.horaInicio=horaIni;
@@ -96,7 +99,7 @@ public class Franja implements Serializable{
 	 * @param coste
 	 * @param establecimiento
 	 */
-	Franja(int id,String nombre,Time horaIni,Time horaFinal,ArrayList <Integer> dias, double coste, double establecimiento){
+	Franja(int id,String nombre,Time horaIni,Time horaFinal,ArrayList <String> dias, double coste, double establecimiento){
 		this.identificador=id;
 		this.nombre=nombre;
 		this.horaInicio=horaIni;
@@ -180,7 +183,7 @@ public class Franja implements Serializable{
 	 * Retorna una lista con los días a los que se le asigna la franja
 	 * @return
 	 */
-	List <Integer> getDias(){
+	List <String> getDias(){
 		return this.dias;
 	}
 	
@@ -211,6 +214,7 @@ public class Franja implements Serializable{
 		this.horaInicio=horaInicio;
 	}
 	void setHoraInicio(String horaInicio){
+		Log.d(TAG,"Parametro horaInicio ="+horaInicio);
 		this.horaInicio=Time.valueOf(horaInicio);
 	}
 	
@@ -229,16 +233,29 @@ public class Franja implements Serializable{
 	 * Asigna los días en los que la franja esta vigente
 	 * @param dias
 	 */
-	void setDias(ArrayList <Integer> dias){
+	void setDias(ArrayList <String> dias){
 		this.dias=dias;
 	}
 	void setDias(String dias){
     	String data[] = dias.split(",");
     	for (int i=0; i < data.length; i++) {
-    		 this.dias.add(Integer.parseInt(data[i]));
+    		 this.dias.add(data[i]);
     		}
 	}
 	
+	
+	/**
+	 * Añade un día a la lista de dias
+	 * @param dia
+	 */
+	void addDia(String dia){
+		if (this.dias.indexOf(dia)<0)
+			this.dias.add(dia);
+	}
+	void deleteDia(String dia){
+		if (this.dias.indexOf(dia)>-1)
+			this.dias.remove(dia);
+	}
 	/**
 	 * Asigna el coste de las llamadas para esta franja
 	 * @param coste
@@ -358,5 +375,23 @@ public class Franja implements Serializable{
 	}
 	
 	
+	//String[] colores = getResources().getStringArray(R.array.colores);
 	
+	public boolean[] diasSeleccionados()
+	{
+		String [] diasSemana={"Lun","Mar","Mie","Jue","Vie","Sab","Dom"};
+		boolean [] retorno={false,false,false,false,false,false,false};
+		Log.d(TAG,"Dias de la semana almacenados"+this.dias.toString());
+		for (int i=0;i<7;i++)
+		{
+			Log.d(TAG,"Para i="+i+" - Buscar "+diasSemana[i]+" en "+this.dias.toString());
+			if (this.dias.indexOf(diasSemana[i])>-1)
+			{
+				Log.d(TAG," Coincidencia "+i+" -- "+diasSemana[i]);
+				retorno[i]=true;
+			}
+		}
+		
+		return retorno;
+	}
 }
