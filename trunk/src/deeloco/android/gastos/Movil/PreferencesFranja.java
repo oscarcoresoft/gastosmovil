@@ -7,9 +7,11 @@ import java.util.List;
 
 import deeloco.android.gastos.Movil.TextBox.TextBoxListener;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,6 +78,10 @@ public class PreferencesFranja extends ListActivity{
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste de la llamada", ""+f.getCoste()));
     	//Establecimiento de la llamada
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste del establecimiento de la llamada", ""+f.getEstablecimiento()));
+    	//Limite
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Limite (min.)", ""+f.getLimite()));
+    	//Coste fuera del limite
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste pasado los limite", ""+f.getCosteFueraLimite()));
 
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
         setListAdapter(ad);
@@ -122,7 +128,7 @@ public class PreferencesFranja extends ListActivity{
         	Log.d(TAG,"Valor inicial de Nombre = "+dialog.getValor());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
+        				//@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -145,8 +151,8 @@ public class PreferencesFranja extends ListActivity{
 		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 		                mHour = hourOfDay;
 		                mMinute = minute;
-    					tv.setText(mHour+":"+mMinute);
-    					f.setHoraInicio(mHour+":"+mMinute);
+    					tv.setText(mHour+":"+mMinute+":00");
+    					f.setHoraInicio(mHour+":"+mMinute+":00");
     					//Retorno
     			    	Intent resultIntent=new Intent();
     			    	resultIntent.putExtra(FRANJA_RETORNO, f);
@@ -163,8 +169,8 @@ public class PreferencesFranja extends ListActivity{
 		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 		                mHour = hourOfDay;
 		                mMinute = minute;
-    					tv.setText(mHour+":"+mMinute);
-    					f.setHoraFinal(mHour+":"+mMinute);
+    					tv.setText(mHour+":"+mMinute+":00");
+    					f.setHoraFinal(mHour+":"+mMinute+":00");
     					//Retorno
     			    	Intent resultIntent=new Intent();
     			    	resultIntent.putExtra(FRANJA_RETORNO, f);
@@ -175,24 +181,34 @@ public class PreferencesFranja extends ListActivity{
 			break;
 		case 3: //Dias
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
-        	dialog.setTitle(iyt.titulo);
-        	dialog.setValorInicial(iyt.subtitulo);
-        	dialog.setTextBoxListener(
-        			new TextBoxListener() {
-        				@Override
-        				public void onOkClick(String valor) {
-        					// TODO Auto-generated method stub
-        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
-        					tv.setText(valor);
-        					f.setDias(valor);
-        					//Retorno
-        			    	Intent resultIntent=new Intent();
-        			    	resultIntent.putExtra(FRANJA_RETORNO, f);
-        			    	setResult(Activity.RESULT_OK, resultIntent);
-        				}
-        			});
-        	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Selecciona dias de la semana");
+			
+			//int indColor=indiceColor(tv.getText().toString());
+			//Log.d(TAG,"Valor incial de Color = "+tv.getText().toString()+", con indice "+indColor);
+			builder.setMultiChoiceItems(R.array.semana,f.diasSeleccionados(), new DialogInterface.OnMultiChoiceClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+					// TODO Auto-generated method stub
+			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+			    	String diaSeleccionado=getResources().getStringArray(R.array.semana)[which];
+			        Log.d(TAG,"Día seleccionado = "+getResources().getStringArray(R.array.semana)[which]+" -- "+which+" -- "+isChecked);
+			        
+			        if (isChecked) f.addDia(diaSeleccionado);
+			        else f.deleteDia(diaSeleccionado);
+			        	
+			        tv.setText(f.getDias().toString());
+			        
+					//Retorno
+			    	Intent resultIntent=new Intent();
+			    	resultIntent.putExtra(FRANJA_RETORNO, f);
+			    	setResult(Activity.RESULT_OK, resultIntent);
+			}
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
+
 			break;
 		case 4://Coste de la llamada
 			//Data Picker
@@ -236,6 +252,52 @@ public class PreferencesFranja extends ListActivity{
         	dialog.show();
         	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
+			
+		case 6: //Limite
+			//Data Picker
+        	dialog.setTitle(iyt.titulo);
+        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setTextBoxListener(
+        			new TextBoxListener() {
+        				@Override
+        				public void onOkClick(String valor) {
+        					// TODO Auto-generated method stub
+        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
+        					tv.setText(valor);
+        					f.setLimite(valor);
+        					//Retorno
+        			    	Intent resultIntent=new Intent();
+        			    	resultIntent.putExtra(FRANJA_RETORNO, f);
+        			    	setResult(Activity.RESULT_OK, resultIntent);
+        				}
+        			});
+        	dialog.show();
+        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+			break;
+			
+		case 7: //Coste fuera del limite
+			//Data Picker
+        	dialog.setTitle(iyt.titulo);
+        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setTextBoxListener(
+        			new TextBoxListener() {
+        				@Override
+        				public void onOkClick(String valor) {
+        					// TODO Auto-generated method stub
+        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
+        					tv.setText(valor);
+        					f.setCosteFueraLimite(valor);
+        					//Retorno
+        			    	Intent resultIntent=new Intent();
+        			    	resultIntent.putExtra(FRANJA_RETORNO, f);
+        			    	setResult(Activity.RESULT_OK, resultIntent);
+        				}
+        			});
+        	dialog.show();
+        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+			break;	
+			
+			
 		default: // Es una franja horaria
 			break;
 		}

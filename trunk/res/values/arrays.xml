@@ -71,5 +71,17 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+    
+    
+    <string-array name="semana">
+		<item>Lun</item>
+        <item>Mar</item>
+        <item>Mie</item>
+        <item>Jue</item>
+        <item>Vie</item>
+        <item>Sab</item>
+        <item>Dom</item>
+    </string-array>
+
 
 </resources>

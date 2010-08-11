@@ -122,21 +122,27 @@ public class PreferencesTarifa extends ListActivity{
 		IconoYTexto2 iyt=(IconoYTexto2) l.getItemAtPosition(position);
 		Log.d(TAG, "Campo seleccionado -> "+iyt.titulo);
 		tv=(TextView)v.findViewById(R.id.subtitulo);
+		Log.d(TAG,"Valor de subtitulo ANTES= "+tv.getText());
 		switch (position)
 		{
 		case 0: // Nombre
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
+			tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
-        	Log.d(TAG,"Valor inicial de Nombre = "+tv.getText().toString());
         	dialog.setValorInicial(tv.getText().toString());
-        	Log.d(TAG,"Valor inicial de Nombre = "+dialog.getValor());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
+        					Log.d(TAG,"Retorno TextBox = "+valor);
+        					Log.d(TAG,"Valor de subtitulo ANTES= "+tv.getText());
+        					
         					tv.setText(valor);
+        					tv.refreshDrawableState();
+
+        					Log.d(TAG,"Valor de subtitulo DESPUES= "+tv.getText());
         					t.setNombre(valor);
         					//Retorno
         			    	Intent resultIntent=new Intent();
