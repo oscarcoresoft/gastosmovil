@@ -254,10 +254,7 @@ public class PreferencesTarifa extends ListActivity{
 			
 		}
 	};
-	
-	
-	
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -270,12 +267,17 @@ public class PreferencesTarifa extends ListActivity{
 			{
 				Franja f=(Franja) data.getSerializableExtra(FRANJA_RETORNO);
 				Log.d(TAG,"La franja retornada es "+f.getNombre());
-				//Añadir la tarifa al ArrayList de tarifas
+				//Añadir la franja al ArrayList de tarifa
 				
-				//if (f.getIdentificador()==0)
-					//t.addTarifa(f); //Franja Nueva
-				//else
-					//f.modificarFranja(f.getIdentificador(), f);
+				if (f.getIdentificador()==0)
+					t.addFranja(f); //Franja Nueva
+				else
+					t.modificarFranja(f.getIdentificador(), f);
+				
+				//Retorno
+		    	Intent resultIntent=new Intent();
+		    	resultIntent.putExtra(TARIFA_RETORNO, t);
+		    	setResult(Activity.RESULT_OK, resultIntent);
 			}
 			break;
 

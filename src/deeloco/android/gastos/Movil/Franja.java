@@ -167,7 +167,7 @@ public class Franja implements Serializable{
 	 * Retorna el limite del coste de las llamadas
 	 * @return
 	 */
-	double getLimite(){
+	public int getLimite(){
 		return this.limite;
 	}
 	
