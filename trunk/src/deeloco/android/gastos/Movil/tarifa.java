@@ -312,10 +312,12 @@ public class tarifa implements Serializable{
 	 */
 	public void deleteFranja(String nombre)
 	{
+		Log.d(TAG,"Intentando eliminar la franja= "+nombre);
         for (int i=0;i<this.franjas.size();i++)
         {
         	if (nombre.equals(this.franjas.get(i).getNombre()))
         	{
+        		Log.d(TAG,"Eliminando la franja= "+nombre);
         		this.franjas.remove(i);
         	}
         }

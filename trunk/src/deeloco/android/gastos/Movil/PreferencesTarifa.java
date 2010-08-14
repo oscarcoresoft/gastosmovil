@@ -65,6 +65,7 @@ public class PreferencesTarifa extends ListActivity{
         TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
         cabecera.setText("TARIFA");
         t = (tarifa) getIntent().getExtras().get("tarifa");
+        /*
         idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
         
     	Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());
@@ -85,9 +86,43 @@ public class PreferencesTarifa extends ListActivity{
 
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
         setListAdapter(ad);
+        */
 
     }
 
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		
+		listaIYT.clear();
+		idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
+    	Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());
+    	//Editar una tarifa existente
+    	//Nombre de la tarifa
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", t.getNombre()));
+    	//Gasto Mínimo
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Gasto Mínimo Mensual", ""+t.getMinimo()));
+    	//Color
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Color", t.getColor()));
+    	//Numeros
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Numeros Asociados a la tarifa", t.getNumeros()));
+    	//Una entrada para cada franja que tiene la tarifa
+    	for (int a=0;a<t.getNumFranjas();a++)
+    	{
+    		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more),"Franja Horaria" ,t.getFranjas().get(a).getNombre()));
+    	}
+
+        adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
+        setListAdapter(ad);
+		
+		
+		
+		
+		
+	}
+    
+    
 	public boolean onOptionsItemSelected (MenuItem item) {
 		
         switch(item.getItemId()) {
@@ -322,5 +357,7 @@ public class PreferencesTarifa extends ListActivity{
 		
 		return 0;
 	}
+
+
 	
 }
