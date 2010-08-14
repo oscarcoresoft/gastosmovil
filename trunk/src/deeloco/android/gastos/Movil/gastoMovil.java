@@ -631,6 +631,7 @@ public class gastoMovil extends ListActivity {
 				ts=(tarifas) data.getSerializableExtra(TARIFAS_RETORNO);
 				//Log.d(TAG,"La tarifa retornada es "+t.getNombre());
 				//GUARDAR ts EN EL DOCUMENTO XML
+				ts.guardarFranjas();
 
 			}
 			break;
