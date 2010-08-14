@@ -70,14 +70,11 @@ public class PreferencesTarifas extends ListActivity{
         	
         	if (ts.getTarifas().get(a).getNombre().compareTo(tarifaDef)==0)
         	{
-        		
         		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more), ts.getTarifas().get(a).getNombre(),"Tarifa aplicada por defecto"));
-        		Log.d(TAG,"Defecto = "+listaIYT.get(a).subtitulo);
         	}
         	else
         	{
         		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more), ts.getTarifas().get(a).getNombre(), " "));
-        		Log.d(TAG,"NO Defecto = "+listaIYT.get(a).subtitulo);
         	}
         }
         
@@ -95,13 +92,14 @@ public class PreferencesTarifas extends ListActivity{
         	tarifa t=new tarifa(0);
         	t.setNombre("Tarifa Nueva");
         	t.setMinimo(0.0);
+        	t.setColor("Blanco");
         	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
         	Bundle extras = new Bundle();
         	Log.d(TAG,"Pasamos la tarifa NUEVA : "+t.getNombre());
         	extras.putInt("idTarifa", 0);
         	extras.putSerializable("tarifa", t);
         	settingsActivity2.putExtras(extras);
-        	startActivity(settingsActivity2);
+        	startActivityForResult(settingsActivity2,RETURN_PREFERENCES_TARIFA);
         	
             break;
             
@@ -143,10 +141,22 @@ public class PreferencesTarifas extends ListActivity{
 				tarifa t=(tarifa) data.getSerializableExtra(TARIFA_RETORNO);
 				Log.d(TAG,"La tarifa retornada es "+t.getNombre());
 				//Añadir la tarifa al ArrayList de tarifas
-				if (t.getIdentificador()==0)
+				
+				switch (t.getIdentificador()) {
+				case 0:
+
 					ts.addTarifa(t); //Tarifa nueva
-				else
+					break;
+					
+				case -1:
+					ts.deleteTarifa(t.getNombre());
+					break;
+
+				default:
 					ts.modificarTarifa(t.getIdentificador(), t);
+					break;
+				}
+				
 			}
 			break;
 

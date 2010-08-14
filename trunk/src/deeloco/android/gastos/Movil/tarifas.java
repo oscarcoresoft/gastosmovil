@@ -120,11 +120,19 @@ public class tarifas implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Devuelve el ultimo id que se puede asignar
 	 * @return
 	 */
-	int ultimoId(){
-		return 0;
+	private int ultimoId(){
+		int ultimo=0;
+		for (int i=0;i<this.tarifas.size();i++)
+		{
+			if (ultimo<this.tarifas.get(i).getIdentificador())
+			{
+				ultimo=this.tarifas.get(i).getIdentificador();
+			}
+		}
+		return ++ultimo;
 	}
 	
 	/**
@@ -149,6 +157,11 @@ public class tarifas implements Serializable{
 		return coste;
 	}
 	
+	/**
+	 * Devuelve el identificador de la tarifa al que pertenece un numero 
+	 * @param numero
+	 * @return
+	 */
 	private int indiceTarifa (String numero){
 		
         for (int i=0;i<this.tarifas.size();i++)
@@ -166,7 +179,12 @@ public class tarifas implements Serializable{
 	 * @param t
 	 */
 	void addTarifa(tarifa t){
-		//Cuando se añade una nueva tarifa, hay que asignarle un identificador nuevo
+		//Cuando se añade una nueva tarifa, hay que asignarle un identificador nuevo si id=0
+		Log.d(TAG,"Añadiendo tarifa con id="+t.getIdentificador()+", con nombre: "+t.getNombre());
+		if (t.getIdentificador()==0)
+		{
+			t.setIdentificador(ultimoId());
+		}
 		this.tarifas.add(t);
 	}
 	
@@ -187,6 +205,19 @@ public class tarifas implements Serializable{
 		tactual.setDefecto(t.isDefecto());
 		tactual.setFranjas(t.getFranjas());
 	}
+	
+	
+	public void deleteTarifa(String nombre)
+	{
+        for (int i=0;i<this.tarifas.size();i++)
+        {
+        	if (nombre.equals(this.tarifas.get(i).getNombre()))
+        	{
+        		this.tarifas.remove(i);
+        	}
+        }
+	}
+	
 	
 	/**
 	 * Retorna el numero de tarifas que hay definidas
