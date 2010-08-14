@@ -155,11 +155,10 @@ public class PreferencesTarifa extends ListActivity{
 			break;
 		case 1: // Gasto Mínimo
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
-			TextBox dialog2 = new TextBox(this);
-			dialog2.setTitle(iyt.titulo);
+			dialog.setTitle(iyt.titulo);
         	Log.d(TAG,"Valor incial de Gastos Mínimo = "+tv.getText().toString());
-        	dialog2.setValorInicial(iyt.subtitulo);
-        	dialog2.setTextBoxListener(
+        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
         				public void onOkClick(String valor) {
@@ -173,7 +172,7 @@ public class PreferencesTarifa extends ListActivity{
         			    	setResult(Activity.RESULT_OK, resultIntent);
         				}
         			});
-        	dialog2.show();
+        	dialog.show();
         	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 		case 2: // Color
