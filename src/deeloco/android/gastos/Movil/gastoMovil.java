@@ -629,9 +629,16 @@ public class gastoMovil extends ListActivity {
 			if (resultCode==Activity.RESULT_OK)
 			{
 				ts=(tarifas) data.getSerializableExtra(TARIFAS_RETORNO);
-				//Log.d(TAG,"La tarifa retornada es "+t.getNombre());
+				//Log.d(TAG,"Retorno de preferencias tarifas ");
 				//GUARDAR ts EN EL DOCUMENTO XML
-				ts.guardarFranjas();
+				if (ts.guardarTarifas())
+				{
+					Log.d(TAG,"XML Guardado");
+				}
+				else
+				{
+					Log.d(TAG,"XML NO Guardado");
+				}
 
 			}
 			break;

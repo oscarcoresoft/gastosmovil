@@ -237,9 +237,15 @@ public class Franja implements Serializable{
 		this.dias=dias;
 	}
 	void setDias(String dias){
+		if (dias.indexOf("[")!=-1)
+		{
+			//tiene []
+			dias=dias.substring(1, dias.length()-1);
+			Log.d(TAG,"Dias recortado="+dias);
+		}
     	String data[] = dias.split(",");
     	for (int i=0; i < data.length; i++) {
-    		 this.dias.add(data[i]);
+    		 this.dias.add(data[i].trim());
     		}
 	}
 	
