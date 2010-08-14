@@ -1,5 +1,6 @@
 package deeloco.android.gastos.Movil;
 
+import java.io.FileWriter;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class tarifas implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String TAG = "clase tarifas";
+	private static String path="\\sdcard\\gastosmovil\\datosTarifas2.xml";
 	/**
 	 * Conjunto de franjas horarias definidas por el usuario
 	 */
@@ -164,7 +166,7 @@ public class tarifas implements Serializable{
 	 * @param t
 	 */
 	void addTarifa(tarifa t){
-			
+		//Cuando se añade una nueva tarifa, hay que asignarle un identificador nuevo
 		this.tarifas.add(t);
 	}
 	
@@ -192,5 +194,63 @@ public class tarifas implements Serializable{
 	 */
 	int numTarifas(){
 		return tarifas.size();
+	}
+	
+	
+	/**
+	 * Guarda en un fichero XML los datos de las tarifas y las franjas
+	 * @return
+	 */
+	
+	public boolean guardarTarifas(){
+		
+		ArrayList <Franja> franjas = new ArrayList <Franja>();
+		String xmlFinal="?xml version=\"1.0\" encoding=\"iso-8859-1\""; 
+		xmlFinal="<tarifas>";
+		for (int t=0;t<this.tarifas.size();t++)
+		{
+			xmlFinal+="<tarifa id=\""+this.tarifas.get(t).getIdentificador()+"\">";
+			xmlFinal+="<nombre>"+this.tarifas.get(t).getNombre()+"</nombre>";
+			xmlFinal+="<gastoMinimo>"+this.tarifas.get(t).getMinimo()+"</gastoMinimo>";
+			xmlFinal+="<color>"+this.tarifas.get(t).getColor()+"</color>";
+			xmlFinal+="<numeros>"+this.tarifas.get(t).getNumeros()+"</numeros>";
+			franjas=this.tarifas.get(t).getFranjas();
+
+			for (int f=0;f<franjas.size();f++)
+			{
+				xmlFinal+="<franja id=\""+franjas.get(t).getIdentificador()+"\">";
+				xmlFinal+="<nombre>"+franjas.get(t).getNombre()+"</nombre>";
+				xmlFinal+="<horaInicio>"+franjas.get(t).getHoraFinal()+"</horaInicio>";
+				xmlFinal+="<horaFinal>"+franjas.get(t).getHoraFinal()+"</horaFinal>";
+				xmlFinal+="<dias>"+franjas.get(t).getDias()+"</dias>";
+				xmlFinal+="<coste>"+franjas.get(t).getCoste()+"</coste>";
+				xmlFinal+="<establecimiento>"+franjas.get(t).getEstablecimiento()+"</establecimiento>";
+				xmlFinal+="<limite>"+franjas.get(t).getLimite()+"</limite>";
+				xmlFinal+="<costeFueraLimite>"+franjas.get(t).getCosteFueraLimite()+"</costeFueraLimite>";
+				xmlFinal+="</franja>";
+			}
+			xmlFinal+="</tarifa>";
+		}
+		xmlFinal+="</tarifas>";
+		
+		//Guardar xml en un fichero
+		
+		//Escribir en la tarjeta SD
+        
+        FileWriter fWriter;
+        boolean retorno=true;
+        try{
+             fWriter = new FileWriter(path);
+             fWriter.write(xmlFinal);
+             fWriter.flush();
+             fWriter.close();
+
+         }catch(Exception e){
+
+                  e.printStackTrace();
+                  retorno=false;
+
+         }
+         return retorno;
 	}
 }
