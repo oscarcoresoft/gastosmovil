@@ -115,6 +115,9 @@ public class Franja implements Serializable{
 		this.identificador=Integer.parseInt(id);
 	}
 	
+	Franja (int id){
+		this.identificador=id;
+	}
 	/**
 	 * Retorna el valor del identificar
 	 * @return

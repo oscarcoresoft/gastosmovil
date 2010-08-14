@@ -264,9 +264,30 @@ public class tarifa implements Serializable{
 	// resto de métodos
 	
 	/**
+	 * Devuelve el ultimo id que se puede asignar
+	 * @return
+	 */
+	private int ultimoId(){
+		int ultimo=0;
+		for (int i=0;i<this.franjas.size();i++)
+		{
+			if (ultimo<this.franjas.get(i).getIdentificador())
+			{
+				ultimo=this.franjas.get(i).getIdentificador();
+			}
+		}
+		return ++ultimo;
+	}
+	
+	
+	/**
 	 * Añade una nueva franja al arraylist de franjas
 	 */
 	void addFranja(Franja f){
+		if (f.getIdentificador()==0)
+		{
+			f.setIdentificador(ultimoId());
+		}
 		this.franjas.add(f);
 	}
 	
@@ -285,6 +306,22 @@ public class tarifa implements Serializable{
 		factual.setCosteFueraLimite(f.getCosteFueraLimite());
 	}
 
+	/**
+	 * Elimina la franja con nombre
+	 * @param nombre
+	 */
+	public void deleteFranja(String nombre)
+	{
+        for (int i=0;i<this.franjas.size();i++)
+        {
+        	if (nombre.equals(this.franjas.get(i).getNombre()))
+        	{
+        		this.franjas.remove(i);
+        	}
+        }
+	}
+	
+	
 	/**
 	 * Devuelve si un numero pertenece a la tarifa
 	 * @param numero
