@@ -30,7 +30,7 @@ public class PreferencesTarifa extends ListActivity{
 	private static final int ELIMINAR_TARIFA = Menu.FIRST+1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String FRANJA_RETORNO = "franja_retorno";
-	private static final String TAG = "PreferencesFranja";
+	private static final String TAG = "PreferencesTarifa";
 	private static final int RETURN_PREFERENCES_FRANJA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
 	private tarifa t;
@@ -105,6 +105,12 @@ public class PreferencesTarifa extends ListActivity{
             
         case ELIMINAR_TARIFA:
         	//Hay que eliminar la franja actual
+	    	Intent resultIntent=new Intent();
+	    	t.setIdentificador(-1);
+	    	resultIntent.putExtra(TARIFA_RETORNO, t);
+	    	setResult(Activity.RESULT_OK, resultIntent);
+	    	finish();
+        	
         	break;
         }
         return true;

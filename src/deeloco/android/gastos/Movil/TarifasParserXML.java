@@ -61,13 +61,13 @@ public void startElement(String uri, String localName, String qName,Attributes a
 	} 
 	if (localName.compareTo("tarifa")==0)
 	{
-		System.out.println("... t=new tarifa("+attributes.getValue(0)+"); ...");
+		//System.out.println("... t=new tarifa("+attributes.getValue(0)+"); ...");
 		t=new tarifa(attributes.getValue(0));
 	}
 
 	if (localName.compareTo("franja")==0)
 	{
-		System.out.println("... f=new franja("+attributes.getValue(0)+") ...");
+		//System.out.println("... f=new franja("+attributes.getValue(0)+") ...");
 		f=new Franja(attributes.getValue(0));
 	}	
 	
@@ -83,74 +83,74 @@ public void endElement(String uri, String localName, String qName) throws SAXExc
 	
 	if (localName.compareTo("tarifa")==0)
 	{
-		System.out.println("... ts.addTarifa(t); ...");
+		//System.out.println("... ts.addTarifa(t); ...");
 		ts.addTarifa(t);
 	}
 	if (localName.compareTo("nombreTarifa")==0)
 	{
-		System.out.println("... t.setNombre("+this.datosElemento+") ...");
+		//System.out.println("... t.setNombre("+this.datosElemento+") ...");
 		t.setNombre(this.datosElemento);
 	}
 	if (localName.compareTo("gastoMinimo")==0)
 	{
-		System.out.println("... t.setGastoMinimo("+this.datosElemento+") ...");
+		//System.out.println("... t.setGastoMinimo("+this.datosElemento+") ...");
 		t.setMinimo(Double.parseDouble(this.datosElemento));
 	}
 	if (localName.compareTo("color")==0)
 	{
-		System.out.println("... t.setColor("+this.datosElemento+") ...");
+		//System.out.println("... t.setColor("+this.datosElemento+") ...");
 		t.setColor(this.datosElemento);
 	}
 	
 	if (localName.compareTo("numeros")==0)
 	{
-		System.out.println("... t.setNumero("+this.datosElemento+") ...");
+		//System.out.println("... t.setNumero("+this.datosElemento+") ...");
 		t.setNumeros(this.datosElemento);
 	} 
 	
 	if (localName.compareTo("franja")==0)
 	{
-		System.out.println("... t.addFranja(f); ...");
+		//System.out.println("... t.addFranja(f); ...");
 		t.addFranja(f);
 	}
 	if (localName.compareTo("nombre")==0)
 	{
-		System.out.println("... f.setNombre("+this.datosElemento+"); ...");
+		//System.out.println("... f.setNombre("+this.datosElemento+"); ...");
 		f.setNombre(this.datosElemento);
 	}
 	if (localName.compareTo("horaInicio")==0)
 	{
-		System.out.println("... f.setHoraInicio("+this.datosElemento+"); ...");
+		//System.out.println("... f.setHoraInicio("+this.datosElemento+"); ...");
 		f.setHoraInicio(this.datosElemento);
 	}
 	if (localName.compareTo("horaFinal")==0)
 	{
-		System.out.println("... f.setHoraFinal("+this.datosElemento+"); ...");
+		//System.out.println("... f.setHoraFinal("+this.datosElemento+"); ...");
 		f.setHoraFinal(this.datosElemento);
 	}
 	if (localName.compareTo("dias")==0)
 	{
-		System.out.println("... f.setDias("+this.datosElemento+"); ...");
+		//System.out.println("... f.setDias("+this.datosElemento+"); ...");
 		f.setDias(this.datosElemento);
 	}
 	if (localName.compareTo("coste")==0)
 	{
-		System.out.println("... f.setCoste("+this.datosElemento+"); ...");
+		//System.out.println("... f.setCoste("+this.datosElemento+"); ...");
 		f.setCoste(this.datosElemento);
 	}
 	if (localName.compareTo("establecimiento")==0)
 	{
-		System.out.println("... f.setEstablecimiento("+this.datosElemento+"); ...");
+		//System.out.println("... f.setEstablecimiento("+this.datosElemento+"); ...");
 		f.setEstablecimiento(this.datosElemento);
 	}
 	if (localName.compareTo("limite")==0)
 	{
-		System.out.println("... f.setLimite("+this.datosElemento+"); ...");
+		//System.out.println("... f.setLimite("+this.datosElemento+"); ...");
 		f.setLimite(this.datosElemento);
 	}
 	if (localName.compareTo("costeFueraLimite")==0)
 	{
-		System.out.println("... f.setCosteFueraLimite("+this.datosElemento+"); ...");
+		//System.out.println("... f.setCosteFueraLimite("+this.datosElemento+"); ...");
 		f.setCosteFueraLimite(this.datosElemento);
 	}
 	//System.out.println("... --> FINAL DEL ELEMENTO ..."+localName.toString());
