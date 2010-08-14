@@ -93,14 +93,22 @@ public class PreferencesTarifa extends ListActivity{
         switch(item.getItemId()) {
         
         case NUEVA_FRANJA:
-      		//Intent settingsActivity = new Intent(getBaseContext(), Preferencias.class );
-      		//startActivity(settingsActivity);
-        	TextBox dialog = new TextBox(this);
-        	dialog.setTitle(this.getText(R.string.tituloInputBox));
-        	dialog.setValorInicial("Valor Inicial");
-        	dialog.setTextBoxListener(tbListener);
-        	dialog.show();
-        	//Toast.makeText(getBaseContext(),"Valor: "+dialog.getValor(),Toast.LENGTH_LONG).show();
+        	Franja f=new Franja(0);
+        	f.setNombre("Franja Nueva");
+        	f.setHoraInicio("00:00:00");
+        	f.setHoraFinal("23:00:00");
+        	f.setDias("[Lun,Mar,Mie,Jue,Vie,Sab,Dom]");
+        	f.setCoste(0.0);
+        	f.setEstablecimiento(0.0);
+        	f.setLimite(0);
+        	f.setCosteFueraLimite(0.0);
+        	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
+        	Bundle extras = new Bundle();
+        	Log.d(TAG,"Pasamos la franja NUEVA : "+f.getNombre());
+        	extras.putInt("idFranja", 0);
+        	extras.putSerializable("franja", t);
+        	settingsActivity2.putExtras(extras);
+        	startActivityForResult(settingsActivity2,RETURN_PREFERENCES_FRANJA);
             break;
             
         case ELIMINAR_TARIFA:
@@ -275,10 +283,20 @@ public class PreferencesTarifa extends ListActivity{
 				Log.d(TAG,"La franja retornada es "+f.getNombre());
 				//Añadir la franja al ArrayList de tarifa
 				
-				if (f.getIdentificador()==0)
+				switch (f.getIdentificador()) {
+				case 0:
 					t.addFranja(f); //Franja Nueva
-				else
+					break;
+					
+				case -1:
+					//Eliminar la franja
+					t.deleteFranja(f.getNombre());
+					break;
+
+				default:
 					t.modificarFranja(f.getIdentificador(), f);
+					break;
+				}
 				
 				//Retorno
 		    	Intent resultIntent=new Intent();

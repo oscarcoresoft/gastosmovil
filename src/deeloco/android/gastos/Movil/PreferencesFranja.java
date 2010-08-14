@@ -93,14 +93,11 @@ public class PreferencesFranja extends ListActivity{
         switch(item.getItemId()) {
         
         case ELIMINAR_FRANJA:
-      		//Intent settingsActivity = new Intent(getBaseContext(), Preferencias.class );
-      		//startActivity(settingsActivity);
-        	TextBox dialog = new TextBox(this);
-        	dialog.setTitle(this.getText(R.string.tituloInputBox));
-        	dialog.setValorInicial("Valor Inicial");
-        	dialog.setTextBoxListener(tbListener);
-        	dialog.show();
-        	//Toast.makeText(getBaseContext(),"Valor: "+dialog.getValor(),Toast.LENGTH_LONG).show();
+	    	Intent resultIntent=new Intent();
+	    	f.setIdentificador(-1);
+	    	resultIntent.putExtra(FRANJA_RETORNO, f);
+	    	setResult(Activity.RESULT_OK, resultIntent);
+	    	finish();
             break;
         }
         return true;

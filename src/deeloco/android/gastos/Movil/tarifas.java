@@ -207,6 +207,10 @@ public class tarifas implements Serializable{
 	}
 	
 	
+	/**
+	 * Elimina la tarifa con nombre
+	 * @param nombre
+	 */
 	public void deleteTarifa(String nombre)
 	{
         for (int i=0;i<this.tarifas.size();i++)
