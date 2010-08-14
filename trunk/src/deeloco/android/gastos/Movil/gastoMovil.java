@@ -31,6 +31,7 @@ import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -485,7 +486,18 @@ public class gastoMovil extends ListActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
-    	  	menu.setHeaderTitle(R.string.mnctx_titulo); 
+    	  	menu.setHeaderTitle(R.string.mnctx_titulo);
+    	  	Log.d(TAG,"menuInfo : "+v.getId());
+    	  	ArrayList <tarifa> tarifas=ts.getTarifas();
+
+    	  	for (int a=0;a<tarifas.size();a++)
+    	  	{
+    	  		//tarifas.get(a).pertenece(v.findViewById(id))
+    	  		menu.add(0, a, 0, tarifas.get(a).getNombre());
+    	  	}
+    	  	
+    	  	/*
+    	  	
     		menu.add(0, ADD_NS, 0, R.string.mnctx_opc1);
     		menu.add(0, DELETE_NS, 0, R.string.mnctx_opc2);
     		if (vp.getPrefEsp1Activada())
@@ -499,7 +511,7 @@ public class gastoMovil extends ListActivity {
         		menu.add(0, ADD_ESP2, 0, "Añadir a " +vp.getPrefEsp2Nombre());
         		menu.add(0, DELETE_ESP2, 0, "Eliminar de " +vp.getPrefEsp2Nombre());
     		}
-    		
+    		*/
 
     }
     

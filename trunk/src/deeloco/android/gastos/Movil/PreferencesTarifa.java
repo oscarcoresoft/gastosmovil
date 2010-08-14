@@ -97,7 +97,7 @@ public class PreferencesTarifa extends ListActivity{
 		
 		listaIYT.clear();
 		idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
-    	Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());
+    	//Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());
     	//Editar una tarifa existente
     	//Nombre de la tarifa
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", t.getNombre()));
@@ -137,14 +137,14 @@ public class PreferencesTarifa extends ListActivity{
         	f.setEstablecimiento(0.0);
         	f.setLimite(0);
         	f.setCosteFueraLimite(0.0);
-        	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
+        	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesFranja.class );
         	Bundle extras = new Bundle();
         	Log.d(TAG,"Pasamos la franja NUEVA : "+f.getNombre());
         	extras.putInt("idFranja", 0);
-        	extras.putSerializable("franja", t);
+        	extras.putSerializable("franja", f);
         	settingsActivity2.putExtras(extras);
         	startActivityForResult(settingsActivity2,RETURN_PREFERENCES_FRANJA);
-            break;
+            break; 
             
         case ELIMINAR_TARIFA:
         	//Hay que eliminar la franja actual
