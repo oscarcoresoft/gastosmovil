@@ -235,6 +235,15 @@ public class tarifa implements Serializable{
 	}
 	
 	
+	public void deleteNumero(String numero){
+		
+		if (pertenece(numero))
+		{
+			this.numeros.remove(this.numeros.indexOf(numero));
+		}
+			
+	}
+	
 	/**
 	 * Asigna la cadena numeros al atributo numeros
 	 * @param numeros

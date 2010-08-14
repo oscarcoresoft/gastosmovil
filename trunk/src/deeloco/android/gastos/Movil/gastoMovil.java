@@ -489,35 +489,44 @@ public class gastoMovil extends ListActivity {
     	  	menu.setHeaderTitle(R.string.mnctx_titulo);
     	  	Log.d(TAG,"menuInfo : "+v.getId());
     	  	ArrayList <tarifa> tarifas=ts.getTarifas();
-
+    	  	AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
+    	  	
     	  	for (int a=0;a<tarifas.size();a++)
     	  	{
-    	  		//tarifas.get(a).pertenece(v.findViewById(id))
-    	  		menu.add(0, a, 0, tarifas.get(a).getNombre());
+    	  		
+    	  		if (tarifas.get(a).pertenece(lista.get(info.position).telefono))
+    	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
+    	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
+    	  		else
+    	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Añadir a "+tarifas.get(a).getNombre());
+    	  		
     	  	}
-    	  	
-    	  	/*
-    	  	
-    		menu.add(0, ADD_NS, 0, R.string.mnctx_opc1);
-    		menu.add(0, DELETE_NS, 0, R.string.mnctx_opc2);
-    		if (vp.getPrefEsp1Activada())
-    		{
-        		menu.add(0, ADD_ESP1, 0, "Añadir a " +vp.getPrefEsp1Nombre());
-        		menu.add(0, DELETE_ESP1, 0, "Eliminar de " +vp.getPrefEsp1Nombre());
-    		}
-    		
-    		if (vp.getPrefEsp2Activada())
-    		{
-        		menu.add(0, ADD_ESP2, 0, "Añadir a " +vp.getPrefEsp2Nombre());
-        		menu.add(0, DELETE_ESP2, 0, "Eliminar de " +vp.getPrefEsp2Nombre());
-    		}
-    		*/
 
     }
     
     //--- Eventos del menu contextual
     public boolean onContextItemSelected(MenuItem item) {
     	  AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	  
+    	  tarifa t=ts.getTarifa(item.getItemId());
+    	  String tlf=lista.get(info.position).telefono;
+    	  if (t.pertenece(tlf))
+    	  {
+    		  //Eliminar
+    		  Log.d(TAG,"Eliminar el numero : "+tlf+", de "+t.getNombre());
+    		  t.deleteNumero(tlf);
+    	  }
+    	  else
+    	  {
+    		  //Añadir
+    		  Log.d(TAG,"Añadir el numero : "+tlf+", de "+t.getNombre());
+    		  t.addNumero(tlf);
+    	  }
+    	  return true;
+    	  
+    	  /*
+    	  
+    	  
     	  switch (item.getItemId()) {
     	  case ADD_NS:
     		  //******************** AQUI ***************************
@@ -537,7 +546,7 @@ public class gastoMovil extends ListActivity {
     			  }
 
     		  }
-    		  
+    		 
     	    return true;
     	    
     	  case DELETE_NS:
@@ -622,6 +631,9 @@ public class gastoMovil extends ListActivity {
     	  default:
     	    return super.onContextItemSelected(item);
     	  }
+    	  
+    	  */
+    	  
     	}
     
   //--- Eventos de devolución de parámetros de preferencias.class
