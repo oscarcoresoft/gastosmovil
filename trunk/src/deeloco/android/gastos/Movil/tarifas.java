@@ -16,7 +16,7 @@ public class tarifas implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String TAG = "clase tarifas";
-	private static String path="\\sdcard\\gastosmovil\\datosTarifas2.xml";
+	private static String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
 	/**
 	 * Conjunto de franjas horarias definidas por el usuario
 	 */
@@ -205,12 +205,13 @@ public class tarifas implements Serializable{
 	public boolean guardarTarifas(){
 		
 		ArrayList <Franja> franjas = new ArrayList <Franja>();
-		String xmlFinal="?xml version=\"1.0\" encoding=\"iso-8859-1\""; 
-		xmlFinal="<tarifas>";
+		String xmlFinal="<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"; 
+		xmlFinal+="<tarifas>";
+		Log.d(TAG,"Cargando XML");
 		for (int t=0;t<this.tarifas.size();t++)
 		{
 			xmlFinal+="<tarifa id=\""+this.tarifas.get(t).getIdentificador()+"\">";
-			xmlFinal+="<nombre>"+this.tarifas.get(t).getNombre()+"</nombre>";
+			xmlFinal+="<nombreTarifa>"+this.tarifas.get(t).getNombre()+"</nombreTarifa>";
 			xmlFinal+="<gastoMinimo>"+this.tarifas.get(t).getMinimo()+"</gastoMinimo>";
 			xmlFinal+="<color>"+this.tarifas.get(t).getColor()+"</color>";
 			xmlFinal+="<numeros>"+this.tarifas.get(t).getNumeros()+"</numeros>";
@@ -218,20 +219,21 @@ public class tarifas implements Serializable{
 
 			for (int f=0;f<franjas.size();f++)
 			{
-				xmlFinal+="<franja id=\""+franjas.get(t).getIdentificador()+"\">";
-				xmlFinal+="<nombre>"+franjas.get(t).getNombre()+"</nombre>";
-				xmlFinal+="<horaInicio>"+franjas.get(t).getHoraFinal()+"</horaInicio>";
-				xmlFinal+="<horaFinal>"+franjas.get(t).getHoraFinal()+"</horaFinal>";
-				xmlFinal+="<dias>"+franjas.get(t).getDias()+"</dias>";
-				xmlFinal+="<coste>"+franjas.get(t).getCoste()+"</coste>";
-				xmlFinal+="<establecimiento>"+franjas.get(t).getEstablecimiento()+"</establecimiento>";
-				xmlFinal+="<limite>"+franjas.get(t).getLimite()+"</limite>";
-				xmlFinal+="<costeFueraLimite>"+franjas.get(t).getCosteFueraLimite()+"</costeFueraLimite>";
+				xmlFinal+="<franja id=\""+franjas.get(f).getIdentificador()+"\">";
+				xmlFinal+="<nombre>"+franjas.get(f).getNombre()+"</nombre>";
+				xmlFinal+="<horaInicio>"+franjas.get(f).getHoraInicio()+"</horaInicio>";
+				xmlFinal+="<horaFinal>"+franjas.get(f).getHoraFinal()+"</horaFinal>";
+				xmlFinal+="<dias>"+franjas.get(f).getDias()+"</dias>";
+				xmlFinal+="<coste>"+franjas.get(f).getCoste()+"</coste>";
+				xmlFinal+="<establecimiento>"+franjas.get(f).getEstablecimiento()+"</establecimiento>";
+				xmlFinal+="<limite>"+franjas.get(f).getLimite()+"</limite>";
+				xmlFinal+="<costeFueraLimite>"+franjas.get(f).getCosteFueraLimite()+"</costeFueraLimite>";
 				xmlFinal+="</franja>";
 			}
 			xmlFinal+="</tarifa>";
 		}
 		xmlFinal+="</tarifas>";
+		Log.d(TAG,xmlFinal);
 		
 		//Guardar xml en un fichero
 		
@@ -240,6 +242,7 @@ public class tarifas implements Serializable{
         FileWriter fWriter;
         boolean retorno=true;
         try{
+        	Log.d(TAG,"Escribiendo XML");
              fWriter = new FileWriter(path);
              fWriter.write(xmlFinal);
              fWriter.flush();
@@ -248,6 +251,7 @@ public class tarifas implements Serializable{
          }catch(Exception e){
 
                   e.printStackTrace();
+                  Log.d(TAG,e.getMessage());
                   retorno=false;
 
          }
