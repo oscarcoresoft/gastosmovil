@@ -229,16 +229,27 @@ public class tarifa implements Serializable{
 	 * Asigna la cadena numeros al atributo numeros
 	 * @param numeros
 	 */
+	void addNumero(String numero){
+		if (numero.length()>5)
+		 this.numeros.add(numero.trim());
+	}
+	
+	
+	/**
+	 * Asigna la cadena numeros al atributo numeros
+	 * @param numeros
+	 */
 	void setNumeros(String numeros){
-
+		
 		String numeros2=numeros.trim();
 		if (numeros2.length()>5)
         {
+			this.numeros.clear();
         	String data[] = numeros2.split(",");
         	for (int i=0; i < data.length; i++) {
-        		 this.numeros.add(data[i]);
+        		 this.numeros.add(data[i].trim());
         		}
-        }  	
+        }  
 	}
 	
 	/**
