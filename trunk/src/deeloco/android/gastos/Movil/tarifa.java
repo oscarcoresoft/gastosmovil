@@ -258,7 +258,9 @@ public class tarifa implements Serializable{
         	for (int i=0; i < data.length; i++) {
         		 this.numeros.add(data[i].trim());
         		}
-        }  
+        }
+		else
+			this.numeros.clear();
 	}
 	
 	/**
