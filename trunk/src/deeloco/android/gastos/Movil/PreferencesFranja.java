@@ -48,8 +48,8 @@ public class PreferencesFranja extends ListActivity{
     protected Dialog onCreateDialog(int id) {
         switch (id) {
         case TIME_DIALOG_HORA_INICIO:
-        	Time hora=Time.valueOf(listaIYT.get(1).subtitulo);
-            return new TimePickerDialog(this, mTimeSetListener_horaInicio, hora.getHours(), hora.getMinutes(), true);
+        	
+            return new TimePickerDialog(this, mTimeSetListener_horaInicio, 0, 0, true);
         }
         return null;
     }

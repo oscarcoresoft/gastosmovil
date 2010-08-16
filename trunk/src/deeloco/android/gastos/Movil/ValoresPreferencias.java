@@ -188,10 +188,7 @@ public class ValoresPreferencias {
     }
     
     public Drawable getPreferenciasColor(int listaNumero){
-    	//Retorno del color de la tarifa correspondiente
-    	// listaNumero=NUM -> Numeros Normales
-    	// listaNumero=NUMESP1 -> Numeros Especiales 1
-    	// listaNumero=NUMESP2 -> Numeros Especiales 2
+
     	
     	int color=0;
     	String col="";
@@ -253,6 +250,23 @@ public class ValoresPreferencias {
     public String getPreferenciasDefecto(){
     	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("defecto", "");
     	return valor;
+    }
+    
+    
+  public Drawable getColor(String color){
+
+	  	Resources r=contexto.getResources();
+	  	Drawable c=null;
+	  	
+	  	if (color.equals("Blanco"))  c=r.getDrawable(R.drawable.line7);
+	  	if (color.equals("Amarillo"))  c=r.getDrawable(R.drawable.line1);
+	  	if (color.equals("Azul"))  c=r.getDrawable(R.drawable.line2);
+	  	if (color.equals("Naranja"))  c=r.getDrawable(R.drawable.line3);
+	  	if (color.equals("Rojo"))  c=r.getDrawable(R.drawable.line4);
+	  	if (color.equals("Verde"))  c=r.getDrawable(R.drawable.line5);
+	  	if (color.equals("Violeta"))  c=r.getDrawable(R.drawable.line6);
+	  	if (color.equals("Transparente"))  c=r.getDrawable(R.drawable.line0);
+    	return c;
     }
 
 }

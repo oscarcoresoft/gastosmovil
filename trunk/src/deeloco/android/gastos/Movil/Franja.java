@@ -317,11 +317,14 @@ public class Franja implements Serializable{
 	 */
 	boolean pertenece(int dia, Time hora){
 		
+		//REVISAR ESTO.
+		String [] diasSemana={"Lun","Mar","Mie","Jue","Vie","Sab","Dom"};
+		
 		Time mediaNoche24=Time.valueOf("24:00:00");
 		Time mediaNoche00=Time.valueOf("00:00:00");
-		
+		System.out.println("Pertenece el dia ["+dia+"] a la franja");
 		System.out.println("Días de la franja "+this.identificador+" = "+this.dias.size());
-		if (this.dias.indexOf(dia)==-1)
+		if (this.dias.indexOf(diasSemana[dia])==-1)
 			return false;
 		else
 		{

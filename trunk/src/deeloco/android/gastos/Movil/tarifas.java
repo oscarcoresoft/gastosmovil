@@ -4,9 +4,15 @@ import java.io.FileWriter;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Date;
 
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 public class tarifas implements Serializable{
@@ -21,6 +27,8 @@ public class tarifas implements Serializable{
 	 * Conjunto de franjas horarias definidas por el usuario
 	 */
 	private ArrayList <tarifa> tarifas=new ArrayList <tarifa>();
+	private Context contexto;
+
 	
 	tarifas(){
 		//cuando se instance un objeto, se debe cargar los valores de las franjas 
@@ -37,20 +45,18 @@ public class tarifas implements Serializable{
 		return false;
 	}
 	
-	/**
-	 * Guarda las franjas alamcenadas en el ArrayList franjas en un fichero XML (franjas.xml)
-	 */
-	boolean guardarFranjas(){
-		return false;
-	}
-	
 	//get y set
 	
 	ArrayList <tarifa> getTarifas(){
 		return this.tarifas;
 	}
 	
-	tarifa getTarifa(int id){
+	/**
+	 * Devuelve una tarifa dado un identificador
+	 * @param id
+	 * @return
+	 */
+	public tarifa getTarifa(int id){
 		
         for (int i=0;i<this.tarifas.size();i++)
         {
@@ -63,6 +69,22 @@ public class tarifas implements Serializable{
         return null;
 	}
 	
+	/**
+	 * Devuelve la tarifa a la que pertence un numero de tlf.
+	 * @param numero
+	 * @return
+	 */
+	public tarifa getTarifa(String numero,String tarifaDef)
+	{
+
+		int idTarifa=indiceTarifa(numero);
+		if (idTarifa==0)
+		{
+			//El numero no pertenece a ninguna tarifa. Aplicar la tarifa por defecto
+			idTarifa=this.getId(tarifaDef);
+		}	
+		return this.tarifas.get(getIndice(idTarifa));
+	}
 	
 	
 	/**
@@ -100,6 +122,33 @@ public class tarifas implements Serializable{
 		return 1; //Identificador de la tarifa normal
 	}
 	
+	/**
+	 * Retorna el indice del array list que ocupa una tarifa con un nombre
+	 * @param nombre
+	 * @return
+	 */
+	private int getIndice(String nombre){
+        for (int i=0;i<this.tarifas.size();i++)
+        {
+        	if (nombre.equals(this.tarifas.get(i).getNombre()))
+        	{
+        		return i;
+        	}
+        }
+        return -1;
+	}
+	
+	private int getIndice(int identificador){
+        for (int i=0;i<this.tarifas.size();i++)
+        {
+        	if (this.tarifas.get(i).getIdentificador()==identificador)
+        	{
+        		return i;
+        	}
+        }
+        return -1;
+	}
+	
 	
 	/**
 	 * Devuelve el identificador de la tarifa con un nombre determinado
@@ -117,6 +166,12 @@ public class tarifas implements Serializable{
         	}
         }
 		return -1; //Identificador de la tarifa normal
+	}
+	
+	
+	public void getContexto(Context c)
+	{
+		this.contexto=c;
 	}
 	
 	/**
@@ -149,10 +204,33 @@ public class tarifas implements Serializable{
 	 * @param duracion (en segundos)
 	 * @return
 	 */
-	double costeLlamada(String numero,int dia, Time hora, int duracion){
+	double costeLlamada(String numero,String fechayhora, int duracion,String tarifaDef){
 		
 		//Conocer a que tarifa pertecene
-		int indice=indiceTarifa(numero);
+		Log.d(TAG,"numero= "+numero);
+		int idTarifa=indiceTarifa(numero);
+		
+		if (idTarifa==0)
+		{
+			//El numero no pertenece a ninguna tarifa. Aplicar la tarifa por defecto
+			idTarifa=this.getId(tarifaDef);
+			Log.d(TAG,"Numero no pertenece a tarifa. Tarifa defecto= "+tarifaDef+", id="+idTarifa);
+			
+		}
+		
+		if (idTarifa==-1)
+		{
+			//No hay una tarifa por defecto definida
+			return 0.0;
+		}
+		
+		Date d=new Date(fechayhora);
+		
+		int dia=d.getDay();
+		String hora=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+		int indice=getIndice(idTarifa);
+		Log.d(TAG,"indice= "+indice);
+		Log.d(TAG,"idTarifa= "+idTarifa+" con Nombre: "+this.tarifas.get(indice).getNombre());
 		double coste=this.tarifas.get(indice).coste(numero, dia, hora, duracion);
 		return coste;
 	}
@@ -292,4 +370,24 @@ public class tarifas implements Serializable{
          }
          return retorno;
 	}
+	
+	/**
+	 * Devuelve el color de la franja a la que pertenece numero
+	 * @param numero
+	 * @return
+	 */
+	public String getColor(String numero){
+		
+		for (int i=0; i<this.tarifas.size();i++)
+		{
+			if (this.tarifas.get(i).pertenece(numero))
+				return this.tarifas.get(i).getColor();
+		}
+		return "Transparente";	
+	}
+	
+	
+	
+	
+	
 }
