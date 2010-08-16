@@ -31,7 +31,6 @@ import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -41,8 +40,8 @@ import deeloco.android.gastos.Movil.tarifas;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -69,16 +68,6 @@ public class gastoMovil extends ListActivity {
     private static final int ACERCADE=Menu.FIRST+3;
     private static final int SALIR = Menu.FIRST+4;
     
-    private static final int ADD_NS=Menu.FIRST;
-    private static final int DELETE_NS=Menu.FIRST+1;
-    private static final int ADD_ESP1=Menu.FIRST+2;
-    private static final int DELETE_ESP1=Menu.FIRST+3;
-    private static final int ADD_ESP2=Menu.FIRST+4;
-    private static final int DELETE_ESP2=Menu.FIRST+5;
-    
-    private final int NUMSC=1;
-    private final int NUMESP1=2;
-    private final int NUMESP2=3;
     private final int NUM=4;
     
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
@@ -91,10 +80,8 @@ public class gastoMovil extends ListActivity {
     GastosPorHora gph=new GastosPorHora();
     ValoresPreferencias vp=new ValoresPreferencias(this);
     private tarifas ts=new tarifas();
-    
-    
+
     //******************** AQUI ***************************
-    private NumCoste numEsp=new NumCoste();
 
     public boolean onCreateOptionsMenu(Menu menu){
     	menu.add(Menu.NONE, TARIFAS, 0, R.string.mn_tarifas).setIcon(android.R.drawable.ic_menu_recent_history);
@@ -110,8 +97,7 @@ public class gastoMovil extends ListActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main);
-
-        listado(vp.getPreferenciasMes());
+        
         //apagar_led();
         
         /* Cargamos los valores de las tarifas */
@@ -128,11 +114,13 @@ public class gastoMovil extends ListActivity {
 	        xr.parse(new InputSource (new FileReader("\\sdcard\\gastosmovil\\datosTarifas.xml")));
 	        /* Parsing has finished. */
 	        Log.d("Gastos Móvil","Numero de tarifas cargadas -> "+ts.numTarifas());
+	        listado(vp.getPreferenciasMes());
         }
         catch (Exception e)
         {
         	System.out.println("ERROR:"+e.toString());
-        } 
+        }
+        
 
     }
     
@@ -302,12 +290,10 @@ public class gastoMovil extends ListActivity {
     
     
     public void listado (int mes){
-    	
     	//List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     	lista.clear();
     	gpn.clear(); //limpiamos los gastos por numero (gpn)
     	gph.clear();
-        Resources res = getResources();
 
        Cursor c; //Cursor con el que recorreremos la base de datos de registros de llamadas
        if (mes==0) //Consulta de todo el año.
@@ -350,7 +336,6 @@ public class gastoMovil extends ListActivity {
         double costeLlamadas=0;
         double costeSMS=0;
         double coste;
-        double tarifa;
         double estLlamada=0;
         double totalEstLlamadas=0;
         
@@ -371,48 +356,16 @@ public class gastoMovil extends ListActivity {
         		int duracion=c.getInt(iDuracion)+modifDuracion; //le añadimos la modificación de la duración de la llamada;
         		String sDuracion;
         		
-        		String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm",new Date(fecha)).toString();
+        		String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
+ 
+        		Log.d(TAG,"Fechahora="+fechaHora);
+        		//t=tarifa a la que pertenece el número
+        		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
         		
-        		tarifa=vp.getPreferenciasTarifa(NUM);
-        		//******************** AQUI ***************************
-        		if ((vp.getPrefEsp1Activada()) && (numEsp.isNumEsp1(telefono)))
-        		{
-        			//Número especial 1
-        			rIcono=vp.getPreferenciasColor(NUMESP1);
-        			tarifa=vp.getPreferenciasTarifa(NUMESP1);
-        			coste=(duracion*tarifa)+vp.getPreferenciasEstLlamadas(NUMESP1);
-        			estLlamada=(vp.getPreferenciasEstLlamadas(NUMESP1)/coste)*100;
-        		}
-        		else
-        		{
-            		if ((vp.getPrefEsp2Activada()) && (numEsp.isNumEsp2(telefono)))
-            		{
-            			//Número especial 2
-            			rIcono=vp.getPreferenciasColor(NUMESP2);
-            			tarifa=vp.getPreferenciasTarifa(NUMESP2);
-            			coste=(duracion*tarifa)+vp.getPreferenciasEstLlamadas(NUMESP2);
-            			estLlamada=(vp.getPreferenciasEstLlamadas(NUMESP2)/coste)*100;
-            		}
-            		else
-            		{
-            			if (numEsp.isNumCosteCero(telefono))
-                		//if (false)
-                		{
-            				//Número Sin Coste
-                			coste=0;
-                			rIcono=res.getDrawable(R.drawable.line7);//línea blanca
-                		}
-            			else
-            			{
-            				//Número 'normal'
-                			rIcono=vp.getPreferenciasColor(NUM);
-                			tarifa=vp.getPreferenciasTarifa(NUM);
-                			coste=(duracion*tarifa)+vp.getPreferenciasEstLlamadas(NUM);
-                			estLlamada=(vp.getPreferenciasEstLlamadas(NUM)/coste)*100;
-            			}
-            		
-            		}
-        		}
+        		coste=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
+        		
+        		rIcono=vp.getColor(t.getColor());
+        		estLlamada=15.0;
 
         		if (duracion>modifDuracion)
         		{  
@@ -439,6 +392,9 @@ public class gastoMovil extends ListActivity {
         	} while (c.moveToNext());
         c.close();
         }
+        
+        
+        
         //Resumen de datos del mes seleccionado g 
         String textoMes="";
         if (vp.getPreferenciasMes()>0) 
@@ -472,7 +428,7 @@ public class gastoMovil extends ListActivity {
         
         AdaptadorListaIconos ad = new AdaptadorListaIconos(this,lista);
         setListAdapter(ad);
-        
+
         /*Añadir menu contextual */
         
         ListView listallamadas=(ListView) this.findViewById(android.R.id.list);
@@ -494,20 +450,22 @@ public class gastoMovil extends ListActivity {
     	  	for (int a=0;a<tarifas.size();a++)
     	  	{
     	  		
-    	  		if (tarifas.get(a).pertenece(lista.get(info.position).telefono))
-    	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
-    	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
-    	  		else
-    	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Añadir a "+tarifas.get(a).getNombre());
-    	  		
+    	  		if (!vp.getPreferenciasDefecto().equals(tarifas.get(a).getNombre()))
+    	  		{
+    	  			if (tarifas.get(a).pertenece(lista.get(info.position).telefono))
+        	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
+        	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
+        	  		else
+        	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Añadir a "+tarifas.get(a).getNombre());
+    	  		}
     	  	}
-
     }
     
     //--- Eventos del menu contextual
     public boolean onContextItemSelected(MenuItem item) {
     	  AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
     	  
+    	  //REVISAR. 
     	  tarifa t=ts.getTarifa(item.getItemId());
     	  String tlf=lista.get(info.position).telefono;
     	  if (t.pertenece(tlf))
@@ -515,124 +473,17 @@ public class gastoMovil extends ListActivity {
     		  //Eliminar
     		  Log.d(TAG,"Eliminar el numero : "+tlf+", de "+t.getNombre());
     		  t.deleteNumero(tlf);
+    		  listado(vp.getPreferenciasMes());
     	  }
     	  else
     	  {
     		  //Añadir
     		  Log.d(TAG,"Añadir el numero : "+tlf+", de "+t.getNombre());
     		  t.addNumero(tlf);
+    		  listado(vp.getPreferenciasMes());
     	  }
+    	  
     	  return true;
-    	  
-    	  /*
-    	  
-    	  
-    	  switch (item.getItemId()) {
-    	  case ADD_NS:
-    		  //******************** AQUI ***************************
-    		  if (numEsp.isNumCosteCero(lista.get(info.position).telefono))
-    		  {
-    			  Toast.makeText(getBaseContext(),R.string.mensaje_existe,Toast.LENGTH_LONG).show();
-    		  }
-    		  else
-    		  {
-    			  if (numEsp.add(lista.get(info.position).telefono,NUMSC))
-    			  {
-    				  listado(vp.getPreferenciasMes());  
-    			  }
-    			  else
-    			  {
-    				  Toast.makeText(getBaseContext(),R.string.mensaje_existeoerror,Toast.LENGTH_LONG).show();
-    			  }
-
-    		  }
-    		 
-    	    return true;
-    	    
-    	  case DELETE_NS:
-    		  
-    		  if (numEsp.isNumCosteCero(lista.get(info.position).telefono))
-    		  {
-    			  numEsp.delete(lista.get(info.position).telefono,NUMSC);
-    			  listado(vp.getPreferenciasMes());
-    		  }
-    		  else
-    		  {
-    			  Toast.makeText(getBaseContext(),R.string.mensaje_noexiste,Toast.LENGTH_LONG).show();
-    		  }
-    	    return true;
-    	    
-    	  case ADD_ESP1:
-
-    		  if (numEsp.isNumEsp1(lista.get(info.position).telefono))
-    		  {
-    			  Toast.makeText(getBaseContext(),R.string.mensaje_existe,Toast.LENGTH_LONG).show();
-    		  }
-    		  else
-    		  {
-    			  if (numEsp.add(lista.get(info.position).telefono,NUMESP1))
-    			  {
-    				  listado(vp.getPreferenciasMes());  
-    			  }
-    			  else
-    			  {
-    				  Toast.makeText(getBaseContext(),R.string.mensaje_existeoerror,Toast.LENGTH_LONG).show();
-    			  }
-    		  }
-    		  
-    	    return true;
-    	    
-    	  case DELETE_ESP1:
-    		  
-    		  if (numEsp.isNumEsp1(lista.get(info.position).telefono))
-    		  {
-    			  numEsp.delete(lista.get(info.position).telefono,NUMESP1);
-    			  listado(vp.getPreferenciasMes());
-    		  }
-    		  else
-    		  {
-    			  Toast.makeText(getBaseContext(),R.string.mensaje_noexiste,Toast.LENGTH_LONG).show();
-    		  }
-    	    return true;  	
-    	    
-    	  case ADD_ESP2:
-
-    		  if (numEsp.isNumEsp2(lista.get(info.position).telefono))
-    		  {
-    			  Toast.makeText(getBaseContext(),R.string.mensaje_existe,Toast.LENGTH_LONG).show();
-    		  }
-    		  else
-    		  {
-    			  if (numEsp.add(lista.get(info.position).telefono,NUMESP2))
-    			  {
-    				  listado(vp.getPreferenciasMes());  
-    			  }
-    			  else
-    			  {
-    				  Toast.makeText(getBaseContext(),R.string.mensaje_existeoerror,Toast.LENGTH_LONG).show();
-    			  }
-    		  }
-    		  
-    	    return true;
-    	    
-    	  case DELETE_ESP2:
-    		  
-    		  if (numEsp.isNumEsp2(lista.get(info.position).telefono))
-    		  {
-    			  numEsp.delete(lista.get(info.position).telefono,NUMESP2);
-    			  listado(vp.getPreferenciasMes());
-    		  }
-    		  else
-    		  {
-    			  Toast.makeText(getBaseContext(),R.string.mensaje_noexiste,Toast.LENGTH_LONG).show();
-    		  }
-    	    return true; 
-    	    
-    	  default:
-    	    return super.onContextItemSelected(item);
-    	  }
-    	  
-    	  */
     	  
     	}
     
@@ -663,7 +514,7 @@ public class gastoMovil extends ListActivity {
 				{
 					Log.d(TAG,"XML NO Guardado");
 				}
-
+				listado(vp.getPreferenciasMes());
 			}
 			break;
 

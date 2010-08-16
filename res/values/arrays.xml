@@ -59,7 +59,7 @@
         <item>Rojo</item>
         <item>Verde</item>
         <item>Violeta</item>
-
+        <item>Sin Color</item>
     </string-array>
     
     <string-array name="colores_valores">
