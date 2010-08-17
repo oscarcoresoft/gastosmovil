@@ -77,12 +77,22 @@ public class tarifas implements Serializable{
 	public tarifa getTarifa(String numero,String tarifaDef)
 	{
 
+		if (this.tarifas.size()==0)
+			//No hay tarifas definidas
+			return null;
+		
 		int idTarifa=indiceTarifa(numero);
 		if (idTarifa==0)
 		{
 			//El numero no pertenece a ninguna tarifa. Aplicar la tarifa por defecto
 			idTarifa=this.getId(tarifaDef);
-		}	
+		}
+		
+		if (idTarifa==-1)
+		{
+			return this.tarifas.get(0);
+		}
+		
 		return this.tarifas.get(getIndice(idTarifa));
 	}
 	
@@ -305,7 +315,7 @@ public class tarifas implements Serializable{
 	 * Retorna el numero de tarifas que hay definidas
 	 * @return
 	 */
-	int numTarifas(){
+	public int numTarifas(){
 		return tarifas.size();
 	}
 	
@@ -385,9 +395,5 @@ public class tarifas implements Serializable{
 		}
 		return "Transparente";	
 	}
-	
-	
-	
-	
-	
+
 }

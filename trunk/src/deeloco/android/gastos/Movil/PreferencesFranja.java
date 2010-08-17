@@ -148,8 +148,8 @@ public class PreferencesFranja extends ListActivity{
 		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 		                mHour = hourOfDay;
 		                mMinute = minute;
-    					tv.setText(mHour+":"+mMinute+":00");
-    					f.setHoraInicio(mHour+":"+mMinute+":00");
+    					tv.setText(hourOfDay+":"+minute+":00");
+    					f.setHoraInicio(hourOfDay+":"+minute+":00");
     					//Retorno
     			    	Intent resultIntent=new Intent();
     			    	resultIntent.putExtra(FRANJA_RETORNO, f);
@@ -166,8 +166,8 @@ public class PreferencesFranja extends ListActivity{
 		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 		                mHour = hourOfDay;
 		                mMinute = minute;
-    					tv.setText(mHour+":"+mMinute+":00");
-    					f.setHoraFinal(mHour+":"+mMinute+":00");
+    					tv.setText(hourOfDay+":"+minute+":00");
+    					f.setHoraFinal(hourOfDay+":"+minute+":00");
     					//Retorno
     			    	Intent resultIntent=new Intent();
     			    	resultIntent.putExtra(FRANJA_RETORNO, f);

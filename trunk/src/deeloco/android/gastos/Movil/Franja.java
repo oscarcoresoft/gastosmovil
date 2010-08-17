@@ -358,6 +358,8 @@ public class Franja implements Serializable{
 	/**
 	 * Devuelve el coste de la llamada.
 	 * Si el día y la hora no pertenece a la franja, devuelve -1.0
+	 * Antes de utilizar el método coste hay que asegurarse que asegurarse que el dia y la hora pertenece
+	 * a la franja, utilizar el método pertenece
 	 * @param dia
 	 * @param hora
 	 * @param duracion
@@ -369,8 +371,8 @@ public class Franja implements Serializable{
 		double conIvaPorSegundosEnEuros;
 		double costePorSegundo;
 		double costeTotal;
-		if (pertenece(dia,hora))
-		{
+		//if (pertenece(dia,hora))
+		//{
 			costePorSegundo=(this.coste/100)/60;
 			System.out.println("Coste por Segundos . "+costePorSegundo);
 			conIvaPorSegundosEnEuros=costePorSegundo*iva;
@@ -381,9 +383,9 @@ public class Franja implements Serializable{
 			costeTotal=costeTotal+((this.establecimiento/100)*iva);
 			System.out.println("Coste Total con establecimiento de llamada . "+costeTotal);
 			return costeTotal;
-		}
-		else
-			return -1.0;
+		//}
+		//else
+		//	return -1.0;
 	}
 	
 	
