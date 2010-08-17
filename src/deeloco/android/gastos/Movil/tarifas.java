@@ -4,16 +4,16 @@ import java.io.FileWriter;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Date;
+import android.widget.Toast;
 
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.app.Activity;
+
 
 public class tarifas implements Serializable{
 	
@@ -230,12 +230,18 @@ public class tarifas implements Serializable{
 		
 		if (idTarifa==-1)
 		{
-			//No hay una tarifa por defecto definida
-			return 0.0;
+			
+			if (this.tarifas.size()>0)
+			{
+				//No hay una tarifa por defecto definida
+				//Colocar un toast indicando que no hay tarifa por defecto, se aplica xxx
+				idTarifa=this.tarifas.get(0).getIdentificador();
+			}
+			else
+				return 0.0; //No hay tarifas
 		}
 		
 		Date d=new Date(fechayhora);
-		
 		int dia=d.getDay();
 		String hora=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
 		int indice=getIndice(idTarifa);

@@ -3,6 +3,7 @@ package deeloco.android.gastos.Movil;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.util.Log;
 
@@ -194,6 +195,33 @@ public class tarifa implements Serializable{
 	}
 	
 	/**
+	 * Devuelve la franja a la que pertence un día y una hora
+	 * @param dia
+	 * @param hora
+	 * @return
+	 */
+	Franja getFranja(int dia,String hora){
+		
+		for (int i=0;i<this.franjas.size();i++)
+		{
+			Log.d(TAG,"getFranja -> "+this.franjas.get(i).pertenece(dia, Time.valueOf(hora)));
+			if (this.franjas.get(i).pertenece(dia, Time.valueOf(hora)))
+			{
+				return this.franjas.get(i);
+			}
+		}
+		Log.d(TAG,"Día = "+dia+" Hora = "+hora+" NO TIENE FRANJA EN LA TARIFA "+this.getNombre());
+		return null;
+	}
+	
+	Franja getFranja (String fechayhora){
+		Date d=new Date(fechayhora);
+		int dia=d.getDay();
+		String hora=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+		return getFranja(dia,hora);
+	}
+	
+	/**
 	 * Asigna el idetificador de la tarifa
 	 * @param id
 	 */
@@ -376,7 +404,6 @@ public class tarifa implements Serializable{
 		return coste(numero,dia,Time.valueOf(hora),duracion);
 		
 	}
-	
 	
 	/**
 	 * Devuelve el numero de franjas que forman una tarifa
