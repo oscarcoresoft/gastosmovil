@@ -342,7 +342,7 @@ public class gastoMovil extends ListActivity {
         //Si hay algún elemento
         c.moveToFirst();
 
-        if (c.isFirst())
+        if (c.isFirst()&&ts.numTarifas()>0)
         {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
         	do{
@@ -482,7 +482,7 @@ public class gastoMovil extends ListActivity {
     		  t.addNumero(tlf);
     		  listado(vp.getPreferenciasMes());
     	  }
-    	  
+    	  ts.guardarTarifas();
     	  return true;
     	  
     	}
