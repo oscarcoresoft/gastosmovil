@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gastos Móvil</string>
-    <string name="lista_vacia">Lista vacía</string>
     <string name="cabDatos">Resumen de los datos</string>
     <string name="cabRegistros">Registro de llamadas</string>
     <string name="separador">    </string>
@@ -105,6 +104,7 @@
 	<string name="tituloInputBox">Introduce texto</string>
 	<string name="cabTarifa">TARIFA</string>
 	<string name="cabTarifas">TARIFAS</string>
+	<string name="lista_vacia">No hay llamadas en el registro de llamadas o no se han definido tarifas.</string>
 	
 </resources> 
 
