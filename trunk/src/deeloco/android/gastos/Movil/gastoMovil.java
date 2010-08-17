@@ -40,7 +40,6 @@ import deeloco.android.gastos.Movil.tarifas;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -68,12 +67,11 @@ public class gastoMovil extends ListActivity {
     private static final int ACERCADE=Menu.FIRST+3;
     private static final int SALIR = Menu.FIRST+4;
     
-    private final int NUM=4;
-    
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
     private static final int RETURN_PREFERENCES_TARIFAS=2;
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     private static final String TAG = "GastosMóvil";
+    private double iva=1.18;
     
     private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     GastosPorNumero gpn=new GastosPorNumero();
@@ -342,14 +340,12 @@ public class gastoMovil extends ListActivity {
         //Si hay algún elemento
         c.moveToFirst();
 
+        
         if (c.isFirst()&&ts.numTarifas()>0)
         {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
         	do{
         		Drawable rIcono = null;
-        		rIcono=vp.getPreferenciasColor(NUM);
-        		//rIcono=res.getDrawable(R.drawable.line5);
-        		
         		String telefono=c.getString(iTelefono);
         		//String telefono="xxxyyyyyy";
         		long fecha=c.getLong(iFecha);
@@ -358,14 +354,15 @@ public class gastoMovil extends ListActivity {
         		
         		String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
  
-        		Log.d(TAG,"Fechahora="+fechaHora);
         		//t=tarifa a la que pertenece el número
         		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
-        		
+        		Franja f=t.getFranja(fechaHora);
         		coste=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
-        		
         		rIcono=vp.getColor(t.getColor());
-        		estLlamada=15.0;
+        		
+        		if (f!=null)
+        			estLlamada=(((f.getEstablecimiento()/100)*iva)/coste)*100;
+        		//estLlamada=f.getEstablecimiento();
 
         		if (duracion>modifDuracion)
         		{  
@@ -429,6 +426,13 @@ public class gastoMovil extends ListActivity {
         AdaptadorListaIconos ad = new AdaptadorListaIconos(this,lista);
         setListAdapter(ad);
 
+        //Controlar si vp.getPreferenciasDefecto es vacio o nulo
+    	if (ts.getId(vp.getPreferenciasDefecto())==-1)
+    	{
+    		//No hay tarifa por defecto  o no corresponde a una tarifa definida
+    		Toast.makeText(this,R.string.mensaje_tarifa_defecto_no_definida,Toast.LENGTH_LONG).show();
+    	}
+
         /*Añadir menu contextual */
         
         ListView listallamadas=(ListView) this.findViewById(android.R.id.list);
@@ -453,8 +457,14 @@ public class gastoMovil extends ListActivity {
     	  		if (!vp.getPreferenciasDefecto().equals(tarifas.get(a).getNombre()))
     	  		{
     	  			if (tarifas.get(a).pertenece(lista.get(info.position).telefono))
+    	  			{
         	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
-        	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
+        	  			//menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
+    	  				menu.clear();
+    	  				menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
+    	  				a=tarifas.size()+1;
+    	  			}
+    	  			
         	  		else
         	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Añadir a "+tarifas.get(a).getNombre());
     	  		}

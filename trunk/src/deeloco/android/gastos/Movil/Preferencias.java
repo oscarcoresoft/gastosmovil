@@ -30,7 +30,6 @@ import android.preference.PreferenceScreen;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 public class Preferencias extends PreferenceActivity  implements OnSharedPreferenceChangeListener {
@@ -48,11 +47,6 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
 		addPreferencesFromResource(R.xml.preferences);
 		
 		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-		final PreferenceScreen psRaiz = getPreferenceScreen();
-		ps = (PreferenceScreen) psRaiz.findPreference("psTarifaEsp1");
-		ps.setSummary(vp.getPrefEsp1Nombre());
-		ps = (PreferenceScreen) psRaiz.findPreference("psTarifaEsp2");
-		ps.setSummary(vp.getPrefEsp2Nombre());
 		ListPreference lp = (ListPreference) findPreference("defecto");
 		String valores[]=getIntent().getStringArrayExtra("nombresTarifas");
 		getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
