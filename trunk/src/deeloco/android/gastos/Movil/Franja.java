@@ -14,6 +14,11 @@ public class Franja implements Serializable{
 	 */
 	private static final String TAG = "Clase Franja";
 	private static final long serialVersionUID = 1L;
+	private static final int COSTE=0;
+	private static final int ESTABLECIMIENTO=1;
+	private static final int GASTOMINIMO=2;
+	private static final int LIMITE=3;
+	private static final int COSTE_FUERA_LIMITE=4;
 
 	private final double iva=1.18;
 	
@@ -365,27 +370,38 @@ public class Franja implements Serializable{
 	 * @param duracion
 	 * @return
 	 */
-	double coste(int dia, Time hora, int duracion){
+	public double[] coste(int dia, Time hora, int duracion){
 		
-		System.out.println("Calculando el coste para los datos "+dia+" - "+hora.toString()+" - "+duracion);
+		//System.out.println("Calculando el coste para los datos "+dia+" - "+hora.toString()+" - "+duracion);
 		double conIvaPorSegundosEnEuros;
 		double costePorSegundo;
 		double costeTotal;
-		//if (pertenece(dia,hora))
-		//{
-			costePorSegundo=(this.coste/100)/60;
-			System.out.println("Coste por Segundos . "+costePorSegundo);
+		double[] retorno={0.0,0.0,0.0,0.0,0.0};
+		
+		costePorSegundo=(this.coste/100)/60;
+		//System.out.println("Coste por Segundos . "+costePorSegundo);
+		conIvaPorSegundosEnEuros=costePorSegundo*iva;
+		//System.out.println("Con Iva por Segundos . "+conIvaPorSegundosEnEuros);
+		costeTotal=conIvaPorSegundosEnEuros*duracion;
+		//Le añadimos el establecimiento de llamada
+		//System.out.println("Coste Total . "+costeTotal);
+		//costeTotal=costeTotal+((this.establecimiento/100)*iva);
+		retorno[COSTE]=costeTotal+((this.establecimiento/100)*iva);
+		retorno[ESTABLECIMIENTO]=this.establecimiento;
+		retorno[GASTOMINIMO]=0.0;
+		retorno[LIMITE]=this.limite;
+		retorno[COSTE_FUERA_LIMITE]=0.0;
+		if (this.limite>0)
+		{
+			//Calcular el coste fuera del limite
+			costePorSegundo=(this.costeFueraLimite/100)/60;
 			conIvaPorSegundosEnEuros=costePorSegundo*iva;
-			System.out.println("Con Iva por Segundos . "+conIvaPorSegundosEnEuros);
 			costeTotal=conIvaPorSegundosEnEuros*duracion;
-			//Le añadimos el establecimiento de llamada
-			System.out.println("Coste Total . "+costeTotal);
-			costeTotal=costeTotal+((this.establecimiento/100)*iva);
-			System.out.println("Coste Total con establecimiento de llamada . "+costeTotal);
-			return costeTotal;
-		//}
-		//else
-		//	return -1.0;
+			retorno[COSTE_FUERA_LIMITE]=costeTotal+((this.establecimiento/100)*iva);
+		}
+			
+		//System.out.println("Coste Total con establecimiento de llamada . "+costeTotal);
+		return retorno;
 	}
 	
 	

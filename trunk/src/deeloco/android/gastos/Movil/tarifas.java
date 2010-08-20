@@ -23,6 +23,11 @@ public class tarifas implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private static final String TAG = "clase tarifas";
 	private static String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
+	private static final int COSTE=0;
+	private static final int ESTABLECIMIENTO=1;
+	private static final int GASTOMINIMO=2;
+	private static final int LIMITE=3;
+	
 	/**
 	 * Conjunto de franjas horarias definidas por el usuario
 	 */
@@ -214,10 +219,11 @@ public class tarifas implements Serializable{
 	 * @param duracion (en segundos)
 	 * @return
 	 */
-	double costeLlamada(String numero,String fechayhora, int duracion,String tarifaDef){
+	public double[] costeLlamada(String numero,String fechayhora, int duracion,String tarifaDef){
 		
 		//Conocer a que tarifa pertecene
-		Log.d(TAG,"numero= "+numero);
+		double[] retorno={0.0,0.0,0.0,0.0,0.0};
+		//Log.d(TAG,"numero= "+numero);
 		int idTarifa=indiceTarifa(numero);
 		
 		if (idTarifa==0)
@@ -238,17 +244,17 @@ public class tarifas implements Serializable{
 				idTarifa=this.tarifas.get(0).getIdentificador();
 			}
 			else
-				return 0.0; //No hay tarifas
+				return retorno; //No hay tarifas
 		}
 		
 		Date d=new Date(fechayhora);
 		int dia=d.getDay();
 		String hora=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
 		int indice=getIndice(idTarifa);
-		Log.d(TAG,"indice= "+indice);
-		Log.d(TAG,"idTarifa= "+idTarifa+" con Nombre: "+this.tarifas.get(indice).getNombre());
-		double coste=this.tarifas.get(indice).coste(numero, dia, hora, duracion);
-		return coste;
+		//Log.d(TAG,"indice= "+indice);
+		//Log.d(TAG,"idTarifa= "+idTarifa+" con Nombre: "+this.tarifas.get(indice).getNombre());
+		retorno=this.tarifas.get(indice).coste(numero, dia, hora, duracion);
+		return retorno;
 	}
 	
 	/**
