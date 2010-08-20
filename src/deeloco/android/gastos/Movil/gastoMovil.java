@@ -21,6 +21,7 @@
 
 package deeloco.android.gastos.Movil;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,9 +72,16 @@ public class gastoMovil extends ListActivity {
     private static final int RETURN_PREFERENCES_TARIFAS=2;
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     private static final String TAG = "GastosMóvil";
+	private static final int COSTE=0;
+	private static final int ESTABLECIMIENTO=1;
+	private static final int GASTOMINIMO=2;
+	private static final int LIMITE=3;
+	private static final int COSTE_FUERA_LIMITE=4;
     private double iva=1.18;
+    String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
     
     private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
+    private List<IconoYTexto> listaInvertida = new ArrayList<IconoYTexto>();
     GastosPorNumero gpn=new GastosPorNumero();
     GastosPorHora gph=new GastosPorHora();
     ValoresPreferencias vp=new ValoresPreferencias(this);
@@ -101,6 +109,23 @@ public class gastoMovil extends ListActivity {
         /* Cargamos los valores de las tarifas */
         try
         {
+        	//Comprobamos si el fichero esta creado. Si es que no, se crea.
+        	File f=new File(path);
+        	if (!f.exists())
+        	{
+        		//El fichero no existe, hay que crearlo
+        		try{
+        			boolean dir = new File("/sdcard/gastosmovil").mkdir(); //Creamos el directorio
+        			if (dir) //Si se ha creado correctamente el directorio
+        			{
+        				f.createNewFile(); //Creamos el fichero 
+        			}
+        		}
+        		catch (Exception e){ //Error al crear el directorio o el fichero
+        			e.printStackTrace();
+        		}
+        	}
+        	
 	        SAXParserFactory spf = SAXParserFactory.newInstance();
 	        SAXParser sp = spf.newSAXParser();
 	        /* Get the XMLReader of the SAXParser we created. */
@@ -109,14 +134,17 @@ public class gastoMovil extends ListActivity {
 	        TarifasParserXML tarifasXML = new TarifasParserXML();
 	        tarifasXML.setTarifas(ts);
 	        xr.setContentHandler(tarifasXML);
-	        xr.parse(new InputSource (new FileReader("\\sdcard\\gastosmovil\\datosTarifas.xml")));
+	        xr.parse(new InputSource (new FileReader(path)));
 	        /* Parsing has finished. */
 	        Log.d("Gastos Móvil","Numero de tarifas cargadas -> "+ts.numTarifas());
 	        listado(vp.getPreferenciasMes());
         }
         catch (Exception e)
         {
-        	System.out.println("ERROR:"+e.toString());
+        	//Si el error se produce porque no existe el fichero xml, hay que crearlo.
+        	//Tambien hay que crear el directorio
+        	
+        	System.out.println("ERROR:"+e.toString()+" ("+e.hashCode()+")");
         }
         
 
@@ -290,6 +318,7 @@ public class gastoMovil extends ListActivity {
     public void listado (int mes){
     	//List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     	lista.clear();
+    	listaInvertida.clear();
     	gpn.clear(); //limpiamos los gastos por numero (gpn)
     	gph.clear();
 
@@ -319,7 +348,7 @@ public class gastoMovil extends ListActivity {
            d2=c2.getTime();
            
            //Hacemos la consulta
-           c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.DATE+"<"+(d2.getTime())+" and "+CallLog.Calls.DATE+">"+(d1.getTime())+" and "+CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, CallLog.Calls.DEFAULT_SORT_ORDER);      
+           c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.DATE+"<"+(d2.getTime())+" and "+CallLog.Calls.DATE+">"+(d1.getTime())+" and "+CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, "date ASC");      
        }
 
         this.startManagingCursor(c);
@@ -336,11 +365,12 @@ public class gastoMovil extends ListActivity {
         double coste;
         double estLlamada=0;
         double totalEstLlamadas=0;
+        int totalSegundos=0;
+        double[] retorno={0.0,0.0,0.0,0.0,0.0};
         
         //Si hay algún elemento
         c.moveToFirst();
 
-        
         if (c.isFirst()&&ts.numTarifas()>0)
         {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
@@ -353,15 +383,33 @@ public class gastoMovil extends ListActivity {
         		String sDuracion;
         		
         		String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
- 
+        		
         		//t=tarifa a la que pertenece el número
         		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
-        		Franja f=t.getFranja(fechaHora);
-        		coste=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
+        		retorno=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
+        		
         		rIcono=vp.getColor(t.getColor());
         		
-        		if (f!=null)
-        			estLlamada=(((f.getEstablecimiento()/100)*iva)/coste)*100;
+        		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir tiene limite
+        		if (retorno[LIMITE]!=0.0)
+        			totalSegundos=totalSegundos+duracion;
+        		
+        		//El coste ha mostrar dependera del limite
+        		Log.d(TAG,"Numero = "+telefono);
+        		Log.d(TAG,"Limite = "+retorno[LIMITE]*60);
+        		Log.d(TAG,"totalSegundo = "+totalSegundos);
+        		if ((retorno[LIMITE]*60)>=totalSegundos || retorno[LIMITE]==0.0)
+        			coste=retorno[COSTE]; //limite < tiempo hablado
+        		else
+        		{
+        			rIcono=getResources().getDrawable(android.R.drawable.presence_busy);
+        			coste=retorno[COSTE_FUERA_LIMITE]; //limite > tiempo hablado
+        		}
+        		
+        		
+
+        		if (retorno[ESTABLECIMIENTO]!=0.0)
+        			estLlamada=(((retorno[ESTABLECIMIENTO]/100)*iva)/coste)*100;
         		//estLlamada=f.getEstablecimiento();
 
         		if (duracion>modifDuracion)
@@ -421,9 +469,19 @@ public class gastoMovil extends ListActivity {
         tv_NumSMS.setText(""+numSMS);
         costeSMS=FunGlobales.redondear(vp.getPreferenciasTarifaSMS(),2)*numSMS;
         tv_CosteSMS.setText(FunGlobales.redondear(costeSMS,2)+" €");
+        if (retorno[GASTOMINIMO]>0.0)
+        {
+        	tv_Mes.setText(textoMes +" (Min."+FunGlobales.redondear(retorno[GASTOMINIMO]*iva,2)+" €) ");
+        }
+        
         tv_total.setText(FunGlobales.redondear(costeLlamadas+costeSMS,2)+" €");
         
-        AdaptadorListaIconos ad = new AdaptadorListaIconos(this,lista);
+        //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
+        //listaInvertida=lista;
+        for (int a=lista.size()-1;a>=0;a--)
+        	listaInvertida.add(lista.get(a));
+        
+        AdaptadorListaIconos ad = new AdaptadorListaIconos(this,listaInvertida);
         setListAdapter(ad);
 
         //Controlar si vp.getPreferenciasDefecto es vacio o nulo

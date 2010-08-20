@@ -18,6 +18,10 @@ public class tarifa implements Serializable{
 
 	
 	private static final String TAG = "clase tarifa";
+	private static final int COSTE=0;
+	private static final int ESTABLECIMIENTO=1;
+	private static final int GASTOMINIMO=2;
+	private static final int LIMITE=3;
 	
 	/**
 	 * 
@@ -384,23 +388,25 @@ public class tarifa implements Serializable{
 	 * @param duracion
 	 * @return
 	 */
-	public double coste(String numero,int dia,Time hora,int duracion){
+	public double[] coste(String numero,int dia,Time hora,int duracion){
 		
-		Log.d(TAG,"Cantida de Numeros de esta tarifa = "+this.numeros.size());
+		double[] retorno={0.0,0.0,0.0,0.0,0.0};
+		//Log.d(TAG,"Cantida de Numeros de esta tarifa = "+this.numeros.size());
 		//Calculamos el coste
-		Log.d(TAG,"Numero de franjas = "+this.franjas.size());
+		//Log.d(TAG,"Numero de franjas = "+this.franjas.size());
 		for (int i=0;i<this.franjas.size();i++)
 		{
-			Log.d(TAG,"Calculando tarifa para la franja "+this.franjas.get(i).getNombre());
+			//Log.d(TAG,"Calculando tarifa para la franja "+this.franjas.get(i).getNombre());
 			if (this.franjas.get(i).pertenece(dia, hora))
 			{
-				return this.franjas.get(i).coste(dia, hora, duracion);
+				retorno= this.franjas.get(i).coste(dia, hora, duracion);
 			}
 		}
-		return 0.0;
+		retorno[GASTOMINIMO]=this.getMinimo();
+		return retorno;
 	}
 	
-	public double coste(String numero,int dia,String hora,int duracion){
+	public double[] coste(String numero,int dia,String hora,int duracion){
 		return coste(numero,dia,Time.valueOf(hora),duracion);
 		
 	}
