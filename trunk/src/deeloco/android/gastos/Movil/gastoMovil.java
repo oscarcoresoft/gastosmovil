@@ -41,6 +41,7 @@ import deeloco.android.gastos.Movil.tarifas;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -137,7 +138,14 @@ public class gastoMovil extends ListActivity {
 	        xr.parse(new InputSource (new FileReader(path)));
 	        /* Parsing has finished. */
 	        Log.d("Gastos Móvil","Numero de tarifas cargadas -> "+ts.numTarifas());
+	        ProgressDialog progressDialog;
+	        progressDialog = new ProgressDialog(gastoMovil.this);
+	        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+	        progressDialog.setMessage("Loading...");
+	        progressDialog.setCancelable(false);
+	  
 	        listado(vp.getPreferenciasMes());
+	        
         }
         catch (Exception e)
         {

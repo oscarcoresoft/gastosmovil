@@ -3,10 +3,15 @@ package deeloco.android.gastos.Movil;
 import java.io.FileWriter;
 import java.io.Serializable;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Date;
+import java.util.SimpleTimeZone;
+
 import android.widget.Toast;
 
 
@@ -246,14 +251,41 @@ public class tarifas implements Serializable{
 			else
 				return retorno; //No hay tarifas
 		}
+		//GregorianCalendar(int year, int month, int day, int hour, int minute, int second)
+		//GregorianCalendar calendario=new GregorianCalendar();
+		String sFecha =fechayhora.substring(0, 10).trim();
+		String sHora=fechayhora.substring(10, fechayhora.length()).trim();
+		Log.d(TAG,"Fecha  = "+sFecha);
+		Log.d(TAG,"Hora  = "+sHora);
+		String sDia=sFecha.substring(0,2);
+		String sMes=sFecha.substring(3, 5);
+		String sAno=sFecha.substring(6, 10);
+		Log.d(TAG,"Dia  = "+sDia);
+		Log.d(TAG,"Mes  = "+sMes);
+		Log.d(TAG,"Año  = "+sAno);
+
+		int ano= Integer.parseInt(sAno);
+		int mes= Integer.parseInt(sMes)-1;
+		int dia= Integer.parseInt(sDia);
 		
-		Date d=new Date(fechayhora);
-		int dia=d.getDay();
-		String hora=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+		Calendar calendario=new GregorianCalendar(ano,mes,dia);
+		calendario.setFirstDayOfWeek(Calendar.MONDAY);
+		int diaSemana=calendario.get(Calendar.DAY_OF_WEEK);
+		String shora=sHora;
+		
+		switch (diaSemana) {
+		case Calendar.SUNDAY:
+			diaSemana=6;
+			break;
+
+		default:
+			diaSemana=diaSemana-2;
+			break;
+		}
+		
 		int indice=getIndice(idTarifa);
-		//Log.d(TAG,"indice= "+indice);
-		//Log.d(TAG,"idTarifa= "+idTarifa+" con Nombre: "+this.tarifas.get(indice).getNombre());
-		retorno=this.tarifas.get(indice).coste(numero, dia, hora, duracion);
+		Log.d(TAG,"Dia de la semana = "+diaSemana);
+		retorno=this.tarifas.get(indice).coste(numero, diaSemana, shora, duracion);
 		return retorno;
 	}
 	
@@ -409,3 +441,4 @@ public class tarifas implements Serializable{
 	}
 
 }
+
