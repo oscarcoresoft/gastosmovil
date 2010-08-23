@@ -80,6 +80,7 @@ public class gastoMovil extends ListActivity {
 	private static final int COSTE_FUERA_LIMITE=4;
     private double iva=1.18;
     String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
+    int totalRegistros=0;
     
     private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     private List<IconoYTexto> listaInvertida = new ArrayList<IconoYTexto>();
@@ -87,6 +88,7 @@ public class gastoMovil extends ListActivity {
     GastosPorHora gph=new GastosPorHora();
     ValoresPreferencias vp=new ValoresPreferencias(this);
     private tarifas ts=new tarifas();
+    ProgressDialog dialog;
 
     //******************** AQUI ***************************
 
@@ -104,8 +106,6 @@ public class gastoMovil extends ListActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main);
-        
-        //apagar_led();
         
         /* Cargamos los valores de las tarifas */
         try
@@ -138,12 +138,6 @@ public class gastoMovil extends ListActivity {
 	        xr.parse(new InputSource (new FileReader(path)));
 	        /* Parsing has finished. */
 	        Log.d("Gastos Móvil","Numero de tarifas cargadas -> "+ts.numTarifas());
-	        ProgressDialog progressDialog;
-	        progressDialog = new ProgressDialog(gastoMovil.this);
-	        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-	        progressDialog.setMessage("Loading...");
-	        progressDialog.setCancelable(false);
-	  
 	        listado(vp.getPreferenciasMes());
 	        
         }
@@ -329,7 +323,6 @@ public class gastoMovil extends ListActivity {
     	listaInvertida.clear();
     	gpn.clear(); //limpiamos los gastos por numero (gpn)
     	gph.clear();
-
        Cursor c; //Cursor con el que recorreremos la base de datos de registros de llamadas
        if (mes==0) //Consulta de todo el año.
        {
@@ -377,8 +370,11 @@ public class gastoMovil extends ListActivity {
         double[] retorno={0.0,0.0,0.0,0.0,0.0};
         
         //Si hay algún elemento
+        AdaptadorListaIconos ad2 = new AdaptadorListaIconos(this,listaInvertida);
+        setListAdapter(ad2);
         c.moveToFirst();
-
+        totalRegistros=c.getCount();
+        
         if (c.isFirst()&&ts.numTarifas()>0)
         {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
@@ -488,10 +484,10 @@ public class gastoMovil extends ListActivity {
         //listaInvertida=lista;
         for (int a=lista.size()-1;a>=0;a--)
         	listaInvertida.add(lista.get(a));
-        
+        //dialog.dismiss();
         AdaptadorListaIconos ad = new AdaptadorListaIconos(this,listaInvertida);
         setListAdapter(ad);
-
+        
         //Controlar si vp.getPreferenciasDefecto es vacio o nulo
     	if (ts.getId(vp.getPreferenciasDefecto())==-1)
     	{
@@ -600,4 +596,13 @@ public class gastoMovil extends ListActivity {
     	
     	}
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

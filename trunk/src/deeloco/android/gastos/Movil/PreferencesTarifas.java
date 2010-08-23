@@ -96,7 +96,6 @@ public class PreferencesTarifas extends ListActivity{
         	t.setNumeros("");
         	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
         	Bundle extras = new Bundle();
-        	Log.d(TAG,"Pasamos la tarifa NUEVA : "+t.getNombre());
         	extras.putInt("idTarifa", 0);
         	extras.putSerializable("tarifa", t);
         	settingsActivity2.putExtras(extras);
@@ -114,13 +113,10 @@ public class PreferencesTarifas extends ListActivity{
 		//Aqui es donde hay que pasar a la pantalla de Tarifas
 		
 		IconoYTexto2 iyt=(IconoYTexto2) l.getItemAtPosition(position);
-		Log.d(TAG, "Tarifa seleccionada -> "+iyt.titulo);
 		int idTarifa=ts.getId(iyt.titulo);
-		Log.d(TAG, "ID Tarifas -> "+idTarifa);
     	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
     	tarifa t = ts.getTarifa(idTarifa);
     	Bundle extras = new Bundle();
-    	Log.d(TAG,"Pasamos la tarifa : "+t.getNombre());
     	extras.putInt("idTarifa", idTarifa);
     	extras.putSerializable("tarifa", t);
     	settingsActivity2.putExtras(extras);
@@ -133,14 +129,11 @@ public class PreferencesTarifas extends ListActivity{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		Log.d(TAG,"requestCode en onActivityResult = "+requestCode+" - RETURN_PREFERENCES_TARIFA = "+RETURN_PREFERENCES_TARIFA);
 		switch (requestCode) {
 		case RETURN_PREFERENCES_TARIFA:
-			Log.d(TAG,"resultCode en onActivityResult = "+resultCode+" - Activity.RESULT_OK = "+Activity.RESULT_OK);
 			if (resultCode==Activity.RESULT_OK)
 			{
 				tarifa t=(tarifa) data.getSerializableExtra(TARIFA_RETORNO);
-				Log.d(TAG,"La tarifa retornada es "+t.getNombre());
 				//Añadir la tarifa al ArrayList de tarifas
 				
 				switch (t.getIdentificador()) {
@@ -192,7 +185,6 @@ public class PreferencesTarifas extends ListActivity{
 		// TODO Auto-generated method stub
 		super.onPause();
 		//Retorno
-		Log.d(TAG,"onPause");
     	Intent resultIntent=new Intent();
     	resultIntent.putExtra(TARIFAS_RETORNO, ts);
     	setResult(Activity.RESULT_OK, resultIntent);

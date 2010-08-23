@@ -163,13 +163,7 @@ public class PreferencesTarifa extends ListActivity{
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
-        					Log.d(TAG,"Retorno TextBox = "+valor);
-        					Log.d(TAG,"Valor de subtitulo ANTES= "+tv.getText());
-        					
         					tv.setText(valor);
-        					tv.refreshDrawableState();
-
-        					Log.d(TAG,"Valor de subtitulo DESPUES= "+tv.getText());
         					t.setNombre(valor);
         					//Retorno
         			    	Intent resultIntent=new Intent();
@@ -213,7 +207,6 @@ public class PreferencesTarifa extends ListActivity{
 			    public void onClick(DialogInterface dialog, int item) {
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
 			    	String colorSeleccionado=getResources().getStringArray(R.array.colores)[item];
-			        Log.d(TAG,"Color seleccionado = "+colorSeleccionado);
 			        tv.setText(colorSeleccionado);
 			        t.setColor(colorSeleccionado);
 					//Retorno
@@ -245,19 +238,15 @@ public class PreferencesTarifa extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 		default: // Es una franja horaria
 			//Aqui es donde hay que pasar a la pantalla de Franjas
 			
 			iyt=(IconoYTexto2) l.getItemAtPosition(position);
-			Log.d(TAG, "Franja seleccionada -> "+iyt.subtitulo);
 			int idFranja=t.getIdentificador(iyt.subtitulo);
-			Log.d(TAG, "ID Franja seleccionada -> "+idTarifa);
 	    	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesFranja.class );
 	    	Franja f = t.getFranja(idFranja);
 	    	Bundle extras = new Bundle();
-	    	Log.d(TAG,"Pasamos la tarifa : "+t.getNombre());
 	    	extras.putInt("idFranja", idFranja);
 	    	extras.putSerializable("franja", f);
 	    	settingsActivity2.putExtras(extras);
