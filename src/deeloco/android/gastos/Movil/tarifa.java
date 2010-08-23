@@ -423,7 +423,9 @@ public class tarifa implements Serializable{
 			}
 		}
 		retorno[GASTOMINIMO]=this.getMinimo();
-		retorno[LIMITE]=this.limite;
+		//El retorno del limite, sera para aquellas franjas que se contabilicen para el limite
+		if (retorno[LIMITE]>0.0)
+			retorno[LIMITE]=this.limite;
 		return retorno;
 	}
 	
