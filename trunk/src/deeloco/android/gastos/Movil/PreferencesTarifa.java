@@ -81,6 +81,8 @@ public class PreferencesTarifa extends ListActivity{
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", t.getNombre()));
     	//Gasto Mínimo
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Gasto Mínimo Mensual", ""+t.getMinimo()));
+    	//Limite
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Límite de llamadas (minutos)", ""+t.getLimite()));
     	//Color
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Color", t.getColor()));
     	//Numeros
@@ -196,7 +198,31 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.show();
         	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
-		case 2: // Color
+		case 2: // Limite llamadas
+			//tv=(TextView)v.findViewById(R.id.subtitulo);
+			dialog.setTitle(iyt.titulo);
+        	Log.d(TAG,"Valor inicial de Limite llamadas = "+tv.getText().toString());
+        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setTextBoxListener(
+        			new TextBoxListener() {
+        				@Override
+        				public void onOkClick(String valor) {
+        					// TODO Auto-generated method stub
+        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
+        					tv.setText(valor);
+        					t.setLimite(Integer.parseInt(valor));
+        					Log.d(TAG,"Limite = "+t.getLimite());
+        					//Retorno
+        			    	Intent resultIntent=new Intent();
+        			    	resultIntent.putExtra(TARIFA_RETORNO, t);
+        			    	setResult(Activity.RESULT_OK, resultIntent);
+        				}
+        			});
+        	dialog.show();
+        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+			break;
+			
+		case 3: // Color
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Selecciona un color");
@@ -219,7 +245,7 @@ public class PreferencesTarifa extends ListActivity{
 			AlertDialog alert = builder.create();
 			alert.show();
 			break;
-		case 3: //Numeros
+		case 4: //Numeros
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(iyt.subtitulo);

@@ -235,7 +235,6 @@ public class tarifas implements Serializable{
 		{
 			//El numero no pertenece a ninguna tarifa. Aplicar la tarifa por defecto
 			idTarifa=this.getId(tarifaDef);
-			Log.d(TAG,"Numero no pertenece a tarifa. Tarifa defecto= "+tarifaDef+", id="+idTarifa);
 			
 		}
 		
@@ -255,14 +254,9 @@ public class tarifas implements Serializable{
 		//GregorianCalendar calendario=new GregorianCalendar();
 		String sFecha =fechayhora.substring(0, 10).trim();
 		String sHora=fechayhora.substring(10, fechayhora.length()).trim();
-		Log.d(TAG,"Fecha  = "+sFecha);
-		Log.d(TAG,"Hora  = "+sHora);
 		String sDia=sFecha.substring(0,2);
 		String sMes=sFecha.substring(3, 5);
 		String sAno=sFecha.substring(6, 10);
-		Log.d(TAG,"Dia  = "+sDia);
-		Log.d(TAG,"Mes  = "+sMes);
-		Log.d(TAG,"Año  = "+sAno);
 
 		int ano= Integer.parseInt(sAno);
 		int mes= Integer.parseInt(sMes)-1;
@@ -284,7 +278,6 @@ public class tarifas implements Serializable{
 		}
 		
 		int indice=getIndice(idTarifa);
-		Log.d(TAG,"Dia de la semana = "+diaSemana);
 		retorno=this.tarifas.get(indice).coste(numero, diaSemana, shora, duracion);
 		return retorno;
 	}
@@ -312,7 +305,6 @@ public class tarifas implements Serializable{
 	 */
 	void addTarifa(tarifa t){
 		//Cuando se añade una nueva tarifa, hay que asignarle un identificador nuevo si id=0
-		Log.d(TAG,"Añadiendo tarifa con id="+t.getIdentificador()+", con nombre: "+t.getNombre());
 		if (t.getIdentificador()==0)
 		{
 			t.setIdentificador(ultimoId());
@@ -332,6 +324,7 @@ public class tarifas implements Serializable{
 		Log.i(TAG,"Nombre de la tarifa que se va a añadir -> "+t.getNombre());
 		tactual.setNombre(t.getNombre());
 		tactual.setMinimo(t.getMinimo());
+		tactual.setLimite(t.getLimite());
 		tactual.setNumeros(t.getNumeros());
 		tactual.setColor(t.getColor());
 		tactual.setDefecto(t.isDefecto());
@@ -374,12 +367,12 @@ public class tarifas implements Serializable{
 		ArrayList <Franja> franjas = new ArrayList <Franja>();
 		String xmlFinal="<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"; 
 		xmlFinal+="<tarifas>";
-		Log.d(TAG,"Cargando XML");
 		for (int t=0;t<this.tarifas.size();t++)
 		{
 			xmlFinal+="<tarifa id=\""+this.tarifas.get(t).getIdentificador()+"\">";
 			xmlFinal+="<nombreTarifa>"+this.tarifas.get(t).getNombre()+"</nombreTarifa>";
 			xmlFinal+="<gastoMinimo>"+this.tarifas.get(t).getMinimo()+"</gastoMinimo>";
+			xmlFinal+="<limiteLlamadas>"+this.tarifas.get(t).getLimite()+"</limiteLlamadas>";
 			xmlFinal+="<color>"+this.tarifas.get(t).getColor()+"</color>";
 			xmlFinal+="<numeros>"+this.tarifas.get(t).getNumeros()+"</numeros>";
 			franjas=this.tarifas.get(t).getFranjas();
@@ -400,7 +393,6 @@ public class tarifas implements Serializable{
 			xmlFinal+="</tarifa>";
 		}
 		xmlFinal+="</tarifas>";
-		Log.d(TAG,xmlFinal);
 		
 		//Guardar xml en un fichero
 		
@@ -409,7 +401,6 @@ public class tarifas implements Serializable{
         FileWriter fWriter;
         boolean retorno=true;
         try{
-        	Log.d(TAG,"Escribiendo XML");
              fWriter = new FileWriter(path);
              fWriter.write(xmlFinal);
              fWriter.flush();

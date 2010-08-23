@@ -135,6 +135,7 @@ public class PreferencesTarifas extends ListActivity{
 			{
 				tarifa t=(tarifa) data.getSerializableExtra(TARIFA_RETORNO);
 				//Añadir la tarifa al ArrayList de tarifas
+				Log.d(TAG,"Valor limite = "+t.getLimite());
 				
 				switch (t.getIdentificador()) {
 				case 0:
