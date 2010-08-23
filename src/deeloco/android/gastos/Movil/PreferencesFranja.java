@@ -64,7 +64,6 @@ public class PreferencesFranja extends ListActivity{
         f = (Franja) getIntent().getExtras().get("franja");
         idFranja=(int) getIntent().getIntExtra("idFranja", 0);
         
-    	Log.d(TAG, "Nombre de la franja:"+f.getNombre());
     	//Editar una franja existente
     	//Nombre de la franja
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", f.getNombre()));
@@ -113,16 +112,13 @@ public class PreferencesFranja extends ListActivity{
 		//TextView tv=(TextView)v.findViewById(R.id.subtitulo);
 		//tv.setText("Se ha modificado");
 		IconoYTexto2 iyt=(IconoYTexto2) l.getItemAtPosition(position);
-		Log.d(TAG, "Campo seleccionado -> "+iyt.titulo);
 		tv=(TextView)v.findViewById(R.id.subtitulo);
 		switch (position)
 		{
 		case 0: // Nombre
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
-        	Log.d(TAG,"Valor inicial de Nombre = "+tv.getText().toString());
         	dialog.setValorInicial(tv.getText().toString());
-        	Log.d(TAG,"Valor inicial de Nombre = "+dialog.getValor());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				//@Override
@@ -138,7 +134,6 @@ public class PreferencesFranja extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 		case 1: // Hora de Inicio
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
@@ -190,7 +185,6 @@ public class PreferencesFranja extends ListActivity{
 					// TODO Auto-generated method stub
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
 			    	String diaSeleccionado=getResources().getStringArray(R.array.semana)[which];
-			        Log.d(TAG,"Día seleccionado = "+getResources().getStringArray(R.array.semana)[which]+" -- "+which+" -- "+isChecked);
 			        
 			        if (isChecked) f.addDia(diaSeleccionado);
 			        else f.deleteDia(diaSeleccionado);
@@ -226,7 +220,6 @@ public class PreferencesFranja extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 		case 5: //Establecimento de llamada
 			//Data Picker
@@ -247,7 +240,6 @@ public class PreferencesFranja extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 			
 		case 6: //Limite
@@ -269,7 +261,6 @@ public class PreferencesFranja extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 			
 		case 7: //Coste fuera del limite
@@ -291,7 +282,6 @@ public class PreferencesFranja extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;	
 			
 			
