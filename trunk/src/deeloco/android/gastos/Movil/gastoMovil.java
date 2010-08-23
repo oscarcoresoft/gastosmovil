@@ -447,6 +447,8 @@ public class gastoMovil extends ListActivity {
         	String meses[] = getResources().getStringArray(R.array.listaMeses);
         	textoMes=meses[vp.getPreferenciasMes()+1];
         }
+        
+        TextView tv_cabRegistro=(TextView) findViewById(R.id.cabRegistros);
         TextView tv_Mes=(TextView) findViewById(R.id.txtMes);
         TextView tv_Numllamadas= (TextView) findViewById(R.id.txtNumLlamadas);
         TextView tv_CosteLlamadas=(TextView) findViewById(R.id.txtCosteLlamadas);
@@ -457,6 +459,7 @@ public class gastoMovil extends ListActivity {
         
         tv_Mes.setText(textoMes);
         tv_Numllamadas.setText(""+numLlamadas);
+        tv_cabRegistro.setText("Total de tiempo ... "+(totalSegundos/60)+" min. "+(totalSegundos%60)+" seg.");
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
         
@@ -469,10 +472,6 @@ public class gastoMovil extends ListActivity {
         tv_NumSMS.setText(""+numSMS);
         costeSMS=FunGlobales.redondear(vp.getPreferenciasTarifaSMS(),2)*numSMS;
         tv_CosteSMS.setText(FunGlobales.redondear(costeSMS,2)+" €");
-        if (retorno[GASTOMINIMO]>0.0)
-        {
-        	tv_Mes.setText(textoMes +" (Min."+FunGlobales.redondear(retorno[GASTOMINIMO]*iva,2)+" €) ");
-        }
         
         tv_total.setText(FunGlobales.redondear(costeLlamadas+costeSMS,2)+" €");
         
@@ -570,6 +569,7 @@ public class gastoMovil extends ListActivity {
 				ts=(tarifas) data.getSerializableExtra(TARIFAS_RETORNO);
 				//Log.d(TAG,"Retorno de preferencias tarifas ");
 				//GUARDAR ts EN EL DOCUMENTO XML
+				ts.guardarTarifas();
 				listado(vp.getPreferenciasMes());
 			}
 			break;

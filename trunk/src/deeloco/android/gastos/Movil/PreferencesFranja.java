@@ -30,13 +30,13 @@ public class PreferencesFranja extends ListActivity{
 	private static final String TAG = "PreferencesFranja";
 	private static final int RETURN_PREFERENCES_FRANJA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
+	static final int TIME_DIALOG_HORA_FINAL = 1;
 	private Franja f;
 	int idFranja;
 	private List<IconoYTexto2> listaIYT = new ArrayList<IconoYTexto2>();
 	TextView tv;
-	private int mHour;
-	private int mMinute;
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener_horaInicio;
+	private TimePickerDialog.OnTimeSetListener mTimeSetListener_horaFinal;
 	
 	
     public boolean onCreateOptionsMenu(Menu menu){
@@ -48,8 +48,10 @@ public class PreferencesFranja extends ListActivity{
     protected Dialog onCreateDialog(int id) {
         switch (id) {
         case TIME_DIALOG_HORA_INICIO:
-        	
             return new TimePickerDialog(this, mTimeSetListener_horaInicio, 0, 0, true);
+            
+        case TIME_DIALOG_HORA_FINAL:
+            return new TimePickerDialog(this, mTimeSetListener_horaFinal, 0, 0, true);
         }
         return null;
     }
@@ -141,8 +143,6 @@ public class PreferencesFranja extends ListActivity{
 			mTimeSetListener_horaInicio =
 		        new TimePickerDialog.OnTimeSetListener() {
 		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		                mHour = hourOfDay;
-		                mMinute = minute;
     					tv.setText(hourOfDay+":"+minute+":00");
     					f.setHoraInicio(hourOfDay+":"+minute+":00");
     					//Retorno
@@ -156,11 +156,9 @@ public class PreferencesFranja extends ListActivity{
 		case 2: // Hora Final
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			//Data Picker
-			mTimeSetListener_horaInicio =
+			mTimeSetListener_horaFinal =
 		        new TimePickerDialog.OnTimeSetListener() {
 		            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		                mHour = hourOfDay;
-		                mMinute = minute;
     					tv.setText(hourOfDay+":"+minute+":00");
     					f.setHoraFinal(hourOfDay+":"+minute+":00");
     					//Retorno
@@ -169,7 +167,7 @@ public class PreferencesFranja extends ListActivity{
     			    	setResult(Activity.RESULT_OK, resultIntent);
 		            }
 		        };
-		        showDialog(TIME_DIALOG_HORA_INICIO);
+		        showDialog(TIME_DIALOG_HORA_FINAL);
 			break;
 		case 3: //Dias
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
