@@ -77,6 +77,10 @@ public void endElement(String uri, String localName, String qName) throws SAXExc
 	{
 		t.setMinimo(Double.parseDouble(this.datosElemento));
 	}
+	if (localName.compareTo("limiteLlamadas")==0)
+	{
+		t.setLimite(Integer.parseInt(this.datosElemento));
+	}
 	if (localName.compareTo("color")==0)
 	{
 		t.setColor(this.datosElemento);
@@ -85,7 +89,6 @@ public void endElement(String uri, String localName, String qName) throws SAXExc
 	if (localName.compareTo("numeros")==0)
 	{
 		t.setNumeros(this.datosElemento);
-		System.out.println("NUMEROS > "+this.datosElemento);
 	} 
 	
 	if (localName.compareTo("franja")==0)

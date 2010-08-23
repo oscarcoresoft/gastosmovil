@@ -44,6 +44,11 @@ public class tarifa implements Serializable{
 	private double minimo;
 	
 	/**
+	 * Limite, en minutos, para el que se aplica uno y otra tarifa de una franja
+	 */
+	private int limite;
+	
+	/**
 	 * Color representativo de la tarifa
 	 */
 	private String color;
@@ -134,6 +139,14 @@ public class tarifa implements Serializable{
 	 */
 	double getMinimo(){
 		return this.minimo;
+	}
+	
+	/**
+	 * Devuelve el limite de la franja
+	 * @return
+	 */
+	public int getLimite(){
+		return this.limite;
 	}
 	
 	/**
@@ -247,6 +260,14 @@ public class tarifa implements Serializable{
 	 */
 	void setMinimo(double minimo){
 		this.minimo=minimo;
+	}
+	
+	/**
+	 * Asigna el valor limite a limite de llamadas
+	 * @param limite
+	 */
+	public void setLimite (int limite){
+		this.limite=limite;
 	}
 	
 	/**
@@ -391,18 +412,18 @@ public class tarifa implements Serializable{
 	public double[] coste(String numero,int dia,Time hora,int duracion){
 		
 		double[] retorno={0.0,0.0,0.0,0.0,0.0};
-		//Log.d(TAG,"Cantida de Numeros de esta tarifa = "+this.numeros.size());
 		//Calculamos el coste
-		//Log.d(TAG,"Numero de franjas = "+this.franjas.size());
 		for (int i=0;i<this.franjas.size();i++)
 		{
-			//Log.d(TAG,"Calculando tarifa para la franja "+this.franjas.get(i).getNombre());
+			//Comprueba si el día y la hora pertenece a una franja
 			if (this.franjas.get(i).pertenece(dia, hora))
 			{
-				retorno= this.franjas.get(i).coste(dia, hora, duracion);
+				//Si el día y la hora pertenece a una franja, calcula el coste para esa franja
+				retorno= this.franjas.get(i).coste(dia, hora, duracion);				
 			}
 		}
 		retorno[GASTOMINIMO]=this.getMinimo();
+		retorno[LIMITE]=this.limite;
 		return retorno;
 	}
 	

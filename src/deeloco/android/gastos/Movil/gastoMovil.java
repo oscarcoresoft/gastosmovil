@@ -137,7 +137,6 @@ public class gastoMovil extends ListActivity {
 	        xr.setContentHandler(tarifasXML);
 	        xr.parse(new InputSource (new FileReader(path)));
 	        /* Parsing has finished. */
-	        Log.d("Gastos Móvil","Numero de tarifas cargadas -> "+ts.numTarifas());
 	        listado(vp.getPreferenciasMes());
 	        
         }
@@ -399,9 +398,6 @@ public class gastoMovil extends ListActivity {
         			totalSegundos=totalSegundos+duracion;
         		
         		//El coste ha mostrar dependera del limite
-        		Log.d(TAG,"Numero = "+telefono);
-        		Log.d(TAG,"Limite = "+retorno[LIMITE]*60);
-        		Log.d(TAG,"totalSegundo = "+totalSegundos);
         		if ((retorno[LIMITE]*60)>=totalSegundos || retorno[LIMITE]==0.0)
         			coste=retorno[COSTE]; //limite < tiempo hablado
         		else
@@ -509,7 +505,6 @@ public class gastoMovil extends ListActivity {
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
     	  	menu.setHeaderTitle(R.string.mnctx_titulo);
-    	  	Log.d(TAG,"menuInfo : "+v.getId());
     	  	ArrayList <tarifa> tarifas=ts.getTarifas();
     	  	AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
     	  	
@@ -543,14 +538,12 @@ public class gastoMovil extends ListActivity {
     	  if (t.pertenece(tlf))
     	  {
     		  //Eliminar
-    		  Log.d(TAG,"Eliminar el numero : "+tlf+", de "+t.getNombre());
     		  t.deleteNumero(tlf);
     		  listado(vp.getPreferenciasMes());
     	  }
     	  else
     	  {
     		  //Añadir
-    		  Log.d(TAG,"Añadir el numero : "+tlf+", de "+t.getNombre());
     		  t.addNumero(tlf);
     		  listado(vp.getPreferenciasMes());
     	  }
@@ -572,20 +565,11 @@ public class gastoMovil extends ListActivity {
 			}
     		break;
 		case RETURN_PREFERENCES_TARIFAS:
-			Log.d(TAG,"resultCode en onActivityResult = "+resultCode+" - Activity.RESULT_OK = "+Activity.RESULT_OK);
 			if (resultCode==Activity.RESULT_OK)
 			{
 				ts=(tarifas) data.getSerializableExtra(TARIFAS_RETORNO);
 				//Log.d(TAG,"Retorno de preferencias tarifas ");
 				//GUARDAR ts EN EL DOCUMENTO XML
-				if (ts.guardarTarifas())
-				{
-					Log.d(TAG,"XML Guardado");
-				}
-				else
-				{
-					Log.d(TAG,"XML NO Guardado");
-				}
 				listado(vp.getPreferenciasMes());
 			}
 			break;
