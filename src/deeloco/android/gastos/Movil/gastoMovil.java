@@ -366,7 +366,8 @@ public class gastoMovil extends ListActivity {
         double coste;
         double estLlamada=0;
         double totalEstLlamadas=0;
-        int totalSegundos=0;
+        int totalSegundosLimite=0; //Total de segundos hablados para las llamadas que cuentan para el limite
+        int totalSegundos=0; //Total de segundos hablados
         double[] retorno={0.0,0.0,0.0,0.0,0.0};
         
         //Si hay algún elemento
@@ -394,23 +395,24 @@ public class gastoMovil extends ListActivity {
         		
         		rIcono=vp.getColor(t.getColor());
         		
-        		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir tiene limite
+        		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir cuenta para el limite
+        		totalSegundos=totalSegundos+duracion;
         		if (retorno[LIMITE]!=0.0)
-        			totalSegundos=totalSegundos+duracion;
+        			totalSegundosLimite=totalSegundosLimite+duracion;
         		
         		//El coste ha mostrar dependera del limite
-        		if ((retorno[LIMITE]*60)>=totalSegundos || retorno[LIMITE]==0.0)
+        		if ((retorno[LIMITE]*60)>=totalSegundosLimite || retorno[LIMITE]==0.0)
+        		{
         			coste=retorno[COSTE]; //limite < tiempo hablado
+        			estLlamada=(((retorno[ESTABLECIMIENTO]/100)*iva)/coste)*100;
+        		}
         		else
         		{
         			rIcono=getResources().getDrawable(android.R.drawable.presence_busy);
         			coste=retorno[COSTE_FUERA_LIMITE]; //limite > tiempo hablado
+        			estLlamada=(((retorno[ESTABLECIMIENTO_FUERA_LIMITE]/100)*iva)/coste)*100;
         		}
-        		
-        		
 
-        		if (retorno[ESTABLECIMIENTO]!=0.0)
-        			estLlamada=(((retorno[ESTABLECIMIENTO]/100)*iva)/coste)*100;
         		//estLlamada=f.getEstablecimiento();
 
         		if (duracion>modifDuracion)
@@ -461,7 +463,7 @@ public class gastoMovil extends ListActivity {
         tv_Mes.setText(textoMes);
         tv_Numllamadas.setText(""+numLlamadas);
         if (retorno[LIMITE]>0)
-        	tv_cabRegistro.setText("Gastado "+(totalSegundos/60)+" m. "+(totalSegundos%60)+" s. Límite "+retorno[LIMITE]+" m.");//TEXTO
+        	tv_cabRegistro.setText("Gastado "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. Límite "+retorno[LIMITE]+" m.");//TEXTO
         else
         	tv_cabRegistro.setText("Registro de llamadas"); //TEXTO
         //-- Porcentaje del establecimiento de llamadas
@@ -516,7 +518,7 @@ public class gastoMovil extends ListActivity {
     	  		//La tarifa por defecto no debe aparecer en el menú contextual
     	  		if (!vp.getPreferenciasDefecto().equals(tarifas.get(a).getNombre()))
     	  		{
-    	  			Log.d(TAG,"Pertenece "+listaInvertida.get(info.position).telefono+" a "+tarifas.get(a).getNombre()+" -- "+tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono));
+    	  			//Log.d(TAG,"Pertenece "+listaInvertida.get(info.position).telefono+" a "+tarifas.get(a).getNombre()+" -- "+tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono));
     	  			if (tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono))
     	  			{
         	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
