@@ -83,5 +83,9 @@
         <item>Dom</item>
     </string-array>
 
+    <string-array name="sino">
+		<item>Si</item>
+        <item>No</item>
+    </string-array>
 
 </resources>

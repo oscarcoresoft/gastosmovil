@@ -115,7 +115,7 @@ public class PreferencesTarifa extends ListActivity{
         	f.setDias("[Lun,Mar,Mie,Jue,Vie,Sab,Dom]");
         	f.setCoste(0.0);
         	f.setEstablecimiento(0.0);
-        	f.setLimite(0);
+        	f.setLimite(false);
         	f.setCosteFueraLimite(0.0);
         	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesFranja.class );
         	Bundle extras = new Bundle();

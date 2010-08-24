@@ -368,6 +368,7 @@ public class tarifa implements Serializable{
 		factual.setEstablecimiento(f.getEstablecimiento());
 		factual.setLimite(f.getLimite());
 		factual.setCosteFueraLimite(f.getCosteFueraLimite());
+		factual.setEstablecimientoFueraLimite(f.getEstablecimientoFueraLimite());
 	}
 
 	/**
