@@ -78,6 +78,7 @@ public class gastoMovil extends ListActivity {
 	private static final int GASTOMINIMO=2;
 	private static final int LIMITE=3;
 	private static final int COSTE_FUERA_LIMITE=4;
+	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
     private double iva=1.18;
     String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
     int totalRegistros=0;

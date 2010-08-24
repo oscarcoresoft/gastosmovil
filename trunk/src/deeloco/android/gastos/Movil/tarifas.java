@@ -32,6 +32,8 @@ public class tarifas implements Serializable{
 	private static final int ESTABLECIMIENTO=1;
 	private static final int GASTOMINIMO=2;
 	private static final int LIMITE=3;
+	private static final int COSTE_FUERA_LIMITE=4;
+	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;;
 	
 	/**
 	 * Conjunto de franjas horarias definidas por el usuario
@@ -227,7 +229,7 @@ public class tarifas implements Serializable{
 	public double[] costeLlamada(String numero,String fechayhora, int duracion,String tarifaDef){
 		
 		//Conocer a que tarifa pertecene
-		double[] retorno={0.0,0.0,0.0,0.0,0.0};
+		double[] retorno={0.0,0.0,0.0,0.0,0.0,0.0};
 		//Log.d(TAG,"numero= "+numero);
 		int idTarifa=indiceTarifa(numero);
 		

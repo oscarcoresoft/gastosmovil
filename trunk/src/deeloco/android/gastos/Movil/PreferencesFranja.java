@@ -80,7 +80,7 @@ public class PreferencesFranja extends ListActivity{
     	//Establecimiento de la llamada
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Establecimiento de la llamada", ""+f.getEstablecimiento()));
     	//Limite
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Contabilizar las llamadas para el limite", ""+f.getEstablecimientoFueraLimite()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Contabilizar las llamadas para el limite", ""+f.getLimiteSiNo()));
     	//Coste fuera del limite
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste pasado los limite", ""+f.getCosteFueraLimite()));
     	//Coste fuera del limite
