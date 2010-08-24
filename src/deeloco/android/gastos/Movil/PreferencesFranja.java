@@ -78,11 +78,13 @@ public class PreferencesFranja extends ListActivity{
     	//Coste de la llamada
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste de la llamada", ""+f.getCoste()));
     	//Establecimiento de la llamada
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste del establecimiento de la llamada", ""+f.getEstablecimiento()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Establecimiento de la llamada", ""+f.getEstablecimiento()));
     	//Limite
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Limite (min.)", ""+f.getLimite()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Contabilizar las llamadas para el limite", ""+f.getEstablecimientoFueraLimite()));
     	//Coste fuera del limite
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Coste pasado los limite", ""+f.getCosteFueraLimite()));
+    	//Coste fuera del limite
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Establecimiento pasado los limite", ""+f.getEstablecimientoFueraLimite()));
 
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
         setListAdapter(ad);
@@ -241,24 +243,26 @@ public class PreferencesFranja extends ListActivity{
 			break;
 			
 		case 6: //Limite
-			//Data Picker
-        	dialog.setTitle(iyt.titulo);
-        	dialog.setValorInicial(iyt.subtitulo);
-        	dialog.setTextBoxListener(
-        			new TextBoxListener() {
-        				@Override
-        				public void onOkClick(String valor) {
-        					// TODO Auto-generated method stub
-        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
-        					tv.setText(valor);
-        					f.setLimite(valor);
-        					//Retorno
-        			    	Intent resultIntent=new Intent();
-        			    	resultIntent.putExtra(FRANJA_RETORNO, f);
-        			    	setResult(Activity.RESULT_OK, resultIntent);
-        				}
-        			});
-        	dialog.show();
+			AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+			builder2.setTitle("Selecciona un color");
+			int defecto=0;
+			Log.d(TAG,"Valor incial de Color = "+tv.getText().toString()+", con indice "+0);
+			builder2.setSingleChoiceItems(R.array.sino,2, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+			    	String colorSeleccionado=getResources().getStringArray(R.array.sino)[item];
+			        tv.setText(colorSeleccionado);
+			        f.setLimite(colorSeleccionado);
+					//Retorno
+			    	Intent resultIntent=new Intent();
+			    	resultIntent.putExtra(FRANJA_RETORNO, f);
+			    	setResult(Activity.RESULT_OK, resultIntent);
+			        
+			    }
+			});
+			AlertDialog alert2 = builder2.create();
+			alert2.show();
+
 			break;
 			
 		case 7: //Coste fuera del limite
@@ -273,6 +277,27 @@ public class PreferencesFranja extends ListActivity{
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
         					tv.setText(valor);
         					f.setCosteFueraLimite(valor);
+        					//Retorno
+        			    	Intent resultIntent=new Intent();
+        			    	resultIntent.putExtra(FRANJA_RETORNO, f);
+        			    	setResult(Activity.RESULT_OK, resultIntent);
+        				}
+        			});
+        	dialog.show();
+			break;
+			
+		case 8: //Establecimiento de llamada fuera del limite
+			//Data Picker
+        	dialog.setTitle(iyt.titulo);
+        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setTextBoxListener(
+        			new TextBoxListener() {
+        				@Override
+        				public void onOkClick(String valor) {
+        					// TODO Auto-generated method stub
+        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
+        					tv.setText(valor);
+        					f.setEstablecimientoFueraLimite(valor);
         					//Retorno
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(FRANJA_RETORNO, f);

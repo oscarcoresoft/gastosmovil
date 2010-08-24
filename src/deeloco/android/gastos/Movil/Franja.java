@@ -59,16 +59,19 @@ public class Franja implements Serializable{
 	private double establecimiento;
 	
 	/**
-	 * Limite, en segundos, de las llamadas para esta franja.
+	 * Si las llamadas que pertenecen a la franja se contabilizan para el limite.
 	 */
-	private int limite;
+	private boolean limite;
 	
 	/**
 	 * Coste de las llamadas superado el límite de tiempo.
 	 */
 	private double costeFueraLimite;
 	
-	
+	/**
+	 * Establecimiento de las llamadas superado el límite de tiempo.
+	 */
+	private double establecimientoFueraLimite;
 
 	/**
 	 * Constructor de la clase
@@ -81,8 +84,9 @@ public class Franja implements Serializable{
 	 * @param establecimiento
 	 * @param limite
 	 * @param costeFueraLimite
+	 * @param establecimientoFueraLimite
 	 */
-	Franja(int id,String nombre,Time horaIni,Time horaFinal,ArrayList <String> dias, double coste, double establecimiento, int limite, double costeFueraLimite){
+	Franja(int id,String nombre,Time horaIni,Time horaFinal,ArrayList <String> dias, double coste, double establecimiento, boolean limite, double costeFueraLimite, double establecimientoFueraLimite){
 		this.identificador=id; //hay que calcularlo
 		this.nombre=nombre;
 		this.horaInicio=horaIni;
@@ -92,6 +96,7 @@ public class Franja implements Serializable{
 		this.establecimiento=establecimiento;
 		this.limite=limite;
 		this.costeFueraLimite=costeFueraLimite;
+		this.establecimientoFueraLimite=establecimientoFueraLimite;
 	}
 	
 	/**
@@ -112,8 +117,9 @@ public class Franja implements Serializable{
 		this.dias=dias;
 		this.coste=coste;
 		this.establecimiento=establecimiento;
-		this.limite=0;
+		this.limite=false;
 		this.costeFueraLimite=0;
+		this.establecimientoFueraLimite=0;
 	}
 	
 	Franja(String id){
@@ -175,7 +181,7 @@ public class Franja implements Serializable{
 	 * Retorna el limite del coste de las llamadas
 	 * @return
 	 */
-	public int getLimite(){
+	public boolean getLimite(){
 		return this.limite;
 	}
 	
@@ -185,6 +191,14 @@ public class Franja implements Serializable{
 	 */
 	double getCosteFueraLimite(){
 		return this.costeFueraLimite;
+	}
+	
+	/**
+	 * Retorna el establecimiento de las llamadas fuera del limite
+	 * @return
+	 */
+	public double getEstablecimientoFueraLimite(){
+		return this.establecimientoFueraLimite;
 	}
 	
 	/**
@@ -296,11 +310,14 @@ public class Franja implements Serializable{
 	 * Asigna el limite, en segundos, que marca el coste de las llamadas
 	 * @param limite
 	 */
-	void setLimite(int limite){
+	void setLimite(boolean limite){
 		this.limite=limite;
 	}
 	void setLimite(String limite){
-		this.limite=Integer.parseInt(limite);
+		if (limite.equals("si")||limite.equals("Si")||limite.equals("SI")||limite.equals("Verdadero")||limite.equals("verdadero")||limite.equals("true")||limite.equals("True"))
+			this.limite=true;
+		else
+			this.limite=false;
 	}
 	
 	/**
@@ -312,6 +329,19 @@ public class Franja implements Serializable{
 	}
 	void setCosteFueraLimite(String costeFueraLimite){
 		this.costeFueraLimite=Double.parseDouble(costeFueraLimite);
+	}
+	
+	
+	/**
+	 * Asigna el coste del establecimiento de llamada que pasan el límite de duración
+	 * @param establecimientoFueraLimite
+	 */
+	void setEstablecimientoFueraLimite(double establecimientoFueraLimite){
+		this.establecimientoFueraLimite=establecimientoFueraLimite;
+	}
+	
+	void setEstablecimientoFueraLimite(String establecimientoFueraLimite){
+		this.establecimientoFueraLimite=Double.parseDouble(establecimientoFueraLimite);
 	}
 	
 	/**
@@ -389,15 +419,14 @@ public class Franja implements Serializable{
 		retorno[COSTE]=costeTotal+((this.establecimiento/100)*iva);
 		retorno[ESTABLECIMIENTO]=this.establecimiento;
 		retorno[GASTOMINIMO]=0.0;
-		retorno[LIMITE]=this.limite;
 		retorno[COSTE_FUERA_LIMITE]=0.0;
-		if (this.limite>0)
+		if (this.limite)
 		{
 			//Calcular el coste fuera del limite
 			costePorSegundo=(this.costeFueraLimite/100)/60;
 			conIvaPorSegundosEnEuros=costePorSegundo*iva;
 			costeTotal=conIvaPorSegundosEnEuros*duracion;
-			retorno[COSTE_FUERA_LIMITE]=costeTotal+((this.establecimiento/100)*iva);
+			retorno[COSTE_FUERA_LIMITE]=costeTotal+((this.establecimientoFueraLimite/100)*iva);
 		}
 			
 		//System.out.println("Coste Total con establecimiento de llamada . "+costeTotal);

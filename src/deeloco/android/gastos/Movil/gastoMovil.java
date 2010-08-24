@@ -459,7 +459,10 @@ public class gastoMovil extends ListActivity {
         
         tv_Mes.setText(textoMes);
         tv_Numllamadas.setText(""+numLlamadas);
-        tv_cabRegistro.setText("Total de tiempo ... "+(totalSegundos/60)+" min. "+(totalSegundos%60)+" seg.");
+        if (retorno[LIMITE]>0)
+        	tv_cabRegistro.setText("Gastado "+(totalSegundos/60)+" m. "+(totalSegundos%60)+" s. Límite "+retorno[LIMITE]+" m.");//TEXTO
+        else
+        	tv_cabRegistro.setText("Registro de llamadas"); //TEXTO
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
         

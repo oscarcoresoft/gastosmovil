@@ -388,6 +388,7 @@ public class tarifas implements Serializable{
 				xmlFinal+="<establecimiento>"+franjas.get(f).getEstablecimiento()+"</establecimiento>";
 				xmlFinal+="<limite>"+franjas.get(f).getLimite()+"</limite>";
 				xmlFinal+="<costeFueraLimite>"+franjas.get(f).getCosteFueraLimite()+"</costeFueraLimite>";
+				xmlFinal+="<establecimientoFueraLimite>"+franjas.get(f).getEstablecimientoFueraLimite()+"</establecimientoFueraLimite>";
 				xmlFinal+="</franja>";
 			}
 			xmlFinal+="</tarifa>";
