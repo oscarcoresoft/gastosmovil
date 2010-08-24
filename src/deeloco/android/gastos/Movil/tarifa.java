@@ -22,6 +22,8 @@ public class tarifa implements Serializable{
 	private static final int ESTABLECIMIENTO=1;
 	private static final int GASTOMINIMO=2;
 	private static final int LIMITE=3;
+	private static final int COSTE_FUERA_LIMITE=4;
+	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
 	
 	/**
 	 * 
@@ -412,7 +414,7 @@ public class tarifa implements Serializable{
 	 */
 	public double[] coste(String numero,int dia,Time hora,int duracion){
 		
-		double[] retorno={0.0,0.0,0.0,0.0,0.0};
+		double[] retorno={0.0,0.0,0.0,0.0,0.0,0.0};
 		//Calculamos el coste
 		for (int i=0;i<this.franjas.size();i++)
 		{
@@ -420,13 +422,15 @@ public class tarifa implements Serializable{
 			if (this.franjas.get(i).pertenece(dia, hora))
 			{
 				//Si el día y la hora pertenece a una franja, calcula el coste para esa franja
-				retorno= this.franjas.get(i).coste(dia, hora, duracion);				
+				retorno= this.franjas.get(i).coste(dia, hora, duracion);
+				if (this.franjas.get(i).getLimite())
+					retorno[LIMITE]=this.limite;
+				else
+					retorno[LIMITE]=0.0;
 			}
 		}
 		retorno[GASTOMINIMO]=this.getMinimo();
 		//El retorno del limite, sera para aquellas franjas que se contabilicen para el limite
-		if (retorno[LIMITE]>0.0)
-			retorno[LIMITE]=this.limite;
 		return retorno;
 	}
 	

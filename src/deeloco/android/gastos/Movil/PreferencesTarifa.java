@@ -280,10 +280,6 @@ public class PreferencesTarifa extends ListActivity{
 	    	startActivityForResult(settingsActivity2, RETURN_PREFERENCES_FRANJA);
 			break;
 		}
-		
-		
-		
-
 	}
 	
 	TextBoxListener tbListener=new TextBoxListener() {

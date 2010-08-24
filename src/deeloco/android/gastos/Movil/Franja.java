@@ -19,6 +19,7 @@ public class Franja implements Serializable{
 	private static final int GASTOMINIMO=2;
 	private static final int LIMITE=3;
 	private static final int COSTE_FUERA_LIMITE=4;
+	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
 
 	private final double iva=1.18;
 	
@@ -183,6 +184,13 @@ public class Franja implements Serializable{
 	 */
 	public boolean getLimite(){
 		return this.limite;
+	}
+	
+	public String getLimiteSiNo(){
+		if (this.limite)
+			return "Si";
+		else
+			return "No";
 	}
 	
 	/**
@@ -406,7 +414,7 @@ public class Franja implements Serializable{
 		double conIvaPorSegundosEnEuros;
 		double costePorSegundo;
 		double costeTotal;
-		double[] retorno={0.0,0.0,0.0,0.0,0.0};
+		double[] retorno={0.0,0.0,0.0,0.0,0.0,0.0};
 		
 		costePorSegundo=(this.coste/100)/60;
 		//System.out.println("Coste por Segundos . "+costePorSegundo);
@@ -418,8 +426,10 @@ public class Franja implements Serializable{
 		//costeTotal=costeTotal+((this.establecimiento/100)*iva);
 		retorno[COSTE]=costeTotal+((this.establecimiento/100)*iva);
 		retorno[ESTABLECIMIENTO]=this.establecimiento;
-		retorno[GASTOMINIMO]=0.0;
+		retorno[GASTOMINIMO]=0.0; //En tarifa
+		retorno[LIMITE]=0.0; //En Tarifa
 		retorno[COSTE_FUERA_LIMITE]=0.0;
+		retorno[ESTABLECIMIENTO_FUERA_LIMITE]=0.0;
 		if (this.limite)
 		{
 			//Calcular el coste fuera del limite
@@ -427,6 +437,7 @@ public class Franja implements Serializable{
 			conIvaPorSegundosEnEuros=costePorSegundo*iva;
 			costeTotal=conIvaPorSegundosEnEuros*duracion;
 			retorno[COSTE_FUERA_LIMITE]=costeTotal+((this.establecimientoFueraLimite/100)*iva);
+			retorno[ESTABLECIMIENTO_FUERA_LIMITE]=this.establecimientoFueraLimite;
 		}
 			
 		//System.out.println("Coste Total con establecimiento de llamada . "+costeTotal);
