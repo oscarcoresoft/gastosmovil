@@ -509,10 +509,11 @@ public class gastoMovil extends ListActivity {
     	  	
     	  	for (int a=0;a<tarifas.size();a++)
     	  	{
-    	  		
+    	  		//La tarifa por defecto no debe aparecer en el menú contextual
     	  		if (!vp.getPreferenciasDefecto().equals(tarifas.get(a).getNombre()))
     	  		{
-    	  			if (tarifas.get(a).pertenece(lista.get(info.position).telefono))
+    	  			Log.d(TAG,"Pertenece "+listaInvertida.get(info.position).telefono+" a "+tarifas.get(a).getNombre()+" -- "+tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono));
+    	  			if (tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono))
     	  			{
         	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
         	  			//menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
