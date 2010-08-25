@@ -121,7 +121,7 @@ public class PreferencesTarifa extends ListActivity{
         	f.setCosteFueraLimite(0.0);
         	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesFranja.class );
         	Bundle extras = new Bundle();
-        	Log.d(TAG,"Pasamos la franja NUEVA : "+f.getNombre());
+        	//Log.d(TAG,"Pasamos la franja NUEVA : "+f.getNombre());
         	extras.putInt("idFranja", 0);
         	extras.putSerializable("franja", f);
         	settingsActivity2.putExtras(extras);
@@ -145,7 +145,7 @@ public class PreferencesTarifa extends ListActivity{
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		vista=v;
 		TextBox dialog = new TextBox(this);
-		Log.d(TAG,"Valor de Nombre de la tarifa: "+t.getNombre());
+		//Log.d(TAG,"Valor de Nombre de la tarifa: "+t.getNombre());
 		//Toast.makeText(getBaseContext(),"Posición: "+position,Toast.LENGTH_LONG).show();
 		//Aqui es donde hay que pasar a la pantalla de Tarifas
 		//int idTarifa=t.getIdentificador(l.getItemAtPosition(position).toString());
@@ -164,7 +164,7 @@ public class PreferencesTarifa extends ListActivity{
 			tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(t.getNombre());
-        	dialog.setSubtitulo("Nombre que identifica a la tarifa");
+        	dialog.setSubtitulo(getString(R.string.aj_tarifa_nombre_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -182,16 +182,16 @@ public class PreferencesTarifa extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+        	//Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
         	
 			break;
 		case 1: // Gasto Mínimo
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			TextBox dialog2 = new TextBox(this);
 			dialog2.setTitle(iyt.titulo);
-        	Log.d(TAG,"Valor incial de Gastos Mínimo = "+tv.getText().toString());
+        	//Log.d(TAG,"Valor incial de Gastos Mínimo = "+tv.getText().toString());
         	dialog2.setValorInicial(""+t.getMinimo());
-        	dialog2.setSubtitulo("Gasto Mínimo al mes (en euros y sin iva).");
+        	dialog2.setSubtitulo(getString(R.string.aj_tarifa_gastoMinimo_des));
         	dialog2.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -209,14 +209,14 @@ public class PreferencesTarifa extends ListActivity{
         				}
         			});
         	dialog2.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+        	//Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 		case 2: // Limite llamadas
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			dialog.setTitle(iyt.titulo);
-        	Log.d(TAG,"Valor inicial de Limite llamadas = "+tv.getText().toString());
+        	//Log.d(TAG,"Valor inicial de Limite llamadas = "+tv.getText().toString());
         	dialog.setValorInicial(""+t.getLimite());
-        	dialog.setSubtitulo("Límite de minutos, al mes y en minutos.");
+        	dialog.setSubtitulo(getString(R.string.aj_tarifa_limite_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -225,7 +225,7 @@ public class PreferencesTarifa extends ListActivity{
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
         					tv.setText(valor);
         					t.setLimite(Integer.parseInt(valor));
-        					Log.d(TAG,"Limite = "+t.getLimite());
+        					//Log.d(TAG,"Limite = "+t.getLimite());
         					//Retorno
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(TARIFA_RETORNO, t);
@@ -234,16 +234,16 @@ public class PreferencesTarifa extends ListActivity{
         				}
         			});
         	dialog.show();
-        	Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
+        	//Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 			
 		case 3: // Color
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Selecciona un color");
+			builder.setTitle(iyt.titulo);
 			
 			int indColor=indiceColor(tv.getText().toString());
-			Log.d(TAG,"Valor incial de Color = "+tv.getText().toString()+", con indice "+indColor);
+			//Log.d(TAG,"Valor incial de Color = "+tv.getText().toString()+", con indice "+indColor);
 			builder.setSingleChoiceItems(R.array.colores,indColor, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
@@ -263,7 +263,7 @@ public class PreferencesTarifa extends ListActivity{
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(t.getNumeros());
-        	dialog.setSubtitulo("Números asignados a la tarifa.");
+        	dialog.setSubtitulo(getString(R.string.aj_tarifa_numeros_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -313,14 +313,14 @@ public class PreferencesTarifa extends ListActivity{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		Log.d(TAG,"requestCode en onActivityResult = "+requestCode+" - RETURN_PREFERENCES_TARIFA = "+RETURN_PREFERENCES_FRANJA);
+		//Log.d(TAG,"requestCode en onActivityResult = "+requestCode+" - RETURN_PREFERENCES_TARIFA = "+RETURN_PREFERENCES_FRANJA);
 		switch (requestCode) {
 		case RETURN_PREFERENCES_FRANJA:
-			Log.d(TAG,"resultCode en onActivityResult = "+resultCode+" - Activity.RESULT_OK = "+Activity.RESULT_OK);
+			//Log.d(TAG,"resultCode en onActivityResult = "+resultCode+" - Activity.RESULT_OK = "+Activity.RESULT_OK);
 			if (resultCode==Activity.RESULT_OK)
 			{
 				Franja f=(Franja) data.getSerializableExtra(FRANJA_RETORNO);
-				Log.d(TAG,"La franja retornada es "+f.getNombre());
+				//Log.d(TAG,"La franja retornada es "+f.getNombre());
 				//Añadir la franja al ArrayList de tarifa
 				
 				switch (f.getIdentificador()) {
@@ -356,19 +356,11 @@ public class PreferencesTarifa extends ListActivity{
 
 		String[] colores = getResources().getStringArray(R.array.colores);
 		for (int a=0;a<colores.length;a++){
-			Log.d(TAG,"colores["+a+"] ="+colores[a]+", comparado con "+color);
+			//Log.d(TAG,"colores["+a+"] ="+colores[a]+", comparado con "+color);
 			if (colores[a].compareTo(color)==0) return a;
 		}
 		
 		return 0;
-	}
-
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		
-		Log.d(TAG,"ON PAUSE");
 	}
 
 

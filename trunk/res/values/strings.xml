@@ -107,6 +107,18 @@
 	<string name="lista_vacia">Sin datos. No hay llamadas en el registro de llamadas o no se hay tarifas definidas para calcular los costes de las llamadas.</string>
 	<string name="tarifas_vacias">No hay tarifas definidas. Para definir una nueva tarifa -> Menu + Nueva Tarifa</string>
 	<string name="mensaje_tarifa_defecto_no_definida">No hay una tarifa por defecto o esta no es correcta. Menu + Ajustes</string>
+	<string name="aj_franja_nombre_des">Nombre que identifica a la franja.</string>
+	<string name="aj_franja_dias">Selecciona dias de la semana</string>
+	<string name="aj_franja_coste_des">Coste de la llamada, cuando no se sobrepase los limites de tiempo de la tarifa o cuando no tiene limite de tiempo. En centimos y sin iva.</string>
+	<string name="aj_franja_establecimiento_des">Coste del establecimiento de llamada, cuando no se sobrepase los limites de tiempo de la tarifa o cuando no tiene limite de tiempo. En centimos y sin iva.</string>
+	<string name="aj_franja_coste_limite_des">Coste de la llamada, cuando se sobrepase los limites de tiempo de la tarifa. En centimos y sin iva.</string>
+	<string name="aj_franja_establecimiento_limite_des">Coste del establecimiento de llamada, cuando se sobrepase los limites de tiempo de la tarifa. En centimos y sin iva.</string>
+	<string name="aj_tarifa_nombre_des">Nombre que identifica a la tarifa.</string>
+	<string name="aj_tarifa_gastoMinimo_des">Gasto Mínimo al mes (en euros y sin iva).</string>
+	<string name="aj_tarifa_limite_des">Límite de minutos, al mes y en minutos.</string>
+	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma.</string>
+	
+	
 	
 </resources> 
 
