@@ -38,7 +38,6 @@ public class PreferencesTarifa extends ListActivity{
 	private int idTarifa;
 	private List<IconoYTexto2> listaIYT = new ArrayList<IconoYTexto2>();
 	TextView tv;
-	View vista;
 	private int mHour;
 	private int mMinute;
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener_horaInicio;
@@ -143,7 +142,6 @@ public class PreferencesTarifa extends ListActivity{
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		vista=v;
 		TextBox dialog = new TextBox(this);
 		//Log.d(TAG,"Valor de Nombre de la tarifa: "+t.getNombre());
 		//Toast.makeText(getBaseContext(),"Posición: "+position,Toast.LENGTH_LONG).show();
@@ -160,7 +158,6 @@ public class PreferencesTarifa extends ListActivity{
 		{
 		case 0: // Nombre
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
-		
 			tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(t.getNombre());
@@ -198,7 +195,6 @@ public class PreferencesTarifa extends ListActivity{
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
-        					tv=(TextView)vista.findViewById(R.id.subtitulo);
         					tv.setText(valor);
         					t.setMinimo(Double.parseDouble(valor));
         					//Retorno

@@ -66,6 +66,18 @@ public class PreferencesFranja extends ListActivity{
         f = (Franja) getIntent().getExtras().get("franja");
         idFranja=(int) getIntent().getIntExtra("idFranja", 0);
         
+
+
+    }
+
+    
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		
+		listaIYT.clear();
     	//Editar una franja existente
     	//Nombre de la franja
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", f.getNombre()));
@@ -88,9 +100,16 @@ public class PreferencesFranja extends ListActivity{
 
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
         setListAdapter(ad);
-
-    }
-
+		
+		
+	}
+    
+    
+    
+    
+    
+    
+    
 	public boolean onOptionsItemSelected (MenuItem item) {
 		
         switch(item.getItemId()) {
@@ -289,6 +308,7 @@ public class PreferencesFranja extends ListActivity{
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(FRANJA_RETORNO, f);
         			    	setResult(Activity.RESULT_OK, resultIntent);
+        			    	onStart();
         				}
         			});
         	dialog.show();
@@ -311,6 +331,7 @@ public class PreferencesFranja extends ListActivity{
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(FRANJA_RETORNO, f);
         			    	setResult(Activity.RESULT_OK, resultIntent);
+        			    	onStart();
         				}
         			});
         	dialog.show();
@@ -335,6 +356,8 @@ public class PreferencesFranja extends ListActivity{
 			Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
 		}
 	};
+
+
 	
 	// FUNCIONES
 	
