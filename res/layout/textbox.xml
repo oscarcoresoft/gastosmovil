@@ -8,7 +8,7 @@
    
     <EditText 
     	android:id="@+id/EditText01" 
-    	android:layout_height="wrap_content" 
+    	android:layout_height="wrap_content"
     	android:text="HOLA" 
     	android:layout_width="250dip"></EditText>
 
