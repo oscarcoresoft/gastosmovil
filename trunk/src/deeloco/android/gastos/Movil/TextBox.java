@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class TextBox extends AlertDialog implements OnClickListener{
 
@@ -18,7 +19,9 @@ public class TextBox extends AlertDialog implements OnClickListener{
 
     private Context mContext;
     private String valor;
+    private String subtitulo="";
     private EditText mEditText;
+    private TextView tvSubtitulo;
 
     public TextBox(Context context) {
         super(context);
@@ -33,8 +36,10 @@ public class TextBox extends AlertDialog implements OnClickListener{
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.textbox, null);
         mEditText = (EditText) view.findViewById(R.id.EditText01);
-        Log.d(TAG,"Valor inicial="+this.valor);
+        //Log.d(TAG,"Valor inicial="+this.valor);
         mEditText.setText(this.valor);
+        tvSubtitulo=(TextView) view.findViewById(R.id.subtitulo);
+        tvSubtitulo.setText(this.subtitulo);
         setView(view);
 
     }
@@ -97,6 +102,15 @@ public class TextBox extends AlertDialog implements OnClickListener{
     
     public String getValor(){
     	return valor;
+    }
+    
+    public void setSubtitulo(String subtitulo){
+    	this.subtitulo=subtitulo;
+    	tvSubtitulo.setText(this.subtitulo);
+    }
+    
+    public String getSubtitulo(){
+    	return this.subtitulo;
     }
 
 }

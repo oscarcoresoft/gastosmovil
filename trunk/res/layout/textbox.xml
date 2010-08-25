@@ -5,6 +5,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center">
+    
+    <TextView android:id="@+id/subtitulo"
+			android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_width="250dip"
+            android:paddingBottom="5dip"/>
    
     <EditText 
     	android:id="@+id/EditText01" 
