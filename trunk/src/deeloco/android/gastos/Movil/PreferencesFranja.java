@@ -122,7 +122,7 @@ public class PreferencesFranja extends ListActivity{
 		case 0: // Nombre
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
-        	dialog.setValorInicial(tv.getText().toString());
+        	dialog.setValorInicial(f.getNombre());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				//@Override
@@ -204,7 +204,7 @@ public class PreferencesFranja extends ListActivity{
 		case 4://Coste de la llamada
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
-        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setValorInicial(""+f.getCoste());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -224,7 +224,7 @@ public class PreferencesFranja extends ListActivity{
 		case 5: //Establecimento de llamada
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
-        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setValorInicial(""+f.getEstablecimiento());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -268,7 +268,7 @@ public class PreferencesFranja extends ListActivity{
 		case 7: //Coste fuera del limite
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
-        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setValorInicial(""+f.getCosteFueraLimite());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -289,7 +289,7 @@ public class PreferencesFranja extends ListActivity{
 		case 8: //Establecimiento de llamada fuera del limite
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
-        	dialog.setValorInicial(iyt.subtitulo);
+        	dialog.setValorInicial(""+f.getEstablecimientoFueraLimite());
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
