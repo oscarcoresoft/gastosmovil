@@ -164,6 +164,7 @@ public class PreferencesTarifa extends ListActivity{
 			tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(t.getNombre());
+        	dialog.setSubtitulo("Nombre que identifica a la tarifa");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -190,6 +191,7 @@ public class PreferencesTarifa extends ListActivity{
 			dialog2.setTitle(iyt.titulo);
         	Log.d(TAG,"Valor incial de Gastos Mínimo = "+tv.getText().toString());
         	dialog2.setValorInicial(""+t.getMinimo());
+        	dialog2.setSubtitulo("Gasto Mínimo al mes (en euros y sin iva).");
         	dialog2.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -214,6 +216,7 @@ public class PreferencesTarifa extends ListActivity{
 			dialog.setTitle(iyt.titulo);
         	Log.d(TAG,"Valor inicial de Limite llamadas = "+tv.getText().toString());
         	dialog.setValorInicial(""+t.getLimite());
+        	dialog.setSubtitulo("Límite de minutos, al mes y en minutos.");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -260,6 +263,7 @@ public class PreferencesTarifa extends ListActivity{
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(t.getNumeros());
+        	dialog.setSubtitulo("Números asignados a la tarifa.");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override

@@ -123,6 +123,7 @@ public class PreferencesFranja extends ListActivity{
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(f.getNombre());
+        	dialog.setSubtitulo("Nombre que identifica a la franja.");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				//@Override
@@ -135,6 +136,7 @@ public class PreferencesFranja extends ListActivity{
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(FRANJA_RETORNO, f);
         			    	setResult(Activity.RESULT_OK, resultIntent);
+        			    	onStart();
         				}
         			});
         	dialog.show();
@@ -205,6 +207,7 @@ public class PreferencesFranja extends ListActivity{
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(""+f.getCoste());
+        	dialog.setSubtitulo("Coste de la llamada, cuando no se sobrepase los limites de tiempo de la tarifa o cuando no tiene limite de tiempo. En centimos y sin iva.");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -217,6 +220,7 @@ public class PreferencesFranja extends ListActivity{
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(FRANJA_RETORNO, f);
         			    	setResult(Activity.RESULT_OK, resultIntent);
+        			    	onStart();
         				}
         			});
         	dialog.show();
@@ -225,6 +229,7 @@ public class PreferencesFranja extends ListActivity{
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(""+f.getEstablecimiento());
+        	dialog.setSubtitulo("Coste del establecimiento de llamada, cuando no se sobrepase los limites de tiempo de la tarifa o cuando no tiene limite de tiempo. En centimos y sin iva.");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -237,17 +242,19 @@ public class PreferencesFranja extends ListActivity{
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(FRANJA_RETORNO, f);
         			    	setResult(Activity.RESULT_OK, resultIntent);
+        			    	onStart();
         				}
         			});
         	dialog.show();
 			break;
 			
-		case 6: //Limite
+		case 6: //Color
 			AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-			builder2.setTitle("Selecciona un color");
-			int defecto=0;
-			Log.d(TAG,"Valor incial de Color = "+tv.getText().toString()+", con indice "+0);
-			builder2.setSingleChoiceItems(R.array.sino,2, new DialogInterface.OnClickListener() {
+			builder2.setTitle(iyt.titulo);
+			int defecto=1;
+			if (f.getLimite()) defecto=0;
+			Log.d(TAG,"Valor inicial de Color = "+tv.getText().toString()+", con indice "+0);
+			builder2.setSingleChoiceItems(R.array.sino,defecto, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
 			    	String colorSeleccionado=getResources().getStringArray(R.array.sino)[item];
@@ -269,6 +276,7 @@ public class PreferencesFranja extends ListActivity{
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(""+f.getCosteFueraLimite());
+        	dialog.setSubtitulo("Coste de la llamada, cuando se sobrepase los limites de tiempo de la tarifa. En centimos y sin iva.");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
@@ -290,6 +298,7 @@ public class PreferencesFranja extends ListActivity{
 			//Data Picker
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(""+f.getEstablecimientoFueraLimite());
+        	dialog.setSubtitulo("Coste del establecimiento de llamada, cuando se sobrepase los limites de tiempo de la tarifa. En centimos y sin iva.");
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
         				@Override
