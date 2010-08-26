@@ -129,7 +129,7 @@ public void endElement(String uri, String localName, String qName) throws SAXExc
 	}
 	if (localName.compareTo("establecimientoFueraLimite")==0)
 	{
-		f.setCosteFueraLimite(this.datosElemento);
+		f.setEstablecimientoFueraLimite(this.datosElemento);
 	}
 	this.datosElemento="";
 }
