@@ -359,6 +359,7 @@ public class gastoMovil extends ListActivity {
         int iDuracion = c.getColumnIndex(CallLog.Calls.DURATION);
         int numLlamadas=0;
         int numSMS=0;
+        int numSMSGratis=0;
         //int modifDuracion=getPreferenciasDuracion(); //modificación de la duración de la llamada
         int modifDuracion=vp.getPreferenciasDuracion(); //modificación de la duración de la llamada
         double costeLlamadas=0;
@@ -474,9 +475,14 @@ public class gastoMovil extends ListActivity {
         else
         	tv_CosteLlamadas.setText(FunGlobales.redondear(costeLlamadas,2)+" €");
         
+        //Calculamos el coste de los SMS
         numSMS=getNumSMS_send();
-        tv_NumSMS.setText(""+numSMS);
-        costeSMS=FunGlobales.redondear(vp.getPreferenciasTarifaSMS(),2)*numSMS;
+        numSMSGratis=vp.getPreferenciasSMSGratuitos();
+        tv_NumSMS.setText(numSMS+"("+numSMSGratis+")");
+        if (numSMS>numSMSGratis)
+        	costeSMS=FunGlobales.redondear(vp.getPreferenciasTarifaSMS(),2)*(numSMS-numSMSGratis); //Mas SMS enviados que los gratuitos
+        else
+        	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         tv_CosteSMS.setText(FunGlobales.redondear(costeSMS,2)+" €");
         
         tv_total.setText(FunGlobales.redondear(costeLlamadas+costeSMS,2)+" €");
@@ -540,7 +546,7 @@ public class gastoMovil extends ListActivity {
     	  
     	  //REVISAR. 
     	  tarifa t=ts.getTarifa(item.getItemId());
-    	  String tlf=lista.get(info.position).telefono;
+    	  String tlf=listaInvertida.get(info.position).telefono;
     	  if (t.pertenece(tlf))
     	  {
     		  //Eliminar

@@ -6,6 +6,22 @@
            android:summary="@string/aj_tarifa_defecto_des"
            android:key="defecto"/>
 	</PreferenceCategory>
+	<PreferenceCategory android:title="SMS">	
+       <EditTextPreference
+			android:name="@string/aj_tarifaSMS"
+			android:summary="@string/aj_tarifaSMS_des"
+			android:defaultValue="1"
+			android:inputType="phone"
+			android:title="@string/aj_tarifaSMS"
+			android:key="txtTarifaSMS" />
+		<EditTextPreference
+			android:name="@string/aj_SMSGratis"
+			android:summary="@string/aj_SMSGratis_des"
+			android:defaultValue="1"
+			android:inputType="phone"
+			android:title="@string/aj_SMSGratis"
+			android:key="txtSMSGratis" />	
+	</PreferenceCategory>
 	<PreferenceCategory android:title="Otros ajustes">
 		<ListPreference
             android:title="@string/aj_mes"

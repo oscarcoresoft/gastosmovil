@@ -95,12 +95,9 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
         // Let's do something a preference value changes
     	final PreferenceScreen psRaiz = getPreferenceScreen();
     	
-    	if (key.equals("txtTarifaLlamadas")||key.equals("txtTarifaSMS")||key.equals("txtTarifaEstLlamada")
-    			||key.equals("listColores")||key.equals("txtTarifaEsp1Llamadas")||key.equals("txtTarifaEsp1SMS")
-    			||key.equals("txtTarifaEsp1EstLlamada")||key.equals("cboxTarifaEsp1")||key.equals("listColoresEsp1")
-    			||key.equals("txtTarifaEsp2Llamadas")||key.equals("txtTarifaEsp2SMS")||key.equals("txtTarifaEsp2EstLlamada")
-    			||key.equals("cboxTarifaEsp2")||key.equals("listColoresEsp2")||key.equals("listMes")
-    			||key.equals("txtDuracion")||key.equals("chbox_establecimiento")||key.equals("txtInicioMes"))
+    	if (key.equals("txtTarifaSMS")||key.equals("txtSMSGratis")||key.equals("listMes")
+    			||key.equals("txtDuracion")||key.equals("chbox_establecimiento")
+    			||key.equals("txtInicioMes"))
     	{
     		setResult(RESULT_OK);
     	}
