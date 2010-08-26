@@ -286,6 +286,7 @@ public class PreferencesTarifa extends ListActivity{
 	    	Franja f = t.getFranja(idFranja);
 	    	Bundle extras = new Bundle();
 	    	extras.putInt("idFranja", idFranja);
+	    	extras.putString("nombreTarifa", t.getNombre());
 	    	extras.putSerializable("franja", f);
 	    	settingsActivity2.putExtras(extras);
 	    	//startActivity(settingsActivity2);
