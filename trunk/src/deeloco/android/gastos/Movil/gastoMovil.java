@@ -483,6 +483,7 @@ public class gastoMovil extends ListActivity {
         	costeSMS=FunGlobales.redondear(vp.getPreferenciasTarifaSMS(),2)*(numSMS-numSMSGratis); //Mas SMS enviados que los gratuitos
         else
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
+        
         tv_CosteSMS.setText(FunGlobales.redondear(costeSMS,2)+" €");
         
         tv_total.setText(FunGlobales.redondear(costeLlamadas+costeSMS,2)+" €");

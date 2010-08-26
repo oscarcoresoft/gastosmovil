@@ -464,5 +464,14 @@ public class tarifa implements Serializable{
 		
         return null;
 	}
+	
+	/**
+	 * Retorna si las franjas que pertenecen a la tarifa son compatibles en los horarios
+	 * @return
+	 */
+	public boolean compatibilidadHorarioFranjas(){
+		
+		return true;
+	}
 
 }

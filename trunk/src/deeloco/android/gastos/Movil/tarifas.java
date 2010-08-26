@@ -120,7 +120,7 @@ public class tarifas implements Serializable{
         for (int i=0;i<this.tarifas.size();i++)
         {
         	nomTarifas.add(this.tarifas.get(i).getNombre());
-        	System.out.println(this.tarifas.get(i).getNombre());
+        	//System.out.println(this.tarifas.get(i).getNombre());
         }
         Collections.sort(nomTarifas);
 		return nomTarifas;

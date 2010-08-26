@@ -33,6 +33,7 @@ public class PreferencesFranja extends ListActivity{
 	static final int TIME_DIALOG_HORA_FINAL = 1;
 	private Franja f;
 	int idFranja;
+	String nombreTarifa;
 	private List<IconoYTexto2> listaIYT = new ArrayList<IconoYTexto2>();
 	TextView tv;
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener_horaInicio;
@@ -60,13 +61,12 @@ public class PreferencesFranja extends ListActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tarifas);
-        TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
-        cabecera.setText("FRANJA");
         f = (Franja) getIntent().getExtras().get("franja");
         idFranja=(int) getIntent().getIntExtra("idFranja", 0);
-        
-
+        nombreTarifa=(String) getIntent().getStringExtra("nombreTarifa");
+        setContentView(R.layout.tarifas);
+        TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
+        cabecera.setText(getString(R.string.cabFranja)+" "+nombreTarifa);
 
     }
 
