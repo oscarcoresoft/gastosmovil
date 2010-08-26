@@ -94,7 +94,7 @@ public class ValoresPreferencias {
     }
     
     public double getPreferenciasTarifaSMS(){
-    	//Retorna el valor de tarifa, que es uno de los parametrios de ajustes.
+    	//Retorna el valor de tarifa del SMS, que es uno de los parametrios de ajustes.
     	
     	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtTarifaSMS", "8");
     	double tarifa=9; //Valor por defecto
@@ -106,12 +106,22 @@ public class ValoresPreferencias {
     	{
     		tarifa=9; //Valor en caso de una excepción (null, puntuación, ...)    		
     	}
-    	//System.out.println("tarifa:***************** "+tarifa);
     	tarifa=tarifa/100; //Ya lo tengo pasado a euros
-    	//System.out.println("tarifa/100:***************** "+tarifa);
     	tarifa=tarifa*iva; //Con IVA
-    	//System.out.println("tarifa*1.16:***************** "+tarifa);
     	return  tarifa;
+    }
+    
+    public int getPreferenciasSMSGratuitos(){
+    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtSMSGratis", "0");
+    	int numeroSMS=0;
+    	try
+    	{
+    		numeroSMS=Integer.parseInt(valor);
+    	}
+    	catch (Exception e) {
+			numeroSMS=0;
+		}
+    	return numeroSMS;
     }
     
     public double getPreferenciasEstLlamadas(int listaNumero){
