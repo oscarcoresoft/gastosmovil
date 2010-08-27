@@ -3,6 +3,7 @@ package deeloco.android.gastos.Movil;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.util.Log;
@@ -365,21 +366,17 @@ public class Franja implements Serializable{
 		
 		Time mediaNoche24=Time.valueOf("24:00:00");
 		Time mediaNoche00=Time.valueOf("00:00:00");
-		//System.out.println("Pertenece el dia ["+dia+"] a la franja");
-		//System.out.println("Días de la franja "+this.identificador+" = "+this.dias.size());
+		//Comprobamos que el día esta incluido en la tarifa
 		if (this.dias.indexOf(diasSemana[dia])==-1)
 			return false;
 		else
 		{
 			//El día coincide, hay que comprobar la franja
-			//System.out.println("Hora Inicio="+this.horaInicio.toString()+" - Hora final="+this.horaFinal.toString());
 			if (this.horaInicio.before(this.horaFinal))
 			{
 				//Las horas estan en el mismo día
-				//System.out.println("Las horas estan en el mismo día");
 				if (this.horaInicio.before(hora)&&this.horaFinal.after(hora))
 				{
-					//System.out.println("**");
 					return true;
 				}
 			}
