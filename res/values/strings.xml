@@ -105,9 +105,9 @@
 	<string name="cabTarifa">Tarifa</string>
 	<string name="cabTarifas">Tarifas</string>
 	<string name="cabFranja">Franja de ... </string>
-	<string name="lista_vacia">Sin datos. No hay llamadas en el registro de llamadas o no se hay tarifas definidas para calcular los costes de las llamadas.</string>
+	<string name="lista_vacia">No hay datos en el registro de llamadas o no hay tarifas definidas -> Menu + Tarifas.</string>
 	<string name="tarifas_vacias">No hay tarifas definidas. Para definir una nueva tarifa -> Menu + Nueva Tarifa</string>
-	<string name="mensaje_tarifa_defecto_no_definida">No hay una tarifa por defecto o esta no es correcta. Menu + Ajustes</string>
+	<string name="mensaje_tarifa_defecto_no_definida">No hay tarifa por defecto correcta. Menu + Ajustes</string>
 	<string name="aj_franja_nombre_des">Nombre que identifica a la franja.</string>
 	<string name="aj_franja_dias">Selecciona dias de la semana</string>
 	<string name="aj_franja_coste_des">Coste de la llamada, cuando no se sobrepase los limites de tiempo de la tarifa o cuando no tiene limite de tiempo. En centimos y sin iva.</string>
@@ -120,6 +120,11 @@
 	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma.</string>
 	<string name="aj_SMSGratis">SMS Gratuitos</string>
 	<string name="aj_SMSGratis_des">Número de SMS gratuitos al mes.</string>
+	<string name="conflicto_hora">Revisa los horarios de las franjas. Hay horas duplicadas o sin asignar.</string>
+	<string name="acercade_ayuda_cab">Video Manuales</string>
+	<string name="acercade_ayuda">Enlace con videos de youtube, donde se explica como ajustar los parámetros de la aplicación y ejemplos a partir de tarifas reales y como configurarlas en la aplicación.</string>
+	<string name="acercade_youtube1">Configuración - http://www.youtube.com/watch?v=x3T1JDW86JY</string>
+	<string name="acercade_webGastoMovil">http://gastosmovil.simahuelva.es/</string>
 	
 	
 </resources> 

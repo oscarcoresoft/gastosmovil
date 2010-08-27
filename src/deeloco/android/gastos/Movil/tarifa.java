@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.util.Log;
 
@@ -470,8 +471,88 @@ public class tarifa implements Serializable{
 	 * @return
 	 */
 	public boolean compatibilidadHorarioFranjas(){
+		int[][] mControl=new int[7][24];
+		boolean conflicto=true;
+		//Iniciando mControl
+		for (int f=0;f<7;f++)
+			for (int c=0;c<24;c++)
+				mControl[f][c]=0;
 		
-		return true;
+		
+		//recorremos todas las franjas
+        for (int i=0;i<this.franjas.size();i++)
+        {
+        	int fila=0;
+        	List<String> diasSemana=new ArrayList <String>();
+        	diasSemana=this.franjas.get(i).getDias();
+        	int hInicio=Integer.parseInt((""+this.franjas.get(i).getHoraInicio()).split(":")[0]);
+        	int hFinal=Integer.parseInt((""+this.franjas.get(i).getHoraFinal()).split(":")[0]);
+        	Log.d(TAG,"hora inicio:"+hInicio+" - hora final:"+hFinal);
+        	Log.d(TAG,"Dia de la semana "+diasSemana+"="+diasSemana.indexOf("Lun"));
+        	for (int d=0;d<diasSemana.size();d++)
+        	{
+        		if (diasSemana.get(d).equals("Lun")) fila=0;
+        		if (diasSemana.get(d).equals("Mar")) fila=1;
+        		if (diasSemana.get(d).equals("Mie")) fila=2;
+        		if (diasSemana.get(d).equals("Jue")) fila=3;
+        		if (diasSemana.get(d).equals("Vie")) fila=4;
+        		if (diasSemana.get(d).equals("Sab")) fila=5;
+        		if (diasSemana.get(d).equals("Dom")) fila=6;
+        		
+        		//El lunes esta entro los días
+        		
+        		if (hInicio<hFinal)
+        		{
+        			//la franja está en el mismo día
+        			for (int a=hInicio;a<(hFinal+1);a++)
+        			{
+        				mControl[fila][a]++;
+        			}
+        		}
+        		else
+        		{
+        			//la franja está en dos días
+        			for (int a=hInicio;a<24;a++)
+        			{
+        				mControl[fila][a]++;
+        			}
+        			
+        			for (int a=0;a<(hFinal+1);a++)
+        			{
+        				mControl[fila][a]++;
+        			}
+        			
+        		}
+        	}
+
+        } 
+        
+        
+		for (int f=0;f<7;f++)
+			for (int c=0;c<24;c++)
+			{
+				if (mControl[f][c]!=1) conflicto=false;
+				//Log.d(TAG,"("+f+","+c+")="+mControl[f][c]);
+			}
+		
+		
+		return conflicto;
+	}
+	
+	
+	public String getNombreFranja(int dia,Time hora){
+		
+		
+		for (int i=0;i<this.franjas.size();i++)
+		{
+			//Comprueba si el día y la hora pertenece a una franja
+			if (this.franjas.get(i).pertenece(dia, hora))
+			{
+				return this.franjas.get(i).getNombre();
+			}
+		}
+		
+		return "";
 	}
 
 }
