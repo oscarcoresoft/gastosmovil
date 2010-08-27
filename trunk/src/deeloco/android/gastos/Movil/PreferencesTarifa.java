@@ -334,7 +334,9 @@ public class PreferencesTarifa extends ListActivity{
 					t.modificarFranja(f.getIdentificador(), f);
 					break;
 				}
-				
+				//Comprobamos que no hay conflicto en los horarios
+				if (!t.compatibilidadHorarioFranjas())
+					Toast.makeText(getBaseContext(),R.string.conflicto_hora,Toast.LENGTH_LONG).show();
 				//Retorno
 		    	Intent resultIntent=new Intent();
 		    	resultIntent.putExtra(TARIFA_RETORNO, t);

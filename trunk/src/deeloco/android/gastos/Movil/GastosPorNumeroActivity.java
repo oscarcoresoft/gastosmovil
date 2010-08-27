@@ -58,7 +58,7 @@ public class GastosPorNumeroActivity extends Activity {
     	  
     	  //Obtenemos el nombre de contacto de la agenda, dado el número
     	  
-    	  System.out.println("****** "+People._ID+"="+'"'+i+'"');
+    	  //System.out.println("****** "+People._ID+"="+'"'+i+'"');
     	  c=managedQuery(People.CONTENT_URI,null, People.NUMBER+"="+sNumero , null, null);
     	  
     	  startManagingCursor(c);
