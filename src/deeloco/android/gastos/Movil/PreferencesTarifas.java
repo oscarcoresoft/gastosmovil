@@ -6,7 +6,9 @@ import java.util.List;
 
 import deeloco.android.gastos.Movil.TextBox.TextBoxListener;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 public class PreferencesTarifas extends ListActivity{
 	
 	private static final int NUEVA_TARIFA = Menu.FIRST;
+	private static final int NUEVA_TARIFA_PREDEFINIDA = Menu.FIRST+1;
 	private static final int RETURN_PREFERENCES_TARIFA=1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesTarifas";
@@ -30,6 +33,7 @@ public class PreferencesTarifas extends ListActivity{
 	
     public boolean onCreateOptionsMenu(Menu menu){
     	menu.add(Menu.NONE, NUEVA_TARIFA, 0, R.string.mn_nueva_tarifa).setIcon(android.R.drawable.ic_menu_add);
+    	menu.add(Menu.NONE, NUEVA_TARIFA_PREDEFINIDA, 0, R.string.mn_nueva_tarifa_predefinida).setIcon(android.R.drawable.ic_menu_add);
     	return true;
     }
 	
@@ -100,6 +104,44 @@ public class PreferencesTarifas extends ListActivity{
         	extras.putSerializable("tarifa", t);
         	settingsActivity2.putExtras(extras);
         	startActivityForResult(settingsActivity2,RETURN_PREFERENCES_TARIFA);
+        	
+            break;
+            
+        case NUEVA_TARIFA_PREDEFINIDA:
+        	//Creamos un objeto tarifa con id=0 y se lo pasamos a la activity PreferencesTarifa
+        	
+        	/*
+        	tarifa t=new tarifa(0);
+        	t.setNombre("Tarifa Nueva");
+        	t.setMinimo(0.0);
+        	t.setColor("Blanco");
+        	t.setNumeros("");
+        	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
+        	Bundle extras = new Bundle();
+        	extras.putInt("idTarifa", 0);
+        	extras.putSerializable("tarifa", t);
+        	settingsActivity2.putExtras(extras);
+        	startActivityForResult(settingsActivity2,RETURN_PREFERENCES_TARIFA);
+        	*/
+        	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(R.string.mn_nueva_tarifa_predefinida);
+			builder.setSingleChoiceItems(tsPre.nombresTarifas(),-1, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+			    	String colorSeleccionado=getResources().getStringArray(R.array.colores)[item];
+			        //tv.setText(colorSeleccionado);
+			        //t.setColor(colorSeleccionado);
+					//Retorno
+			    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
+			    	Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
+			    	tarifa t=tsPre.getTarifa(item);
+			    	ts.addTarifa(t);
+			    	onStart();
+			    }
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
         	
             break;
             
