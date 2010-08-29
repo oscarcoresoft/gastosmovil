@@ -93,11 +93,11 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
     
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         // Let's do something a preference value changes
-    	final PreferenceScreen psRaiz = getPreferenceScreen();
+    	//final PreferenceScreen psRaiz = getPreferenceScreen();
     	
     	if (key.equals("txtTarifaSMS")||key.equals("txtSMSGratis")||key.equals("listMes")
     			||key.equals("txtDuracion")||key.equals("chbox_establecimiento")
-    			||key.equals("txtInicioMes"))
+    			||key.equals("txtInicioMes")||key.equals("defecto"))
     	{
     		setResult(RESULT_OK);
     	}

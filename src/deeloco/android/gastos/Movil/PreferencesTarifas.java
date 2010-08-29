@@ -129,9 +129,6 @@ public class PreferencesTarifas extends ListActivity{
 			builder.setSingleChoiceItems(tsPre.nombresTarifas(),-1, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
-			    	String colorSeleccionado=getResources().getStringArray(R.array.colores)[item];
-			        //tv.setText(colorSeleccionado);
-			        //t.setColor(colorSeleccionado);
 					//Retorno
 			    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
 			    	Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
