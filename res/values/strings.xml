@@ -5,8 +5,7 @@
     <string name="cabRegistros">Registro de llamadas</string>
     <string name="separador">    </string>
     
-    <string name="aj_tarifaNormal">Tarifa Normal</string>
-    <string name="aj_tarifaNormal_des">Tarifas que se aplican a los números que no tienes tarifas especiales</string>
+    
     <string name="aj_tarifaLlamadas">Tarifa llamadas</string>
     <string name="aj_tarifaLlamadas_des">Tarifa única: por minuto, en centimos y sin IVA.</string>
     <string name="aj_tarifaSMS">Tarifa SMS</string>
@@ -26,8 +25,6 @@
     <string name="aj_tarifaEsp1SMS_des">Tarifa SMS: por mensaje, en centimos y sin IVA.</string>
     <string name="aj_tarifaEsp1EstLlamada">Tarifa establecimiento de llamadas</string>
     <string name="aj_tarifaEsp1EstLlamada_des">Tarifa establecimiento de llamadas: en centimos y sin IVA</string>
-    <string name="aj_tarifaEsp1Activada">Activar tarifa</string>
-    <string name="aj_tarifaEsp1Activada_des">Activar o desactivar la tarifa.</string>
    	<string name="aj_colorEsp1">Color</string>
     <string name="aj_colorEsp1_des">Selecciona el color que identifica esta tarifa.</string>
     
@@ -93,9 +90,9 @@
 	<string name="mensaje_existeoerror">El número ya esta asociado a alguna tarifa o error de escritura en la memoria SD.</string>
 	
 	
-	<string name="mn_tarifas">Tarifas</string>
+	<string name="mn_tarifas">Tarifas con franjas</string>
 	<string name="aj_tarifa_defecto">Tarifa por defecto</string>
-	<string name="aj_tarifa_defecto_des">Tarifa que se aplica cuando un número de teléfono no está asociado a una tarifa</string>
+	<string name="aj_tarifa_defecto_des">Tarifa, con franja horaria, que se aplica cuando un numero de tlf. no esociado a una tarifa con franjas y tarifa única no esta activada.</string>
 	
 	<string name="mn_nueva_tarifa">Nueva Tarifa</string>
 	<string name="mn_eliminar_tarifa">Eliminar Tarifa</string>
@@ -125,6 +122,10 @@
 	<string name="acercade_ayuda">Enlace con videos de youtube, donde se explica como ajustar los parámetros de la aplicación y ejemplos a partir de tarifas reales y como configurarlas en la aplicación.</string>
 	<string name="acercade_youtube1">Configuración - http://www.youtube.com/watch?v=x3T1JDW86JY</string>
 	<string name="acercade_webGastoMovil">http://gastosmovil.simahuelva.es/</string>
+	<string name="aj_tarifaActivada">Activar tarifa única</string>
+    <string name="aj_tarifaActivada_des">Activar o desactivar la tarifa única.</string>
+    <string name="aj_tarifaNormal">Tarifa Única.</string>
+    <string name="aj_tarifaNormal_des">Tarifa única, sin franjas horarias. Misma tarifa a cualquier hora y operador.</string>
 	
 	
 </resources> 

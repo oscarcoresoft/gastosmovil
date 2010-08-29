@@ -5,6 +5,44 @@
            android:title="@string/aj_tarifa_defecto"
            android:summary="@string/aj_tarifa_defecto_des"
            android:key="defecto"/>
+
+		<PreferenceScreen
+				android:key="psTarifaNormal"
+				android:title="@string/aj_tarifaNormal"
+				android:summary="@string/aj_tarifaNormal_des">
+			<EditTextPreference
+				android:name="@string/aj_tarifaLlamadas"
+				android:summary="@string/aj_tarifaLlamadas_des"
+				android:defaultValue="8"
+				android:inputType="phone"
+				android:title="@string/aj_tarifaLlamadas"
+				android:key="txtTarifaLlamadas" 
+				android:numeric="decimal"/>
+				
+			<EditTextPreference
+				android:name="@string/aj_tarifaEstLlamada"
+				android:summary="@string/aj_tarifaEstLlamada_des"
+				android:defaultValue="15"
+				android:inputType="phone"
+				android:title="@string/aj_tarifaEstLlamada"
+				android:key="txtTarifaEstLlamada" />
+				
+			<ListPreference
+	            android:title="@string/aj_color"
+	            android:summary="@string/aj_color_des"
+	            android:key="listColores"
+	            android:defaultValue="0"
+	            android:entries="@array/colores"
+	            android:entryValues="@array/colores_valores"
+	            android:dialogTitle="COLORES" />
+	            
+	        <CheckBoxPreference
+				android:title="@string/aj_tarifaActivada"
+				android:summary="@string/aj_tarifaActivada_des"
+				android:defaultValue="false"
+				android:key="cboxTarifaEsp1" />
+	            
+			</PreferenceScreen>
 	</PreferenceCategory>
 	<PreferenceCategory android:title="SMS">	
        <EditTextPreference

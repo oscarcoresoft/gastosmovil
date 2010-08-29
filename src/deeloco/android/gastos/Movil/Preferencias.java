@@ -104,7 +104,7 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
     	else setResult(RESULT_CANCELED);
     			
     	
-    	
+    	/*
         if (key.equals("txtTarifaEsp1Nombre")) {
     		ps = (PreferenceScreen) psRaiz.findPreference("psTarifaEsp1");
     		ps.setSummary(vp.getPrefEsp1Nombre());
@@ -113,9 +113,10 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
 
     		ps = (PreferenceScreen) psRaiz.findPreference("psTarifaEsp2");
     		ps.setSummary(vp.getPrefEsp2Nombre());
-        }
+        }*/
+        
         if (key.equals("defecto")) {
-        	getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
+        	//getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
     
         }
     }
