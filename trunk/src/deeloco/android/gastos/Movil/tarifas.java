@@ -309,6 +309,7 @@ public class tarifas implements Serializable{
 		//Cuando se añade una nueva tarifa, hay que asignarle un identificador nuevo si id=0
 		if (t.getIdentificador()==0)
 		{
+			Log.d(TAG,"Nueva tarifa="+t.getNombre());
 			t.setIdentificador(ultimoId());
 		}
 		this.tarifas.add(t);

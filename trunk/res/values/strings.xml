@@ -95,6 +95,7 @@
 	<string name="aj_tarifa_defecto_des">Tarifa, con franja horaria, que se aplica cuando un numero de tlf. no esociado a una tarifa con franjas y tarifa única no esta activada.</string>
 	
 	<string name="mn_nueva_tarifa">Nueva Tarifa</string>
+	<string name="mn_nueva_tarifa_predefinida">Nueva Tarifa Predefinida</string>
 	<string name="mn_eliminar_tarifa">Eliminar Tarifa</string>
 	<string name="mn_nueva_franja">Nueva Franja</string>
 	<string name="mn_eliminar_franja">Eliminar Franja</string>
