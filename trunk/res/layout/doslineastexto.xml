@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingTop="5dip"
-    android:paddingBottom="5dip"
-    >
-<LinearLayout 
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingTop="5dip"
-    android:paddingBottom="5dip"
-    >
-<TextView android:id="@+id/titulo"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-            android:paddingLeft="15dip"
-            android:gravity="left"
-            style="?android:attr/textAppearanceLarge"/>
-            
-<TextView android:id="@+id/subtitulo"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-            android:paddingLeft="15dip" 
-            android:gravity="left"
-            style="?android:attr/textAppearanceSmall"/>
-            
-</LinearLayout>
-<LinearLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="5dip"
-    android:paddingBottom="5dip"
-    android:gravity="right"
-    >
-<ImageView android:id="@+id/imagen"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:gravity="right"
-           />
-</LinearLayout>
+    android:paddingBottom="5dip">
+    
+	<LinearLayout 
+	    android:orientation="vertical"
+	    android:layout_width="260dip"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="5dip"
+	    android:paddingBottom="5dip">
+	    
+	<TextView android:id="@+id/titulo"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+	            android:paddingLeft="15dip"
+	            android:gravity="left"
+	            style="?android:attr/textAppearanceLarge"/>
+	            
+	<TextView android:id="@+id/subtitulo"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+	            android:paddingLeft="15dip" 
+	            android:gravity="left"
+	            style="?android:attr/textAppearanceSmall"/>
+	            
+	</LinearLayout>
+	
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="5dip"
+	    android:paddingBottom="5dip"
+	    android:paddingLeft="5dip"
+	    android:gravity="right">
+	    
+	<ImageView android:id="@+id/imagen"
+				android:layout_width="50dip"
+				android:layout_height="wrap_content"
+				android:gravity="right"/>
+				
+	</LinearLayout>
+	
 </LinearLayout>

@@ -11,8 +11,14 @@ public class TarifasPreDefinidas {
 	//{"Nombre Tarifa","Numero de franjas","Gasto Mínimo","Limite","Color","Numeros",
 	//"Nombre Franja","hora Inicio","Hora Final","Dias","Coste","Establecimiento","Cantabilizar",
 	//"CostePasado","EstablecimientoPasado"}
-	private int numTarifas=14;
+	private int numTarifas=16;
 	private String[][] tarifasPreDefinidas={
+			{"Movistar - Planazo","1","19.9","500","Azul","",
+				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
+			{"Movistar - Planazo Tiempo Libre ","3","19.9","300","Azul","",
+				"Mañana","07:00:00","17:00:00","[Lun,Mar,Mie,Jue,Vie]","18","15","No","0","0",
+				"Tarde","17:00:00","07:00:00","[Lun,Mar,Mie,Jue,Vie]","0","0","Si","18","15",
+				"Fin de Semana","00:00:00","23:00:00","[Sab,Dom]","0","0","Si","18","15"},
 			{"Orange - León 49","1","49","1000","Naranja","",
 				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Orange - León 30","1","30","600","Naranja","",
@@ -20,16 +26,16 @@ public class TarifasPreDefinidas {
 			{"Orange - León 25","2","25","400","Naranja","",
 				"Mañana","09:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15",
 				"Tarde","18:00:00","09:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","18","15","No","0","0"},
+			{"PepePhone - Tarifa 5 cent","1","0","0","Rojo","",
+				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","5","15","No","0","0"},
+			{"PepePhone - Tarifa 6 cent","1","0","0","Verde","",
+				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","6","15","No","0","0"},
 			{"Simyo - Tarifa 5 cent","1","6.99","0","Naranja","",
 				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","5","15","No","0","0"},
 			{"Simyo - Tarifa 8 cent","1","0","0","Naranja","",
 				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","8","15","No","0","0"},
 			{"Simyo - Numero Simyo","1","0","0","Verde","",
 				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","No","0","0"},
-			{"PepePhone - Tarifa 5 cent","1","0","0","Rojo","",
-				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","5","15","No","0","0"},
-			{"PepePhone - Tarifa 6 cent","1","0","0","Verde","",
-				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","6","15","No","0","0"},
 			{"Vodafone - Super T. Plana","1","99.9","1000","Rojo","",
 				"24 Horas","00:00:00","23:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","19","15"},
 			{"Vodafone - Super T. P. Mini","1","59.9","500","Rojo","",
@@ -85,11 +91,12 @@ public class TarifasPreDefinidas {
 		//Cargamos los valores de las franjas
 		int numFranjas=Integer.parseInt(this.tarifasPreDefinidas[indice][1]);
 		//numFranjas++;
-		int indiceDatosFranja=6;
+		int indiceDatosFranja=0;
 		for (int f=0;f<numFranjas;f++)
         {
-        	indiceDatosFranja=indiceDatosFranja+(f*9);
+        	indiceDatosFranja=6+(f*9);
         	Franja nuevaFranja=new Franja(f+1);
+        	Log.d("TarifaPreDefinida","indiceDatosFranja="+indiceDatosFranja);
         	nuevaFranja.setNombre(this.tarifasPreDefinidas[indice][indiceDatosFranja]); //Nombre
         	nuevaFranja.setHoraInicio(this.tarifasPreDefinidas[indice][indiceDatosFranja+1]); // Hora Inicio
         	nuevaFranja.setHoraFinal(this.tarifasPreDefinidas[indice][indiceDatosFranja+2]); // Hora Final
