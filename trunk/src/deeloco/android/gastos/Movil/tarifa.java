@@ -504,7 +504,7 @@ public class tarifa implements Serializable{
         		if (hInicio<hFinal)
         		{
         			//la franja está en el mismo día
-        			for (int a=hInicio;a<(hFinal+1);a++)
+        			for (int a=hInicio;a<hFinal;a++)
         			{
         				mControl[fila][a]++;
         			}
@@ -517,7 +517,7 @@ public class tarifa implements Serializable{
         				mControl[fila][a]++;
         			}
         			
-        			for (int a=0;a<(hFinal+1);a++)
+        			for (int a=0;a<hFinal;a++)
         			{
         				mControl[fila][a]++;
         			}
