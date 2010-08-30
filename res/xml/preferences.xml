@@ -91,5 +91,13 @@
             android:title="@string/aj_establecimiento"
             android:summary="@string/aj_establecimiento_des" 
             android:defaultValue="false"/>
+            
+       <EditTextPreference
+			android:name="@string/aj_impuestos"
+			android:summary="@string/aj_impuestos_des"
+			android:defaultValue="18"
+			android:inputType="phone"
+			android:title="@string/aj_impuestos"
+			android:key="txtImpuestos" />
 	</PreferenceCategory>
 </PreferenceScreen>

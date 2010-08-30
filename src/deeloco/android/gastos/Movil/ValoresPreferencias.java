@@ -14,7 +14,7 @@ import android.preference.PreferenceManager;
 public class ValoresPreferencias {
 	
     //private final int NUMSC=1;
-	double iva=1.16;
+	double iva=1.18;
     private final int NUMESP1=2;
     private final int NUMESP2=3;
     private final int NUM=4;
@@ -27,6 +27,7 @@ public class ValoresPreferencias {
     public ValoresPreferencias(Context c)
     {
     	contexto=c;
+    	iva=getPreferenciasImpuestos();
     }
 	   //***************************************************
 	// Funciones que recogen los valores de preferencias
@@ -262,6 +263,13 @@ public class ValoresPreferencias {
     	return valor;
     }
     
+    
+    public double getPreferenciasImpuestos(){
+    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtImpuestos", "18");
+    	double retorno=Double.parseDouble(valor);
+    	retorno=(retorno/100)+1;    	
+    	return retorno;
+    }
     
   public Drawable getColor(String color){
 
