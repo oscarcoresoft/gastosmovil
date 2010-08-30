@@ -127,7 +127,7 @@
     <string name="aj_tarifaActivada_des">Activar o desactivar la tarifa única.</string>
     <string name="aj_tarifaNormal">Tarifa Única.</string>
     <string name="aj_tarifaNormal_des">Tarifa única, sin franjas horarias. Misma tarifa a cualquier hora y operador.</string>
-	
-	
+    <string name="aj_impuestos">Impuestos.</string>
+    <string name="aj_impuestos_des">Impuestos aplicable a las llamadas telefónicas (en %).</string>
 </resources> 
 

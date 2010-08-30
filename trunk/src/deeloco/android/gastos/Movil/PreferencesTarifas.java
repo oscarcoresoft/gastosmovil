@@ -109,20 +109,7 @@ public class PreferencesTarifas extends ListActivity{
             
         case NUEVA_TARIFA_PREDEFINIDA:
         	//Creamos un objeto tarifa con id=0 y se lo pasamos a la activity PreferencesTarifa
-        	
-        	/*
-        	tarifa t=new tarifa(0);
-        	t.setNombre("Tarifa Nueva");
-        	t.setMinimo(0.0);
-        	t.setColor("Blanco");
-        	t.setNumeros("");
-        	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
-        	Bundle extras = new Bundle();
-        	extras.putInt("idTarifa", 0);
-        	extras.putSerializable("tarifa", t);
-        	settingsActivity2.putExtras(extras);
-        	startActivityForResult(settingsActivity2,RETURN_PREFERENCES_TARIFA);
-        	*/
+
         	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.mn_nueva_tarifa_predefinida);
@@ -134,14 +121,17 @@ public class PreferencesTarifas extends ListActivity{
 			    	Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
 			    	tarifa t=tsPre.getTarifa(item);
 			    	ts.addTarifa(t);
+			    	
+			    	Intent resultIntent=new Intent();
+			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
+			    	setResult(Activity.RESULT_OK, resultIntent);
+			    	
 			    	onStart();
 			    }
 			});
 			AlertDialog alert = builder.create();
 			alert.show();
-        	
             break;
-            
         }
         
         return true;
@@ -174,7 +164,7 @@ public class PreferencesTarifas extends ListActivity{
 			{
 				tarifa t=(tarifa) data.getSerializableExtra(TARIFA_RETORNO);
 				//Añadir la tarifa al ArrayList de tarifas
-				Log.d(TAG,"Valor limite = "+t.getLimite());
+				//Log.d(TAG,"Valor limite = "+t.getLimite());
 				
 				switch (t.getIdentificador()) {
 				case 0:

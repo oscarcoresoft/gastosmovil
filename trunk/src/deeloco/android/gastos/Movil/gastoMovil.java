@@ -107,7 +107,7 @@ public class gastoMovil extends ListActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main);
-        
+        iva=vp.getPreferenciasImpuestos();
         /* Cargamos los valores de las tarifas */
         try
         {
