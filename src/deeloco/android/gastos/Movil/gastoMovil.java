@@ -43,6 +43,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -108,6 +109,7 @@ public class gastoMovil extends ListActivity {
         super.onCreate(icicle);
         setContentView(R.layout.main);
         iva=vp.getPreferenciasImpuestos();
+        
         /* Cargamos los valores de las tarifas */
         try
         {
@@ -135,6 +137,7 @@ public class gastoMovil extends ListActivity {
 	        /* Create a new ContentHandler and apply it to the XML-Reader*/
 	        TarifasParserXML tarifasXML = new TarifasParserXML();
 	        tarifasXML.setTarifas(ts);
+	        tarifasXML.setIva(iva);
 	        xr.setContentHandler(tarifasXML);
 	        xr.parse(new InputSource (new FileReader(path)));
 	        /* Parsing has finished. */
@@ -342,14 +345,17 @@ public class gastoMovil extends ListActivity {
     		   anyo--;
     	   }
            Calendar c1=new GregorianCalendar(anyo,mes-1,valorIncioMes,0,0);
-           Calendar c2=new GregorianCalendar(anyo,mes,valorIncioMes-1,0,0);
+           Calendar c2=new GregorianCalendar(anyo,mes,valorIncioMes,0,0);
+           
            Date d1=new Date();
            Date d2=new Date();
            d1=c1.getTime();
            d2=c2.getTime();
            
            //Hacemos la consulta
-           c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.DATE+"<"+(d2.getTime())+" and "+CallLog.Calls.DATE+">"+(d1.getTime())+" and "+CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, "date ASC");      
+           Log.d(TAG,"fecha D1="+d1);
+           Log.d(TAG,"fecha D2="+d2);
+           c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.DATE+"<="+(d2.getTime())+" and "+CallLog.Calls.DATE+">="+(d1.getTime())+" and "+CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, "date ASC");      
        }
 
         this.startManagingCursor(c);
@@ -574,6 +580,13 @@ public class gastoMovil extends ListActivity {
     	case RETURN_PREFERENCES_AJUSTES:
 			if (resultCode == RESULT_OK) 
 			{
+			     //Ha cambiado el iva
+			     if (iva!=vp.getPreferenciasImpuestos())
+			     {
+			    	 iva=vp.getPreferenciasImpuestos(); 
+			    	 ts.cambiarIva(iva);
+			    	 Log.d(TAG,"Cambiando el iva ="+iva);
+			     }
 			     listado(vp.getPreferenciasMes());
 			}
     		break;

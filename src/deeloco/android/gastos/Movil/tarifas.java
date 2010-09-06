@@ -435,5 +435,20 @@ public class tarifas implements Serializable{
 		return "Transparente";	
 	}
 
+	
+	public void cambiarIva(double iva){
+		ArrayList <Franja> franjas = new ArrayList <Franja>();
+		
+		for (int t=0; t<this.tarifas.size();t++)
+		{
+			franjas=this.tarifas.get(t).getFranjas();
+			for (int f=0;f<franjas.size();f++)
+			{
+				franjas.get(f).setIva(iva);
+			}
+		}
+
+	}
+	
 }
 
