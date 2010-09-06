@@ -3,7 +3,6 @@ package deeloco.android.gastos.Movil;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import android.util.Log;
@@ -22,7 +21,10 @@ public class Franja implements Serializable{
 	private static final int COSTE_FUERA_LIMITE=4;
 	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
 
-	private final double iva=1.18;
+	/**
+	 * Impuestos que se van a aplicar a la hora de calcular el coste de las llamadas. Por defecto 1.18
+	 */
+	private double iva=1.18;
 	
 	/**
 	 * identificar de la franja.
@@ -99,6 +101,7 @@ public class Franja implements Serializable{
 		this.limite=limite;
 		this.costeFueraLimite=costeFueraLimite;
 		this.establecimientoFueraLimite=establecimientoFueraLimite;
+
 	}
 	
 	/**
@@ -351,6 +354,14 @@ public class Franja implements Serializable{
 	
 	void setEstablecimientoFueraLimite(String establecimientoFueraLimite){
 		this.establecimientoFueraLimite=Double.parseDouble(establecimientoFueraLimite);
+	}
+	
+	/**
+	 * Asigna el iva que se va utilizar
+	 * @param iva
+	 */
+	public void setIva(double iva){
+		this.iva=iva;
 	}
 	
 	/**

@@ -14,7 +14,7 @@ import android.preference.PreferenceManager;
 public class ValoresPreferencias {
 	
     //private final int NUMSC=1;
-	double iva=1.18;
+	private double iva=1.18;
     private final int NUMESP1=2;
     private final int NUMESP2=3;
     private final int NUM=4;
@@ -27,7 +27,6 @@ public class ValoresPreferencias {
     public ValoresPreferencias(Context c)
     {
     	contexto=c;
-    	iva=getPreferenciasImpuestos();
     }
 	   //***************************************************
 	// Funciones que recogen los valores de preferencias
@@ -64,7 +63,7 @@ public class ValoresPreferencias {
     
     public double getPreferenciasTarifa(int listaNumero){
     	//Retorna el valor de tarifa, que es uno de los parametrios de ajustes.
-    	
+    	iva=getPreferenciasImpuestos();
     	String valor="";
     	switch(listaNumero)
     	{
@@ -96,7 +95,7 @@ public class ValoresPreferencias {
     
     public double getPreferenciasTarifaSMS(){
     	//Retorna el valor de tarifa del SMS, que es uno de los parametrios de ajustes.
-    	
+    	iva=getPreferenciasImpuestos();
     	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtTarifaSMS", "8");
     	double tarifa=9; //Valor por defecto
     	try 
@@ -127,7 +126,7 @@ public class ValoresPreferencias {
     
     public double getPreferenciasEstLlamadas(int listaNumero){
     	//Retorna el valor de la tarifa del establecimento de la llamada, en los parámetros de ajustes
-    	
+    	iva=getPreferenciasImpuestos();
     	String valor="";
     	switch(listaNumero)
     	{
@@ -269,6 +268,7 @@ public class ValoresPreferencias {
     	double retorno=Double.parseDouble(valor);
     	retorno=(retorno/100)+1;    	
     	return retorno;
+    	//return 1.36;
     }
     
   public Drawable getColor(String color){

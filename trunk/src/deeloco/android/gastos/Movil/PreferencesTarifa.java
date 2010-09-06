@@ -63,8 +63,8 @@ public class PreferencesTarifa extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarifas);
-        TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
-        cabecera.setText("TARIFA");
+        //TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
+        //cabecera.setText(getString(R.string.cabTarifa));
         t = (tarifa) getIntent().getExtras().get("tarifa");
 
     }
@@ -73,7 +73,8 @@ public class PreferencesTarifa extends ListActivity{
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		
+		TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
+		cabecera.setText(getString(R.string.cabTarifa)+" ... "+t.getNombre());
 		listaIYT.clear();
 		idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
     	//Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());

@@ -12,12 +12,17 @@ String datosElemento;
 Franja f;
 tarifa t;
 tarifas ts;
+double iva=1.18;
 
 public tarifas getTarifas(){
 	return ts;
 }
 public void setTarifas(tarifas ts){
 	this.ts=ts;
+}
+
+public void setIva(double iva){
+	this.iva=iva;
 }
 /**
  * Evento que se lanza al inicio del documento XML
@@ -55,6 +60,7 @@ public void startElement(String uri, String localName, String qName,Attributes a
 	if (localName.compareTo("franja")==0)
 	{
 		f=new Franja(attributes.getValue(0));
+		f.setIva(iva);
 	}	
 }
 
