@@ -51,7 +51,13 @@ public class ValoresPreferencias {
 	    	case 1: //Listar el mes actual
 	    		Calendar calendar = Calendar.getInstance();
 	        	mesRetorno = calendar.get(Calendar.MONTH); //ENERO=0, DICIEMBRE=11
+	        	int dia=calendar.get(Calendar.DAY_OF_MONTH);
 	        	mesRetorno++;
+	        	if (dia<this.getPreferenciasInicioMes())
+	        	{
+	        		mesRetorno--;
+	        		if (mesRetorno==0) mesRetorno=12;
+	        	}
 	    		break;
 	    		
 	    	default: //Listar el mes seleccionado

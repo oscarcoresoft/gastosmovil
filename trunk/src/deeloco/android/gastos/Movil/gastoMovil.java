@@ -353,8 +353,8 @@ public class gastoMovil extends ListActivity {
            d2=c2.getTime();
            
            //Hacemos la consulta
-           Log.d(TAG,"fecha D1="+d1);
-           Log.d(TAG,"fecha D2="+d2);
+           //Log.d(TAG,"fecha D1="+d1);
+           //Log.d(TAG,"fecha D2="+d2);
            c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.DATE+"<="+(d2.getTime())+" and "+CallLog.Calls.DATE+">="+(d1.getTime())+" and "+CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, "date ASC");      
        }
 
@@ -456,6 +456,7 @@ public class gastoMovil extends ListActivity {
         {
         	String meses[] = getResources().getStringArray(R.array.listaMeses);
         	textoMes=meses[vp.getPreferenciasMes()+1];
+        	textoMes=FunGlobales.periodo(meses, vp.getPreferenciasMes()+1, vp.getPreferenciasInicioMes());
         }
         
         TextView tv_cabRegistro=(TextView) findViewById(R.id.cabRegistros);

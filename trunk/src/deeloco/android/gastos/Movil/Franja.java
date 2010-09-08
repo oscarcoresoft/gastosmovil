@@ -459,13 +459,13 @@ public class Franja implements Serializable{
 	{
 		String [] diasSemana={"Lun","Mar","Mie","Jue","Vie","Sab","Dom"};
 		boolean [] retorno={false,false,false,false,false,false,false};
-		Log.d(TAG,"Dias de la semana almacenados"+this.dias.toString());
+		//Log.d(TAG,"Dias de la semana almacenados"+this.dias.toString());
 		for (int i=0;i<7;i++)
 		{
-			Log.d(TAG,"Para i="+i+" - Buscar "+diasSemana[i]+" en "+this.dias.toString());
+			//Log.d(TAG,"Para i="+i+" - Buscar "+diasSemana[i]+" en "+this.dias.toString());
 			if (this.dias.indexOf(diasSemana[i])>-1)
 			{
-				Log.d(TAG," Coincidencia "+i+" -- "+diasSemana[i]);
+				//Log.d(TAG," Coincidencia "+i+" -- "+diasSemana[i]);
 				retorno[i]=true;
 			}
 		}
