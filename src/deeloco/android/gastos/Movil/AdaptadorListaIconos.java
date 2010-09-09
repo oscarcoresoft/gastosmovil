@@ -98,7 +98,7 @@ public class AdaptadorListaIconos extends BaseAdapter {
             TextView txt = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
             
             // Le establecemos el texto a mostrar
-            txt.setText(telefono + " : " + coste + "€");
+            txt.setText(telefono + " : " + coste + FunGlobales.monedaLocal());
             // Lo ponemos en negrita
             //txt.setTypeface(Typeface.DEFAULT_BOLD);
             txt.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);

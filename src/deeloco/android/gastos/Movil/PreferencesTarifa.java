@@ -80,19 +80,19 @@ public class PreferencesTarifa extends ListActivity{
     	//Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());
     	//Editar una tarifa existente
     	//Nombre de la tarifa
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Nombre", t.getNombre()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_nombre), t.getNombre()));
     	//Gasto Mínimo
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Gasto Mínimo Mensual", ""+t.getMinimo()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_minimo), ""+t.getMinimo()));
     	//Limite
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Límite de llamadas (minutos)", ""+t.getLimite()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_limite), ""+t.getLimite()));
     	//Color
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Color", t.getColor()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_color), t.getColor()));
     	//Numeros
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), "Numeros Asociados a la tarifa", t.getNumeros()));
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_numeros), t.getNumeros()));
     	//Una entrada para cada franja que tiene la tarifa
     	for (int a=0;a<t.getNumFranjas();a++)
     	{
-    		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more),"Franja Horaria" ,t.getFranjas().get(a).getNombre()));
+    		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more),getString(R.string.pref_tarifa_franja) ,t.getFranjas().get(a).getNombre()));
     	}
 
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
