@@ -130,8 +130,10 @@
     <string name="aj_impuestos">Impuestos.</string>
     <string name="aj_impuestos_des">Impuestos aplicable a las llamadas telefónicas (en %).</string>
     
-    <string name="Gastado">Gastado</string>
-    <string name="Hablado">Hablado</string>
-    <string name="Limite">Limite</string>
+    <string name="Gastado">Gastado </string>
+    <string name="Hablado">Hablado </string>
+    <string name="Limite">Limite </string>
+    <string name="Gasto_minimo">Gasto Mínimo</string>
+    <string name="Sin_gasto_minimo">Sin gasto mínimo</string>
 </resources> 
 

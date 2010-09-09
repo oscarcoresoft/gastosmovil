@@ -1,5 +1,7 @@
 package deeloco.android.gastos.Movil;
 
+import java.util.Currency;
+import java.util.Locale;
 
 public class FunGlobales {
 	
@@ -31,5 +33,33 @@ public class FunGlobales {
     		
     	}
     	return retorno;	
+    }
+    
+    public static String monedaLocal(){
+    	Currency currency = Currency.getInstance(Locale.getDefault());
+    	return currency.getSymbol(); 
+    }
+    
+    public static String segundosAHoraMinutoSegundo(int totalsegundos){
+    	int horas=0;
+    	int minutos=0;
+    	int segundos=0;
+    	String retorno="";
+    	
+    	minutos=totalsegundos/60;
+    	segundos=totalsegundos%60;
+    	
+    	if (minutos>60)
+    	{
+    		horas=minutos/60;
+    		minutos=minutos%60;
+    		retorno=horas+ " h."+minutos+" m. "+segundos+" s.";
+    	}
+    	else
+    	{
+    		retorno=minutos+" m. "+segundos+" s.";
+    	}
+    	
+    	return retorno;
     }
 }
