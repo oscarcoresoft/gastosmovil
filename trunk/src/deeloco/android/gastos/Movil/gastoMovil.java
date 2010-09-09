@@ -376,6 +376,8 @@ public class gastoMovil extends ListActivity {
         int totalSegundosLimite=0; //Total de segundos hablados para las llamadas que cuentan para el limite
         int totalSegundos=0; //Total de segundos hablados
         double[] retorno={0.0,0.0,0.0,0.0,0.0};
+        //boolean sw_limite=false;
+        double limite=0;
         
         //Si hay algún elemento
         AdaptadorListaIconos ad2 = new AdaptadorListaIconos(this,listaInvertida);
@@ -405,7 +407,10 @@ public class gastoMovil extends ListActivity {
         		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir cuenta para el limite
         		totalSegundos=totalSegundos+duracion;
         		if (retorno[LIMITE]!=0.0)
+        		{
         			totalSegundosLimite=totalSegundosLimite+duracion;
+        			limite=retorno[LIMITE];
+        		}
         		
         		//El coste ha mostrar dependera del limite
         		if ((retorno[LIMITE]*60)>=totalSegundosLimite || retorno[LIMITE]==0.0)
@@ -470,10 +475,11 @@ public class gastoMovil extends ListActivity {
         
         tv_Mes.setText(textoMes);
         tv_Numllamadas.setText(""+numLlamadas);
-        if (retorno[LIMITE]>0)
-        	tv_cabRegistro.setText("Gastado "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. Límite "+retorno[LIMITE]+" m.");//TEXTO
+        if (limite>0)
+        	tv_cabRegistro.setText(getString(R.string.Gastado)+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s."+ getString(R.string.Limite)+limite+" m.");//TEXTO
         else
-        	tv_cabRegistro.setText("Registro de llamadas"); //TEXTO
+        	tv_cabRegistro.setText(getString(R.string.Hablado)+(totalSegundos/60)+" m. "+(totalSegundos%60)+" s.");//TEXTO
+        	//tv_cabRegistro.setText("Registro de llamadas"); //TEXTO
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
         
