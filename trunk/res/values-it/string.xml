@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gastos Móvil</string>
-    <string name="lista_vacia">Lista vuota</string>
     <string name="cabDatos">Sintesi dei dati</string>
     <string name="cabRegistros">Registro delle chiamate</string>
     <string name="separador">    </string>
 
-    <string name="aj_tarifaNormal">Tariffe</string> 
-    <string name="aj_tarifaNormal_des">Valori dei differenti tipi di tariffa</string> 
     <string name="aj_tarifaLlamadas">Tariffa chiamate</string>
     <string name="aj_tarifaLlamadas_des">Tariffa unica: per minuti, in centesimi e senza IVA.</string>
     <string name="aj_tarifaSMS">Tariffa SMS</string>
@@ -53,4 +50,44 @@
 	<string name="mensaje_noexistellamadas">Non esistono chiamate per il mese selezionato.</string>
 	<string name="estadistica_titulo">Totale della spesa per numero.</string>
 	<string name="estadisticas_activity">Gastos Móvil</string>
+	
+	<string name="mensaje_existeoerror">El número ya esta asociado a alguna tarifa o error de escritura en la memoria SD.</string>
+	
+	<string name="mn_tarifas">Tariffa con franjas</string>
+	<string name="aj_tarifa_defecto">Tariffa por defecto</string>
+	<string name="aj_tarifa_defecto_des">Tariffa, con franja horaria, que se aplica cuando un numero de tlf. no esociado a una tarifa con franjas y tarifa única no esta activada.</string>
+	
+	<string name="mn_nueva_tarifa">Nuova tariffa</string>
+	<string name="mn_nueva_tarifa_predefinida">Nuova tariffa predefinita</string>
+	<string name="mn_eliminar_tarifa">Eliminare tariffa</string>
+	<string name="mn_nueva_franja">Nuova fascia (no estoy seguro de esta palabra frangia!"</string>
+	<string name="mn_eliminar_franja">Eliminare fascia</string>
+	<string name="tituloInputBox">Introduci testo</string>
+	<string name="cabTarifa">Tariffa</string>
+	<string name="cabTarifas">Tariffe</string>
+	<string name="cabFranja">Fascia di... </string>
+	<string name="lista_vacia">Non ci sono dati nel registro delle chiamate o non ci sono tariffe definite -> Menu + Tariffe</string>
+	<string name="tarifas_vacias">Non ci sono tariffe definite. Per definire una nuova tariffa -> Menu + Nuova Tariffa</string>
+	<string name="mensaje_tarifa_defecto_no_definida">Non cè una tariffa corretta per difetto. Menu + correzioni</string>
+	<string name="aj_franja_nombre_des">Nome che identifica la fascia.</string>
+	<string name="aj_franja_dias">Seleziona i giorni della settimana</string>
+	<string name="aj_franja_coste_des">Costo della chiamata, quando non si oltrepassano i limiti di tempo della tariffa o quando no ci sono limiti di tempo. In centesimi e senza iva.</string>
+	<string name="aj_franja_establecimiento_des">Costo dello scatto alla risposta, quando non si oltrepassa i limiti di tempo della tariffa o quando non ci sono limiti di tempo. In centesimi e senza iva.</string>
+	<string name="aj_franja_coste_limite_des">Costo della chiamata, quando si oltrepassa i limiti di tempo della tariffa. In centesimi e senza iva.</string>
+	<string name="aj_franja_establecimiento_limite_des">Costo dello scatto alla risposta, quando si oltrepassa i limiti di tempo della tariffa. In centesimi e senza iva.</string>
+	<string name="aj_tarifa_nombre_des">Nome che identifica la tariffa.</string>
+	<string name="aj_tarifa_gastoMinimo_des">Spesa minima al mese (in euro e senza iva).</string>
+	<string name="aj_tarifa_limite_des"> Limite dei minuti, al mese e in minuti.</string>
+	<string name="aj_tarifa_numeros_des">Numeri associati alla tariffa e a quelli a cui si applicano i costi della stessa.</string>
+	<string name="aj_SMSGratis">SMS Gratuiti</string>
+	<string name="aj_SMSGratis_des">Numeri di sms gratuiti al mese.</string>
+	<string name="conflicto_hora">Rivedi gli orari della frangia. Ci sono ore duplicate o senza essere assegnate.</string>
+	<string name="acercade_ayuda_cab">Video Manuali</string>
+	<string name="acercade_ayuda">Collegamento con videi di youtube, dove si spiega come regolare i parametri dell applicazione e esempi a partire dalle tariffe reali e como configurarle nell applicazione.</string>
+	<string name="acercade_youtube1">Configurazione - http://www.youtube.com/watch?v=x3T1JDW86JY</string>
+	<string name="acercade_webGastoMovil">http://gastosmovil.simahuelva.es/</string>
+	<string name="aj_tarifaActivada">Attivare tariffa unica</string> 
+	<string name="aj_tarifaActivada_des">Attivare o disattivare la tariffa unica.</string> 
+	<string name="aj_tarifaNormal">Tariffa unica.</string> 
+	<string name="aj_tarifaNormal_des">Tariffa unica, senza fasce orarie. Stessa tariffa a qualsiasi ora e operatore.</string>
 </resources>

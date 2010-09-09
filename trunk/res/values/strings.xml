@@ -135,5 +135,16 @@
     <string name="Limite">Limite </string>
     <string name="Gasto_minimo">Gasto Mínimo</string>
     <string name="Sin_gasto_minimo">Sin gasto mínimo</string>
+    
+    <string name="pref_tarifa_nombre">Nombre</string>
+    <string name="pref_tarifa_minimo">Gasto Mínimo Mensual</string>
+    <string name="pref_tarifa_limite">Límite de llamadas (min.)</string>
+    <string name="pref_tarifa_color">Color</string>
+    <string name="pref_tarifa_numeros">"Numeros Asociados a la tarifa"</string>
+    <string name="pref_tarifa_franja">Franja Horaria</string>
+    
+    
+    
 </resources> 
+
 
