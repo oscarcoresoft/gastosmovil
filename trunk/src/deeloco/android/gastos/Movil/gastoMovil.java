@@ -60,6 +60,8 @@ import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import java.util.Currency;
+import java.util.Locale;
 
 public class gastoMovil extends ListActivity {
     /** Called when the activity is first created. */
@@ -465,6 +467,7 @@ public class gastoMovil extends ListActivity {
         }
         
         TextView tv_cabRegistro=(TextView) findViewById(R.id.cabRegistros);
+        TextView tv_cabResumen=(TextView) findViewById(R.id.cabResumen);
         TextView tv_Mes=(TextView) findViewById(R.id.txtMes);
         TextView tv_Numllamadas= (TextView) findViewById(R.id.txtNumLlamadas);
         TextView tv_CosteLlamadas=(TextView) findViewById(R.id.txtCosteLlamadas);
@@ -475,18 +478,37 @@ public class gastoMovil extends ListActivity {
         
         tv_Mes.setText(textoMes);
         tv_Numllamadas.setText(""+numLlamadas);
-        if (limite>0)
-        	tv_cabRegistro.setText(getString(R.string.Gastado)+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s."+ getString(R.string.Limite)+limite+" m.");//TEXTO
+        
+        //Mostrando los datos en la cabecera de resumen de datos
+        int idTarifaDefecto=ts.getId(vp.getPreferenciasDefecto());
+        if (idTarifaDefecto==-1)
+        {
+        	//No hay tarifa por defecto o no pertenece a ninguna de las que estan
+        }
         else
-        	tv_cabRegistro.setText(getString(R.string.Hablado)+(totalSegundos/60)+" m. "+(totalSegundos%60)+" s.");//TEXTO
-        	//tv_cabRegistro.setText("Registro de llamadas"); //TEXTO
+        {
+        	tarifa t=ts.getTarifa(idTarifaDefecto);
+        	if (t.getMinimo()>0) tv_cabResumen.setText(getString(R.string.Gasto_minimo)+" "+t.getMinimo()+FunGlobales.monedaLocal());
+        	else tv_cabResumen.setText(getString(R.string.Sin_gasto_minimo));
+        		
+        }
+        	
+        
+        //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
+        
+        if (limite>0)
+        	//tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
+        	tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
+        else
+        	tv_cabRegistro.setText(getString(R.string.Hablado)+" "+FunGlobales.segundosAHoraMinutoSegundo(totalSegundos));//TEXTO
+        
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
         
         if (vp.getEstablecimiento())
-        	tv_CosteLlamadas.setText(FunGlobales.redondear(costeLlamadas,2)+" € ("+FunGlobales.redondear(totalEstLlamadas,0)+"%)");
+        	tv_CosteLlamadas.setText(FunGlobales.redondear(costeLlamadas,2)+FunGlobales.monedaLocal()+" ("+FunGlobales.redondear(totalEstLlamadas,0)+"%)");
         else
-        	tv_CosteLlamadas.setText(FunGlobales.redondear(costeLlamadas,2)+" €");
+        	tv_CosteLlamadas.setText(FunGlobales.redondear(costeLlamadas,2)+FunGlobales.monedaLocal());
         
         //Calculamos el coste de los SMS
         numSMS=getNumSMS_send();
@@ -497,9 +519,9 @@ public class gastoMovil extends ListActivity {
         else
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
-        tv_CosteSMS.setText(FunGlobales.redondear(costeSMS,2)+" €");
+        tv_CosteSMS.setText(FunGlobales.redondear(costeSMS,2)+FunGlobales.monedaLocal());
         
-        tv_total.setText(FunGlobales.redondear(costeLlamadas+costeSMS,2)+" €");
+        tv_total.setText(FunGlobales.redondear(costeLlamadas+costeSMS,2)+FunGlobales.monedaLocal());
         
         //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
         //listaInvertida=lista;
