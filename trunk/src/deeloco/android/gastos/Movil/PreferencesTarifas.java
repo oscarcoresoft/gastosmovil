@@ -26,6 +26,7 @@ public class PreferencesTarifas extends ListActivity{
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesTarifas";
 	private static final String TARIFAS_RETORNO = "tarifas_retorno";
+	ValoresPreferencias vp=new ValoresPreferencias(this);
 
 	private tarifas ts;
 	
@@ -118,7 +119,7 @@ public class PreferencesTarifas extends ListActivity{
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
 					//Retorno
 			    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
-			    	Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
+			    	//Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
 			    	tarifa t=tsPre.getTarifa(item);
 			    	ts.addTarifa(t);
 			    	
