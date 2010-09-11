@@ -7,14 +7,10 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-//import android.net.Uri;
+import android.net.Uri;
 import android.os.Bundle;
-//import android.provider.CallLog;
-import android.provider.Contacts.People;
-//import android.widget.Toast;
+import android.provider.Contacts;
 import android.widget.ListView;
-//import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 public class GastosPorNumeroActivity extends Activity {
 	
@@ -45,7 +41,7 @@ public class GastosPorNumeroActivity extends Activity {
       String sNumero;
       double dPorciento;
       double dGasto;
-      Cursor c;
+      //Cursor c;
       
       
       //Hay que recorrer numeros para rellenar toda la lista
@@ -57,9 +53,7 @@ public class GastosPorNumeroActivity extends Activity {
     	  dPorciento=(dGasto/dTotal)*100;
     	  
     	  //Obtenemos el nombre de contacto de la agenda, dado el número
-    	  
-    	  //System.out.println("****** "+People._ID+"="+'"'+i+'"');
-    	  c=managedQuery(People.CONTENT_URI,null, People.NUMBER+"="+sNumero , null, null);
+    	  /*c=managedQuery(People.CONTENT_URI,null, People.NUMBER+"="+sNumero , null, null);
     	  
     	  startManagingCursor(c);
     	  c.moveToFirst();
@@ -74,9 +68,15 @@ public class GastosPorNumeroActivity extends Activity {
     		  sNombre=sNumero;
     		  sNumero="";
     	  }
+    	  */
+    	  sNombre=getContactNumber(sNumero);
+    	  if (sNombre.equals(sNumero))
+    	  {
+    		  sNumero="";
+    	  }
     	  
     	  lista.add(new IconoYTexto(rIcono,sNombre,FunGlobales.redondear(dPorciento,2)+"",sNumero,dGasto));
-    	  c.close();
+    	  //c.close();
       }
       
       
@@ -88,5 +88,28 @@ public class GastosPorNumeroActivity extends Activity {
 
 
    }
+   
+   
+   //Función de busqueda de contactos por numeros
+   private String getContactNumber(String number) {
+	   
+	   	String[] projection = new String[] {
+	   	Contacts.Phones.DISPLAY_NAME,
+	   	Contacts.Phones.NUMBER};
+	   	String retorno=number;
+	
+	   	Uri contactUri = Uri.withAppendedPath(Contacts.Phones.CONTENT_FILTER_URL, Uri.encode(number));
+	   	Cursor c =  managedQuery(contactUri, projection,null, null, null);
+	
+	   	if (c.moveToFirst()) 
+	   	{
+	   		String name = c.getString(c.getColumnIndex(Contacts.Phones.DISPLAY_NAME));
+	   		retorno= name;
+	   	}
+	   	
+	   	c.close();
+	   	return retorno;
+   	}
+   
 }
 
