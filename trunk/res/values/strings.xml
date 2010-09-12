@@ -120,7 +120,7 @@
 	<string name="aj_SMSGratis_des">Número de SMS gratuitos al mes.</string>
 	<string name="conflicto_hora">Revisa los horarios de las franjas. Hay horas duplicadas o sin asignar.</string>
 	<string name="acercade_ayuda_cab">Video Manuales</string>
-	<string name="acercade_ayuda">Enlace con videos de youtube, donde se explica como ajustar los parámetros de la aplicación y ejemplos a partir de tarifas reales y como configurarlas en la aplicación.</string>
+	<string name="acercade_ayuda">En breve, enlace con videos de youtube, donde se explica como ajustar los parámetros de la aplicación y ejemplos a partir de tarifas reales y como configurarlas en la aplicación.</string>
 	<string name="acercade_youtube1">Configuración - http://www.youtube.com/watch?v=x3T1JDW86JY</string>
 	<string name="acercade_webGastoMovil">http://gastosmovil.simahuelva.es/</string>
 	<string name="aj_tarifaActivada">Activar tarifa única</string>
