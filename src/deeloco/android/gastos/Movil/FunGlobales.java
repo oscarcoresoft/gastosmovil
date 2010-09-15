@@ -3,6 +3,8 @@ package deeloco.android.gastos.Movil;
 import java.util.Currency;
 import java.util.Locale;
 
+import android.util.Log;
+
 public class FunGlobales {
 	
 	
@@ -37,7 +39,19 @@ public class FunGlobales {
     
     public static String monedaLocal(){
     	Currency currency = Currency.getInstance(Locale.getDefault());
-    	return currency.getSymbol(); 
+    	String codigoMoneda=currency.getCurrencyCode();
+    	Log.d("CODIGO MONEDA",codigoMoneda);
+    	if (codigoMoneda.equals("EUR"))
+    	{
+    		return "€";
+    		
+    	}
+    	if (codigoMoneda.equals("USS"))
+    	{
+    		return "$";
+    		
+    	}
+    	return "€";
     }
     
     public static String segundosAHoraMinutoSegundo(int totalsegundos){

@@ -8,9 +8,12 @@ import android.util.Log;
 
 public class TarifasPreDefinidas {
 	
-	//{"Nombre Tarifa","Numero de franjas","Gasto Mínimo","Limite","Color","Numeros",
-	//"Nombre Franja","hora Inicio","Hora Final","Dias","Coste","Establecimiento","Cantabilizar",
-	//"CostePasado","EstablecimientoPasado"}
+	//
+	//2da Actualización: Ardilla 12, Ardilla 6, Delfin 79, Delfin 32, Delfin 20, PepePhone - Tarifa 4 cent, PepePhone - Tarifa 7 cent
+	//
+	
+	//{"Nombre tarifa","numero de franjas","coste minimo","limite de llamadas","Color","",
+	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
 	private int numTarifas=16;
 	private String[][] tarifasPreDefinidas={
 			{"Movistar - Planazo","1","19.9","500","Azul","",
@@ -19,6 +22,20 @@ public class TarifasPreDefinidas {
 				"Mañana","07:00:00","17:00:00","[Lun,Mar,Mie,Jue,Vie]","18","15","No","0","0",
 				"Tarde","17:00:00","07:00:00","[Lun,Mar,Mie,Jue,Vie]","0","0","Si","18","15",
 				"Fin de Semana","00:00:00","00:00:00","[Sab,Dom]","0","0","Si","18","15"},
+			{"Orange - Ardilla 12","1","12","0","Naranja","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","17","15","No","0","0"},
+			{"Orange - Ardilla 6","3","6","0","Naranja","",
+				"Mañana","08:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie]","24","15","No","0","0",
+				"Tarde","18:00:00","08:00:00","[Lun,Mar,Mie,Jue,Vie]","6","15","No","0","0",
+				"Fin de Semana","00:00:00","00:00:00","[Sab,Dom]","6","15","No","0","0",},	
+			{"Orange - Delfín 79","1","79","1200","Naranja","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
+			{"Orange - Delfín 32","2","32","700","Naranja","",
+				"Mañana","08:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","18","15","No","0","0",
+				"Tarde","18:00:00","8:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
+			{"Orange - Delfín 20","2","20","300","Naranja","",
+				"Mañana","08:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","18","15","No","0","0",
+				"Tarde","18:00:00","8:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Orange - León 49","1","49","1000","Naranja","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Orange - León 30","1","30","600","Naranja","",
@@ -26,10 +43,14 @@ public class TarifasPreDefinidas {
 			{"Orange - León 25","2","25","400","Naranja","",
 				"Mañana","09:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15",
 				"Tarde","18:00:00","09:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","18","15","No","0","0"},
+			{"PepePhone - Tarifa 4 cent","1","0","0","Rojo","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","4","15","No","0","0"},	
 			{"PepePhone - Tarifa 5 cent","1","0","0","Rojo","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","5","15","No","0","0"},
 			{"PepePhone - Tarifa 6 cent","1","0","0","Verde","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","6","15","No","0","0"},
+			{"PepePhone - Tarifa 7 cent","1","0","0","Rojo","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","7","15","No","0","0"},
 			{"Simyo - Tarifa 5 cent","1","6.99","0","Naranja","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","5","15","No","0","0"},
 			{"Simyo - Tarifa 8 cent","1","0","0","Naranja","",
