@@ -90,7 +90,7 @@
 	<string name="mensaje_existeoerror">El número ya esta asociado a alguna tarifa o error de escritura en la memoria SD.</string>
 	
 	
-	<string name="mn_tarifas">Tarifas con franjas</string>
+	<string name="mn_tarifas">Configurar Tarifas</string>
 	<string name="aj_tarifa_defecto">Tarifa por defecto</string>
 	<string name="aj_tarifa_defecto_des">Tarifa, con franja horaria, que se aplica cuando un numero de tlf. no esociado a una tarifa con franjas y tarifa única no esta activada.</string>
 	
