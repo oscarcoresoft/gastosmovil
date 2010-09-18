@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.*;
 
 import android.util.Log;
 
@@ -293,7 +294,7 @@ public class tarifa implements Serializable{
 	
 	public void deleteNumero(String numero){
 		
-		if (pertenece(numero))
+		if (this.numeros.indexOf(numero)>-1)
 		{
 			this.numeros.remove(this.numeros.indexOf(numero));
 		}
@@ -399,10 +400,25 @@ public class tarifa implements Serializable{
 	 */
 	boolean pertenece(String numero){
 		
-		if (this.numeros.indexOf(numero)==-1)
-			return false;
-		else
+		if (this.numeros.indexOf(numero)>-1)
 			return true;
+		
+		
+		for (int i=0;i<this.numeros.size();i++)
+		{
+			if (this.numeros.get(i).indexOf("*")>-1)
+			{
+				Pattern p=Pattern.compile(this.numeros.get(i));
+				Matcher m=p.matcher(numero);
+				if (m.find())
+				{
+					//El patron se cumple
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	/**
