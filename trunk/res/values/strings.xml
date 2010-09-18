@@ -115,7 +115,7 @@
 	<string name="aj_tarifa_nombre_des">Nombre que identifica a la tarifa.</string>
 	<string name="aj_tarifa_gastoMinimo_des">Gasto Mínimo al mes (en euros y sin iva).</string>
 	<string name="aj_tarifa_limite_des">Límite de minutos, al mes y en minutos.</string>
-	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma.</string>
+	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma. Tambien es valido números de 2, 3, 4 ... dígitos y se interpretará como "Numeros que empiezan por ...". Ejemplo: 959, será números que empiecen por 959.</string>
 	<string name="aj_SMSGratis">SMS Gratuitos</string>
 	<string name="aj_SMSGratis_des">Número de SMS gratuitos al mes.</string>
 	<string name="conflicto_hora">Revisa los horarios de las franjas. Hay horas duplicadas o sin asignar.</string>

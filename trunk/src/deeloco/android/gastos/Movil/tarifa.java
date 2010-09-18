@@ -308,7 +308,7 @@ public class tarifa implements Serializable{
 	void setNumeros(String numeros){
 		
 		String numeros2=numeros.trim();
-		if (numeros2.length()>5)
+		if (numeros2.length()>0)
         {
 			this.numeros.clear();
         	String data[] = numeros2.split(",");
@@ -406,15 +406,12 @@ public class tarifa implements Serializable{
 		
 		for (int i=0;i<this.numeros.size();i++)
 		{
-			if (this.numeros.get(i).indexOf("*")>-1)
+			Pattern p=Pattern.compile('^'+this.numeros.get(i));
+			Matcher m=p.matcher(numero);
+			if (m.find())
 			{
-				Pattern p=Pattern.compile(this.numeros.get(i));
-				Matcher m=p.matcher(numero);
-				if (m.find())
-				{
-					//El patron se cumple
-					return true;
-				}
+				//El patron se cumple
+				return true;
 			}
 		}
 		
