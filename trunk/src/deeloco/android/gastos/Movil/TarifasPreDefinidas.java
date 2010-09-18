@@ -14,7 +14,7 @@ public class TarifasPreDefinidas {
 	
 	//{"Nombre tarifa","numero de franjas","coste minimo","limite de llamadas","Color","",
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
-	private int numTarifas=16;
+	private int numTarifas=23;
 	private String[][] tarifasPreDefinidas={
 			{"Movistar - Planazo","1","19.9","500","Azul","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
