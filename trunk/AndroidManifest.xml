@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="deeloco.android.gastos.Movil" android:versionCode="5" android:versionName="2.0.beta">
+      package="deeloco.android.gastos.Movil" android:versionCode="6" android:versionName="2.0.1.beta">
       
       <supports-screens
           android:largeScreens="true"
