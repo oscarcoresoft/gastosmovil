@@ -10,18 +10,32 @@ public class TarifasPreDefinidas {
 	
 	//
 	//2da Actualización: Ardilla 12, Ardilla 6, Delfin 79, Delfin 32, Delfin 20, PepePhone - Tarifa 4 cent, PepePhone - Tarifa 7 cent
-	//
+	//Movistar - Planazo Global, Movistar - Contrato Único, Movistar - Contrato Tiempo Libre, Movistar - Planazo Global, Movistar - Planazo Global L, Movistar - Planazo Global XL,Movistar - Planazo Global XXL
 	
 	//{"Nombre tarifa","numero de franjas","coste minimo","limite de llamadas","Color","",
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
-	private int numTarifas=23;
+	private int numTarifas=29;
 	private String[][] tarifasPreDefinidas={
+			{"Movistar - Contrato Único","1","9","0","Azul","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","18","15","No","0","0"},
+			{"Movistar - Contrato Tiempo Libre ","3","9","0","Azul","",
+				"Mañana","07:00:00","17:00:00","[Lun,Mar,Mie,Jue,Vie]","30","15","No","0","0",
+				"Tarde","17:00:00","07:00:00","[Lun,Mar,Mie,Jue,Vie]","8","15","No","0","0",
+				"Fin de Semana","00:00:00","00:00:00","[Sab,Dom]","8","15","No","0","0"},
 			{"Movistar - Planazo","1","19.9","500","Azul","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Movistar - Planazo Tiempo Libre ","3","19.9","300","Azul","",
 				"Mañana","07:00:00","17:00:00","[Lun,Mar,Mie,Jue,Vie]","18","15","No","0","0",
 				"Tarde","17:00:00","07:00:00","[Lun,Mar,Mie,Jue,Vie]","0","0","Si","18","15",
 				"Fin de Semana","00:00:00","00:00:00","[Sab,Dom]","0","0","Si","18","15"},
+			{"Movistar - Planazo Global ","1","59.9","500","Azul","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
+			{"Movistar - Planazo Global L","1","79.9","800","Azul","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
+			{"Movistar - Planazo Global XL","1","99.9","1200","Azul","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
+			{"Movistar - Planazo Global XXL","1","159.9","2000","Azul","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Orange - Ardilla 12","1","12","0","Naranja","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","17","15","No","0","0"},
 			{"Orange - Ardilla 6","3","6","0","Naranja","",
