@@ -269,24 +269,36 @@ public class gastoMovil extends ListActivity {
        {
        /*Vamos a hacer una consulta de un mes concreto*/
     	/*De momento, para las pruebas, estamos utilizando 2009, pero hay que utilizar el año en curso, el mes, ... */
-    	   Date hoy=new Date();
+    	/*   Date hoy=new Date();
     	   int anyo=hoy.getYear()+1900;
     	   int mesActual=hoy.getMonth()+1;
-    	   //System.out.println("****** Mes seleccionado: "+mes+" -- Mes actual: "+mesActual);
     	   if (mesActual<mes)
     	   {
     		   anyo--;
     	   }
-    	   //System.out.println("****** Año: "+anyo);
     	   Calendar c1=new GregorianCalendar(anyo,mes-1,1,0,0);
            Calendar c2=new GregorianCalendar(anyo,mes,1,0,0);
            Date d1=new Date();
            Date d2=new Date();
            d1=c1.getTime();
-           d2=c2.getTime(); 
+           d2=c2.getTime();*/
+    	   
+    	   int valorIncioMes=vp.getPreferenciasInicioMes();
+    	   Date hoy=new Date();
+    	   int anyo=hoy.getYear()+1900;
+    	   int mesActual=hoy.getMonth()+1;
+    	   if (mesActual<mes)
+    	   {
+    		   anyo--;
+    	   }
+           Calendar c1=new GregorianCalendar(anyo,mes-1,valorIncioMes,0,0);
+           Calendar c2=new GregorianCalendar(anyo,mes,valorIncioMes,0,0);
+           
+           Date d1=new Date();
+           Date d2=new Date();
+           d1=c1.getTime();
+           d2=c2.getTime();
 
-           //c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.DATE+"<"+(d2.getTime())+" and "+CallLog.Calls.DATE+">"+(d1.getTime())+" and "+CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, CallLog.Calls.DEFAULT_SORT_ORDER);
-           //Uri.parse("content://sms/sent/date")+"<"+(d2.getTime())+" and "+Uri.parse("content://sms/sent/date")+">"+(d1.getTime())
            try
            {
         	   c=this.getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
@@ -488,7 +500,7 @@ public class gastoMovil extends ListActivity {
         else
         {
         	tarifa t=ts.getTarifa(idTarifaDefecto);
-        	if (t.getMinimo()>0) tv_cabResumen.setText(getString(R.string.Gasto_minimo)+" "+t.getMinimo()+FunGlobales.monedaLocal());
+        	if (t.getMinimo()>0) tv_cabResumen.setText(getString(R.string.Gasto_minimo)+" "+FunGlobales.redondear((t.getMinimo()*iva), 2) +FunGlobales.monedaLocal());
         	else tv_cabResumen.setText(getString(R.string.Sin_gasto_minimo));
         		
         }
