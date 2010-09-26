@@ -166,6 +166,12 @@ public class ValoresPreferencias {
     	return valor;
     }
     
+    
+    public boolean getNombreAgenda(){
+    	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("chbox_nombreAgenda", false);
+    	return valor;
+    }
+    
     public int getPreferenciasDuracion(){
     	//Retorna el valor de Duración, un parámetro de ajuste.
     	

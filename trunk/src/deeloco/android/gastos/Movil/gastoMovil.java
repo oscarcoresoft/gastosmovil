@@ -49,6 +49,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
+import android.provider.Contacts;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -414,14 +415,18 @@ public class gastoMovil extends ListActivity {
         		
         		//t=tarifa a la que pertenece el número
         		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
+        		//Array de retorno con
+        		//COSTE=0;ESTABLECIMIENTO=1;GASTOMINIMO=2;LIMITE=3;COSTE_FUERA_LIMITE=4;ESTABLECIMIENTO_FUERA_LIMITE=5;
         		retorno=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
-        		
         		rIcono=vp.getColor(t.getColor());
         		
         		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir cuenta para el limite
+
         		totalSegundos=totalSegundos+duracion;
         		if (retorno[LIMITE]!=0.0)
         		{
+        			//t.addSegConsumidosMes(duracion);
+        			//t.addSegConsumidosDia(duracion);
         			totalSegundosLimite=totalSegundosLimite+duracion;
         			limite=retorno[LIMITE];
         		}
@@ -453,11 +458,18 @@ public class gastoMovil extends ListActivity {
         				totalEstLlamadas=totalEstLlamadas+estLlamada;
         			}
         			sDuracion=(duracion/60)+" min "+(duracion%60)+" seg";
-        			//DEPURAR .. Se puede definir una variable string donde se mete el % del establecimiento ...
+        			
         			if (vp.getEstablecimiento())
-        				lista.add(new IconoYTexto(rIcono, telefono, fechaHora+" ("+FunGlobales.redondear(estLlamada,0)+"%)",sDuracion,FunGlobales.redondear(coste,2)));
-        			else
+        				fechaHora=fechaHora+" ("+FunGlobales.redondear(estLlamada,0)+"%)";
+        			if (vp.getNombreAgenda())
+        				telefono=getContactNumber(telefono);
+        			
+        			
+        			//if (vp.getEstablecimiento())
+        			//	lista.add(new IconoYTexto(rIcono, telefono, fechaHora+" ("+FunGlobales.redondear(estLlamada,0)+"%)",sDuracion,FunGlobales.redondear(coste,2)));
+        			//else
         				lista.add(new IconoYTexto(rIcono, telefono, fechaHora,sDuracion,FunGlobales.redondear(coste,2)));
+        				//lista.add(new IconoYTexto(rIcono, getContactNumber(telefono), fechaHora,sDuracion,FunGlobales.redondear(coste,2)));
         			costeLlamadas=costeLlamadas+FunGlobales.redondear(coste,2);
         			numLlamadas++;
 
@@ -650,7 +662,30 @@ public class gastoMovil extends ListActivity {
     }
     
     
-    
+    /**
+     * Devuelve el nombre del contacto para un número determinado. Si no existe, devuelve el número
+     * @param number
+     * @return
+     */
+    private String getContactNumber(String number) {
+ 	   
+ 	   	String[] projection = new String[] {
+ 	   	Contacts.Phones.DISPLAY_NAME,
+ 	   	Contacts.Phones.NUMBER};
+ 	   	String retorno=number;
+ 	
+ 	   	Uri contactUri = Uri.withAppendedPath(Contacts.Phones.CONTENT_FILTER_URL, Uri.encode(number));
+ 	   	Cursor c =  managedQuery(contactUri, projection,null, null, null);
+ 	
+ 	   	if (c.moveToFirst()) 
+ 	   	{
+ 	   		String name = c.getString(c.getColumnIndex(Contacts.Phones.DISPLAY_NAME));
+ 	   		retorno= name;
+ 	   	}
+ 	   	
+ 	   	c.close();
+ 	   	return retorno;
+    	}
     
     
     

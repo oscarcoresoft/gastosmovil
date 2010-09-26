@@ -144,6 +144,10 @@
     <string name="pref_tarifa_franja">Franja Horaria</string>
     
     
+    <string name="aj_nombreAgenda">Nombre de contacto</string>
+    <string name="aj_nombreAgenda_des">Mostrar en el listado el nombre de contacto.</string>
+    
+    
     
 </resources> 
 
