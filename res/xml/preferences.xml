@@ -54,6 +54,12 @@
             android:summary="@string/aj_establecimiento_des" 
             android:defaultValue="false"/>
             
+       	<CheckBoxPreference
+            android:key="chbox_nombreAgenda"
+            android:title="@string/aj_nombreAgenda"
+            android:summary="@string/aj_nombreAgenda_des" 
+            android:defaultValue="true"/>     
+            
        <EditTextPreference
 			android:name="@string/aj_impuestos"
 			android:summary="@string/aj_impuestos_des"

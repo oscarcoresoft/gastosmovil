@@ -102,6 +102,7 @@ public class AdaptadorListaIconos extends BaseAdapter {
             // Lo ponemos en negrita
             //txt.setTypeface(Typeface.DEFAULT_BOLD);
             txt.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
+            txt.setMaxWidth(150);
             //txt.setTextSize(30);
 
             // Lo añadimos al LinearLayout "datos"

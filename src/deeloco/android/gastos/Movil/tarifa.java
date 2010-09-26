@@ -28,6 +28,12 @@ public class tarifa implements Serializable{
 	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
 	
 	/**
+	 * Atributos relacionados con el total de segundos consumidos para una tarifa
+	 */
+	private int segConsumidosMes=0;
+	private int segConsumidosDia=0;
+	
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -96,19 +102,29 @@ public class tarifa implements Serializable{
 		this.nombre="Tarifa Sin Nombre";
 	}
 	
-	
-	
-	
 	//get y set de los atributos de la clase
 	
+	/**
+	 * Retorna el total de segundos consumidos de lo que vá de mes
+	 * @return
+	 */
+	public int getSegConsumidosMes(){
+		return this.segConsumidosMes;
+	}
 	
 	
-	
+	/**
+	 * Retorna el total de segundos consumidos en un día
+	 * @return
+	 */
+	public int getSegConsumidosDia(){
+		return this.segConsumidosDia;
+	}
 	
 	/**
 	 * Devuelve el nombre de la tarifa
 	 */
-	String getNombre(){
+	public String getNombre(){
 		return this.nombre;
 	}
 	
@@ -189,7 +205,7 @@ public class tarifa implements Serializable{
 	public boolean isDefecto() {
 		return defecto;
 	}
-
+	
 	/**
 	 * Asigna el valor del parámetro al atributo defecto.
 	 * @param defecto
@@ -240,6 +256,28 @@ public class tarifa implements Serializable{
 		int dia=d.getDay();
 		String hora=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
 		return getFranja(dia,hora);
+	}
+
+
+	public void resetSegundos(){
+		this.segConsumidosMes=0;
+		this.segConsumidosDia=0;
+	}
+	
+	/**
+	 * Suma segundos al total de segundos consumidos en un mes
+	 * @param segundos
+	 */
+	public void addSegConsumidosMes(int segundos){
+		this.segConsumidosMes=this.segConsumidosMes+segundos;
+	}
+	
+	/**
+	 * Suma segundos al total de segundos consumidos en un dia
+	 * @param segundos
+	 */
+	public void addSegConsumidosDia(int segundos){
+		this.segConsumidosDia=this.segConsumidosDia+segundos;
 	}
 	
 	/**
@@ -437,6 +475,7 @@ public class tarifa implements Serializable{
 			{
 				//Si el día y la hora pertenece a una franja, calcula el coste para esa franja
 				retorno= this.franjas.get(i).coste(dia, hora, duracion);
+				//Si la franja cuenta para el límite, se retorna el valor del límite, sino 0
 				if (this.franjas.get(i).getLimite())
 					retorno[LIMITE]=this.limite;
 				else
