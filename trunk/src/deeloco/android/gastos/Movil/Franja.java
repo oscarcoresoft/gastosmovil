@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
+import android.widget.Toast;
 
 public class Franja implements Serializable{
 	
@@ -248,7 +249,7 @@ public class Franja implements Serializable{
 		this.horaInicio=horaInicio;
 	}
 	void setHoraInicio(String horaInicio){
-		Log.d(TAG,"Parametro horaInicio ="+horaInicio);
+		//Log.d(TAG,"Parametro horaInicio ="+horaInicio);
 		this.horaInicio=Time.valueOf(horaInicio);
 	}
 	
@@ -275,7 +276,7 @@ public class Franja implements Serializable{
 		{
 			//tiene []
 			dias=dias.substring(1, dias.length()-1);
-			Log.d(TAG,"Dias recortado="+dias);
+			//Log.d(TAG,"Dias recortado="+dias);
 		}
     	String data[] = dias.split(",");
     	for (int i=0; i < data.length; i++) {
@@ -304,7 +305,15 @@ public class Franja implements Serializable{
 		this.coste=coste;
 	}
 	void setCoste(String coste){
-		this.coste=Double.parseDouble(coste);
+		try
+		{
+			coste=coste.replace(",",".");
+			this.coste=Double.parseDouble(coste);
+		}
+		catch (Exception e)
+		{
+			this.coste=0.0;
+		}
 	}
 	
 	/**
@@ -315,7 +324,16 @@ public class Franja implements Serializable{
 		this.establecimiento=establecimientos;
 	}
 	void setEstablecimiento(String establecimiento){
-		this.establecimiento=Double.parseDouble(establecimiento);
+		
+		try
+		{
+			establecimiento=establecimiento.replace(",",".");
+			this.establecimiento=Double.parseDouble(establecimiento);
+		}
+		catch (Exception e)
+		{
+			this.establecimiento=0.0;
+		}
 	}
 	
 	/**
@@ -340,7 +358,16 @@ public class Franja implements Serializable{
 		this.costeFueraLimite=costeFueraLimite;
 	}
 	void setCosteFueraLimite(String costeFueraLimite){
-		this.costeFueraLimite=Double.parseDouble(costeFueraLimite);
+		
+		try
+		{
+			costeFueraLimite=costeFueraLimite.replace(",",".");
+			this.costeFueraLimite=Double.parseDouble(costeFueraLimite);
+		}
+		catch (Exception e)
+		{
+			this.costeFueraLimite=0.0;
+		}
 	}
 	
 	
@@ -353,7 +380,16 @@ public class Franja implements Serializable{
 	}
 	
 	void setEstablecimientoFueraLimite(String establecimientoFueraLimite){
-		this.establecimientoFueraLimite=Double.parseDouble(establecimientoFueraLimite);
+		
+		try
+		{
+			establecimientoFueraLimite=establecimientoFueraLimite.replace(",",".");
+			this.establecimientoFueraLimite=Double.parseDouble(establecimientoFueraLimite);
+		}
+		catch (Exception e)
+		{
+			this.establecimientoFueraLimite=0.0;
+		}
 	}
 	
 	/**

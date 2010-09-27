@@ -26,6 +26,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -93,20 +94,30 @@ public class AdaptadorListaIconos extends BaseAdapter {
         // Contendrá el nombre en una línea y debajo la fecha
         LinearLayout datos = new LinearLayout(mContext);
         datos.setOrientation(LinearLayout.VERTICAL);
-           
-            // Generamos el TextView para el nombre en negrita
-            TextView txt = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
-            
-            // Le establecemos el texto a mostrar
-            txt.setText(telefono + " : " + coste + FunGlobales.monedaLocal());
-            // Lo ponemos en negrita
-            //txt.setTypeface(Typeface.DEFAULT_BOLD);
-            txt.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
-            txt.setMaxWidth(150);
-            //txt.setTextSize(30);
-
-            // Lo añadimos al LinearLayout "datos"
-            datos.addView(txt, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        
+        //Contendra dos lineas de texto en horozantal, una al lado de la otra
+        LinearLayout linea1=new LinearLayout(mContext);
+        linea1.setOrientation(LinearLayout.HORIZONTAL);
+        
+        
+        // Inicio
+        TextView txtLinea1Izq = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
+        txtLinea1Izq.setText(telefono);
+        txtLinea1Izq.setMaxWidth(250);
+        txtLinea1Izq.setSingleLine(true);
+        txtLinea1Izq.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
+        linea1.addView(txtLinea1Izq, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,2));
+        // Final
+        
+        // Inicio
+        TextView txtLinea1Der = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
+        txtLinea1Der.setText(coste+FunGlobales.monedaLocal());
+        txtLinea1Der.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
+        txtLinea1Der.setGravity(Gravity.RIGHT);
+        txtLinea1Der.setPadding(0,0,15,0);
+        linea1.addView(txtLinea1Der, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,1));
+        //Final
+        datos.addView(linea1, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
            
             // Generamos el TextView para la fecha y hora
             TextView vFecha = new TextView(mContext,null,android.R.attr.textAppearanceSmall);
@@ -118,7 +129,7 @@ public class AdaptadorListaIconos extends BaseAdapter {
             datos.addView(vFecha, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         
           // Lo añadimos al LinearLayout creado
-          vista.addView(datos, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)); 
+          vista.addView(datos, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); 
         
         
 	    

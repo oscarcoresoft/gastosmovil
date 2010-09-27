@@ -197,7 +197,7 @@ public class PreferencesTarifa extends ListActivity{
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
         					tv.setText(valor);
-        					t.setMinimo(Double.parseDouble(valor));
+        					t.setMinimo(valor);
         					//Retorno
         			    	Intent resultIntent=new Intent();
         			    	resultIntent.putExtra(TARIFA_RETORNO, t);
@@ -221,7 +221,7 @@ public class PreferencesTarifa extends ListActivity{
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
         					tv.setText(valor);
-        					t.setLimite(Integer.parseInt(valor));
+        					t.setLimite(valor);
         					//Log.d(TAG,"Limite = "+t.getLimite());
         					//Retorno
         			    	Intent resultIntent=new Intent();
