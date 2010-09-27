@@ -304,12 +304,40 @@ public class tarifa implements Serializable{
 		this.minimo=minimo;
 	}
 	
+	void setMinimo(String minimo){
+		
+		try
+		{
+			minimo=minimo.replace(",",".");
+			this.minimo=Double.parseDouble(minimo);
+		}
+		catch (Exception e)
+		{
+			this.minimo=0.0;
+		}
+
+	}
+	
 	/**
 	 * Asigna el valor limite a limite de llamadas
 	 * @param limite
 	 */
 	public void setLimite (int limite){
 		this.limite=limite;
+	}
+	
+	public void setLimite(String limite){
+		
+		try
+		{
+			limite=limite.replace(",",".");
+			this.limite=(int) Math.floor(Double.parseDouble(limite));
+			//this.limite=Integer.parseInt(limite);
+		}
+		catch (Exception e)
+		{
+			this.limite=0;
+		}
 	}
 	
 	/**
@@ -444,6 +472,7 @@ public class tarifa implements Serializable{
 		
 		for (int i=0;i<this.numeros.size();i++)
 		{
+			Log.d(TAG,"Patrón="+this.numeros.get(i));
 			Pattern p=Pattern.compile('^'+this.numeros.get(i));
 			Matcher m=p.matcher(numero);
 			if (m.find())
