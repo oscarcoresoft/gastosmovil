@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Asociar números a tarifas.
 
 = Introducción =
 
@@ -7,7 +7,6 @@ Voy a intentar explicar como asociar números de teléfonos con una tarifa en co
 
 = Detalles =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Hay dos maneras de llevar a cabo la asociación:
+  * Directamente con los parámetros de configuración de la tarifa
+  * Desde el menú contextual, en el listado de llamadas
