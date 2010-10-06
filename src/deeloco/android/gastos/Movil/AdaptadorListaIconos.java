@@ -39,6 +39,8 @@ public class AdaptadorListaIconos extends BaseAdapter {
 
 	private Context mContext;
 	private List<IconoYTexto> elementos;
+	private int longCadena=12;
+	
 	
 	public AdaptadorListaIconos(Context mContext, List<IconoYTexto> elementos)
 	{
@@ -71,11 +73,11 @@ public class AdaptadorListaIconos extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		IconoYTexto ti = elementos.get(position);
-		return generarFila(ti.icono, ti.telefono, ti.fecha, ti.duracion, ti.coste);
+		return generarFila(ti.icono, ti.telefono, ti.nombre,ti.fecha, ti.duracion, ti.coste);
 		
 	}
 	
-	public View generarFila(Drawable icono, String telefono, String fecha, String duracion, double coste)
+	public View generarFila(Drawable icono, String telefono,String nombre, String fecha, String duracion, double coste)
 	{
 		// Generamos un LinearLayout
 		LinearLayout vista = new LinearLayout(mContext);
@@ -102,8 +104,22 @@ public class AdaptadorListaIconos extends BaseAdapter {
         
         // Inicio
         TextView txtLinea1Izq = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
-        txtLinea1Izq.setText(telefono);
-        txtLinea1Izq.setMaxWidth(250);
+        if (nombre.equals("")||nombre.equals(telefono))
+        {
+        	txtLinea1Izq.setText(telefono);
+        	txtLinea1Izq.setMaxWidth(250);
+        }
+        else
+        {
+        	txtLinea1Izq.setText(telefono+" :: "+nombre);
+        	if (nombre.length()>this.longCadena)
+        		txtLinea1Izq.setText(nombre.subSequence(0, this.longCadena)+" | "+telefono);
+        	else
+        		txtLinea1Izq.setText(nombre+" | "+telefono);
+        	txtLinea1Izq.setMaxWidth(200);
+        }
+        
+        //txtLinea1Izq.setMaxWidth(250);
         txtLinea1Izq.setSingleLine(true);
         txtLinea1Izq.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
         linea1.addView(txtLinea1Izq, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,2));
@@ -122,7 +138,7 @@ public class AdaptadorListaIconos extends BaseAdapter {
             // Generamos el TextView para la fecha y hora
             TextView vFecha = new TextView(mContext,null,android.R.attr.textAppearanceSmall);
             // Le establecemos el texto a mostrar
-            vFecha.setText(duracion+ "   " +fecha);
+            vFecha.setText(duracion+ "|" +fecha);
             vFecha.setTextAppearance(mContext,android.R.attr.textAppearanceSmall);
             //vFecha.setTextSize(15);
             // Lo añadimos al LinearLayout "datos"

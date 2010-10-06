@@ -457,22 +457,18 @@ public class gastoMovil extends ListActivity {
         				//estLlamada=(vp.getPreferenciasEstLlamadas()/coste)*100;
         				totalEstLlamadas=totalEstLlamadas+estLlamada;
         			}
-        			sDuracion=(duracion/60)+" min "+(duracion%60)+" seg";
+        			sDuracion=(duracion/60)+"m."+(duracion%60)+"s.";
         			
         			if (vp.getEstablecimiento())
-        				fechaHora=fechaHora+" ("+FunGlobales.redondear(estLlamada,0)+"%)";
+        				fechaHora=fechaHora+" | "+FunGlobales.redondear(estLlamada,0)+"%";
+        			String nombre="";
         			if (vp.getNombreAgenda())
-        				telefono=getContactNumber(telefono);
+        				nombre=getContactNumber(telefono);
         			
-        			
-        			//if (vp.getEstablecimiento())
-        			//	lista.add(new IconoYTexto(rIcono, telefono, fechaHora+" ("+FunGlobales.redondear(estLlamada,0)+"%)",sDuracion,FunGlobales.redondear(coste,2)));
-        			//else
-        				lista.add(new IconoYTexto(rIcono, telefono, fechaHora,sDuracion,FunGlobales.redondear(coste,2)));
-        				//lista.add(new IconoYTexto(rIcono, getContactNumber(telefono), fechaHora,sDuracion,FunGlobales.redondear(coste,2)));
+        			lista.add(new IconoYTexto(rIcono, telefono,nombre, fechaHora,sDuracion,FunGlobales.redondear(coste,2)));
+        			//valores acumulados
         			costeLlamadas=costeLlamadas+FunGlobales.redondear(coste,2);
         			numLlamadas++;
-
         		}
         		
         	} while (c.moveToNext());
@@ -521,8 +517,19 @@ public class gastoMovil extends ListActivity {
         //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
         
         if (limite>0)
+        {
         	//tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
-        	tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
+        	String datos="";
+        	
+        	for (int i=0;i<ts.numTarifas();i++)
+        	{
+        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.\n";
+        		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
+        		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
+        	}
+        	tv_cabRegistro.setLines(ts.numTarifas());
+        	tv_cabRegistro.setText(datos);
+        }
         else
         	tv_cabRegistro.setText(getString(R.string.Hablado)+" "+FunGlobales.segundosAHoraMinutoSegundo(totalSegundos));//TEXTO
         
