@@ -75,7 +75,7 @@ public class GastosPorNumeroActivity extends Activity {
     		  sNumero="";
     	  }
     	  
-    	  lista.add(new IconoYTexto(rIcono,sNombre,FunGlobales.redondear(dPorciento,2)+"",sNumero,dGasto));
+    	  lista.add(new IconoYTexto(rIcono,sNombre,"",FunGlobales.redondear(dPorciento,2)+"",sNumero,dGasto));
     	  //c.close();
       }
       

@@ -27,14 +27,16 @@ public class IconoYTexto {
 	public Drawable icono;
 	/* A Drawable is a general abstraction for "something that can be drawn."*/
 	public String telefono;
+	public String nombre;
 	public String fecha;
 	public String duracion;
 	public double coste;
 
 	
-	public IconoYTexto(Drawable icono, String telefono, String fecha, String duracion, double coste) {
+	public IconoYTexto(Drawable icono, String telefono,String nombre, String fecha, String duracion, double coste) {
 		this.icono = icono;
 		this.telefono = telefono;
+		this.nombre=nombre;
 		this.fecha=fecha;
 		this.duracion=duracion;
 		this.coste=coste;

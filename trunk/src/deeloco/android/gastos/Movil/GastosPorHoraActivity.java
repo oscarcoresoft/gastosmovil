@@ -56,7 +56,7 @@ public class GastosPorHoraActivity extends Activity {
     	  //sNombre="XXXXXXX XXXX";
     	  dPorciento=(dGasto/dTotal)*100;
     	  
-    	  lista.add(new IconoYTexto(rIcono,""+sHoras,FunGlobales.redondear(dPorciento,2)+"","de las "+sHoras+":00 a las "+(sHoras+1)+":00",dGasto));
+    	  lista.add(new IconoYTexto(rIcono,""+sHoras,"",FunGlobales.redondear(dPorciento,2)+"","de las "+sHoras+":00 a las "+(sHoras+1)+":00",dGasto));
     	  //c.close();
       }
       
