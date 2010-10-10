@@ -423,10 +423,12 @@ public class gastoMovil extends ListActivity {
         		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir cuenta para el limite
 
         		totalSegundos=totalSegundos+duracion;
+        		t.addSegConsumidosMes(duracion);
         		if (retorno[LIMITE]!=0.0)
         		{
-        			//t.addSegConsumidosMes(duracion);
+        			
         			//t.addSegConsumidosDia(duracion);
+        			t.addSegConsumidosLimiteMes(duracion);
         			totalSegundosLimite=totalSegundosLimite+duracion;
         			limite=retorno[LIMITE];
         		}
@@ -516,23 +518,26 @@ public class gastoMovil extends ListActivity {
         
         //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
         
-        if (limite>0)
-        {
-        	//tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
-        	String datos="";
-        	
-        	for (int i=0;i<ts.numTarifas();i++)
-        	{
-        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.\n";
+
+    	//tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
+    	String datos="";
+    	
+    	for (int i=0;i<ts.numTarifas();i++)
+    	{
+    		if (ts.getTarifas().get(i).getLimite()>0)
+    		{
+        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.\n";
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
-        	}
-        	tv_cabRegistro.setLines(ts.numTarifas());
-        	tv_cabRegistro.setText(datos);
-        }
-        else
-        	tv_cabRegistro.setText(getString(R.string.Hablado)+" "+FunGlobales.segundosAHoraMinutoSegundo(totalSegundos));//TEXTO
-        
+    		}
+    		else
+    		{
+    			datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Hablado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.\n";
+    		}
+    	}
+    	tv_cabRegistro.setLines(ts.numTarifas());
+    	tv_cabRegistro.setText(datos);
+       
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
         
