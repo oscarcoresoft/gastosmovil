@@ -32,6 +32,7 @@ public class tarifa implements Serializable{
 	 */
 	private int segConsumidosMes=0;
 	private int segConsumidosDia=0;
+	private int segConsumidosLimiteMes=0; //Solo debe contar las franjas que contabilizan para el limite
 	
 	/**
 	 * 
@@ -119,6 +120,15 @@ public class tarifa implements Serializable{
 	 */
 	public int getSegConsumidosDia(){
 		return this.segConsumidosDia;
+	}
+	
+	
+	/**
+	 * Retorna el total de segundos consumidos del limite mensual
+	 * @return
+	 */
+	public int getSegConsumidosLimiteMes(){
+		return this.segConsumidosLimiteMes;
 	}
 	
 	/**
@@ -262,6 +272,7 @@ public class tarifa implements Serializable{
 	public void resetSegundos(){
 		this.segConsumidosMes=0;
 		this.segConsumidosDia=0;
+		this.segConsumidosLimiteMes=0;
 	}
 	
 	/**
@@ -278,6 +289,11 @@ public class tarifa implements Serializable{
 	 */
 	public void addSegConsumidosDia(int segundos){
 		this.segConsumidosDia=this.segConsumidosDia+segundos;
+	}
+	
+	
+	public void addSegConsumidosLimiteMes(int segundos){
+		this.segConsumidosLimiteMes+=segundos;
 	}
 	
 	/**
