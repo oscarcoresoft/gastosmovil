@@ -309,7 +309,7 @@ public class tarifas implements Serializable{
 		//Cuando se añade una nueva tarifa, hay que asignarle un identificador nuevo si id=0
 		if (t.getIdentificador()==0)
 		{
-			Log.d(TAG,"Nueva tarifa="+t.getNombre());
+			//Log.d(TAG,"Nueva tarifa="+t.getNombre());
 			t.setIdentificador(ultimoId());
 		}
 		this.tarifas.add(t);
@@ -321,10 +321,10 @@ public class tarifas implements Serializable{
 	 * @param t
 	 */
 	void modificarTarifa(int id,tarifa t){
-		Log.i(TAG,"Modificar Tarifa");
+		//Log.i(TAG,"Modificar Tarifa");
 		tarifa tactual=this.getTarifa(id);
-		Log.i(TAG,"Nombre de la tarifa que se va ha modificar -> "+tactual.getNombre());
-		Log.i(TAG,"Nombre de la tarifa que se va a añadir -> "+t.getNombre());
+		//Log.i(TAG,"Nombre de la tarifa que se va ha modificar -> "+tactual.getNombre());
+		//Log.i(TAG,"Nombre de la tarifa que se va a añadir -> "+t.getNombre());
 		tactual.setNombre(t.getNombre());
 		tactual.setMinimo(t.getMinimo());
 		tactual.setLimite(t.getLimite());
@@ -448,6 +448,19 @@ public class tarifas implements Serializable{
 			}
 		}
 
+	}
+	
+	
+	
+	/**
+	 * Resetea todos los contadores de segundos de todas las tarifas
+	 */
+	public void resetSegundos()
+	{
+        for (int i=0;i<this.tarifas.size();i++)
+        {
+        	this.tarifas.get(i).resetSegundos();
+        }
 	}
 	
 }

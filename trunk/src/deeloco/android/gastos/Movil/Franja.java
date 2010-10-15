@@ -489,6 +489,61 @@ public class Franja implements Serializable{
 	}
 	
 	
+	
+	/**
+	 * Calcula el coste con iva y establecimento, de una llamada, dado la tarifa a la que pertenece y la duración
+	 * @param t
+	 * @param duracion
+	 * @return
+	 */
+	public double coste (tarifa t,int duracion){
+		double conIvaPorSegundosEnEuros;
+		double costePorSegundo;
+		double costeTotal;
+		double costeTotalConEstablecimiento;
+		//Log.d(TAG,"Consumido="+t.getSegConsumidosLimiteMes()+" | Limite"+t.getLimite());
+		if ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))&&this.getLimite())
+		{
+			//Se han consumido más segundos de los limites mensuales
+			//El coste hay que calcularlo con los valores de coste fuera de limite
+			costePorSegundo=(this.costeFueraLimite/100)/60;
+			conIvaPorSegundosEnEuros=costePorSegundo*iva;
+			costeTotal=conIvaPorSegundosEnEuros*duracion;
+			costeTotalConEstablecimiento=costeTotal+((this.establecimientoFueraLimite/100)*iva);
+		}
+		else
+		{
+			costePorSegundo=(this.coste/100)/60;
+			conIvaPorSegundosEnEuros=costePorSegundo*iva;
+			costeTotal=conIvaPorSegundosEnEuros*duracion;
+			costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100)*iva);
+		}
+		return costeTotalConEstablecimiento;
+	}
+	
+	/**
+	 * Retorna el establecimiento para una llamada, dado la tarifa a la que pertecene y teniendo en cuenta si se han sobrepasado los límite o no.
+	 * @param t
+	 * @param duracion
+	 * @return
+	 */
+	public double establecimiento(tarifa t){
+
+		double establecimiento;
+		
+		if (t.getSegConsumidosLimiteMes()>t.getLimite())
+		{
+
+			establecimiento=(this.establecimientoFueraLimite/100)*iva;
+		}
+		else
+		{
+			establecimiento=(this.establecimiento/100)*iva;
+		}
+		return establecimiento;
+		
+	}
+	
 	//String[] colores = getResources().getStringArray(R.array.colores);
 	
 	public boolean[] diasSeleccionados()

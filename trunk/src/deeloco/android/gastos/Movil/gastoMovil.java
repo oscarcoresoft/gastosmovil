@@ -399,7 +399,7 @@ public class gastoMovil extends ListActivity {
         setListAdapter(ad2);
         c.moveToFirst();
         totalRegistros=c.getCount();
-        
+        ts.resetSegundos();
         if (c.isFirst()&&ts.numTarifas()>0)
         {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
@@ -415,6 +415,32 @@ public class gastoMovil extends ListActivity {
         		
         		//t=tarifa a la que pertenece el número
         		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
+        		Franja f=t.getFranja(fechaHora);
+        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
+        		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
+        		t.addSegConsumidosMes(duracion);
+        		t.addSegConsumidosDia(duracion);
+        		//Añadimos los acumulados de limite, si la llamada esta en la franja del limite
+        		if (t.getLimite()>0&&f.getLimite())
+        		{
+        			//La tarifa tiene limite
+        			//Comprobar si la franja a la que pertenece la llamada cuenta para el limite
+        			if (f.getLimite())
+        			{
+        				//Cuenta, añadirlo al contador de limite
+        				t.addSegConsumidosLimiteMes(duracion);
+        				t.addSegConsumidosLimiteDia(duracion);
+        			}
+        		}
+        		
+        		coste=f.coste(t, duracion);
+        		estLlamada=f.establecimiento(t);
+        		
+        		rIcono=vp.getColor(t.getColor());
+        		
+        		
+        		
+        		/***************************************************************
         		//Array de retorno con
         		//COSTE=0;ESTABLECIMIENTO=1;GASTOMINIMO=2;LIMITE=3;COSTE_FUERA_LIMITE=4;ESTABLECIMIENTO_FUERA_LIMITE=5;
         		retorno=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
@@ -447,7 +473,9 @@ public class gastoMovil extends ListActivity {
         		}
 
         		//estLlamada=f.getEstablecimiento();
-
+********************************************************************/
+				
+        		//Esta condición habrá que ponerla antes, para no tener que hacer los calculos, sino es necesario.
         		if (duracion>modifDuracion)
         		{  
         			//Ya tenemos el coste y el numero y es una llamada > 0, lo metemos en GastosPorNumero
@@ -521,21 +549,24 @@ public class gastoMovil extends ListActivity {
 
     	//tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
     	String datos="";
-    	
+    	int numLineas=0;
     	for (int i=0;i<ts.numTarifas();i++)
     	{
     		if (ts.getTarifas().get(i).getLimite()>0)
     		{
-        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.\n";
+        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+" s. Franja "+ts.getTarifas().get(i).getLimite()+" m.\n";
+        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+" s. Fuera.\n";
+        		numLineas+=2;
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
     		}
     		else
     		{
-    			datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Hablado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.\n";
+    			datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s.\n";
+    			numLineas+=1;
     		}
     	}
-    	tv_cabRegistro.setLines(ts.numTarifas());
+    	tv_cabRegistro.setLines(numLineas);
     	tv_cabRegistro.setText(datos);
        
         //-- Porcentaje del establecimiento de llamadas
@@ -650,7 +681,7 @@ public class gastoMovil extends ListActivity {
 			     {
 			    	 iva=vp.getPreferenciasImpuestos(); 
 			    	 ts.cambiarIva(iva);
-			    	 Log.d(TAG,"Cambiando el iva ="+iva);
+			    	 //Log.d(TAG,"Cambiando el iva ="+iva);
 			     }
 			     listado(vp.getPreferenciasMes());
 			}
