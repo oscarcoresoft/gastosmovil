@@ -3,7 +3,9 @@ package deeloco.android.gastos.Movil;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.*;
 
@@ -33,6 +35,7 @@ public class tarifa implements Serializable{
 	private int segConsumidosMes=0;
 	private int segConsumidosDia=0;
 	private int segConsumidosLimiteMes=0; //Solo debe contar las franjas que contabilizan para el limite
+	private int segConsumidosLimiteDia=0;
 	
 	/**
 	 * 
@@ -131,6 +134,12 @@ public class tarifa implements Serializable{
 		return this.segConsumidosLimiteMes;
 	}
 	
+	public int getSegConsumidosLimiteDia() {
+		return segConsumidosLimiteDia;
+	}
+
+	
+	
 	/**
 	 * Devuelve el nombre de la tarifa
 	 */
@@ -193,7 +202,7 @@ public class tarifa implements Serializable{
 	 */
 	String getNumeros(){
 		
-		Log.d(TAG,"getNumeros ->"+this.numeros.size());
+		//Log.d(TAG,"getNumeros ->"+this.numeros.size());
 		if (this.numeros.size()>0)
 		{
 			String sNumeros="";
@@ -247,25 +256,49 @@ public class tarifa implements Serializable{
 	 * @param hora
 	 * @return
 	 */
-	Franja getFranja(int dia,String hora){
+	public Franja getFranja(int dia,String hora){
 		
 		for (int i=0;i<this.franjas.size();i++)
 		{
-			Log.d(TAG,"getFranja -> "+this.franjas.get(i).pertenece(dia, Time.valueOf(hora)));
+			//Log.d(TAG,"getFranja -> "+this.franjas.get(i).pertenece(dia, Time.valueOf(hora)));
 			if (this.franjas.get(i).pertenece(dia, Time.valueOf(hora)))
 			{
 				return this.franjas.get(i);
 			}
 		}
-		Log.d(TAG,"Día = "+dia+" Hora = "+hora+" NO TIENE FRANJA EN LA TARIFA "+this.getNombre());
+		//Log.d(TAG,"Día = "+dia+" Hora = "+hora+" NO TIENE FRANJA EN LA TARIFA "+this.getNombre());
 		return null;
 	}
 	
-	Franja getFranja (String fechayhora){
-		Date d=new Date(fechayhora);
-		int dia=d.getDay();
-		String hora=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-		return getFranja(dia,hora);
+	public Franja getFranja (String fechayhora){
+		
+		String sFecha =fechayhora.substring(0, 10).trim();
+		String sHora=fechayhora.substring(10, fechayhora.length()).trim();
+		String sDia=sFecha.substring(0,2);
+		String sMes=sFecha.substring(3, 5);
+		String sAno=sFecha.substring(6, 10);
+
+		int ano= Integer.parseInt(sAno);
+		int mes= Integer.parseInt(sMes)-1;
+		int dia= Integer.parseInt(sDia);
+		
+		Calendar calendario=new GregorianCalendar(ano,mes,dia);
+		calendario.setFirstDayOfWeek(Calendar.MONDAY);
+		int diaSemana=calendario.get(Calendar.DAY_OF_WEEK);
+		String shora=sHora;
+		
+		switch (diaSemana) {
+		case Calendar.SUNDAY:
+			diaSemana=6;
+			break;
+
+		default:
+			diaSemana=diaSemana-2;
+			break;
+		}
+		//Log.d(TAG,"dia de la semana -> "+diaSemana);
+
+		return getFranja(diaSemana,shora);
 	}
 
 
@@ -273,6 +306,7 @@ public class tarifa implements Serializable{
 		this.segConsumidosMes=0;
 		this.segConsumidosDia=0;
 		this.segConsumidosLimiteMes=0;
+		this.segConsumidosLimiteDia=0;
 	}
 	
 	/**
@@ -294,6 +328,23 @@ public class tarifa implements Serializable{
 	
 	public void addSegConsumidosLimiteMes(int segundos){
 		this.segConsumidosLimiteMes+=segundos;
+	}
+	
+	public void addSegConsumidosLimiteDia(int segundo) {
+		this.segConsumidosLimiteDia += segundo;
+	}
+	
+	
+	/*****************************************************
+	 ****************** SETTER ***************************
+	 *****************************************************/
+	
+	public void setSegConsumidosLimiteDia(int segundos){
+		this.segConsumidosLimiteDia=segundos;
+	}
+	
+	public void setSegConsumidosDia(int segundos){
+		this.segConsumidosDia=segundos;
 	}
 	
 	/**
@@ -442,10 +493,10 @@ public class tarifa implements Serializable{
 	}
 	
 	void modificarFranja(int id,Franja f){
-		Log.i(TAG,"Modificar Franja");
+		//Log.i(TAG,"Modificar Franja");
 		Franja factual=this.getFranja(id);
-		Log.i(TAG,"Nombre de la franja que se va ha modificar -> "+factual.getNombre());
-		Log.i(TAG,"Nombre de la franja que se va a añadir -> "+f.getNombre());
+		//Log.i(TAG,"Nombre de la franja que se va ha modificar -> "+factual.getNombre());
+		//Log.i(TAG,"Nombre de la franja que se va a añadir -> "+f.getNombre());
 		factual.setNombre(f.getNombre());
 		factual.setHoraInicio(f.getHoraInicio());
 		factual.setHoraFinal(f.getHoraFinal());
@@ -463,12 +514,12 @@ public class tarifa implements Serializable{
 	 */
 	public void deleteFranja(String nombre)
 	{
-		Log.d(TAG,"Intentando eliminar la franja= "+nombre);
+		//Log.d(TAG,"Intentando eliminar la franja= "+nombre);
         for (int i=0;i<this.franjas.size();i++)
         {
         	if (nombre.equals(this.franjas.get(i).getNombre()))
         	{
-        		Log.d(TAG,"Eliminando la franja= "+nombre);
+        		//Log.d(TAG,"Eliminando la franja= "+nombre);
         		this.franjas.remove(i);
         	}
         }
@@ -488,7 +539,7 @@ public class tarifa implements Serializable{
 		
 		for (int i=0;i<this.numeros.size();i++)
 		{
-			Log.d(TAG,"Patrón="+this.numeros.get(i));
+			//Log.d(TAG,"Patrón="+this.numeros.get(i));
 			Pattern p=Pattern.compile('^'+this.numeros.get(i));
 			Matcher m=p.matcher(numero);
 			if (m.find())
@@ -521,6 +572,7 @@ public class tarifa implements Serializable{
 				//Si el día y la hora pertenece a una franja, calcula el coste para esa franja
 				retorno= this.franjas.get(i).coste(dia, hora, duracion);
 				//Si la franja cuenta para el límite, se retorna el valor del límite, sino 0
+
 				if (this.franjas.get(i).getLimite())
 					retorno[LIMITE]=this.limite;
 				else
@@ -584,8 +636,8 @@ public class tarifa implements Serializable{
         	diasSemana=this.franjas.get(i).getDias();
         	int hInicio=Integer.parseInt((""+this.franjas.get(i).getHoraInicio()).split(":")[0]);
         	int hFinal=Integer.parseInt((""+this.franjas.get(i).getHoraFinal()).split(":")[0]);
-        	Log.d(TAG,"hora inicio:"+hInicio+" - hora final:"+hFinal);
-        	Log.d(TAG,"Dia de la semana "+diasSemana+"="+diasSemana.indexOf("Lun"));
+        	//Log.d(TAG,"hora inicio:"+hInicio+" - hora final:"+hFinal);
+        	//Log.d(TAG,"Dia de la semana "+diasSemana+"="+diasSemana.indexOf("Lun"));
         	for (int d=0;d<diasSemana.size();d++)
         	{
         		if (diasSemana.get(d).equals("Lun")) fila=0;
@@ -636,7 +688,12 @@ public class tarifa implements Serializable{
 		return conflicto;
 	}
 	
-	
+	/**
+	 * Retorna el nombre de la franja que corresponde con un dia y una hora
+	 * @param dia
+	 * @param hora
+	 * @return
+	 */
 	public String getNombreFranja(int dia,Time hora){
 		
 		

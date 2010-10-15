@@ -16,6 +16,8 @@ public class TarifasPreDefinidas {
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
 	private int numTarifas=37;
 	private String[][] tarifasPreDefinidas={
+			{"HTCMania - PepePhone","1","7","0","Rojo","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","3,9","15","No","0","0"},
 			{"Movistar - Contrato Único","1","9","0","Azul","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","18","15","No","0","0"},
 			{"Movistar - Contrato Tiempo Libre ","3","9","0","Azul","",
