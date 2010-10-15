@@ -44,7 +44,7 @@ public class FunGlobales extends Activity{
     public static String monedaLocal(){
     	Currency currency = Currency.getInstance(Locale.getDefault());
     	String codigoMoneda=currency.getCurrencyCode();
-    	Log.d("CODIGO MONEDA",codigoMoneda);
+    	//Log.d("CODIGO MONEDA",codigoMoneda);
     	if (codigoMoneda.equals("EUR"))
     	{
     		return "€";
