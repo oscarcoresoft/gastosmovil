@@ -114,7 +114,7 @@
 	<string name="aj_franja_establecimiento_limite_des">Coste del establecimiento de llamada, cuando se sobrepase los limites de tiempo de la tarifa. En centimos y sin iva.</string>
 	<string name="aj_tarifa_nombre_des">Nombre que identifica a la tarifa.</string>
 	<string name="aj_tarifa_gastoMinimo_des">Gasto Mínimo al mes (en euros y sin iva).</string>
-	<string name="aj_tarifa_limite_des">Límite de minutos, al mes y en minutos.</string>
+	<string name="aj_tarifa_limite_des">Límite de llamadas, al mes y en minutos.</string>
 	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma. Tambien es valido números de 2, 3, 4 ... dígitos y se interpretará como "Numeros que empiezan por ...". Ejemplo: 959, será números que empiecen por 959.</string>
 	<string name="aj_SMSGratis">SMS Gratuitos</string>
 	<string name="aj_SMSGratis_des">Número de SMS gratuitos al mes.</string>
@@ -138,7 +138,8 @@
     
     <string name="pref_tarifa_nombre">Nombre</string>
     <string name="pref_tarifa_minimo">Gasto Mínimo Mensual</string>
-    <string name="pref_tarifa_limite">Límite de llamadas (min.)</string>
+    <string name="pref_tarifa_limite">Límite del mes (min.)</string>
+    
     <string name="pref_tarifa_color">Color</string>
     <string name="pref_tarifa_numeros">"Numeros Asociados a la tarifa"</string>
     <string name="pref_tarifa_franja">Franja Horaria</string>
@@ -147,6 +148,9 @@
     <string name="aj_nombreAgenda">Nombre de contacto</string>
     <string name="aj_nombreAgenda_des">Mostrar en el listado el nombre de contacto.</string>
     
+    
+    <string name="pref_tarifa_limite_dia">Límite de un día (min.)</string>
+    <string name="aj_tarifa_limite_dia_des">Límite de llamadas, al día y en minutos.</string>
     
     
 </resources> 

@@ -58,9 +58,15 @@ public class tarifa implements Serializable{
 	private double minimo;
 	
 	/**
-	 * Limite, en minutos, para el que se aplica uno y otra tarifa de una franja
+	 * Limite mensual, en minutos, para el que se aplica uno y otra tarifa de una franja
 	 */
 	private int limite;
+	
+	/**
+	 * Limite diario, en minutos, para el que se aplica uno y otra tarifa de una franja
+	 */
+	private int limiteDia;
+	
 	
 	/**
 	 * Color representativo de la tarifa
@@ -181,11 +187,20 @@ public class tarifa implements Serializable{
 	}
 	
 	/**
-	 * Devuelve el limite de la franja
+	 * Devuelve el limite mensual de la franja
 	 * @return
 	 */
 	public int getLimite(){
 		return this.limite;
+	}
+	
+	
+	/**
+	 * Devuelve el limite diario de la franja
+	 * @return
+	 */
+	public int getLimiteDia(){
+		return this.limiteDia;
 	}
 	
 	/**
@@ -386,7 +401,7 @@ public class tarifa implements Serializable{
 	}
 	
 	/**
-	 * Asigna el valor limite a limite de llamadas
+	 * Asigna el valor limite a limite mensual de llamadas
 	 * @param limite
 	 */
 	public void setLimite (int limite){
@@ -406,6 +421,29 @@ public class tarifa implements Serializable{
 			this.limite=0;
 		}
 	}
+	
+	/**
+	 * Asigna el valor limite a limite diario de llamadas
+	 * @param limite
+	 */
+	public void setLimiteDia(int limite){
+		this.limiteDia=limite;
+	}
+	
+	public void setLimiteDia(String limite){
+		
+		try
+		{
+			limite=limite.replace(",",".");
+			this.limiteDia=(int) Math.floor(Double.parseDouble(limite));
+			//this.limite=Integer.parseInt(limite);
+		}
+		catch (Exception e)
+		{
+			this.limite=0;
+		}
+	}
+	
 	
 	/**
 	 * Asigna el color de la tarifa
