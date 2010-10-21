@@ -382,6 +382,7 @@ public class gastoMovil extends ListActivity {
         double coste;
         double estLlamada=0;
         double totalEstLlamadas=0;
+        String fechaControl="01/01/1000";
         //boolean sw_limite=false;
         
         //Si hay algún elemento
@@ -402,14 +403,29 @@ public class gastoMovil extends ListActivity {
         		String sDuracion;
         		
         		String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
+        		String fechaHoy=fechaHora.substring(0, 10).trim();
         		
         		//t=tarifa a la que pertenece el número
         		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
         		Franja f=t.getFranja(fechaHora);
         		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
         		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
-        		t.addSegConsumidosMes(duracion);
-        		t.addSegConsumidosDia(duracion);
+
+        		
+        		//Comprobamos si estamos en el mismo día
+        		if (fechaControl.compareTo(fechaHoy)!=0)
+        		{
+        			//No estamos en el mismo día
+        			Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
+        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
+        			t.setSegConsumidosLimiteDia(0); //Se resetea
+        			fechaControl=fechaHoy;
+        		}
+        		else
+        		{
+            		t.addSegConsumidosMes(duracion);
+            		t.addSegConsumidosDia(duracion);
+        		}
         		//Añadimos los acumulados de limite, si la llamada esta en la franja del limite
         		if (t.getLimite()>0&&f.getLimite())
         		{
