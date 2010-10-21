@@ -328,6 +328,7 @@ public class tarifas implements Serializable{
 		tactual.setNombre(t.getNombre());
 		tactual.setMinimo(t.getMinimo());
 		tactual.setLimite(t.getLimite());
+		tactual.setLimiteDia(t.getLimiteDia());
 		tactual.setNumeros(t.getNumeros());
 		tactual.setColor(t.getColor());
 		tactual.setDefecto(t.isDefecto());
@@ -376,6 +377,7 @@ public class tarifas implements Serializable{
 			xmlFinal+="<nombreTarifa>"+this.tarifas.get(t).getNombre()+"</nombreTarifa>";
 			xmlFinal+="<gastoMinimo>"+this.tarifas.get(t).getMinimo()+"</gastoMinimo>";
 			xmlFinal+="<limiteLlamadas>"+this.tarifas.get(t).getLimite()+"</limiteLlamadas>";
+			xmlFinal+="<limiteLlamadasDia>"+this.tarifas.get(t).getLimiteDia()+"</limiteLlamadasDia>";
 			xmlFinal+="<color>"+this.tarifas.get(t).getColor()+"</color>";
 			xmlFinal+="<numeros>"+this.tarifas.get(t).getNumeros()+"</numeros>";
 			franjas=this.tarifas.get(t).getFranjas();

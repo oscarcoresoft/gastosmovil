@@ -77,12 +77,6 @@ public class gastoMovil extends ListActivity {
     private static final int RETURN_PREFERENCES_TARIFAS=2;
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     private static final String TAG = "GastosMóvil";
-	private static final int COSTE=0;
-	private static final int ESTABLECIMIENTO=1;
-	private static final int GASTOMINIMO=2;
-	private static final int LIMITE=3;
-	private static final int COSTE_FUERA_LIMITE=4;
-	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
     private double iva=1.18;
     String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
     int totalRegistros=0;
@@ -388,11 +382,7 @@ public class gastoMovil extends ListActivity {
         double coste;
         double estLlamada=0;
         double totalEstLlamadas=0;
-        int totalSegundosLimite=0; //Total de segundos hablados para las llamadas que cuentan para el limite
-        int totalSegundos=0; //Total de segundos hablados
-        double[] retorno={0.0,0.0,0.0,0.0,0.0};
         //boolean sw_limite=false;
-        double limite=0;
         
         //Si hay algún elemento
         AdaptadorListaIconos ad2 = new AdaptadorListaIconos(this,listaInvertida);
@@ -485,6 +475,7 @@ public class gastoMovil extends ListActivity {
         			if (coste>0)
         			{
         				//estLlamada=(vp.getPreferenciasEstLlamadas()/coste)*100;
+        				estLlamada=(estLlamada/coste)*100;
         				totalEstLlamadas=totalEstLlamadas+estLlamada;
         			}
         			sDuracion=(duracion/60)+"m."+(duracion%60)+"s.";

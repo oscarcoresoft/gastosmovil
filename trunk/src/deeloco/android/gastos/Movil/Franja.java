@@ -502,7 +502,8 @@ public class Franja implements Serializable{
 		double costeTotal;
 		double costeTotalConEstablecimiento;
 		//Log.d(TAG,"Consumido="+t.getSegConsumidosLimiteMes()+" | Limite"+t.getLimite());
-		if ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))&&this.getLimite())
+		if ( ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))|| (t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60)))
+				&& this.getLimite() )
 		{
 			//Se han consumido más segundos de los limites mensuales
 			//El coste hay que calcularlo con los valores de coste fuera de limite
@@ -531,7 +532,7 @@ public class Franja implements Serializable{
 
 		double establecimiento;
 		
-		if (t.getSegConsumidosLimiteMes()>t.getLimite())
+		if (t.getSegConsumidosLimiteMes()>t.getLimite()*60)
 		{
 
 			establecimiento=(this.establecimientoFueraLimite/100)*iva;
