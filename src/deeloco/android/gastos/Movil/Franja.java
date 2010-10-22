@@ -184,7 +184,7 @@ public class Franja implements Serializable{
 	}
 	
 	/**
-	 * Retorna el limite del coste de las llamadas
+	 * Retorna si la franja cuenta para el límite o no.
 	 * @return
 	 */
 	public boolean getLimite(){
