@@ -411,7 +411,7 @@ public class gastoMovil extends ListActivity {
         		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
         		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
 
-        		
+        		t.addSegConsumidosMes(duracion);
         		//Comprobamos si estamos en el mismo día
         		if (fechaControl.compareTo(fechaHoy)!=0)
         		{
@@ -423,21 +423,30 @@ public class gastoMovil extends ListActivity {
         		}
         		else
         		{
-            		t.addSegConsumidosMes(duracion);
+            		
             		t.addSegConsumidosDia(duracion);
         		}
         		//Añadimos los acumulados de limite, si la llamada esta en la franja del limite
-        		if (t.getLimite()>0&&f.getLimite())
+        		if (f.getLimite())
         		{
-        			//La tarifa tiene limite
-        			//Comprobar si la franja a la que pertenece la llamada cuenta para el limite
-        			if (f.getLimite())
+        			//La franja cuenta para el límite
+        			//Comprobar si la tarifa tiene limite mensual
+        			if (t.getLimite()>0)
         			{
-        				//Cuenta, añadirlo al contador de limite
+        				//Cuenta, añadirlo al contador de limite mensual
         				t.addSegConsumidosLimiteMes(duracion);
-        				t.addSegConsumidosLimiteDia(duracion);
+        				
         			}
+        			//Comprobar si la tarifa tiene limite diario
+        			if (t.getLimiteDia()>0)
+        			{
+        				//Cuenta, añadirlo al contador de limite diario
+        				t.addSegConsumidosLimiteDia(duracion);	
+        			}
+        			
         		}
+        		
+        		
         		
         		coste=f.coste(t, duracion);
         		estLlamada=f.establecimiento(t);
