@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * ValoresPreferencias: Retorna el valor almacenado en las preferencias de la aplicación.
@@ -18,6 +19,7 @@ public class ValoresPreferencias {
     private final int NUMESP1=2;
     private final int NUMESP2=3;
     private final int NUM=4;
+    private static final String TAG = "ValoresPreferencias";
     
     Context contexto;
 	
@@ -298,5 +300,43 @@ public class ValoresPreferencias {
 	  	if (color.equals("Transparente"))  c=r.getDrawable(R.drawable.line0);
     	return c;
     }
+  
+  public Drawable getColorDanger(String color){
+
+	  	Resources r=contexto.getResources();
+	  	Drawable c=null;
+	  	
+	  	if (color.equals("Blanco"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Amarillo"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Azul"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Naranja"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Rojo"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Verde"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Violeta"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Transparente"))  c=r.getDrawable(R.drawable.line5_danger);
+  	return c;
+  }
+  
+  
+  
+  /**
+   * Devuelve el valor del ajuste de descuento.
+   * @return
+   */
+  public int getPreferenciasDescuento(){
+	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtDescuento", "0");
+	  int retorno=0;
+	  try
+	  {
+	  retorno=Integer.parseInt(valor);
+	  }
+	  catch (Exception e) {
+		// TODO: handle exception
+		  retorno=0;
+		  Log.d(TAG,"getPreferenciasDescuento: Error al parsear un entero");
+	  }
+	  return retorno;
+  }
+  
 
 }
