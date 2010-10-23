@@ -446,12 +446,17 @@ public class gastoMovil extends ListActivity {
         			
         		}
         		
-        		
-        		
         		coste=f.coste(t, duracion);
         		estLlamada=f.establecimiento(t);
         		
-        		rIcono=vp.getColor(t.getColor());
+        		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60))
+        		{
+        			rIcono=vp.getColorDanger(t.getColor());
+        		}
+        		else
+        		{
+        			rIcono=vp.getColor(t.getColor());
+        		}
         		
         		
         		
@@ -485,7 +490,7 @@ public class gastoMovil extends ListActivity {
         			rIcono=getResources().getDrawable(android.R.drawable.presence_busy);
         			coste=retorno[COSTE_FUERA_LIMITE]; //limite > tiempo hablado
         			estLlamada=(((retorno[ESTABLECIMIENTO_FUERA_LIMITE]/100)*iva)/coste)*100;
-        		}
+        		} 
 
         		//estLlamada=f.getEstablecimiento();
 ********************************************************************/

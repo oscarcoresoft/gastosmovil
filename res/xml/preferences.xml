@@ -32,14 +32,6 @@
             android:entryValues="@array/valoresMeses"
             android:dialogTitle="MESES" />
             
-       <EditTextPreference
-			android:name="@string/aj_inicioMes"
-			android:summary="@string/aj_inicio_mes"
-			android:defaultValue="1"
-			android:inputType="phone"
-			android:title="@string/aj_inicioMes"
-			android:key="txtInicioMes" />
-            
 		<EditTextPreference
 			android:name="@string/aj_duracion"
 			android:summary="@string/aj_duracion_des"
@@ -59,13 +51,28 @@
             android:title="@string/aj_nombreAgenda"
             android:summary="@string/aj_nombreAgenda_des" 
             android:defaultValue="true"/>     
-            
-       <EditTextPreference
+	</PreferenceCategory>
+	<PreferenceCategory android:title="Facturación">
+	   <EditTextPreference
+			android:name="@string/aj_inicioMes"
+			android:summary="@string/aj_inicio_mes"
+			android:defaultValue="1"
+			android:inputType="phone"
+			android:title="@string/aj_inicioMes"
+			android:key="txtInicioMes" />
+	   <EditTextPreference
 			android:name="@string/aj_impuestos"
 			android:summary="@string/aj_impuestos_des"
 			android:defaultValue="18"
 			android:inputType="phone"
 			android:title="@string/aj_impuestos"
 			android:key="txtImpuestos" />
+       <EditTextPreference
+			android:name="@string/aj_descuento"
+			android:summary="@string/aj_descuento_des"
+			android:defaultValue="0"
+			android:inputType="phone"
+			android:title="@string/aj_descuento"
+			android:key="txtDescuento" />
 	</PreferenceCategory>
 </PreferenceScreen>
