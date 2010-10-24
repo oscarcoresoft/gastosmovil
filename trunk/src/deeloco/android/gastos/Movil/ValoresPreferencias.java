@@ -306,13 +306,13 @@ public class ValoresPreferencias {
 	  	Resources r=contexto.getResources();
 	  	Drawable c=null;
 	  	
-	  	if (color.equals("Blanco"))  c=r.getDrawable(R.drawable.line5_danger);
-	  	if (color.equals("Amarillo"))  c=r.getDrawable(R.drawable.line5_danger);
-	  	if (color.equals("Azul"))  c=r.getDrawable(R.drawable.line5_danger);
-	  	if (color.equals("Naranja"))  c=r.getDrawable(R.drawable.line5_danger);
-	  	if (color.equals("Rojo"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Blanco"))  c=r.getDrawable(R.drawable.line7_danger);
+	  	if (color.equals("Amarillo"))  c=r.getDrawable(R.drawable.line1_danger);
+	  	if (color.equals("Azul"))  c=r.getDrawable(R.drawable.line2_danger);
+	  	if (color.equals("Naranja"))  c=r.getDrawable(R.drawable.line3_danger);
+	  	if (color.equals("Rojo"))  c=r.getDrawable(R.drawable.line4_danger);
 	  	if (color.equals("Verde"))  c=r.getDrawable(R.drawable.line5_danger);
-	  	if (color.equals("Violeta"))  c=r.getDrawable(R.drawable.line5_danger);
+	  	if (color.equals("Violeta"))  c=r.getDrawable(R.drawable.line6_danger);
 	  	if (color.equals("Transparente"))  c=r.getDrawable(R.drawable.line5_danger);
   	return c;
   }

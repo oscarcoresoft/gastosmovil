@@ -416,7 +416,7 @@ public class gastoMovil extends ListActivity {
         		if (fechaControl.compareTo(fechaHoy)!=0)
         		{
         			//No estamos en el mismo día
-        			Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
+        			//Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
         			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
         			t.setSegConsumidosLimiteDia(0); //Se resetea
         			fechaControl=fechaHoy;
@@ -575,7 +575,7 @@ public class gastoMovil extends ListActivity {
     	{
     		if (ts.getTarifas().get(i).getLimite()>0)
     		{
-        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+" s. Franja "+ts.getTarifas().get(i).getLimite()+" m.\n";
+        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+" s. de "+ts.getTarifas().get(i).getLimite()+" m.\n";
         		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+" s. Fuera.\n";
         		numLineas+=2;
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
