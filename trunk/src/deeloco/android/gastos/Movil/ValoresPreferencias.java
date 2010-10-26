@@ -4,6 +4,12 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Bitmap.Config;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -301,20 +307,38 @@ public class ValoresPreferencias {
     	return c;
     }
   
-  public Drawable getColorDanger(String color){
+  public Drawable getColorIcon(String color,String icon){
 
 	  	Resources r=contexto.getResources();
-	  	Drawable c=null;
+	  	Bitmap linea=null;
+	  	Bitmap icono=null;
+	  	Log.d(TAG,"COLOR= "+color);
 	  	
-	  	if (color.equals("Blanco"))  c=r.getDrawable(R.drawable.line7_danger);
-	  	if (color.equals("Amarillo"))  c=r.getDrawable(R.drawable.line1_danger);
-	  	if (color.equals("Azul"))  c=r.getDrawable(R.drawable.line2_danger);
-	  	if (color.equals("Naranja"))  c=r.getDrawable(R.drawable.line3_danger);
-	  	if (color.equals("Rojo"))  c=r.getDrawable(R.drawable.line4_danger);
-	  	if (color.equals("Verde"))  c=r.getDrawable(R.drawable.line5_danger);
-	  	if (color.equals("Violeta"))  c=r.getDrawable(R.drawable.line6_danger);
-	  	if (color.equals("Transparente"))  c=r.getDrawable(R.drawable.line5_danger);
-  	return c;
+	  	if (color.equals("Blanco"))  linea=BitmapFactory.decodeResource(r, R.drawable.line7).copy(Config.ARGB_8888, true);
+	  	if (color.equals("Amarillo"))  linea=BitmapFactory.decodeResource(r, R.drawable.line1).copy(Config.ARGB_8888, true);;
+	  	if (color.equals("Azul"))  linea=BitmapFactory.decodeResource(r, R.drawable.line2).copy(Config.ARGB_8888, true);;
+	  	if (color.equals("Naranja"))  linea=BitmapFactory.decodeResource(r, R.drawable.line3).copy(Config.ARGB_8888, true);;
+	  	if (color.equals("Rojo"))  linea=BitmapFactory.decodeResource(r, R.drawable.line4).copy(Config.ARGB_8888, true);;
+	  	if (color.equals("Verde"))  linea=BitmapFactory.decodeResource(r, R.drawable.line5).copy(Config.ARGB_8888, true);;
+	  	if (color.equals("Violeta"))  linea=BitmapFactory.decodeResource(r, R.drawable.line6).copy(Config.ARGB_8888, true);;
+	  	if (color.equals("Transparente"))  linea=BitmapFactory.decodeResource(r, R.drawable.line0).copy(Config.ARGB_8888, true);;
+	  	
+	  	if (icon.equals("relog_mas")) icono=BitmapFactory.decodeResource(r, R.drawable.relog).copy(Config.ARGB_8888, true);
+	  	
+	  	Canvas canvas=new Canvas(linea);
+	  	canvas.drawBitmap(icono, 0f, 0f, null);
+	  	BitmapDrawable bpd=null;
+	  	try
+	  	{
+	  		bpd=new BitmapDrawable(linea);
+	  	
+	  	}
+	  	catch (Exception e) {
+			// TODO: handle exception
+	  		Log.d(TAG,"Excepcion en getColorDanger - "+e.getMessage());
+		}
+	  	
+  	return bpd.mutate();
   }
   
   
