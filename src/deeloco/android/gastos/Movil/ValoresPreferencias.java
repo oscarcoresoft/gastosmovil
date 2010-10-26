@@ -323,7 +323,8 @@ public class ValoresPreferencias {
 	  	if (color.equals("Violeta"))  linea=BitmapFactory.decodeResource(r, R.drawable.line6).copy(Config.ARGB_8888, true);;
 	  	if (color.equals("Transparente"))  linea=BitmapFactory.decodeResource(r, R.drawable.line0).copy(Config.ARGB_8888, true);;
 	  	
-	  	if (icon.equals("relog_mas")) icono=BitmapFactory.decodeResource(r, R.drawable.relog).copy(Config.ARGB_8888, true);
+	  	if (icon.equals("relog_mas")) icono=BitmapFactory.decodeResource(r, R.drawable.relog_mas).copy(Config.ARGB_8888, true);
+	  	if (icon.equals("relog_peligro")) icono=BitmapFactory.decodeResource(r, R.drawable.relog_peligro).copy(Config.ARGB_8888, true);
 	  	
 	  	Canvas canvas=new Canvas(linea);
 	  	canvas.drawBitmap(icono, 0f, 0f, null);
