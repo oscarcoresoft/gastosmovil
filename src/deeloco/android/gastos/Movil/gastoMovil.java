@@ -451,7 +451,7 @@ public class gastoMovil extends ListActivity {
         		
         		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60))
         		{
-        			rIcono=vp.getColorDanger(t.getColor());
+        			rIcono=vp.getColorIcon(t.getColor(),"relog_mas");
         		}
         		else
         		{
