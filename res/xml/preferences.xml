@@ -74,5 +74,19 @@
 			android:inputType="phone"
 			android:title="@string/aj_descuento"
 			android:key="txtDescuento" />
+		<EditTextPreference
+			android:name="@string/aj_cuota"
+			android:summary="@string/aj_cuota_des"
+			android:defaultValue="0"
+			android:inputType="phone"
+			android:title="@string/aj_cuota"
+			android:key="txtCuota" />
+		<EditTextPreference
+			android:name="@string/aj_tarifaPlana"
+			android:summary="@string/aj_tarifaPlana_des"
+			android:defaultValue="0"
+			android:inputType="phone"
+			android:title="@string/aj_tarifaPlana"
+			android:key="txtTarifaPlana" />
 	</PreferenceCategory>
 </PreferenceScreen>
