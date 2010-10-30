@@ -153,6 +153,10 @@
     <string name="aj_tarifa_limite_dia_des">Límite de llamadas, al día y en minutos.</string>
     <string name="aj_descuento">Descuento</string>
     <string name="aj_descuento_des">Porcentaje de descuento que la operadora nos aplica a la factura.</string>
+    <string name="aj_cuota">Cuota Mensual</string>
+    <string name="aj_cuota_des">Cuota mensual de la línea teléfonica.</string>
+    <string name="aj_tarifaPlana">Tarifa Plana Internet</string>
+    <string name="aj_tarifaPlana_des">Coste de la tarifa plana de internet.</string>
 </resources> 
 
 
