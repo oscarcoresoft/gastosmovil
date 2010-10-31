@@ -157,6 +157,12 @@
     <string name="aj_cuota_des">Cuota mensual de la línea teléfonica.</string>
     <string name="aj_tarifaPlana">Tarifa Plana Internet</string>
     <string name="aj_tarifaPlana_des">Coste de la tarifa plana de internet.</string>
+    <string name="titulo_factura">Simulación de la factura.</string>
+    <string name="pliego_descargo">Los resultados mostrados en esta factura no tienen valor legal y deben se usado solo a modo orientativo.</string>
+    <string name="simulacion_factura_activity">Simulación de factura.</string>
+    <string name="mn_factura">Simulación de Factura</string>
+    
 </resources> 
+
 
 

@@ -68,10 +68,11 @@ public class gastoMovil extends ListActivity {
     /** Called when the activity is first created. */
 		
 	private static final int TARIFAS = Menu.FIRST;
-	private static final int ESTADISTICAS = Menu.FIRST+1;
-    private static final int AJUSTES = Menu.FIRST+2;
-    private static final int ACERCADE=Menu.FIRST+3;
-    private static final int SALIR = Menu.FIRST+4;
+	private static final int AJUSTES = Menu.FIRST+1;
+	private static final int FACTURA = Menu.FIRST+2;
+	private static final int ESTADISTICAS = Menu.FIRST+3;
+    private static final int ACERCADE=Menu.FIRST+4;
+    private static final int SALIR = Menu.FIRST+5;
     
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
     private static final int RETURN_PREFERENCES_TARIFAS=2;
@@ -93,10 +94,13 @@ public class gastoMovil extends ListActivity {
 
     public boolean onCreateOptionsMenu(Menu menu){
     	menu.add(Menu.NONE, TARIFAS, 0, R.string.mn_tarifas).setIcon(android.R.drawable.ic_menu_recent_history);
-    	menu.add(Menu.NONE, ESTADISTICAS, 0, R.string.mn_estadisticas).setIcon(android.R.drawable.ic_menu_agenda);
     	menu.add(Menu.NONE, AJUSTES, 0, R.string.mn_ajustes).setIcon(android.R.drawable.ic_menu_preferences);
+    	menu.add(Menu.NONE, FACTURA, 0, R.string.mn_factura).setIcon(android.R.drawable.ic_menu_edit);
+    	menu.add(Menu.NONE, ESTADISTICAS, 0, R.string.mn_estadisticas).setIcon(android.R.drawable.ic_menu_agenda);
     	menu.add(Menu.NONE, ACERCADE, 0, R.string.mn_acercade).setIcon(android.R.drawable.ic_menu_info_details);
     	menu.add(Menu.NONE, SALIR, 0, R.string.mn_salir).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+    	
+    	
     	
     	return true;
     }
@@ -189,7 +193,17 @@ public class gastoMovil extends ListActivity {
         	Intent i = new Intent(getBaseContext(), AcercaDe.class);
         	startActivity(i);
         	break;
-        	
+        
+        case FACTURA:
+        	//showDialog(DIALOG_ACERCADE);
+        	Intent iFactura = new Intent(getBaseContext(), simulacionFactura.class);
+        	extras = new Bundle();
+        	extras.putSerializable("tarifas", ts);
+        	TextView tv_CosteLlamadas=(TextView) findViewById(R.id.txtCosteLlamadas);
+        	extras.putString("costeLlamadas", (String) tv_CosteLlamadas.getText());
+        	iFactura.putExtras(extras);
+        	startActivity(iFactura);
+        	break;
         case ESTADISTICAS:
         	TextView tv_Numllamadas= (TextView) findViewById(R.id.txtNumLlamadas);
         	String numLlamadas=tv_Numllamadas.getText().toString();
