@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp"
+              >
+     <ScrollView android:id="@+id/ScrollView01"
+ 				android:layout_width="fill_parent" 
+ 				android:layout_below="@+id/ImageView01"
+ 				android:layout_height="300px">
+ 				
+ 	 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp"
+              > 
+
+     <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/titulo_factura"
+              style="?android:attr/listSeparatorTextViewStyle"
+              android:layout_marginBottom="15dp"
+              /> 
+              
+     <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:textColor="#FFF"
+              android:textSize="8dp"
+              android:text="@string/pliego_descargo"
+              android:layout_marginBottom="5dp"
+              android:autoLink="email"
+              />    
+     	</LinearLayout>         
+       </ScrollView>             
+              
+              
+</LinearLayout>

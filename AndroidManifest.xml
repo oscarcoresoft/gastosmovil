@@ -37,6 +37,10 @@
 				android:label="@string/acercade_activity">
 		</activity>
 		<activity
+				android:name=".simulacionFactura"
+				android:label="@string/simulacion_factura_activity">
+		</activity>
+		<activity
 				android:name=".Estadisticas"
 				android:label="@string/estadisticas_activity">
 		</activity>
