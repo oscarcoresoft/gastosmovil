@@ -97,7 +97,7 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
     	
     	if (key.equals("txtTarifaSMS")||key.equals("txtSMSGratis")||key.equals("listMes")
     			||key.equals("txtDuracion")||key.equals("chbox_establecimiento")||key.equals("chbox_nombreAgenda")
-    			||key.equals("txtInicioMes")||key.equals("defecto")||key.equals("txtImpuestos"))
+    			||key.equals("txtInicioMes")||key.equals("defecto")||key.equals("txtImpuestos")||key.equals("txtDecimales"))
     	{
     		setResult(RESULT_OK);
     	}
@@ -119,6 +119,8 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
         	//getPreferenceScreen().findPreference("defecto").setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("defecto", "--"));
     
         }
+        
+
     }
 
 }

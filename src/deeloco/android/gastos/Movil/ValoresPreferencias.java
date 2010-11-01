@@ -363,5 +363,65 @@ public class ValoresPreferencias {
 	  return retorno;
   }
   
+  /**
+   * Devuelve el valor de la cuota mensual del ajuste
+   * @return
+   */
+  public double getCuotaMensual(){
+	 String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtCuota","0");
+	 Double retorno=0.0;
+	 try
+	 {
+		 retorno=Double.parseDouble(valor);
+	 }
+	 catch (Exception e)
+	 {
+		 retorno=0.0;
+		 Log.d(TAG,"getCuotaMensual: Error al parsear un double");
+	 }
+	 return retorno;
+  }
+  
+  /**
+   * Devuelve el valor del coste de la tarifa plana
+   * @return
+   */
+  public double getTarifaPlana(){
+	 String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtTarifaPlana","0");
+	 Double retorno=0.0;
+	 try
+	 {
+		 retorno=Double.parseDouble(valor);
+	 }
+	 catch (Exception e)
+	 {
+		 retorno=0.0;
+		 Log.d(TAG,"getTarifaPlana: Error al parsear un double");
+	 }
+	 return retorno;
+  } 
+  
+  /**
+   * Devuelva el numero de decimales que se deben mostrar en los cálculos introducido en ajustes
+   * @return
+   */
+  public int getPreferenciasDecimales(){
+	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtDecimales", "2");
+	  int retorno=2;
+	  try
+	  {
+	  retorno=Integer.parseInt(valor);
+	  if (retorno>4) retorno=4;
+	  if (retorno<2) retorno=2;
+	  }
+	  catch (Exception e) {
+		// TODO: handle exception
+		  retorno=2;
+		  Log.d(TAG,"getPreferenciasDecimales: Error al parsear un entero");
+	  }
+	  return retorno;
+  }
+  
+  
 
 }
