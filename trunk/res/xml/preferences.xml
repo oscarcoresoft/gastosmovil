@@ -50,13 +50,23 @@
             android:key="chbox_nombreAgenda"
             android:title="@string/aj_nombreAgenda"
             android:summary="@string/aj_nombreAgenda_des" 
-            android:defaultValue="true"/>     
+            android:defaultValue="true"/>
+            
+        <EditTextPreference
+			android:name="@string/aj_decimales"
+			android:summary="@string/aj_decimales_des"
+			android:defaultValue="2"
+			android:numeric="integer"
+			android:inputType="phone"
+			android:title="@string/aj_decimales"
+			android:key="txtDecimales" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="Facturación">
 	   <EditTextPreference
 			android:name="@string/aj_inicioMes"
 			android:summary="@string/aj_inicio_mes"
 			android:defaultValue="1"
+			android:numeric="integer"
 			android:inputType="phone"
 			android:title="@string/aj_inicioMes"
 			android:key="txtInicioMes" />

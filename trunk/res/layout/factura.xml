@@ -6,20 +6,7 @@
               android:layout_height="fill_parent"
               android:padding="10dp"
               >
-     <ScrollView android:id="@+id/ScrollView01"
- 				android:layout_width="fill_parent" 
- 				android:layout_below="@+id/ImageView01"
- 				android:layout_height="300px">
- 				
- 	 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/layout_root"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:padding="10dp"
-              > 
-
-     <TextView android:id="@+id/text"
+	<TextView android:id="@+id/text"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="@string/titulo_factura"
@@ -35,8 +22,20 @@
               android:textSize="8dp"
               android:text="@string/pliego_descargo"
               android:layout_marginBottom="5dp"
-              android:autoLink="email"
-              />    
+              />
+              
+     <ScrollView android:id="@+id/ScrollView01"
+ 				android:layout_width="fill_parent" 
+ 				android:layout_below="@+id/ImageView01"
+ 				android:layout_height="200dp">
+ 				
+ 	 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_factura"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp"
+              > 
      	</LinearLayout>         
        </ScrollView>             
               

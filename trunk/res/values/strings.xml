@@ -153,14 +153,17 @@
     <string name="aj_tarifa_limite_dia_des">Límite de llamadas, al día y en minutos.</string>
     <string name="aj_descuento">Descuento</string>
     <string name="aj_descuento_des">Porcentaje de descuento que la operadora nos aplica a la factura.</string>
+    <string name="aj_decimales">Decimales en las llamadas</string>
+    <string name="aj_decimales_des">Números de decimales que deben aparecer al calcular el coste de las llamadas (entre 2 y 4 decimales).</string>
     <string name="aj_cuota">Cuota Mensual</string>
-    <string name="aj_cuota_des">Cuota mensual de la línea teléfonica.</string>
+    <string name="aj_cuota_des">Cuota mensual de la línea teléfonica (sin iva).</string>
     <string name="aj_tarifaPlana">Tarifa Plana Internet</string>
-    <string name="aj_tarifaPlana_des">Coste de la tarifa plana de internet.</string>
+    <string name="aj_tarifaPlana_des">Coste de la tarifa plana de internet (sin iva).</string>
     <string name="titulo_factura">Simulación de la factura.</string>
     <string name="pliego_descargo">Los resultados mostrados en esta factura no tienen valor legal y deben se usado solo a modo orientativo.</string>
     <string name="simulacion_factura_activity">Simulación de factura.</string>
     <string name="mn_factura">Simulación de Factura</string>
+    <string name="coste_llamada">Coste de las llamadas: </string>
     
 </resources> 
 

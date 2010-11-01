@@ -81,6 +81,8 @@ public class gastoMovil extends ListActivity {
     private double iva=1.18;
     String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
     int totalRegistros=0;
+    private double costeLlamadas=0;
+    private double costeSMS=0;
     
     private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     private List<IconoYTexto> listaInvertida = new ArrayList<IconoYTexto>();
@@ -199,8 +201,9 @@ public class gastoMovil extends ListActivity {
         	Intent iFactura = new Intent(getBaseContext(), simulacionFactura.class);
         	extras = new Bundle();
         	extras.putSerializable("tarifas", ts);
-        	TextView tv_CosteLlamadas=(TextView) findViewById(R.id.txtCosteLlamadas);
-        	extras.putString("costeLlamadas", (String) tv_CosteLlamadas.getText());
+        	Log.d(TAG,"Coste llamadas="+costeLlamadas);
+        	extras.putDouble("costeLlamadas", costeLlamadas);
+        	extras.putDouble("costeSMS", costeSMS);
         	iFactura.putExtras(extras);
         	startActivity(iFactura);
         	break;
@@ -391,8 +394,8 @@ public class gastoMovil extends ListActivity {
         int numSMSGratis=0;
         //int modifDuracion=getPreferenciasDuracion(); //modificación de la duración de la llamada
         int modifDuracion=vp.getPreferenciasDuracion(); //modificación de la duración de la llamada
-        double costeLlamadas=0;
-        double costeSMS=0;
+        costeLlamadas=0;
+        costeSMS=0;
         double coste;
         double estLlamada=0;
         double totalEstLlamadas=0;
@@ -531,9 +534,9 @@ public class gastoMovil extends ListActivity {
         			if (vp.getNombreAgenda())
         				nombre=getContactNumber(telefono);
         			
-        			lista.add(new IconoYTexto(rIcono, telefono,nombre, fechaHora,sDuracion,FunGlobales.redondear(coste,2)));
+        			lista.add(new IconoYTexto(rIcono, telefono,nombre, fechaHora,sDuracion,FunGlobales.redondear(coste,vp.getPreferenciasDecimales())));
         			//valores acumulados
-        			costeLlamadas=costeLlamadas+FunGlobales.redondear(coste,2);
+        			costeLlamadas=costeLlamadas+FunGlobales.redondear(coste,vp.getPreferenciasDecimales());
         			numLlamadas++;
         		}
         		
