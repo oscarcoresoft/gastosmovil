@@ -544,8 +544,6 @@ public class gastoMovil extends ListActivity {
         c.close();
         }
         
-        
-        
         //Resumen de datos del mes seleccionado g 
         String textoMes="";
         if (vp.getPreferenciasMes()>0) 

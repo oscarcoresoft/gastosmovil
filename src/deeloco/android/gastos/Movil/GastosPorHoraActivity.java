@@ -28,7 +28,7 @@ public class GastosPorHoraActivity extends Activity {
       Bundle extras=getIntent().getExtras();
       //Extraemos el valor del total de la cadena, que es del tipo x.xx €
       String sTotal=extras.getString("total");
-      System.out.println("["+sTotal+"]");
+      //System.out.println("["+sTotal+"]");
       //sTotal="5.1";
       sTotal=sTotal.substring(0, sTotal.length()-2); 
       double dTotal=Double.parseDouble(sTotal); //dTotal = total de gastos

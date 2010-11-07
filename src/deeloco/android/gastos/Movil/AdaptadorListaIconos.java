@@ -121,14 +121,16 @@ public class AdaptadorListaIconos extends BaseAdapter {
         
         //txtLinea1Izq.setMaxWidth(250);
         txtLinea1Izq.setSingleLine(true);
-        txtLinea1Izq.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
+        txtLinea1Izq.setTextSize(17);
+        //txtLinea1Izq.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
         linea1.addView(txtLinea1Izq, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,2));
         // Final
         
         // Inicio
         TextView txtLinea1Der = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
         txtLinea1Der.setText(coste+FunGlobales.monedaLocal());
-        txtLinea1Der.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
+        txtLinea1Der.setTextSize(17);
+        //txtLinea1Der.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
         txtLinea1Der.setGravity(Gravity.RIGHT);
         txtLinea1Der.setPadding(0,0,15,0);
         linea1.addView(txtLinea1Der, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,1));

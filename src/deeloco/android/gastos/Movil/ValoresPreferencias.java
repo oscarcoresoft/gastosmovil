@@ -282,7 +282,10 @@ public class ValoresPreferencias {
     	return valor;
     }
     
-    
+    /**
+     * Retorna el valor del impuesto /100 y +1. Esta es la forma adecuada para calcular el valor de un importa, incluido el iva. 
+     * @return
+     */
     public double getPreferenciasImpuestos(){
     	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtImpuestos", "18");
     	double retorno=Double.parseDouble(valor);
@@ -290,6 +293,16 @@ public class ValoresPreferencias {
     	return retorno;
     	//return 1.36;
     }
+    
+    /**
+     * Devuelve el valor del impuesto en %
+     * @return
+     */
+    public int getPreferenciasImpuestosPorCiento(){
+    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtImpuestos", "18");
+    	int retorno=Integer.parseInt(valor);	
+    	return retorno;
+    } 
     
   public Drawable getColor(String color){
 
