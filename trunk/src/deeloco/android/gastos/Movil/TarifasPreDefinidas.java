@@ -12,10 +12,12 @@ public class TarifasPreDefinidas {
 	//2da Actualización: Ardilla 12, Ardilla 6, Delfin 79, Delfin 32, Delfin 20, PepePhone - Tarifa 4 cent, PepePhone - Tarifa 7 cent
 	//Movistar - Planazo Global, Movistar - Contrato Único, Movistar - Contrato Tiempo Libre, Movistar - Planazo Global, Movistar - Planazo Global L, Movistar - Planazo Global XL,Movistar - Planazo Global XXL
 	
-	//{"Nombre tarifa","numero de franjas","coste minimo","limite de llamadas mensuales","limite de llamadas diarias","Color","",
+	//{"Nombre tarifa","numero de franjas","consumo minimo","limite de llamadas mensuales","limite de llamadas diarias","Color","",
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
-	private int numTarifas=40;
+	private int numTarifas=41;
 	private String[][] tarifasPreDefinidas={
+			{"El Androide Libre - PepePhone","1","0","0","0","Rojo","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","4","15","No","0","0"},
 			{"HTCMania - PepePhone","1","7","0","0","Rojo","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","3,9","15","No","0","0"},
 			{"Movistar - Contrato Único","1","9","0","0","Azul","",

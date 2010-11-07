@@ -26,7 +26,7 @@ public class GastosPorNumeroActivity extends Activity {
       Bundle extras=getIntent().getExtras();
       //Extraemos el valor del total de la cadena, que es del tipo x.xx €
       String sTotal=extras.getString("total");
-      sTotal="10.5";
+      //sTotal="10.5";
       sTotal=sTotal.substring(0, sTotal.length()-2); 
       double dTotal=Double.parseDouble(sTotal); //dTotal = total de gastos
       numeros=extras.getStringArrayList("Numeros"); //numeros = Listado de números en los que se ha gastado
@@ -51,24 +51,7 @@ public class GastosPorNumeroActivity extends Activity {
     	  sNumero=numeros.get(i);
     	  sNombre="XXXXXXX XXXX";
     	  dPorciento=(dGasto/dTotal)*100;
-    	  
-    	  //Obtenemos el nombre de contacto de la agenda, dado el número
-    	  /*c=managedQuery(People.CONTENT_URI,null, People.NUMBER+"="+sNumero , null, null);
-    	  
-    	  startManagingCursor(c);
-    	  c.moveToFirst();
-    	  //Toast.makeText(getBaseContext(),"Posición:"+c.getPosition(),Toast.LENGTH_LONG).show();
-    	  if (c.isFirst())
-    	  { //Existe el número en la agenda de contactos
-    		  int iNombre = c.getColumnIndex(People.NAME);
-    		  sNombre=c.getString(iNombre);
-    	  }
-    	  else
-    	  {//No existe el número
-    		  sNombre=sNumero;
-    		  sNumero="";
-    	  }
-    	  */
+
     	  sNombre=getContactNumber(sNumero);
     	  if (sNombre.equals(sNumero))
     	  {
