@@ -12,7 +12,7 @@ Hay dos maneras de llevar a cabo la asociación:
   * Desde el menú contextual, en el listado de llamadas
 
 ===Configuración===
-*Desde la pantalla principal:
+* Desde la pantalla principal:
 # Menu + Configurar Tarifas
 # Seleccionamos la tarifa a la que vamos a asociar los números
 # Editamos el campo _Numeros Asociados a la tarifa_
