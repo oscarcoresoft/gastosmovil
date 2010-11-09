@@ -19,7 +19,7 @@
 				android:layout_height="wrap_content"
 	            android:paddingLeft="15dip"
 	            android:gravity="left"
-	            android:textSize="10dp"/>
+	            style="?android:attr/textAppearanceLarge"/>
 	            
 	<TextView android:id="@+id/subtitulo"
 				android:layout_width="fill_parent"

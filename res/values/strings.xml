@@ -133,7 +133,7 @@
     <string name="Gastado">Gastado </string>
     <string name="Hablado">Hablado </string>
     <string name="Limite">Limite </string>
-    <string name="Gasto_minimo">Gasto Mínimo</string>
+    <string name="Gasto_minimo">Mín.</string>
     <string name="Sin_gasto_minimo">Sin gasto mínimo</string>
     
     <string name="pref_tarifa_nombre">Nombre</string>
