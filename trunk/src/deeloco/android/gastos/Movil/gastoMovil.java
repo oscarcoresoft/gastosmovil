@@ -45,6 +45,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,10 +58,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.LinearLayout.LayoutParams;
+
 import java.util.Currency;
 import java.util.Locale;
 
@@ -583,7 +587,31 @@ public class gastoMovil extends ListActivity {
         
         //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
         
-
+        
+        LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
+        //Mostrar resumen de datos
+        //MES
+        TextView txtMes = new TextView(this,null,android.R.attr.textAppearanceSmall);
+  	  	txtMes.setTextSize(15);
+  	  	txtMes.setTypeface(Typeface.MONOSPACE);
+  	  	linear.addView(txtMes, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
+  	  	txtMes.setText(textoMes+"..."+FunGlobales.redondear(costeLlamadas+costeSMS,2)+FunGlobales.monedaLocal()+"..["+tv_cabResumen.getText()+"]");
+  	  	//LLAMADAS
+  	  	TextView txtLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
+  	  	txtLlamadas.setTextSize(15);
+  	  	txtLlamadas.setTypeface(Typeface.MONOSPACE);
+	  	linear.addView(txtLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
+	  	//SMS
+  	  	TextView txtSMS = new TextView(this,null,android.R.attr.textAppearanceSmall);
+  	  	txtSMS.setTextSize(15);
+  	  	txtSMS.setTypeface(Typeface.MONOSPACE);
+	  	linear.addView(txtSMS, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
+	  	//TARIFAS
+	  	TextView txtTarifas = new TextView(this,null,android.R.attr.textAppearanceSmall);
+	  	txtTarifas.setTextSize(15);
+	  	txtTarifas.setTypeface(Typeface.MONOSPACE);
+	  	linear.addView(txtTarifas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
+	  	tv_cabRegistro.setText(R.string.cabDatos);
     	//tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
     	String datos="";
     	int numLineas=0;
@@ -591,20 +619,23 @@ public class gastoMovil extends ListActivity {
     	{
     		if (ts.getTarifas().get(i).getLimite()>0)
     		{
-        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+" s. de "+ts.getTarifas().get(i).getLimite()+" m.\n";
-        		datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+" s. Fuera.\n";
-        		numLineas+=2;
+    			datos+=ts.getTarifas().get(i).getNombre()+"\n";
+        		datos+="  Consumo Límite..."+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+" s. de "+ts.getTarifas().get(i).getLimite()+" m.\n";
+        		datos+="  Consumo Fuera... "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+" s. Fuera.\n";
+        		numLineas+=3;
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
     		}
     		else
     		{
-    			datos+=ts.getTarifas().get(i).getNombre().subSequence(0, 15)+" | "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s.\n";
-    			numLineas+=1;
+    			datos+=ts.getTarifas().get(i).getNombre()+"\n";
+    			datos+="  Tiempo Consumido..."+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s.\n";
+    			numLineas+=2;
     		}
     	}
-    	tv_cabRegistro.setLines(numLineas);
-    	tv_cabRegistro.setText(datos);
+    	txtTarifas.setLines(numLineas);
+    	txtTarifas.setText(datos);
+    	tv_cabRegistro.setText(R.string.cabRegistros);
        
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
@@ -613,7 +644,7 @@ public class gastoMovil extends ListActivity {
         	tv_CosteLlamadas.setText(FunGlobales.redondear(costeLlamadas,2)+FunGlobales.monedaLocal()+" ("+FunGlobales.redondear(totalEstLlamadas,0)+"%)");
         else
         	tv_CosteLlamadas.setText(FunGlobales.redondear(costeLlamadas,2)+FunGlobales.monedaLocal());
-        
+        txtLlamadas.setText("LLamadas ("+numLlamadas+")..."+tv_CosteLlamadas.getText());
         //Calculamos el coste de los SMS
         numSMS=getNumSMS_send();
         numSMSGratis=vp.getPreferenciasSMSGratuitos();
@@ -624,7 +655,7 @@ public class gastoMovil extends ListActivity {
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
         tv_CosteSMS.setText(FunGlobales.redondear(costeSMS,2)+FunGlobales.monedaLocal());
-        
+        txtSMS.setText("Mensajes ("+numSMS+")..."+tv_CosteSMS.getText());
         tv_total.setText(FunGlobales.redondear(costeLlamadas+costeSMS,2)+FunGlobales.monedaLocal());
         
         //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
