@@ -1,6 +1,7 @@
 package deeloco.android.gastos.Movil;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,11 +24,13 @@ public class PreferencesTarifas extends ListActivity{
 	
 	private static final int NUEVA_TARIFA = Menu.FIRST;
 	private static final int NUEVA_TARIFA_PREDEFINIDA = Menu.FIRST+1;
+	private static final int COMPARTIR= Menu.FIRST+2;
 	private static final int RETURN_PREFERENCES_TARIFA=1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesTarifas";
 	private static final String TARIFAS_RETORNO = "tarifas_retorno";
 	ValoresPreferencias vp=new ValoresPreferencias(this);
+	String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
 
 	private tarifas ts;
 	
@@ -35,6 +39,7 @@ public class PreferencesTarifas extends ListActivity{
     public boolean onCreateOptionsMenu(Menu menu){
     	menu.add(Menu.NONE, NUEVA_TARIFA, 0, R.string.mn_nueva_tarifa).setIcon(android.R.drawable.ic_menu_add);
     	menu.add(Menu.NONE, NUEVA_TARIFA_PREDEFINIDA, 0, R.string.mn_nueva_tarifa_predefinida).setIcon(android.R.drawable.ic_menu_add);
+    	menu.add(Menu.NONE, COMPARTIR, 0, R.string.mn_compartir).setIcon(android.R.drawable.ic_menu_share);
     	return true;
     }
 	
@@ -133,6 +138,27 @@ public class PreferencesTarifas extends ListActivity{
 			AlertDialog alert = builder.create();
 			alert.show();
             break;
+            
+        case COMPARTIR:
+        	//Compartir el fichero de configuración de tarifas
+        	Intent xmlMessageIntent = new Intent(android.content.Intent.ACTION_SEND);  
+        	xmlMessageIntent.setType("text/plain");  
+        	//Uri.parse("file:///sdcard/Pictures/image.jpg")
+        	File f=new File(path);
+        	if (f.exists() && f.canRead())
+        	{
+        	xmlMessageIntent.putExtra(Intent.EXTRA_SUBJECT, "Gastos Móvil: Fichero configuración tarifa.");
+        	//xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
+        	//xmlMessageIntent.setDataAndType(Uri.fromFile(f), "text/xml");
+        	xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/gastosmovil/datosTarifas.xml"));
+        	startActivity(xmlMessageIntent);
+        	//startActivity(Intent.createChooser(xmlMessageIntent, "Comparte el fichero de configuración de tarifas:"));
+        	}
+        	else
+        	{
+        		Log.d(TAG,"No se puede leer el fichero a adjuntar");
+        	}
+        	break;  
         }
         
         return true;
