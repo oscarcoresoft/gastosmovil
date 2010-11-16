@@ -480,13 +480,14 @@ public class gastoMovil extends ListActivity {
         		
         		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60))
         		{
-        			rIcono=vp.getColorIcon(t.getColor(),"relog_peligro");
+        			rIcono=vp.getColorIcon(t.getColor(),"relog_peligro",display.getHeight());
         		}
         		else
         		{
-        			if (f.getLimite()) rIcono=vp.getColorIcon(t.getColor(),"relog_mas"); 
+        			if (f.getLimite()) rIcono=vp.getColorIcon(t.getColor(),"relog_mas",display.getHeight()); 
         			else rIcono=vp.getColor(t.getColor());
         		}
+        		
         		
         		
         		
@@ -580,7 +581,7 @@ public class gastoMovil extends ListActivity {
             	ImageView preImagen=(ImageView) findViewById(R.id.preImagen);
             	ImageView postImagen=(ImageView) findViewById(R.id.postImagen);
             	 
-            	int altoPantalla = display.getHeight(); 
+            	int altoPantalla = display.getHeight();
             	if (linear2.getHeight()==0)
             	{
             		linear2.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,(altoPantalla/2)-60));

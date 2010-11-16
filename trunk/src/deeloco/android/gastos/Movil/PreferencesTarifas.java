@@ -160,7 +160,6 @@ public class PreferencesTarifas extends ListActivity{
         	}
         	break;  
         }
-        
         return true;
 	}
 	

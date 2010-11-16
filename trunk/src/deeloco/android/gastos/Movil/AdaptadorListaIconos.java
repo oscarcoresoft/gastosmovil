@@ -87,9 +87,10 @@ public class AdaptadorListaIconos extends BaseAdapter {
         // Le establecemos la imagen a mostrar
         img.setImageDrawable(icono);
         // Lo ponemos un "margen" (Hacia adentro)
-        img.setPadding(5, 5, 5, 5);
+        img.setPadding(5, 5, 10, 5);
+        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         // Lo añadimos al LinearLayout creado
-        vista.addView(img,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        vista.addView(img,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT));
         
       
       
