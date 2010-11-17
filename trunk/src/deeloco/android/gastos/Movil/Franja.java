@@ -507,6 +507,32 @@ public class Franja implements Serializable{
 		{
 			//Se han consumido más segundos de los limites mensuales
 			//El coste hay que calcularlo con los valores de coste fuera de limite
+			//Aqui hay que controlar la parte de la llamada que sobre pasa del limite
+			//MES
+			if ((t.getSegConsumidosLimiteMes()-duracion)<(t.getLimite()*60)&&((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))&&t.getLimite()>0))
+				duracion=t.getSegConsumidosLimiteMes()-(t.getLimite()*60);
+			else
+				//DIA
+				if ((t.getSegConsumidosLimiteDia()-duracion)<(t.getLimiteDia()*60)&&((t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60))&&t.getLimiteDia()>0))
+					duracion=t.getSegConsumidosLimiteDia()-(t.getLimiteDia()*60);
+			
+			
+			/*
+			if (((t.getSegConsumidosLimiteMes()-duracion)<(t.getLimite()*60))||((t.getSegConsumidosLimiteDia()-duracion)<(t.getLimiteDia()*60)))
+			{
+				Log.d(TAG,"Duración Original ="+duracion);
+				//se ha sobrepasado los limite durante esta llamada
+				if ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))&&t.getLimite()>0)
+					duracion=t.getSegConsumidosLimiteMes()-(t.getLimite()*60);
+				
+				if ((t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60))&&t.getLimiteDia()>0)
+					duracion=t.getSegConsumidosLimiteDia()-(t.getLimiteDia()*60);
+					
+				Log.d(TAG,"Duración Modificada ="+duracion);
+			}*/
+			
+			
+			
 			costePorSegundo=(this.costeFueraLimite/100)/60;
 			conIvaPorSegundosEnEuros=costePorSegundo*iva;
 			costeTotal=conIvaPorSegundosEnEuros*duracion;
