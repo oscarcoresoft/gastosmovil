@@ -11,3 +11,4 @@ Para cada mejora vamos a poner: título, descripción, quien lo ha propuesto (yo
 = Mejoras =
 || *Titulo* || *Descripción* || *'Proponedor'* || *Implementación* ||
 ||Llamadas ficticias||Poder incluir llamadas al registro de llamadas, que si bien no se han llevado a cabo en el teléfono, si se han realizado con esa tarjeta y por tanto la operadora la contabilizará a la hora de calcular la factura||Usuario||Sin Implementar||
+||Alarmas||Crear unas alarmas, configurables, para cuando se llegue a unos límites de tiempo o coste, emita un aviso al usuario. Con esto se intenta evitar que el usuario se pase de los límites de tiempo contratado con el operador y a partir de los cuales el coste de las llamadas se incrementa considerablemente.||Usuario||Sin Implementar||
