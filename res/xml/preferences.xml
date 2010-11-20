@@ -51,6 +51,12 @@
             android:title="@string/aj_nombreAgenda"
             android:summary="@string/aj_nombreAgenda_des" 
             android:defaultValue="true"/>
+           
+        <CheckBoxPreference
+            android:key="chbox_presentarIVA"
+            android:title="@string/aj_presentarIVA"
+            android:summary="@string/aj_presentarIVA_des" 
+            android:defaultValue="true"/>
             
         <EditTextPreference
 			android:name="@string/aj_decimales"
@@ -60,6 +66,7 @@
 			android:inputType="phone"
 			android:title="@string/aj_decimales"
 			android:key="txtDecimales" />
+			
 	</PreferenceCategory>
 	<PreferenceCategory android:title="Facturación">
 	   <EditTextPreference
