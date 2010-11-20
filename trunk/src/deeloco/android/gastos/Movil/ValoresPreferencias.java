@@ -171,8 +171,21 @@ public class ValoresPreferencias {
     	return tarifa;
     }
     
+    /**
+     * Retorna si hay que mostrar el establecimiento de llamada en el listado de llamadas o no
+     * @return boolean
+     */
     public boolean getEstablecimiento(){
     	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("chbox_establecimiento", false);
+    	return valor;
+    }
+    
+    /**
+     * Retorna si hay que mostrar el IVA en el coste de las llamadas
+     * @return
+     */
+    public boolean getcosteConIVA(){
+    	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("chbox_presentarIVA", true);
     	return valor;
     }
     
@@ -182,9 +195,12 @@ public class ValoresPreferencias {
     	return valor;
     }
     
+    /**
+     * Retorna el valor de Duración, un parámetro de ajuste.
+     * @return
+     */
     public int getPreferenciasDuracion(){
-    	//Retorna el valor de Duración, un parámetro de ajuste.
-    	
+    	   	
     	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtDuracion", "0");
     	int duracion=0; //Valor por defecto
     	try

@@ -96,7 +96,7 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
     	//final PreferenceScreen psRaiz = getPreferenceScreen();
     	
     	if (key.equals("txtTarifaSMS")||key.equals("txtSMSGratis")||key.equals("listMes")
-    			||key.equals("txtDuracion")||key.equals("chbox_establecimiento")||key.equals("chbox_nombreAgenda")
+    			||key.equals("txtDuracion")||key.equals("chbox_establecimiento")||key.equals("chbox_nombreAgenda")||key.equals("chbox_presentarIVA")
     			||key.equals("txtInicioMes")||key.equals("defecto")||key.equals("txtImpuestos")||key.equals("txtDecimales"))
     	{
     		setResult(RESULT_OK);
