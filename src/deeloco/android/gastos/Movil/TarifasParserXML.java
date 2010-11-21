@@ -60,7 +60,8 @@ public void startElement(String uri, String localName, String qName,Attributes a
 	if (localName.compareTo("franja")==0)
 	{
 		f=new Franja(attributes.getValue(0));
-		f.setIva(iva);
+		//f.setIva(iva);
+		
 	}	
 }
 

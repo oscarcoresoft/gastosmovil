@@ -129,7 +129,16 @@ public class AdaptadorListaIconos extends BaseAdapter {
         
         // Inicio
         TextView txtLinea1Der = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
-        txtLinea1Der.setText(coste+FunGlobales.monedaLocal());
+        if (coste==-1.0)
+        {
+        	txtLinea1Der.setText("--.--");
+        	
+        }
+        else
+        {
+        	txtLinea1Der.setText(coste+FunGlobales.monedaLocal());
+        }
+        
         txtLinea1Der.setTextSize(17);
         //txtLinea1Der.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
         txtLinea1Der.setGravity(Gravity.RIGHT);

@@ -127,7 +127,7 @@ public class gastoMovil extends ListActivity {
         if (vp.getcosteConIVA())
         	iva=vp.getPreferenciasImpuestos();
         else
-        	iva=1.00;
+        	iva=1.00; //Sin IVA
         display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         /* Cargamos los valores de las tarifas */
         try
@@ -413,6 +413,7 @@ public class gastoMovil extends ListActivity {
         costeSMS=0;
         double coste;
         double estLlamada=0;
+        numLlamadas=0;
         double totalEstLlamadas=0;
         String fechaControl="01/01/1000";
         //boolean sw_limite=false;
@@ -440,121 +441,133 @@ public class gastoMovil extends ListActivity {
         		//t=tarifa a la que pertenece el número
         		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
         		Franja f=t.getFranja(fechaHora);
-        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
-        		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
-
-        		t.addSegConsumidosMes(duracion);
-        		//Comprobamos si estamos en el mismo día
-        		if (fechaControl.compareTo(fechaHoy)!=0)
+        		
+        		if (f!=null)
         		{
-        			//No estamos en el mismo día
-        			//Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
-        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
-        			t.setSegConsumidosLimiteDia(0); //Se resetea
-        			fechaControl=fechaHoy;
+        			//El día y la hora pertenece a una franja
+	        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
+	        		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
+	
+	        		t.addSegConsumidosMes(duracion);
+	        		//Comprobamos si estamos en el mismo día
+	        		if (fechaControl.compareTo(fechaHoy)!=0)
+	        		{
+	        			//No estamos en el mismo día
+	        			//Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
+	        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
+	        			t.setSegConsumidosLimiteDia(0); //Se resetea
+	        			fechaControl=fechaHoy;
+	        		}
+	        		else
+	        		{
+	            		
+	            		t.addSegConsumidosDia(duracion);
+	        		}
+	        		//Añadimos los acumulados de limite, si la llamada esta en la franja del limite
+	        		if (f.getLimite())
+	        		{
+	        			//La franja cuenta para el límite
+	        			//Comprobar si la tarifa tiene limite mensual
+	        			if (t.getLimite()>0)
+	        			{
+	        				//Cuenta, añadirlo al contador de limite mensual
+	        				t.addSegConsumidosLimiteMes(duracion);
+	        				
+	        			}
+	        			//Comprobar si la tarifa tiene limite diario
+	        			if (t.getLimiteDia()>0)
+	        			{
+	        				//Cuenta, añadirlo al contador de limite diario
+	        				t.addSegConsumidosLimiteDia(duracion);	
+	        			}
+	        			
+	        		}
+	        		
+	        		coste=f.coste(t, duracion); //Coste sin iva
+	        		estLlamada=f.establecimiento(t);
+	        		
+	        		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60))
+	        		{
+	        			rIcono=vp.getColorIcon(t.getColor(),"relog_peligro",display.getHeight());
+	        		}
+	        		else
+	        		{
+	        			if (f.getLimite()) rIcono=vp.getColorIcon(t.getColor(),"relog_mas",display.getHeight()); 
+	        			else rIcono=vp.getColor(t.getColor());
+	        		}
+	        		
+	        		
+	        		
+	        		
+	        		/***************************************************************
+	        		//Array de retorno con
+	        		//COSTE=0;ESTABLECIMIENTO=1;GASTOMINIMO=2;LIMITE=3;COSTE_FUERA_LIMITE=4;ESTABLECIMIENTO_FUERA_LIMITE=5;
+	        		retorno=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
+	        		rIcono=vp.getColor(t.getColor());
+	        		
+	        		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir cuenta para el limite
+	
+	        		totalSegundos=totalSegundos+duracion;
+	        		t.addSegConsumidosMes(duracion);
+	        		if (retorno[LIMITE]!=0.0)
+	        		{
+	        			
+	        			//t.addSegConsumidosDia(duracion);
+	        			t.addSegConsumidosLimiteMes(duracion);
+	        			totalSegundosLimite=totalSegundosLimite+duracion;
+	        			limite=retorno[LIMITE];
+	        		}
+	        		
+	        		//El coste ha mostrar dependera del limite
+	        		if ((retorno[LIMITE]*60)>=totalSegundosLimite || retorno[LIMITE]==0.0)
+	        		{
+	        			coste=retorno[COSTE]; //limite < tiempo hablado
+	        			estLlamada=(((retorno[ESTABLECIMIENTO]/100)*iva)/coste)*100;
+	        		}
+	        		else
+	        		{
+	        			rIcono=getResources().getDrawable(android.R.drawable.presence_busy);
+	        			coste=retorno[COSTE_FUERA_LIMITE]; //limite > tiempo hablado
+	        			estLlamada=(((retorno[ESTABLECIMIENTO_FUERA_LIMITE]/100)*iva)/coste)*100;
+	        		} 
+	
+	        		//estLlamada=f.getEstablecimiento();
+	********************************************************************/
+					
+	        		//Esta condición habrá que ponerla antes, para no tener que hacer los calculos, sino es necesario.
+	        		if (duracion>modifDuracion)
+	        		{  
+	        			//Ya tenemos el coste y el numero y es una llamada > 0, lo metemos en GastosPorNumero
+	            		gpn.add(telefono, coste);
+	            		gph.add(new Date(fechaHora), coste);
+	            		
+	        			if (coste>0)
+	        			{
+	        				//estLlamada=(vp.getPreferenciasEstLlamadas()/coste)*100;
+	        				estLlamada=(estLlamada/coste)*100;
+	        				totalEstLlamadas=totalEstLlamadas+estLlamada;
+	        			}
+	        			sDuracion=(duracion/60)+"m."+(duracion%60)+"s.";
+	        			
+	        			if (vp.getEstablecimiento())
+	        				fechaHora=fechaHora+" | "+FunGlobales.redondear(estLlamada,0)+"%";
+	        			String nombre="";
+	        			if (vp.getNombreAgenda())
+	        				nombre=getContactNumber(telefono);
+	        			
+	        			lista.add(new IconoYTexto(rIcono, telefono,nombre, fechaHora,sDuracion,FunGlobales.redondear((coste*iva),vp.getPreferenciasDecimales())));
+	        			//valores acumulados
+	        			costeLlamadas=costeLlamadas+coste;
+	        			numLlamadas++;
+	        		}
         		}
-        		else
-        		{
-            		
-            		t.addSegConsumidosDia(duracion);
-        		}
-        		//Añadimos los acumulados de limite, si la llamada esta en la franja del limite
-        		if (f.getLimite())
-        		{
-        			//La franja cuenta para el límite
-        			//Comprobar si la tarifa tiene limite mensual
-        			if (t.getLimite()>0)
-        			{
-        				//Cuenta, añadirlo al contador de limite mensual
-        				t.addSegConsumidosLimiteMes(duracion);
-        				
-        			}
-        			//Comprobar si la tarifa tiene limite diario
-        			if (t.getLimiteDia()>0)
-        			{
-        				//Cuenta, añadirlo al contador de limite diario
-        				t.addSegConsumidosLimiteDia(duracion);	
-        			}
+	    		else
+	    		{
+	    			//El día y la hora no pertenecen a ninguna franja
+	    			lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
+	    			
+	    		}
         			
-        		}
-        		
-        		coste=f.coste(t, duracion);
-        		estLlamada=f.establecimiento(t);
-        		
-        		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60))
-        		{
-        			rIcono=vp.getColorIcon(t.getColor(),"relog_peligro",display.getHeight());
-        		}
-        		else
-        		{
-        			if (f.getLimite()) rIcono=vp.getColorIcon(t.getColor(),"relog_mas",display.getHeight()); 
-        			else rIcono=vp.getColor(t.getColor());
-        		}
-        		
-        		
-        		
-        		
-        		/***************************************************************
-        		//Array de retorno con
-        		//COSTE=0;ESTABLECIMIENTO=1;GASTOMINIMO=2;LIMITE=3;COSTE_FUERA_LIMITE=4;ESTABLECIMIENTO_FUERA_LIMITE=5;
-        		retorno=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
-        		rIcono=vp.getColor(t.getColor());
-        		
-        		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir cuenta para el limite
-
-        		totalSegundos=totalSegundos+duracion;
-        		t.addSegConsumidosMes(duracion);
-        		if (retorno[LIMITE]!=0.0)
-        		{
-        			
-        			//t.addSegConsumidosDia(duracion);
-        			t.addSegConsumidosLimiteMes(duracion);
-        			totalSegundosLimite=totalSegundosLimite+duracion;
-        			limite=retorno[LIMITE];
-        		}
-        		
-        		//El coste ha mostrar dependera del limite
-        		if ((retorno[LIMITE]*60)>=totalSegundosLimite || retorno[LIMITE]==0.0)
-        		{
-        			coste=retorno[COSTE]; //limite < tiempo hablado
-        			estLlamada=(((retorno[ESTABLECIMIENTO]/100)*iva)/coste)*100;
-        		}
-        		else
-        		{
-        			rIcono=getResources().getDrawable(android.R.drawable.presence_busy);
-        			coste=retorno[COSTE_FUERA_LIMITE]; //limite > tiempo hablado
-        			estLlamada=(((retorno[ESTABLECIMIENTO_FUERA_LIMITE]/100)*iva)/coste)*100;
-        		} 
-
-        		//estLlamada=f.getEstablecimiento();
-********************************************************************/
-				
-        		//Esta condición habrá que ponerla antes, para no tener que hacer los calculos, sino es necesario.
-        		if (duracion>modifDuracion)
-        		{  
-        			//Ya tenemos el coste y el numero y es una llamada > 0, lo metemos en GastosPorNumero
-            		gpn.add(telefono, coste);
-            		gph.add(new Date(fechaHora), coste);
-            		
-        			if (coste>0)
-        			{
-        				//estLlamada=(vp.getPreferenciasEstLlamadas()/coste)*100;
-        				estLlamada=(estLlamada/coste)*100;
-        				totalEstLlamadas=totalEstLlamadas+estLlamada;
-        			}
-        			sDuracion=(duracion/60)+"m."+(duracion%60)+"s.";
-        			
-        			if (vp.getEstablecimiento())
-        				fechaHora=fechaHora+" | "+FunGlobales.redondear(estLlamada,0)+"%";
-        			String nombre="";
-        			if (vp.getNombreAgenda())
-        				nombre=getContactNumber(telefono);
-        			
-        			lista.add(new IconoYTexto(rIcono, telefono,nombre, fechaHora,sDuracion,FunGlobales.redondear(coste,vp.getPreferenciasDecimales())));
-        			//valores acumulados
-        			costeLlamadas=costeLlamadas+FunGlobales.redondear(coste,vp.getPreferenciasDecimales());
-        			numLlamadas++;
-        		}
         		
         	} while (c.moveToNext());
         c.close();
@@ -687,9 +700,9 @@ public class gastoMovil extends ListActivity {
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
         
         if (vp.getEstablecimiento())
-        	txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas,2)+FunGlobales.monedaLocal()+" ("+FunGlobales.redondear(totalEstLlamadas,0)+"%)");
+        	txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal()+" ("+FunGlobales.redondear(totalEstLlamadas,0)+"%)");
         else
-        	txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas,2)+FunGlobales.monedaLocal());
+        	txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal());
 
         //Calculamos el coste de los SMS
         numSMS=getNumSMS_send();
@@ -790,9 +803,14 @@ public class gastoMovil extends ListActivity {
 			     if (iva!=vp.getPreferenciasImpuestos())
 			     {
 			    	 iva=vp.getPreferenciasImpuestos(); 
-			    	 ts.cambiarIva(iva);
+			    	 //ts.cambiarIva(iva);
 			    	 //Log.d(TAG,"Cambiando el iva ="+iva);
 			     }
+			     
+		        if (vp.getcosteConIVA())
+		        	iva=vp.getPreferenciasImpuestos();
+		        else
+		        	iva=1.00; //Sin IVA
 			     listado(vp.getPreferenciasMes());
 			}
     		break;

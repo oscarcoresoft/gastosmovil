@@ -267,9 +267,10 @@ public class tarifa implements Serializable{
 	
 	/**
 	 * Devuelve la franja a la que pertence un día y una hora
+	 * Si el día y la hora no pertenece a ninguna franja, devuelve null
 	 * @param dia
 	 * @param hora
-	 * @return
+	 * @return Franja
 	 */
 	public Franja getFranja(int dia,String hora){
 		
@@ -615,6 +616,11 @@ public class tarifa implements Serializable{
 					retorno[LIMITE]=this.limite;
 				else
 					retorno[LIMITE]=0.0;
+			}
+			else
+			{
+				//El día y la hora no pertenece a ninguna franja
+				
 			}
 		}
 		retorno[GASTOMINIMO]=this.getMinimo();
