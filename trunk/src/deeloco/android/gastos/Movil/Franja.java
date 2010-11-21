@@ -25,7 +25,7 @@ public class Franja implements Serializable{
 	/**
 	 * Impuestos que se van a aplicar a la hora de calcular el coste de las llamadas. Por defecto 1.18
 	 */
-	private double iva=1.18;
+	private double iva=1;
 	
 	/**
 	 * identificar de la franja.
@@ -532,24 +532,29 @@ public class Franja implements Serializable{
 			}*/
 			
 			
-			
+			Log.d(TAG,"IVA="+iva);
 			costePorSegundo=(this.costeFueraLimite/100)/60;
-			conIvaPorSegundosEnEuros=costePorSegundo*iva;
+			//conIvaPorSegundosEnEuros=costePorSegundo*iva;
+			conIvaPorSegundosEnEuros=costePorSegundo;
 			costeTotal=conIvaPorSegundosEnEuros*duracion;
-			costeTotalConEstablecimiento=costeTotal+((this.establecimientoFueraLimite/100)*iva);
+			//costeTotalConEstablecimiento=costeTotal+((this.establecimientoFueraLimite/100)*iva);
+			costeTotalConEstablecimiento=costeTotal+((this.establecimientoFueraLimite/100));
 		}
 		else
 		{
+			Log.d(TAG,"IVA="+iva);
 			costePorSegundo=(this.coste/100)/60;
-			conIvaPorSegundosEnEuros=costePorSegundo*iva;
+			//conIvaPorSegundosEnEuros=costePorSegundo*iva;
+			conIvaPorSegundosEnEuros=costePorSegundo;
 			costeTotal=conIvaPorSegundosEnEuros*duracion;
-			costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100)*iva);
+			//costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100)*iva);
+			costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100));
 		}
 		return costeTotalConEstablecimiento;
 	}
 	
 	/**
-	 * Retorna el establecimiento para una llamada, dado la tarifa a la que pertecene y teniendo en cuenta si se han sobrepasado los límite o no.
+	 * Retorna el establecimiento para una llamada, dado la tarifa a la que pertecene y teniendo en cuenta si se han sobrepasado los límite o no (Sin IVA).
 	 * @param t
 	 * @param duracion
 	 * @return
