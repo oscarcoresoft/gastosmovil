@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Contacts;
+import android.util.Log;
 import android.widget.ListView;
 
 public class GastosPorNumeroActivity extends Activity {
@@ -27,7 +28,7 @@ public class GastosPorNumeroActivity extends Activity {
       //Extraemos el valor del total de la cadena, que es del tipo x.xx €
       String sTotal=extras.getString("total");
       //sTotal="10.5";
-      sTotal=sTotal.substring(0, sTotal.length()-2); 
+      //sTotal=sTotal.substring(0, sTotal.length()-2); 
       double dTotal=Double.parseDouble(sTotal); //dTotal = total de gastos
       numeros=extras.getStringArrayList("Numeros"); //numeros = Listado de números en los que se ha gastado
       gastos=extras.getStringArrayList("Gastos"); //gastos = total de gastos para números.
@@ -50,8 +51,9 @@ public class GastosPorNumeroActivity extends Activity {
     	  dGasto=Double.parseDouble(gastos.get(i)); //gasto para el número en que estamos
     	  sNumero=numeros.get(i);
     	  sNombre="XXXXXXX XXXX";
+    	  
     	  dPorciento=(dGasto/dTotal)*100;
-
+    	  
     	  sNombre=getContactNumber(sNumero);
     	  if (sNombre.equals(sNumero))
     	  {

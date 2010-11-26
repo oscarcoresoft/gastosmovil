@@ -239,6 +239,7 @@ public class gastoMovil extends ListActivity {
         	ArrayList<String> gastos=new ArrayList <String>();
         	ArrayList<String> horas=new ArrayList <String>();
         	ArrayList<String> gastos2=new ArrayList <String>();
+        	
         	String total= FunGlobales.redondear(costeLlamadas+costeSMS,2)+"";
         	
         	numeros=(ArrayList<String>) gpn.getNumeros();
@@ -252,7 +253,6 @@ public class gastoMovil extends ListActivity {
         	for (Object x:ObjGastos2){
         		gastos2.add(""+x);
         	}
-        	
         	ii.putExtra("total",total);
         	ii.putExtra("Numeros", numeros);
         	ii.putExtra("Gastos",gastos);

@@ -123,7 +123,8 @@ public class ValoresPreferencias {
     		tarifa=9; //Valor en caso de una excepción (null, puntuación, ...)    		
     	}
     	tarifa=tarifa/100; //Ya lo tengo pasado a euros
-    	tarifa=tarifa*iva; //Con IVA
+    	if (getcosteConIVA())
+    		tarifa=tarifa*iva; //Con IVA
     	return  tarifa;
     }
     
