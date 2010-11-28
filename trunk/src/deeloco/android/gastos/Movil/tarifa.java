@@ -307,6 +307,13 @@ public class tarifa implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Retorna la franja, dentro de la tarifa, a la que pertenece una fechayhora.
+	 * @param fechayhora
+	 * Cadena con la fecha y la hora.
+	 * @return
+	 */
+	
 	public Franja getFranja (String fechayhora){
 		
 		String sFecha =fechayhora.substring(0, 10).trim();
@@ -339,6 +346,10 @@ public class tarifa implements Serializable{
 	}
 
 
+	/**
+	 * Resetea los parametros relacionados con los segundos consumidos al mes y al día, así como 
+	 * los consumidos de los limites del mes y del día.
+	 */
 	public void resetSegundos(){
 		this.segConsumidosMes=0;
 		this.segConsumidosDia=0;
