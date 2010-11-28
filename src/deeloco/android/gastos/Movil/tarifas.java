@@ -331,7 +331,7 @@ public class tarifas implements Serializable{
 		tactual.setLimiteDia(t.getLimiteDia());
 		tactual.setNumeros(t.getNumeros());
 		tactual.setColor(t.getColor());
-		tactual.setDefecto(t.isDefecto());
+		tactual.setDefecto(t.getDefecto());
 		tactual.setFranjas(t.getFranjas());
 	}
 	

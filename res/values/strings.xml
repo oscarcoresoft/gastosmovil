@@ -166,6 +166,7 @@
     <string name="coste_llamada">Coste de las llamadas: </string>
     <string name="aj_presentarIVA">Impuesto</string>
     <string name="aj_presentarIVA_des">Mostrar el coste de las llamadas con impuestos incluidos.</string>
+    <string name="pref_tarifa_defecto">Tarifa por defecto</string>
     
 </resources> 
 

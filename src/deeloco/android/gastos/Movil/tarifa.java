@@ -74,7 +74,7 @@ public class tarifa implements Serializable{
 	private String color;
 	
 	/**
-	 * Si la tarifa se aplica por defecto, en cado que un número no pertenezca a una tarifa
+	 * Si la tarifa se aplica por defecto, en caso que un número no pertenezca a una tarifa
 	 */
 	private boolean defecto;
 	
@@ -236,9 +236,21 @@ public class tarifa implements Serializable{
 	 * Devuelve si una tarifa se asigna por defecto
 	 * @return
 	 */
-	public boolean isDefecto() {
+	public boolean getDefecto() {
 		return defecto;
 	}
+	
+	/**
+	 * Devuelve si una tarifa se asigna por defecto. Devuelve Si o No
+	 * @return
+	 */
+	public String getDefectoSiNo() {
+		if (this.defecto)
+			return "Si";
+		else
+			return "No";
+	}
+	
 	
 	/**
 	 * Asigna el valor del parámetro al atributo defecto.
