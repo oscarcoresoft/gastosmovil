@@ -91,6 +91,8 @@ public class PreferencesTarifa extends ListActivity{
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_color), t.getColor()));
     	//Numeros
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_numeros), t.getNumeros()));
+    	//Defecto
+    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_defecto), t.getDefectoSiNo()));
     	//Una entrada para cada franja que tiene la tarifa
     	for (int a=0;a<t.getNumFranjas();a++)
     	{
@@ -100,12 +102,7 @@ public class PreferencesTarifa extends ListActivity{
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
         setListAdapter(ad);
 		
-		
-		
-		
-		
 	}
-    
     
 	public boolean onOptionsItemSelected (MenuItem item) {
 		

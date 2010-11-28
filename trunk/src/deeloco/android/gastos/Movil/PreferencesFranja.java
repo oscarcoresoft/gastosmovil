@@ -267,7 +267,7 @@ public class PreferencesFranja extends ListActivity{
         	dialog.show();
 			break;
 			
-		case 6: //Color
+		case 6: //Limite
 			AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
 			builder2.setTitle(iyt.titulo);
 			int defecto=1;
