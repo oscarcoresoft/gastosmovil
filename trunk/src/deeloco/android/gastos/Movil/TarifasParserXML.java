@@ -102,6 +102,11 @@ public void endElement(String uri, String localName, String qName) throws SAXExc
 		t.setNumeros(this.datosElemento);
 	} 
 	
+	if (localName.compareTo("defecto")==0)
+	{
+		t.setDefecto(this.datosElemento);
+	}
+	
 	if (localName.compareTo("franja")==0)
 	{
 		t.addFranja(f);

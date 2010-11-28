@@ -35,7 +35,6 @@ public class PreferencesTarifa extends ListActivity{
 	private static final int RETURN_PREFERENCES_FRANJA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
 	private tarifa t;
-	private int idTarifa;
 	private List<IconoYTexto2> listaIYT = new ArrayList<IconoYTexto2>();
 	TextView tv;
 	private int mHour;
@@ -76,7 +75,7 @@ public class PreferencesTarifa extends ListActivity{
 		TextView cabecera=(TextView) findViewById(R.id.cabTarifa);
 		cabecera.setText(getString(R.string.cabTarifa)+" ... "+t.getNombre());
 		listaIYT.clear();
-		idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
+		//idTarifa=(int) getIntent().getIntExtra("idTarifa", 0);
     	//Log.d(TAG, "Nombre de la tarifa:"+t.getNombre());
     	//Editar una tarifa existente
     	//Nombre de la tarifa
@@ -303,6 +302,26 @@ public class PreferencesTarifa extends ListActivity{
         				}
         			});
         	dialog.show();
+			break;
+		case 6: //Defecto
+			AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+			builder2.setTitle(iyt.titulo);
+			int defecto=1;
+			if (t.getDefecto()) defecto=0;
+			builder2.setSingleChoiceItems(R.array.sino,defecto, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+			    	String colorSeleccionado=getResources().getStringArray(R.array.sino)[item];
+			        tv.setText(colorSeleccionado);
+			        t.setDefecto(colorSeleccionado);
+					//Retorno
+			    	Intent resultIntent=new Intent();
+			    	resultIntent.putExtra(TARIFA_RETORNO, t);
+			    	setResult(Activity.RESULT_OK, resultIntent);
+			    }
+			});
+			AlertDialog alert2 = builder2.create();
+			alert2.show();
 			break;
 		default: // Es una franja horaria
 			//Aqui es donde hay que pasar a la pantalla de Franjas

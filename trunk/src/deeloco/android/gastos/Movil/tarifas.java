@@ -84,6 +84,9 @@ public class tarifas implements Serializable{
 	/**
 	 * Devuelve la tarifa a la que pertence un numero de tlf.
 	 * @param numero
+	 * Número de teléfono
+	 * @param tarifaDef
+	 * Tarifa por defecto.
 	 * @return
 	 */
 	public tarifa getTarifa(String numero,String tarifaDef)
@@ -321,9 +324,10 @@ public class tarifas implements Serializable{
 	 * @param t
 	 */
 	void modificarTarifa(int id,tarifa t){
-		//Log.i(TAG,"Modificar Tarifa");
+		Log.i(TAG,"Modificar Tarifa");
 		tarifa tactual=this.getTarifa(id);
-		//Log.i(TAG,"Nombre de la tarifa que se va ha modificar -> "+tactual.getNombre());
+		Log.i(TAG,"Defecto Actual-> "+tactual.getDefecto());
+		Log.i(TAG,"Defecto modificar-> "+t.getDefecto());
 		//Log.i(TAG,"Nombre de la tarifa que se va a añadir -> "+t.getNombre());
 		tactual.setNombre(t.getNombre());
 		tactual.setMinimo(t.getMinimo());
@@ -380,6 +384,7 @@ public class tarifas implements Serializable{
 			xmlFinal+="<limiteLlamadasDia>"+this.tarifas.get(t).getLimiteDia()+"</limiteLlamadasDia>";
 			xmlFinal+="<color>"+this.tarifas.get(t).getColor()+"</color>";
 			xmlFinal+="<numeros>"+this.tarifas.get(t).getNumeros()+"</numeros>";
+			xmlFinal+="<defecto>"+this.tarifas.get(t).getDefectoSiNo()+"</defecto>";
 			franjas=this.tarifas.get(t).getFranjas();
 
 			for (int f=0;f<franjas.size();f++)

@@ -217,7 +217,7 @@ public class gastoMovil extends ListActivity {
         	Intent iFactura = new Intent(getBaseContext(), simulacionFactura.class);
         	extras = new Bundle();
         	extras.putSerializable("tarifas", ts);
-        	Log.d(TAG,"Coste llamadas="+costeLlamadas);
+        	//Log.d(TAG,"Coste llamadas="+costeLlamadas);
         	extras.putDouble("costeLlamadas", costeLlamadas);
         	extras.putDouble("costeSMS", costeSMS);
         	iFactura.putExtras(extras);
