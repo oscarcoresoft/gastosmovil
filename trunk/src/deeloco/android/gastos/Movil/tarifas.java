@@ -85,11 +85,11 @@ public class tarifas implements Serializable{
 	 * Devuelve la tarifa a la que pertence un numero de tlf.
 	 * @param numero
 	 * Número de teléfono
-	 * @param tarifaDef
-	 * Tarifa por defecto.
+	 * @param fechayhora
+	 * Fecha y hora de la llamada.
 	 * @return
 	 */
-	public tarifa getTarifa(String numero,String tarifaDef)
+	public tarifa getTarifa(String numero,String fechayhora)
 	{
 
 		if (this.tarifas.size()==0)
@@ -97,10 +97,31 @@ public class tarifas implements Serializable{
 			return null;
 		
 		int idTarifa=indiceTarifa(numero);
+		Log.d(TAG,"indiceTarifa("+numero+")="+idTarifa);
 		if (idTarifa==0)
 		{
 			//El numero no pertenece a ninguna tarifa. Aplicar la tarifa por defecto
-			idTarifa=this.getId(tarifaDef);
+			//Como podemos tener más de una tarifa por defecto
+			for (int tt=0;tt<this.tarifas.size();tt++)
+			{
+				if (this.tarifas.get(tt).getDefecto())
+				{
+					//Es una tarifa por defecto
+					Log.d(TAG,this.tarifas.get(tt).getNombre()+" .. es una tarifa por defecto");
+					Franja f=this.tarifas.get(tt).getFranja(fechayhora);
+					if (f!=null)
+					{
+						Log.d(TAG,"Franja distinto de NULL");
+						return this.tarifas.get(tt);
+					}
+					else
+					{
+						Log.d(TAG,"Franja NULL");
+					}
+				}
+			}
+			return null;
+			
 		}
 		
 		if (idTarifa==-1)
@@ -130,7 +151,8 @@ public class tarifas implements Serializable{
 	}
 	
 	/**
-	 * Devuelve el identificador de la tarifa a la que pertence el número de telefono
+	 * Devuelve e
+	 * l identificador de la tarifa a la que pertence el número de telefono
 	 * Si no pertenece al ninguno, devuelve 1 = Tarifa Normal
 	 * @param numero
 	 * @return
@@ -548,6 +570,25 @@ public class tarifas implements Serializable{
 				//Log.d(TAG,"("+f+","+c+")="+mControl[f][c]);
 			}
 		return conflicto;
+	}
+	
+	
+	
+	public double getGastoMinimo()
+	{
+		double retorno=0.0;
+		for (int i=0;i<this.tarifas.size();i++)
+		{
+			if (this.tarifas.get(i).getDefecto())
+			{
+				//Es una tarifa que se aplica por defecto
+				if (retorno<this.tarifas.get(i).getMinimo())
+				{
+					retorno=this.tarifas.get(i).getMinimo();
+				}
+			}
+		}
+		return retorno;
 	}
 	
 	
