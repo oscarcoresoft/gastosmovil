@@ -110,7 +110,6 @@ public class PreferencesTarifas extends ListActivity{
         	extras.putSerializable("tarifa", t);
         	settingsActivity2.putExtras(extras);
         	startActivityForResult(settingsActivity2,RETURN_PREFERENCES_TARIFA);
-        	
             break;
             
         case NUEVA_TARIFA_PREDEFINIDA:
@@ -127,11 +126,9 @@ public class PreferencesTarifas extends ListActivity{
 			    	//Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
 			    	tarifa t=tsPre.getTarifa(item);
 			    	ts.addTarifa(t);
-			    	
 			    	Intent resultIntent=new Intent();
 			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
 			    	setResult(Activity.RESULT_OK, resultIntent);
-			    	
 			    	onStart();
 			    }
 			});
@@ -143,16 +140,12 @@ public class PreferencesTarifas extends ListActivity{
         	//Compartir el fichero de configuración de tarifas
         	Intent xmlMessageIntent = new Intent(android.content.Intent.ACTION_SEND);  
         	xmlMessageIntent.setType("text/plain");  
-        	//Uri.parse("file:///sdcard/Pictures/image.jpg")
         	File f=new File(path);
         	if (f.exists() && f.canRead())
         	{
-        	xmlMessageIntent.putExtra(Intent.EXTRA_SUBJECT, "Gastos Móvil: Fichero configuración tarifa.");
-        	//xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
-        	//xmlMessageIntent.setDataAndType(Uri.fromFile(f), "text/xml");
-        	xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/gastosmovil/datosTarifas.xml"));
-        	startActivity(xmlMessageIntent);
-        	//startActivity(Intent.createChooser(xmlMessageIntent, "Comparte el fichero de configuración de tarifas:"));
+	        	xmlMessageIntent.putExtra(Intent.EXTRA_SUBJECT, "Gastos Móvil: Fichero configuración tarifa.");
+	        	xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/gastosmovil/datosTarifas.xml"));
+	        	startActivity(xmlMessageIntent);
         	}
         	else
         	{
@@ -166,7 +159,6 @@ public class PreferencesTarifas extends ListActivity{
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		//Aqui es donde hay que pasar a la pantalla de Tarifas
-		
 		IconoYTexto2 iyt=(IconoYTexto2) l.getItemAtPosition(position);
 		int idTarifa=ts.getId(iyt.titulo);
     	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
@@ -190,8 +182,6 @@ public class PreferencesTarifas extends ListActivity{
 			{
 				tarifa t=(tarifa) data.getSerializableExtra(TARIFA_RETORNO);
 				//Añadir la tarifa al ArrayList de tarifas
-				//Log.d(TAG,"Valor limite = "+t.getLimite());
-				
 				switch (t.getIdentificador()) {
 				case 0:
 
@@ -206,8 +196,11 @@ public class PreferencesTarifas extends ListActivity{
 					ts.modificarTarifa(t.getIdentificador(), t);
 					break;
 				}
-				
 			}
+			//Comprobar que las tarifas que se aplican por defecto son compatibles
+			if(!ts.compatibilidadHorarioTarifasDefecto())
+				Toast.makeText(getBaseContext(),"Las tarifas que se han definido como por defecto, tienes horarios incompatibles.",Toast.LENGTH_LONG).show();
+			
 			break;
 
 		default:
