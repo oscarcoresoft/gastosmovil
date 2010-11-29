@@ -439,8 +439,11 @@ public class gastoMovil extends ListActivity {
         		String fechaHoy=fechaHora.substring(0, 10).trim();
         		
         		//t=tarifa a la que pertenece el número
-        		tarifa t=ts.getTarifa(telefono,vp.getPreferenciasDefecto());
-        		Franja f=t.getFranja(fechaHora);
+        		tarifa t=ts.getTarifa(telefono,fechaHora);
+        		//Si t=null no hay tarifa para el teléfono,fechayhora
+        		Franja f=null;
+        		if (t!=null)
+        			f=t.getFranja(fechaHora);
         		
         		if (f!=null)
         		{

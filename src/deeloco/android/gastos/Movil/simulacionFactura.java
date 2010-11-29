@@ -74,7 +74,8 @@ public class simulacionFactura extends Activity {
 	  txtGastoTelefono.setText("   Gasto Teléfono   "+FunGlobales.redondear(costeLLamadas,2)+FunGlobales.monedaLocal());
 	  
 	  //Gasto Mínimo
-	  double gastoMinimo=ts.getTarifa(ts.getId(vp.getPreferenciasDefecto())).getMinimo();
+	  //double gastoMinimo=ts.getTarifa(ts.getId(vp.getPreferenciasDefecto())).getMinimo();
+	  double gastoMinimo=ts.getGastoMinimo();
       TextView txtGastoMinimo = new TextView(this,null,android.R.attr.textAppearanceSmall);
       txtGastoMinimo.setTextSize(15);
       txtGastoMinimo.setTypeface(Typeface.MONOSPACE);
