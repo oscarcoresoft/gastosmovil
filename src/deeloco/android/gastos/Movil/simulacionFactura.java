@@ -38,6 +38,7 @@ public class simulacionFactura extends Activity {
       tarifaPlana=vp.getTarifaPlana();
       //Valores de las diferentes tarifas
       LinearLayout linear=(LinearLayout) findViewById(R.id.layout_factura);
+      linear.setBackgroundResource(android.R.drawable.toast_frame);
       /*
       for (int i=0;i<ts.numTarifas();i++)
       {
