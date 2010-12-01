@@ -134,7 +134,7 @@ public class tarifas implements Serializable{
 	
 	
 	/**
-	 * Devuelve un List con los nombres de todas las franjas
+	 * Devuelve un List con los nombres de todas las Tarifas
 	 */
 
 	public List <String> nombresTarifas(){
@@ -148,11 +148,26 @@ public class tarifas implements Serializable{
         }
         Collections.sort(nomTarifas);
 		return nomTarifas;
+	}	
+	
+	
+	/**
+	 * Retorna el número de tarifas que estan definidas como por defecto.
+	 * @return
+	 */
+	public int getNumTarifasDefecto()
+	{
+		int retorno=0;
+		for (int i=0;i<this.tarifas.size();i++)
+        {
+        	if (this.tarifas.get(i).getDefecto())
+        		retorno++;
+        }
+		return retorno;
 	}
 	
 	/**
-	 * Devuelve e
-	 * l identificador de la tarifa a la que pertence el número de telefono
+	 * Devuelve el identificador de la tarifa a la que pertence el número de telefono
 	 * Si no pertenece al ninguno, devuelve 1 = Tarifa Normal
 	 * @param numero
 	 * @return
@@ -171,6 +186,7 @@ public class tarifas implements Serializable{
 	
 	/**
 	 * Retorna el indice del array list que ocupa una tarifa con un nombre
+	 * 
 	 * @param nombre
 	 * @return
 	 */
@@ -479,6 +495,19 @@ public class tarifas implements Serializable{
 
 	}
 	
+	/**
+	 * La tarifa que tiene @param nombre como nombre, se pone como tarifa que se aplica por defecto. 
+	 * @param nombre
+	 * Nombre de la tarifa que se va a poner por defecto.
+	 */
+	public void setTarifaDefecto(String nombre)
+	{
+        for (int i=0;i<this.tarifas.size();i++)
+        {
+        	if (nombre.equals(this.tarifas.get(i).getNombre()))
+        		this.tarifas.get(i).setDefecto(true);
+        }
+	}
 	
 	
 	/**
