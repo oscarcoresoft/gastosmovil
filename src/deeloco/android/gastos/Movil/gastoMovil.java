@@ -725,7 +725,7 @@ public class gastoMovil extends ListActivity {
         setListAdapter(ad);
         
         //Controlar si vp.getPreferenciasDefecto es vacio o nulo
-    	if (ts.getId(vp.getPreferenciasDefecto())==-1)
+    	if (ts.getNumTarifasDefecto()==0)
     	{
     		//No hay tarifa por defecto  o no corresponde a una tarifa definida
     		Toast.makeText(this,R.string.mensaje_tarifa_defecto_no_definida,Toast.LENGTH_LONG).show();
@@ -751,7 +751,7 @@ public class gastoMovil extends ListActivity {
     	  	for (int a=0;a<tarifas.size();a++)
     	  	{
     	  		//La tarifa por defecto no debe aparecer en el menú contextual
-    	  		if (!vp.getPreferenciasDefecto().equals(tarifas.get(a).getNombre()))
+    	  		if (!tarifas.get(a).getDefecto())
     	  		{
     	  			//Log.d(TAG,"Pertenece "+listaInvertida.get(info.position).telefono+" a "+tarifas.get(a).getNombre()+" -- "+tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono));
     	  			if (tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono))
@@ -815,6 +815,8 @@ public class gastoMovil extends ListActivity {
 		        else
 		        	iva=1.00; //Sin IVA
 			     listado(vp.getPreferenciasMes());
+			     
+			     ts.setTarifaDefecto(vp.getPreferenciasDefecto());
 			}
     		break;
 		case RETURN_PREFERENCES_TARIFAS:
