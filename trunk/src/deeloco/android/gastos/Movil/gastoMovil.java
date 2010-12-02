@@ -817,6 +817,7 @@ public class gastoMovil extends ListActivity {
 			     listado(vp.getPreferenciasMes());
 			     
 			     ts.setTarifaDefecto(vp.getPreferenciasDefecto());
+			     ts.guardarTarifas();
 			}
     		break;
 		case RETURN_PREFERENCES_TARIFAS:
