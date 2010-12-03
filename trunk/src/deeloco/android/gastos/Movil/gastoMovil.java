@@ -585,20 +585,20 @@ public class gastoMovil extends ListActivity {
         	textoMes=FunGlobales.periodo(meses, vp.getPreferenciasMes()+1, vp.getPreferenciasInicioMes());
         }
         
-        LinearLayout lyt_cabRegistro=(LinearLayout) findViewById(R.id.lytCabResumen);
-        TextView tv_cabResumen=(TextView) findViewById(R.id.cabResumen);
+        //LinearLayout lyt_cabRegistro=(LinearLayout) findViewById(R.id.lytCabResumen);
+        //TextView tv_cabResumen=(TextView) findViewById(R.id.cabResumen);
         
         //Mostrando los datos en la cabecera de resumen de datos
         
-        tv_cabResumen.setText(R.string.cabDatos);
+        //tv_cabResumen.setText(R.string.cabDatos);
         
-        
+        /*
         lyt_cabRegistro.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	Log.d(TAG, "Se ha pulsado texto registro de llamadas");
             	LinearLayout linear2=(LinearLayout) findViewById(R.id.lytAreaResumen);
-            	ImageView preImagen=(ImageView) findViewById(R.id.preImagen);
-            	ImageView postImagen=(ImageView) findViewById(R.id.postImagen);
+            	//ImageView preImagen=(ImageView) findViewById(R.id.preImagen);
+            	//ImageView postImagen=(ImageView) findViewById(R.id.postImagen);
             	 
             	int altoPantalla = display.getHeight();
             	if (linear2.getHeight()==0)
@@ -614,7 +614,8 @@ public class gastoMovil extends ListActivity {
             		postImagen.setImageResource(android.R.drawable.arrow_down_float);
             	}
             }
-        });
+            
+        });*/
         
         
         
@@ -622,15 +623,16 @@ public class gastoMovil extends ListActivity {
         
         LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
         linear.removeAllViewsInLayout();
-        linear.setBackgroundResource(android.R.drawable.dialog_frame);
+        //linear.setBackgroundResource(android.R.color.blue);
         //Mostrar resumen de datos
         //MES
-        TextView txtMes = new TextView(this,null,android.R.attr.textAppearanceSmall);
-  	  	txtMes.setTextSize(15);
-  	  	txtMes.setTypeface(Typeface.MONOSPACE);
-  	  	txtMes.setGravity(android.view.Gravity.CENTER);
-  	  	linear.addView(txtMes, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
+        //TextView txtMes = new TextView(this,null,android.R.attr.textAppearanceSmall);
+  	  	//txtMes.setTextSize(15);
+  	  	//txtMes.setTypeface(Typeface.MONOSPACE);
+  	  	//txtMes.setGravity(android.view.Gravity.CENTER);
+  	  	//linear.addView(txtMes, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
   	  	//txtMes.setText(textoMes+"..."+FunGlobales.redondear(costeLlamadas+costeSMS,2)+FunGlobales.monedaLocal());
+        TextView txtMes=(TextView) findViewById(R.id.handle);
   	  	txtMes.setText(textoMes);
   	  	//Separador
   	  	ImageView separador = new ImageView(this);
@@ -641,6 +643,7 @@ public class gastoMovil extends ListActivity {
   	  	TextView txtLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
   	  	txtLlamadas.setTextSize(15);
   	  	separador.setPadding(10, 0, 10, 0);
+  	  	
   	  	txtLlamadas.setTypeface(Typeface.MONOSPACE);
 	  	linear.addView(txtLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
 	  	//IMAGEN and TEXTO
