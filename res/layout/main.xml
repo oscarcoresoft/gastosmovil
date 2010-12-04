@@ -23,16 +23,32 @@
      android:handle="@+id/handle"
      android:content="@+id/lytAreaResumen">
      
-	     <TextView
-         android:id="@id/handle"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:baselineAlignBottom="true"
-         android:textStyle="bold"
-         android:text="Resumen"
-         android:gravity="center_horizontal"
-         android:padding="10dp"
-         android:background="#000020"/>
+     	<LinearLayout 
+     	android:id="@id/handle"
+     	android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+     	android:background="#000040">
+     
+	        <ImageView android:id="@+id/imagePersiana"
+			android:layout_width="wrap_content"
+	       	android:layout_height="wrap_content"
+	       	android:layout_gravity="center"
+	       	android:padding="5dp"
+	   	  	android:src="@drawable/lista"/>
+	       	
+		     <TextView
+	         android:id="@+id/txtPersiana"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:baselineAlignBottom="true"
+	         android:textStyle="bold"
+	         android:text="Resumen"
+	         android:gravity="center"
+	         android:padding="10dp"/>
+	         
+	    </LinearLayout>
 		    
 		<LinearLayout android:id="@+id/lytAreaResumen"
 		android:layout_width="fill_parent"
