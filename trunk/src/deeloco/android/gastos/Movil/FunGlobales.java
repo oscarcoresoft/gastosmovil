@@ -1,5 +1,6 @@
 package deeloco.android.gastos.Movil;
 
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -18,9 +19,16 @@ public class FunGlobales extends Activity{
         return Math.round(numero*Math.pow(10,decimales))/Math.pow(10,decimales);
     }
 
-    
+    /**
+     * Hay que devolver el texto del mes de Inicio y el siguiente, si mesInicio es Diciembre el siguiente es Enero
+     * @param meses
+     * @param mesInicio
+     * @param diaInicio
+     * @return
+     */
     public static String periodo(String meses[],int mesInicio,int diaInicio){
-    	//Hay que devolver el texto del mes de Inicio y el siguiente, si mesInicio es Diciembre el siguiente es Enero
+    	
+    	Log.d("Periodo", "mesInicio="+mesInicio+" diaInicio="+diaInicio);
     	String retorno="";
     	if (diaInicio==1)
     	{
@@ -28,13 +36,16 @@ public class FunGlobales extends Activity{
     	}
     	else
     	{
-    		if (mesInicio<12)
+    		
+    		Calendar calendario= Calendar.getInstance();
+    		//calendario.
+    		if (mesInicio<13)
     		{
     			retorno= meses[mesInicio].substring(0, 3)+"/"+meses[mesInicio+1].substring(0,3);	
     		}
     		else
     		{
-    			retorno= meses[12].substring(0,3)+"/"+meses[1].substring(0, 3);
+    			retorno= meses[13].substring(0,3)+"/"+meses[2].substring(0, 3);
     		}
     		
     	}

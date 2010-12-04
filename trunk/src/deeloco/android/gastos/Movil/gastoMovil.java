@@ -632,8 +632,8 @@ public class gastoMovil extends ListActivity {
   	  	//txtMes.setGravity(android.view.Gravity.CENTER);
   	  	//linear.addView(txtMes, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
   	  	//txtMes.setText(textoMes+"..."+FunGlobales.redondear(costeLlamadas+costeSMS,2)+FunGlobales.monedaLocal());
-        TextView txtMes=(TextView) findViewById(R.id.handle);
-  	  	txtMes.setText(textoMes);
+        TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
+  	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes);
   	  	//Separador
   	  	ImageView separador = new ImageView(this);
   	  	separador.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_dim_dark));
