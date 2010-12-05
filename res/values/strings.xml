@@ -163,11 +163,13 @@
     <string name="simulacion_factura_activity">Simulación de factura.</string>
     <string name="mn_factura">Simulación de Factura</string>
     <string name="mn_compartir">Compartir Configuración</string>
+    <string name="mn_recuperar">Recuperar configuración compartida</string>
     <string name="coste_llamada">Coste de las llamadas: </string>
     <string name="aj_presentarIVA">Impuesto</string>
     <string name="aj_presentarIVA_des">Mostrar el coste de las llamadas con impuestos incluidos.</string>
     <string name="pref_tarifa_defecto">Tarifa por defecto</string>
     <string name="mensaje_tarifa_defecto_no_definida">No hay ninguna tarifa definida como "Por defecto".</string>
+    <string name="mensaje_noexiste_tarifa_compartida">No hay tarifa compartida en \\sdcard\download.</string>
     
 </resources> 
 

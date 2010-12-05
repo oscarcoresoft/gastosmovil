@@ -2,6 +2,10 @@ package deeloco.android.gastos.Movil;
 
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,7 @@ public class PreferencesTarifas extends ListActivity{
 	private static final int NUEVA_TARIFA = Menu.FIRST;
 	private static final int NUEVA_TARIFA_PREDEFINIDA = Menu.FIRST+1;
 	private static final int COMPARTIR= Menu.FIRST+2;
+	private static final int RECUPERAR= Menu.FIRST+3;
 	private static final int RETURN_PREFERENCES_TARIFA=1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesTarifas";
@@ -40,6 +45,7 @@ public class PreferencesTarifas extends ListActivity{
     	menu.add(Menu.NONE, NUEVA_TARIFA, 0, R.string.mn_nueva_tarifa).setIcon(android.R.drawable.ic_menu_add);
     	menu.add(Menu.NONE, NUEVA_TARIFA_PREDEFINIDA, 0, R.string.mn_nueva_tarifa_predefinida).setIcon(android.R.drawable.ic_menu_add);
     	menu.add(Menu.NONE, COMPARTIR, 0, R.string.mn_compartir).setIcon(android.R.drawable.ic_menu_share);
+    	menu.add(Menu.NONE, RECUPERAR, 0, R.string.mn_recuperar).setIcon(android.R.drawable.ic_menu_set_as);
     	return true;
     }
 	
@@ -141,17 +147,67 @@ public class PreferencesTarifas extends ListActivity{
         	Intent xmlMessageIntent = new Intent(android.content.Intent.ACTION_SEND);  
         	xmlMessageIntent.setType("text/plain");  
         	File f=new File(path);
-        	if (f.exists() && f.canRead())
+
+        	//Copiamos el fichero con extensión jpg, para que gmail pueda descargarlo
+        	
+            try{
+            	FileReader fReader=new FileReader(f);;
+            	FileWriter fWriter= new FileWriter(path+".jpg");;
+            	char[] xml=new char[(int)f.length()];
+            	fReader.read(xml,0,(int)f.length());
+            	fReader.close();
+                fWriter.write(xml);
+                fWriter.flush();
+                fWriter.close();
+             }
+            catch(Exception e)
+            {
+
+            	Log.d(TAG,"No se puede copiar el fichero.");
+             }
+        	
+         	File f2=new File(path+".jpg");
+        	if (f2.exists() && f2.canRead())
         	{
 	        	xmlMessageIntent.putExtra(Intent.EXTRA_SUBJECT, "Gastos Móvil: Fichero configuración tarifa.");
-	        	xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/gastosmovil/datosTarifas.xml"));
+	        	xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/gastosmovil/datosTarifas.xml.jpg"));
 	        	startActivity(xmlMessageIntent);
         	}
         	else
         	{
         		Log.d(TAG,"No se puede leer el fichero a adjuntar");
         	}
-        	break;  
+        	//Volver a poner la extensión xml.
+        	break;
+
+        case RECUPERAR:
+        	//Compartir el fichero de configuración de tarifas
+        	File fRecuperacion=new File("\\sdcard\\download\\datosTarifas.xml.jpg");
+        	if (fRecuperacion.exists() && fRecuperacion.canRead())
+        	{
+        		//Existe fichero de tarifa compartida. Copiarla a /gastosmovil
+        		try{
+                	FileReader fReader=new FileReader(fRecuperacion);
+                	FileWriter fWriter= new FileWriter(path);
+                	char[] xml=new char[(int)fRecuperacion.length()];
+                	fReader.read(xml,0,(int)fRecuperacion.length());
+                	fReader.close();
+                    fWriter.write(xml);
+                    fWriter.flush();
+                    fWriter.close();
+                 }
+                catch(Exception e)
+                {
+                	Log.d(TAG,"No se puede copiar el fichero.");
+                 }
+        	}
+        	else
+        	{
+        		Toast.makeText(getBaseContext(),getString(R.string.mensaje_noexiste_tarifa_compartida),Toast.LENGTH_LONG).show();
+        	}
+        	break;
+        	
+        	
         }
         return true;
 	}
