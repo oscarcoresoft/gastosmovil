@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-     	android:background="#000040">
+     	android:background="#610B0B">
      
 	        <ImageView android:id="@+id/imagePersiana"
 			android:layout_width="wrap_content"
@@ -46,6 +46,7 @@
 	         android:textStyle="bold"
 	         android:text="Resumen"
 	         android:gravity="center"
+	         android:textColor="#ffffff"
 	         android:padding="10dp"/>
 	         
 	    </LinearLayout>
@@ -56,15 +57,16 @@
 					
 	     	<ScrollView android:id="@+id/ScrollView01"
 	 				android:layout_width="fill_parent" 
-
-	 				android:layout_height="fill_parent">	
+	 				android:layout_height="fill_parent">
+	 					
 			 	 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			              android:id="@+id/lytResumen"
 			              android:orientation="vertical"
 			              android:layout_width="fill_parent"
 			              android:layout_height="fill_parent"
-			              android:background="#000020"
-			              > 
+			              android:background="#2A0A0A"
+			              android:paddingBottom="10dp"> 
+			              
 			     </LinearLayout>
 	       	</ScrollView>
 		</LinearLayout>

@@ -2,6 +2,7 @@ package deeloco.android.gastos.Movil;
 
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -28,7 +29,7 @@ public class FunGlobales extends Activity{
      */
     public static String periodo(String meses[],int mesInicio,int diaInicio){
     	
-    	Log.d("Periodo", "mesInicio="+mesInicio+" diaInicio="+diaInicio);
+    	
     	String retorno="";
     	if (diaInicio==1)
     	{
@@ -38,7 +39,14 @@ public class FunGlobales extends Activity{
     	{
     		
     		Calendar calendario= Calendar.getInstance();
+    	    int mDia = calendario.get(Calendar.DAY_OF_MONTH);
+    		Log.d("Periodo", "Hoy es " + mDia + ". mesInicio="+mesInicio+". diaInicio="+diaInicio);
     		//calendario.
+    		if (mDia<diaInicio)
+    		{
+    			mesInicio=(mesInicio==2)?13:mesInicio--;
+    		}
+    		
     		if (mesInicio<13)
     		{
     			retorno= meses[mesInicio].substring(0, 3)+"/"+meses[mesInicio+1].substring(0,3);	

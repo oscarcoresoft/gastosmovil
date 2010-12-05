@@ -634,15 +634,9 @@ public class gastoMovil extends ListActivity {
   	  	//txtMes.setText(textoMes+"..."+FunGlobales.redondear(costeLlamadas+costeSMS,2)+FunGlobales.monedaLocal());
         TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
   	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes);
-  	  	//Separador
-  	  	ImageView separador = new ImageView(this);
-  	  	separador.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_dim_dark));
-  	  	separador.setPadding(0, 5, 0, 5);
-  	  	linear.addView(separador,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
   	  	//LLAMADAS
   	  	TextView txtLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
   	  	txtLlamadas.setTextSize(15);
-  	  	separador.setPadding(10, 0, 10, 0);
   	  	
   	  	txtLlamadas.setTypeface(Typeface.MONOSPACE);
 	  	linear.addView(txtLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
@@ -669,7 +663,6 @@ public class gastoMovil extends ListActivity {
 	  	//TARIFAS
 	  	TextView txtTarifas = new TextView(this,null,android.R.attr.textAppearanceSmall);
 	  	txtTarifas.setTextSize(15);
-	  	separador.setPadding(0, 5, 0, 5);
 	  	txtTarifas.setTypeface(Typeface.MONOSPACE);
 	  	//txtTarifas.setBackgroundResource(android.R.drawable.dialog_frame);
 	  	linear.addView(txtTarifas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
