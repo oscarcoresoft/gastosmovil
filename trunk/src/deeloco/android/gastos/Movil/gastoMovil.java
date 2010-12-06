@@ -114,9 +114,6 @@ public class gastoMovil extends ListActivity {
     	menu.add(Menu.NONE, ESTADISTICAS, 0, R.string.mn_estadisticas).setIcon(android.R.drawable.ic_menu_agenda);
     	menu.add(Menu.NONE, ACERCADE, 0, R.string.mn_acercade).setIcon(android.R.drawable.ic_menu_info_details);
     	menu.add(Menu.NONE, SALIR, 0, R.string.mn_salir).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-    	
-    	
-    	
     	return true;
     }
     
@@ -623,31 +620,16 @@ public class gastoMovil extends ListActivity {
         
         LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
         linear.removeAllViewsInLayout();
-        //linear.setBackgroundResource(android.R.color.blue);
-        //Mostrar resumen de datos
-        //MES
-        //TextView txtMes = new TextView(this,null,android.R.attr.textAppearanceSmall);
-  	  	//txtMes.setTextSize(15);
-  	  	//txtMes.setTypeface(Typeface.MONOSPACE);
-  	  	//txtMes.setGravity(android.view.Gravity.CENTER);
-  	  	//linear.addView(txtMes, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
-  	  	//txtMes.setText(textoMes+"..."+FunGlobales.redondear(costeLlamadas+costeSMS,2)+FunGlobales.monedaLocal());
+        
         TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
   	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes);
+  	  	
   	  	//LLAMADAS
   	  	TextView txtLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
   	  	txtLlamadas.setTextSize(15);
-  	  	
   	  	txtLlamadas.setTypeface(Typeface.MONOSPACE);
 	  	linear.addView(txtLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
-	  	//IMAGEN and TEXTO
-	  	/*LinearLayout lytSMS = new LinearLayout(this);
-	  	lytSMS.setOrientation(LinearLayout.HORIZONTAL);
-	  	//IMAGENES SMS
-        ImageView imgSMS = new ImageView(this);
-        imgSMS.setImageDrawable(this.getResources().getDrawable(android.R.drawable.sym_action_email));
-        imgSMS.setPadding(0, 0, 0, 0);
-        lytSMS.addView(imgSMS,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));*/
+	  	
 	  	//SMS
   	  	TextView txtSMS = new TextView(this,null,android.R.attr.textAppearanceSmall);
   	  	txtSMS.setTextSize(15);
@@ -664,9 +646,8 @@ public class gastoMovil extends ListActivity {
 	  	TextView txtTarifas = new TextView(this,null,android.R.attr.textAppearanceSmall);
 	  	txtTarifas.setTextSize(15);
 	  	txtTarifas.setTypeface(Typeface.MONOSPACE);
-	  	//txtTarifas.setBackgroundResource(android.R.drawable.dialog_frame);
 	  	linear.addView(txtTarifas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
-    	//tv_cabRegistro.setText(getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
+	  	
     	String datos="";
     	int numLineas=0;
     	for (int i=0;i<ts.numTarifas();i++)
@@ -712,6 +693,9 @@ public class gastoMovil extends ListActivity {
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
         txtSMS.setText(" Mensajes ("+numSMS+")..."+FunGlobales.redondear(costeSMS,2)+FunGlobales.monedaLocal());
+        
+        
+        
         //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
         //listaInvertida=lista;
         for (int a=lista.size()-1;a>=0;a--)
