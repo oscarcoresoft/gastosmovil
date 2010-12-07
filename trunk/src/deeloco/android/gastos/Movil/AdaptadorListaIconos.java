@@ -112,17 +112,12 @@ public class AdaptadorListaIconos extends BaseAdapter {
         }
         else
         {
-        	if (nombre.equals(" ")&&telefono.equals(" "))
-        		txtLinea1Izq.setText(" ");
+        	txtLinea1Izq.setText(telefono+" :: "+nombre);
+        	if (nombre.length()>this.longCadena)
+        		txtLinea1Izq.setText(nombre.subSequence(0, this.longCadena)+" | "+telefono);
         	else
-        	{
-	        	txtLinea1Izq.setText(telefono+" :: "+nombre);
-	        	if (nombre.length()>this.longCadena)
-	        		txtLinea1Izq.setText(nombre.subSequence(0, this.longCadena)+" | "+telefono);
-	        	else
-	        		txtLinea1Izq.setText(nombre+" | "+telefono);
-	        	txtLinea1Izq.setMaxWidth(200);
-        	}
+        		txtLinea1Izq.setText(nombre+" | "+telefono);
+        	txtLinea1Izq.setMaxWidth(200);
         }
         
         //txtLinea1Izq.setMaxWidth(250);
