@@ -112,12 +112,17 @@ public class AdaptadorListaIconos extends BaseAdapter {
         }
         else
         {
-        	txtLinea1Izq.setText(telefono+" :: "+nombre);
-        	if (nombre.length()>this.longCadena)
-        		txtLinea1Izq.setText(nombre.subSequence(0, this.longCadena)+" | "+telefono);
+        	if (nombre.equals(" ")&&telefono.equals(" "))
+        		txtLinea1Izq.setText(" ");
         	else
-        		txtLinea1Izq.setText(nombre+" | "+telefono);
-        	txtLinea1Izq.setMaxWidth(200);
+        	{
+	        	txtLinea1Izq.setText(telefono+" :: "+nombre);
+	        	if (nombre.length()>this.longCadena)
+	        		txtLinea1Izq.setText(nombre.subSequence(0, this.longCadena)+" | "+telefono);
+	        	else
+	        		txtLinea1Izq.setText(nombre+" | "+telefono);
+	        	txtLinea1Izq.setMaxWidth(200);
+        	}
         }
         
         //txtLinea1Izq.setMaxWidth(250);
@@ -136,7 +141,10 @@ public class AdaptadorListaIconos extends BaseAdapter {
         }
         else
         {
-        	txtLinea1Der.setText(coste+FunGlobales.monedaLocal());
+        	if (duracion.equals(" ")&&fecha.equals(" ")&&coste==0.0)
+        		txtLinea1Der.setText(" ");
+        	else
+        		txtLinea1Der.setText(coste+FunGlobales.monedaLocal());
         }
         
         txtLinea1Der.setTextSize(17);
@@ -150,7 +158,10 @@ public class AdaptadorListaIconos extends BaseAdapter {
             // Generamos el TextView para la fecha y hora
             TextView vFecha = new TextView(mContext,null,android.R.attr.textAppearanceSmall);
             // Le establecemos el texto a mostrar
-            vFecha.setText(duracion+ "|" +fecha);
+            if (duracion.equals(" ")&&fecha.equals(" "))
+            	vFecha.setText(" ");
+            else
+            	vFecha.setText(duracion+ "|" +fecha);
             vFecha.setTextAppearance(mContext,android.R.attr.textAppearanceSmall);
             //vFecha.setTextSize(15);
             // Lo añadimos al LinearLayout "datos"

@@ -71,7 +71,14 @@ public class simulacionFactura extends Activity {
       txtGastoTelefono.setTextSize(15);
       txtGastoTelefono.setTypeface(Typeface.MONOSPACE);
 	  linear.addView(txtGastoTelefono, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));      
-	  txtGastoTelefono.setText("   Gasto Teléfono   "+FunGlobales.redondear(costeLLamadas,2)+FunGlobales.monedaLocal());
+	  txtGastoTelefono.setText("Gasto Teléfono      "+FunGlobales.redondear(costeLLamadas,2)+FunGlobales.monedaLocal());
+	  
+	  //SMS
+      TextView txtCosteSMS = new TextView(this,null,android.R.attr.textAppearanceSmall);
+      txtCosteSMS.setTextSize(15);
+      txtCosteSMS.setTypeface(Typeface.MONOSPACE);
+	  linear.addView(txtCosteSMS, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));      
+	  txtCosteSMS.setText("Gasto SMS           "+FunGlobales.redondear(costeSMS,2)+FunGlobales.monedaLocal());
 	  
 	  //Gasto Mínimo
 	  //double gastoMinimo=ts.getTarifa(ts.getId(vp.getPreferenciasDefecto())).getMinimo();
@@ -80,27 +87,26 @@ public class simulacionFactura extends Activity {
       txtGastoMinimo.setTextSize(15);
       txtGastoMinimo.setTypeface(Typeface.MONOSPACE);
 	  linear.addView(txtGastoMinimo, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));      
-	  txtGastoMinimo.setText("   Gasto Mínimo     "+FunGlobales.redondear(gastoMinimo,2)+FunGlobales.monedaLocal());
+	  txtGastoMinimo.setText("Gasto Mínimo        "+FunGlobales.redondear(gastoMinimo,2)+FunGlobales.monedaLocal());
+	  
+	  //Separador
+	  ImageView separador3 = new ImageView(this);
+	  separador3.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_dim_dark));
+	  separador3.setPadding(0, 5, 0, 5);
+	  linear.addView(separador3,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 	  
 	  //Coste llamadas
       TextView txtCosteLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
       txtCosteLlamadas.setTextSize(15);
       txtCosteLlamadas.setTypeface(Typeface.MONOSPACE);
 	  linear.addView(txtCosteLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
-	  if (costeLLamadas>gastoMinimo)
-		  txtCosteLlamadas.setText("Coste llamadas      "+FunGlobales.redondear(costeLLamadas,2)+FunGlobales.monedaLocal());
+	  if ((costeLLamadas+costeSMS)>gastoMinimo)
+		  txtCosteLlamadas.setText("Gasto total         "+FunGlobales.redondear((costeLLamadas+costeSMS),2)+FunGlobales.monedaLocal());
 	  else
 	  {
-		  txtCosteLlamadas.setText("Coste llamadas      "+FunGlobales.redondear(gastoMinimo,2)+FunGlobales.monedaLocal());
-		  costeLLamadas=gastoMinimo;
+		  txtCosteLlamadas.setText("Gasto total         "+FunGlobales.redondear(gastoMinimo,2)+FunGlobales.monedaLocal());
+		  costeLLamadas=gastoMinimo-costeSMS;
 	  }
-	  
-	  //SMS
-      TextView txtCosteSMS = new TextView(this,null,android.R.attr.textAppearanceSmall);
-      txtCosteSMS.setTextSize(15);
-      txtCosteSMS.setTypeface(Typeface.MONOSPACE);
-	  linear.addView(txtCosteSMS, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));      
-	  txtCosteSMS.setText("Mensajes            "+FunGlobales.redondear(costeSMS,2)+FunGlobales.monedaLocal());
 	  
 	  //Cuota Mensual
 	  TextView txtCuotaMensual = new TextView(this,null,android.R.attr.textAppearanceSmall);
@@ -156,10 +162,10 @@ public class simulacionFactura extends Activity {
 	  txtIVA.setText("Impuestos ("+vp.getPreferenciasImpuestosPorCiento()+"%)     "+FunGlobales.redondear(iva,2)+FunGlobales.monedaLocal());
 	  
 	  //Separador
-	  ImageView separador3 = new ImageView(this);
-	  separador3.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_dim_dark));
-	  separador3.setPadding(0, 5, 0, 5);
-	  linear.addView(separador3,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+	  ImageView separador4 = new ImageView(this);
+	  separador4.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_dim_dark));
+	  separador4.setPadding(0, 5, 0, 5);
+	  linear.addView(separador4,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 	  
 	  //Total a pagar
 	  totalPagar=total+iva;
