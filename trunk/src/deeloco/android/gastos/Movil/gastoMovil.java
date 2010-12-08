@@ -619,7 +619,7 @@ public class gastoMovil extends ListActivity {
         //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
         
         LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
-        linear.removeAllViewsInLayout();
+        //linear.removeAllViewsInLayout();
         
         TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
   	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes);
@@ -628,23 +628,26 @@ public class gastoMovil extends ListActivity {
   	  	TextView txtLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
   	  	txtLlamadas.setTextSize(15);
   	  	txtLlamadas.setTypeface(Typeface.MONOSPACE);
-	  	linear.addView(txtLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
+  	  	txtLlamadas.setTextColor(0xff000000);
+	  	linear.addView(txtLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 	  	
 	  	//SMS
   	  	TextView txtSMS = new TextView(this,null,android.R.attr.textAppearanceSmall);
   	  	txtSMS.setTextSize(15);
+  	  	txtSMS.setTextColor(0xff000000);
   	  	txtSMS.setTypeface(Typeface.MONOSPACE);
-  	  	linear.addView(txtSMS, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+  	  	linear.addView(txtSMS, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
   	  	
   	  	//Separador
   	  	ImageView separador1 = new ImageView(this);
-  	  	separador1.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_dim_dark));
+  	  	separador1.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_bright));
   	  	separador1.setPadding(0, 5, 0, 5);
-  	  	linear.addView(separador1,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+  	  	linear.addView(separador1,  new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
 	  	//TARIFAS
 	  	TextView txtTarifas = new TextView(this,null,android.R.attr.textAppearanceSmall);
 	  	txtTarifas.setTextSize(15);
+	  	txtTarifas.setTextColor(0xff000000);
 	  	txtTarifas.setTypeface(Typeface.MONOSPACE);
 	  	linear.addView(txtTarifas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
 	  	
@@ -693,9 +696,7 @@ public class gastoMovil extends ListActivity {
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
         txtSMS.setText(" Mensajes ("+numSMS+")..."+FunGlobales.redondear(costeSMS,2)+FunGlobales.monedaLocal());
-        
-        
-        
+
         //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
         //listaInvertida=lista;
         for (int a=lista.size()-1;a>=0;a--)
