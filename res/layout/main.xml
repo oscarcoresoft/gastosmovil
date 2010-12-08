@@ -21,7 +21,8 @@
      android:layout_width="fill_parent"
      android:layout_height="fill_parent"
      android:handle="@+id/handle"
-     android:content="@+id/lytAreaResumen">
+     android:content="@+id/lytResumen"
+     android:keepScreenOn="true">
      
      	<LinearLayout 
      	android:id="@id/handle"
@@ -37,7 +38,7 @@
 	       	android:layout_gravity="center"
 	       	android:padding="5dp"
 	   	  	android:src="@drawable/lista"/>
-	       	
+	   	  	
 		     <TextView
 	         android:id="@+id/txtPersiana"
 	         android:layout_width="wrap_content"
@@ -48,28 +49,19 @@
 	         android:gravity="center"
 	         android:textColor="#ffffff"
 	         android:padding="10dp"/>
-	         
+	         	         
 	    </LinearLayout>
-		    
-		<LinearLayout android:id="@+id/lytAreaResumen"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-					
-	     	<ScrollView android:id="@+id/ScrollView01"
-	 				android:layout_width="fill_parent" 
-	 				android:layout_height="wrap_content"
-	 				android:layout_marginBottom="200dp">
-	 					
-			 	 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			              android:id="@+id/lytResumen"
-			              android:orientation="vertical"
-			              android:layout_width="fill_parent"
-			              android:layout_height="fill_parent"
-			              android:background="#2A0A0A"
-			              android:padding="10dp"> 
-			     </LinearLayout>
-	       	</ScrollView>
-		</LinearLayout>
+
+	 	 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@+id/lytResumen"
+         android:orientation="vertical"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:background="#eeeeee"
+         android:padding="10dp">
+         
+	     </LinearLayout>
+
  	</SlidingDrawer>
  
 </FrameLayout>

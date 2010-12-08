@@ -26,6 +26,8 @@ public class TarifasPreDefinidas {
 				"Mañana","07:00:00","17:00:00","[Lun,Mar,Mie,Jue,Vie]","30","15","No","0","0",
 				"Tarde","17:00:00","07:00:00","[Lun,Mar,Mie,Jue,Vie]","8","15","No","0","0",
 				"Fin de Semana","00:00:00","00:00:00","[Sab,Dom]","8","15","No","0","0"},
+			{"Movistar - Planazo + Sin Horarios ","1","0","0","20","Azul","",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Movistar - Planazo","1","19.9","500","0","Azul","",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Movistar - Planazo Tiempo Libre ","3","19.9","300","0","Azul","",
