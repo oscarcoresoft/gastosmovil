@@ -621,7 +621,15 @@ public class tarifas implements Serializable{
 	}
 	
 	
-	
+	public double getSegConsumidosMes()
+	{
+		double retorno=0.0;
+		for (int i=0;i<this.tarifas.size();i++)
+		{
+			retorno+=this.tarifas.get(i).getSegConsumidosMes();
+		}
+		return retorno;
+	}
 	
 }
 

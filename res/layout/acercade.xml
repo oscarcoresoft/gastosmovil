@@ -106,6 +106,36 @@
               android:layout_marginBottom="15dp"
               android:autoLink="web"
               />  
+
+     <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/acercade_donacion_cab"
+              style="?android:attr/listSeparatorTextViewStyle"
+              android:layout_marginBottom="15dp"
+              />
+              
+       <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:textColor="#FFF"
+              android:textSize="12dp"
+              android:text="@string/acercade_donacion_texto"
+              android:layout_marginBottom="15dp"
+              />
+              
+       <TextView android:id="@+id/text"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:textColor="#AAA"
+              android:textSize="12dp"
+              android:text="@string/acercade_webGastoMovil"
+              android:layout_marginBottom="15dp"
+              android:autoLink="web"
+              />            
+              
               
      <TextView android:id="@+id/text"
               android:layout_width="fill_parent"

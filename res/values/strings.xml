@@ -57,7 +57,7 @@
     <string name="aj_establecimiento_des">Mostrar el % correspondiente al establecimiento de llamada</string>
     
     <string name="mn_ajustes">Ajustes</string>
-    <string name="mn_salir">Salir</string>
+    
     <string name="mn_acercade">Acerca De</string>
     <string name="mn_estadisticas">Estadisticas</string>
     
@@ -170,7 +170,11 @@
     <string name="pref_tarifa_defecto">Tarifa por defecto</string>
     <string name="mensaje_tarifa_defecto_no_definida">No hay ninguna tarifa definida como "Por defecto".</string>
     <string name="mensaje_noexiste_tarifa_compartida">No hay tarifa compartida en \\sdcard\download.</string>
-    
+    <string name="mensaje_tarifas_defecto_incompatibles">Las tarifas que se han definido como por defecto, tienes horarios incompatibles.</string>
+    <string name="mensaje_no_tarifas_defecto">No hay tarifas por defecto definidas.</string>
+    <string name="acercade_donacion_cab">Donaciones.</string>
+    <string name="acercade_donacion_texto">A través de PayPal se pueden hacer donaciones y contribuir al desarrollo y mantenimiento de esta aplicación. Hacerlo a través de la web de la aplicación. </string>
+    <string name="mn_donacion">Donación</string>    
 </resources> 
 
 

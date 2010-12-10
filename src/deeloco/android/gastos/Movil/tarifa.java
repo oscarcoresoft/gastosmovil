@@ -261,12 +261,12 @@ public class tarifa implements Serializable{
 	}
 	
 	public void setDefecto(String defecto) {
-		Log.d(TAG,"Defecto="+defecto);
+		//Log.d(TAG,"Defecto="+defecto);
 		if (defecto.equals("Si"))
 			this.defecto=true;
 		else
 			this.defecto=false;
-		Log.d(TAG,"Defecto="+this.defecto);
+		//Log.d(TAG,"Defecto="+this.defecto);
 	}
 	
 	
