@@ -84,7 +84,7 @@ public class PreferencesTarifas extends ListActivity{
         String tarifaDef=getIntent().getExtras().getString("tarifaDefecto");
         for (int a=0;a<ts.numTarifas();a++){
         	
-        	if (ts.getTarifas().get(a).getNombre().compareTo(tarifaDef)==0)
+        	if (ts.getTarifas().get(a).getDefecto())
         	{
         		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more), ts.getTarifas().get(a).getNombre(),"Tarifa aplicada por defecto"));
         	}
@@ -182,24 +182,43 @@ public class PreferencesTarifas extends ListActivity{
 
         case RECUPERAR:
         	//Compartir el fichero de configuración de tarifas
-        	File fRecuperacion=new File("\\sdcard\\download\\datosTarifas.xml.jpg");
+
+        	final File fRecuperacion=new File("\\sdcard\\download\\datosTarifas.xml.jpg");
         	if (fRecuperacion.exists() && fRecuperacion.canRead())
         	{
-        		//Existe fichero de tarifa compartida. Copiarla a /gastosmovil
-        		try{
-                	FileReader fReader=new FileReader(fRecuperacion);
-                	FileWriter fWriter= new FileWriter(path);
-                	char[] xml=new char[(int)fRecuperacion.length()];
-                	fReader.read(xml,0,(int)fRecuperacion.length());
-                	fReader.close();
-                    fWriter.write(xml);
-                    fWriter.flush();
-                    fWriter.close();
-                 }
-                catch(Exception e)
-                {
-                	Log.d(TAG,"No se puede copiar el fichero.");
-                 }
+            	AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+            	builder2.setMessage("Se perderá la configuración actual./n¿Quieres continuar?")
+            	       .setCancelable(false)
+            	       .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            	           public void onClick(DialogInterface dialog, int id) {
+
+            	        	 //Existe fichero de tarifa compartida. Copiarla a /gastosmovil
+            	        		try{
+            	                	FileReader fReader=new FileReader(fRecuperacion);
+            	                	FileWriter fWriter= new FileWriter(path);
+            	                	char[] xml=new char[(int)fRecuperacion.length()];
+            	                	fReader.read(xml,0,(int)fRecuperacion.length());
+            	                	fReader.close();
+            	                    fWriter.write(xml);
+            	                    fWriter.flush();
+            	                    fWriter.close();
+            	                 }
+            	                catch(Exception e)
+            	                {
+            	                	Log.d(TAG,"No se puede copiar el fichero.");
+            	                 }
+            	        	   
+            	                
+            	           }
+            	       })
+            	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+            	           public void onClick(DialogInterface dialog, int id) {
+            	                dialog.cancel();
+            	           }
+            	       });
+            	AlertDialog alert2 = builder2.create();
+            	alert2.show();
+        		
         	}
         	else
         	{
@@ -254,9 +273,11 @@ public class PreferencesTarifas extends ListActivity{
 				}
 			}
 			//Comprobar que las tarifas que se aplican por defecto son compatibles
-			if(!ts.compatibilidadHorarioTarifasDefecto())
-				Toast.makeText(getBaseContext(),"Las tarifas que se han definido como por defecto, tienes horarios incompatibles.",Toast.LENGTH_LONG).show();
-			
+			if (ts.getNumTarifasDefecto()==0)
+				Toast.makeText(getBaseContext(),getText(R.string.mensaje_no_tarifas_defecto),Toast.LENGTH_LONG).show();
+			else
+				if(!ts.compatibilidadHorarioTarifasDefecto())
+					Toast.makeText(getBaseContext(),getText(R.string.mensaje_tarifas_defecto_incompatibles),Toast.LENGTH_LONG).show();
 			break;
 
 		default:
@@ -294,6 +315,8 @@ public class PreferencesTarifas extends ListActivity{
     	resultIntent.putExtra(TARIFAS_RETORNO, ts);
     	setResult(Activity.RESULT_OK, resultIntent);
 	}
+	
+	
 
 
 	

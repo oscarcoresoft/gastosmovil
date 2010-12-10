@@ -47,7 +47,7 @@
 	         android:textStyle="bold"
 	         android:text="Resumen"
 	         android:gravity="center"
-	         android:textColor="#ffffff"
+	         android:textColor="#d0a6a6"
 	         android:padding="10dp"/>
 	         	         
 	    </LinearLayout>

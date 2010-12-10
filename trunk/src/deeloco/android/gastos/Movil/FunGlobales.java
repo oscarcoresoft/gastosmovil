@@ -90,11 +90,11 @@ public class FunGlobales extends Activity{
     	{
     		horas=minutos/60;
     		minutos=minutos%60;
-    		retorno=horas+ " h."+minutos+" m. "+segundos+" s.";
+    		retorno=horas+ "h. "+minutos+"m. "+segundos+"s.";
     	}
     	else
     	{
-    		retorno=minutos+" m. "+segundos+" s.";
+    		retorno=minutos+"m. "+segundos+"s.";
     	}
     	
     	return retorno;

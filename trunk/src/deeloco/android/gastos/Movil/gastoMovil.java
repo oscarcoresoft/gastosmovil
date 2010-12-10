@@ -113,7 +113,7 @@ public class gastoMovil extends ListActivity {
     	menu.add(Menu.NONE, FACTURA, 0, R.string.mn_factura).setIcon(android.R.drawable.ic_menu_edit);
     	menu.add(Menu.NONE, ESTADISTICAS, 0, R.string.mn_estadisticas).setIcon(android.R.drawable.ic_menu_agenda);
     	menu.add(Menu.NONE, ACERCADE, 0, R.string.mn_acercade).setIcon(android.R.drawable.ic_menu_info_details);
-    	menu.add(Menu.NONE, SALIR, 0, R.string.mn_salir).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+    	menu.add(Menu.NONE, SALIR, 0, R.string.mn_donacion).setIcon(android.R.drawable.ic_menu_view);
     	return true;
     }
     
@@ -200,7 +200,9 @@ public class gastoMovil extends ListActivity {
         	break;
         	
         case SALIR:
-        	finish();
+        	//finish();
+        	Intent myIntent = new Intent(Intent.ACTION_VIEW,Uri.parse("http://gastosmovil.simahuelva.es/"));
+        			startActivity(myIntent);
             break;
             
         case ACERCADE:
@@ -424,6 +426,10 @@ public class gastoMovil extends ListActivity {
         if (c.isFirst()&&ts.numTarifas()>0)
         {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
+        	//Antes de recorrer todos los elementos, comprobamos que hay tarifa por defecto asignada.
+        	//sino asignamos una
+        	if (ts.getNumTarifasDefecto()==0)
+				ts.getTarifas().get(0).setDefecto(true);
         	do{
         		Drawable rIcono = null;
         		String telefono=c.getString(iTelefono);
@@ -619,7 +625,7 @@ public class gastoMovil extends ListActivity {
         //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
         
         LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
-        //linear.removeAllViewsInLayout();
+        linear.removeAllViewsInLayout();
         
         TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
   	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes);
@@ -649,7 +655,7 @@ public class gastoMovil extends ListActivity {
 	  	txtTarifas.setTextSize(15);
 	  	txtTarifas.setTextColor(0xff000000);
 	  	txtTarifas.setTypeface(Typeface.MONOSPACE);
-	  	linear.addView(txtTarifas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT,2));
+	  	linear.addView(txtTarifas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 	  	
     	String datos="";
     	int numLineas=0;
@@ -678,14 +684,32 @@ public class gastoMovil extends ListActivity {
     	}
     	txtTarifas.setLines(numLineas);
     	txtTarifas.setText(datos);
-       
+    	
+  	  	//Separador
+  	  	ImageView separador2 = new ImageView(this);
+  	  	separador2.setImageDrawable(getResources().getDrawable(android.R.drawable.divider_horizontal_bright));
+  	  	separador2.setPadding(0, 5, 0, 5);
+  	  	linear.addView(separador2,  new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+	  	
+	  	//Duración media por llamada
+    	TextView txtMediaLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
+    	txtMediaLlamadas.setTextSize(15);
+    	txtMediaLlamadas.setTextColor(0xff000000);
+    	txtMediaLlamadas.setTypeface(Typeface.MONOSPACE);
+	  	linear.addView(txtMediaLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+	  	txtMediaLlamadas.setText(" * Dur. media llamada .. "+FunGlobales.segundosAHoraMinutoSegundo((int) ts.getSegConsumidosMes()/numLlamadas));
+	  	
+	  	//Porcentaje establecimiento de llamada
+    	TextView txtEstablecimiento = new TextView(this,null,android.R.attr.textAppearanceSmall);
+    	txtEstablecimiento.setTextSize(15);
+    	txtEstablecimiento.setTextColor(0xff000000);
+    	txtEstablecimiento.setTypeface(Typeface.MONOSPACE);
+	  	linear.addView(txtEstablecimiento, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
+        txtEstablecimiento.setText(" * % Establec. Llamada .. "+FunGlobales.redondear(totalEstLlamadas,0)+"%");
         
-        if (vp.getEstablecimiento())
-        	txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal()+" ("+FunGlobales.redondear(totalEstLlamadas,0)+"%)");
-        else
-        	txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal());
+        txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal());
 
         //Calculamos el coste de los SMS
         numSMS=getNumSMS_send();
@@ -701,7 +725,8 @@ public class gastoMovil extends ListActivity {
         //listaInvertida=lista;
         for (int a=lista.size()-1;a>=0;a--)
         	listaInvertida.add(lista.get(a));
-        listaInvertida.add(new IconoYTexto(vp.getColor("Transparente"), " "," ", " "," ",0.0));
+        if (lista.size()>0)
+        	listaInvertida.add(new IconoYTexto(vp.getColor("Transparente"), " "," ", " "," ",0.0));
         //dialog.dismiss();
         AdaptadorListaIconos ad = new AdaptadorListaIconos(this,listaInvertida);
         setListAdapter(ad);
