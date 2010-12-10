@@ -697,7 +697,10 @@ public class gastoMovil extends ListActivity {
     	txtMediaLlamadas.setTextColor(0xff000000);
     	txtMediaLlamadas.setTypeface(Typeface.MONOSPACE);
 	  	linear.addView(txtMediaLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-	  	txtMediaLlamadas.setText(" * Dur. media llamada .. "+FunGlobales.segundosAHoraMinutoSegundo((int) ts.getSegConsumidosMes()/numLlamadas));
+	  	if (numLlamadas>0)
+	  		txtMediaLlamadas.setText(getString(R.string.txtDuracionMedia)+FunGlobales.segundosAHoraMinutoSegundo((int) ts.getSegConsumidosMes()/numLlamadas));
+	  	else
+	  		txtMediaLlamadas.setText(getString(R.string.txtDuracionMedia));
 	  	
 	  	//Porcentaje establecimiento de llamada
     	TextView txtEstablecimiento = new TextView(this,null,android.R.attr.textAppearanceSmall);

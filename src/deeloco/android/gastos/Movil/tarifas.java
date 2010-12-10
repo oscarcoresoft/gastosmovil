@@ -544,9 +544,9 @@ public class tarifas implements Serializable{
 		
 			t=this.tarifas.get(tt);
 			
-			//recorremos todas las franjas
+			//recorremos todas las franjas que esten definidas como por defecto
 			
-	        for (int i=0;i<t.getFranjas().size();i++)
+	        for (int i=0;(i<t.getFranjas().size()&&t.getDefecto());i++)
 	        {
 	        	int fila=0;
 	        	List<String> diasSemana=new ArrayList <String>();

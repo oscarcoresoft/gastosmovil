@@ -174,7 +174,9 @@
     <string name="mensaje_no_tarifas_defecto">No hay tarifas por defecto definidas.</string>
     <string name="acercade_donacion_cab">Donaciones.</string>
     <string name="acercade_donacion_texto">A través de PayPal se pueden hacer donaciones y contribuir al desarrollo y mantenimiento de esta aplicación. Hacerlo a través de la web de la aplicación. </string>
-    <string name="mn_donacion">Donación</string>    
+    <string name="mn_donacion">Donación</string>
+    <string name="txtDuracionMedia">  * Dur. media llamada .. </string>
+
 </resources> 
 
 
