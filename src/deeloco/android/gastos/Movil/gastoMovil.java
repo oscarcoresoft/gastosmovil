@@ -40,9 +40,11 @@ import deeloco.android.gastos.Movil.PreferencesTarifas;
 import deeloco.android.gastos.Movil.tarifas;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -429,7 +431,22 @@ public class gastoMovil extends ListActivity {
         	//Antes de recorrer todos los elementos, comprobamos que hay tarifa por defecto asignada.
         	//sino asignamos una
         	if (ts.getNumTarifasDefecto()==0)
-				ts.getTarifas().get(0).setDefecto(true);
+        	{
+        		//Vamos hacer un dialogo para que el usuario pueda elegir la tarifa por defecto que prefiera
+    			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    			builder.setTitle("Selecciona Tarifa por defecto");
+    			final String[] opciones= ts.getNombresTarifas();
+    			builder.setItems(opciones, new DialogInterface.OnClickListener() {
+    			    public void onClick(DialogInterface dialog, int item) {
+    			    	
+    			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+    			    	ts.getTarifas().get(item).setDefecto(true);
+    			    	listado(vp.getPreferenciasMes());
+    			    }
+    			});
+    			AlertDialog alert = builder.create();
+    			alert.show();
+        	}
         	do{
         		Drawable rIcono = null;
         		String telefono=c.getString(iTelefono);
@@ -627,8 +644,7 @@ public class gastoMovil extends ListActivity {
         LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
         linear.removeAllViewsInLayout();
         
-        TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
-  	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes);
+        
   	  	
   	  	//LLAMADAS
   	  	TextView txtLlamadas = new TextView(this,null,android.R.attr.textAppearanceSmall);
@@ -722,7 +738,12 @@ public class gastoMovil extends ListActivity {
         else
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
-        txtSMS.setText(" Mensajes ("+numSMS+")..."+FunGlobales.redondear(costeSMS,2)+FunGlobales.monedaLocal());
+        txtSMS.setText(" Mensajes ("+numSMS+")..."+FunGlobales.redondear(costeSMS*iva,2)+FunGlobales.monedaLocal());
+        
+        //MOntamos el literal que se va ha presentar en el desplegable
+        TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
+  	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes+" ("+FunGlobales.redondear((costeLlamadas+costeSMS)*iva,2)+FunGlobales.monedaLocal()+")");
+  	  	
 
         //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
         //listaInvertida=lista;
@@ -735,12 +756,12 @@ public class gastoMovil extends ListActivity {
         setListAdapter(ad);
         
         //Controlar si vp.getPreferenciasDefecto es vacio o nulo
-    	if (ts.getNumTarifasDefecto()==0)
+    	/*if (ts.getNumTarifasDefecto()==0)
     	{
     		//No hay tarifa por defecto  o no corresponde a una tarifa definida
     		Toast.makeText(this,R.string.mensaje_tarifa_defecto_no_definida,Toast.LENGTH_LONG).show();
     	}
-
+		*/
         /*Añadir menu contextual */
         
         ListView listallamadas=(ListView) this.findViewById(android.R.id.list);
@@ -827,7 +848,6 @@ public class gastoMovil extends ListActivity {
 		        else
 		        	iva=1.00; //Sin IVA
 			     listado(vp.getPreferenciasMes());
-			     
 			     ts.setTarifaDefecto(vp.getPreferenciasDefecto());
 			     ts.guardarTarifas();
 			}
@@ -875,6 +895,14 @@ public class gastoMovil extends ListActivity {
  	   	c.close();
  	   	return retorno;
     	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		ts.guardarTarifas();
+		
+	}
     
     
     
