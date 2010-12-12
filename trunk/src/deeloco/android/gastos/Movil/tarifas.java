@@ -631,5 +631,18 @@ public class tarifas implements Serializable{
 		return retorno;
 	}
 	
+	
+	
+	public String[] getNombresTarifas()
+	{
+		String [] retorno=new String[this.tarifas.size()];
+		
+		for (int i=0;i<this.tarifas.size();i++)
+		{
+			retorno[i]=this.tarifas.get(i).getNombre();
+		}
+		return retorno;
+	}
+	
 }
 

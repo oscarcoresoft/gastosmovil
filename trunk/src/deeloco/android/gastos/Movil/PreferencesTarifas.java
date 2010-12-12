@@ -81,7 +81,6 @@ public class PreferencesTarifas extends ListActivity{
 		// TODO Auto-generated method stub
 		super.onStart();
 		listaIYT.clear();
-        String tarifaDef=getIntent().getExtras().getString("tarifaDefecto");
         for (int a=0;a<ts.numTarifas();a++){
         	
         	if (ts.getTarifas().get(a).getDefecto())
@@ -96,6 +95,10 @@ public class PreferencesTarifas extends ListActivity{
         
         adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
         setListAdapter(ad);
+        
+      //Comprobar que las tarifas que se aplican por defecto son compatibles
+		if(!ts.compatibilidadHorarioTarifasDefecto())
+			Toast.makeText(getBaseContext(),getText(R.string.mensaje_tarifas_defecto_incompatibles),Toast.LENGTH_LONG).show();
 	}
 
 	public boolean onOptionsItemSelected (MenuItem item) {
@@ -273,11 +276,12 @@ public class PreferencesTarifas extends ListActivity{
 				}
 			}
 			//Comprobar que las tarifas que se aplican por defecto son compatibles
-			if (ts.getNumTarifasDefecto()==0)
+		/*	if (ts.getNumTarifasDefecto()==0)
 				Toast.makeText(getBaseContext(),getText(R.string.mensaje_no_tarifas_defecto),Toast.LENGTH_LONG).show();
 			else
 				if(!ts.compatibilidadHorarioTarifasDefecto())
 					Toast.makeText(getBaseContext(),getText(R.string.mensaje_tarifas_defecto_incompatibles),Toast.LENGTH_LONG).show();
+		*/
 			break;
 
 		default:
