@@ -450,7 +450,6 @@ public class gastoMovil extends ListActivity {
         	do{
         		Drawable rIcono = null;
         		String telefono=c.getString(iTelefono);
-        		//String telefono="xxxyyyyyy";
         		long fecha=c.getLong(iFecha);
         		int duracion=c.getInt(iDuracion)+modifDuracion; //le añadimos la modificación de la duración de la llamada;
         		String sDuracion;
