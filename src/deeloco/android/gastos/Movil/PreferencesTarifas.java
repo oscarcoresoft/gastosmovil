@@ -85,7 +85,7 @@ public class PreferencesTarifas extends ListActivity{
         	
         	if (ts.getTarifas().get(a).getDefecto())
         	{
-        		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more), ts.getTarifas().get(a).getNombre(),"Tarifa aplicada por defecto"));
+        		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more), ts.getTarifas().get(a).getNombre(),getString(R.string.tarifaDefecto)));
         	}
         	else
         	{
@@ -190,7 +190,7 @@ public class PreferencesTarifas extends ListActivity{
         	if (fRecuperacion.exists() && fRecuperacion.canRead())
         	{
             	AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-            	builder2.setMessage("Se perderá la configuración actual./n¿Quieres continuar?")
+            	builder2.setMessage("Se perderá la configuración actual.¿Quieres continuar?")
             	       .setCancelable(false)
             	       .setPositiveButton("Si", new DialogInterface.OnClickListener() {
             	           public void onClick(DialogInterface dialog, int id) {
