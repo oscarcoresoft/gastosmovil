@@ -162,8 +162,8 @@
     <string name="pliego_descargo">Los resultados mostrados en esta factura no tienen valor legal y deben se usado solo a modo orientativo.</string>
     <string name="simulacion_factura_activity">Simulación de factura.</string>
     <string name="mn_factura">Simulación de Factura</string>
-    <string name="mn_compartir">Compartir Configuración</string>
-    <string name="mn_recuperar">Recuperar configuración compartida</string>
+    <string name="mn_compartir">Enviar Tarifas</string>
+    <string name="mn_recuperar">Cargar Tarifas recibidas</string>
     <string name="coste_llamada">Coste de las llamadas: </string>
     <string name="aj_presentarIVA">Impuesto</string>
     <string name="aj_presentarIVA_des">Mostrar el coste de las llamadas con impuestos incluidos.</string>

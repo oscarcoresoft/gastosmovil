@@ -155,7 +155,6 @@ public class gastoMovil extends ListActivity {
 	        /* Create a new ContentHandler and apply it to the XML-Reader*/
 	        TarifasParserXML tarifasXML = new TarifasParserXML();
 	        tarifasXML.setTarifas(ts);
-	        tarifasXML.setIva(iva);
 	        xr.setContentHandler(tarifasXML);
 	        xr.parse(new InputSource (new FileReader(path)));
 	        /* Parsing has finished. */
