@@ -46,7 +46,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -55,27 +54,21 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.Contacts;
 import android.text.format.DateFormat;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ScrollView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.LinearLayout.LayoutParams;
 
-import java.util.Currency;
-import java.util.Locale;
 
 public class gastoMovil extends ListActivity {
     /** Called when the activity is first created. */
@@ -90,7 +83,7 @@ public class gastoMovil extends ListActivity {
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
     private static final int RETURN_PREFERENCES_TARIFAS=2;
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
-    private static final String TAG = "GastosMóvil";
+    //private static final String TAG = "GastosMóvil";
     private double iva=1.18;
     String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
     int totalRegistros=0;

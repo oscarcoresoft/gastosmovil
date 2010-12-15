@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gastos Móvil</string>
-    <string name="lista_vacia">Empty list</string>
     <string name="cabDatos">Data summary</string>
     <string name="cabRegistros">Calls register</string>
     <string name="separador">    </string>
 
-    <string name="aj_tarifaNormal">Price list</string>
-    <string name="aj_tarifaNormal_des"> Different prices</string>
     <string name="aj_tarifaLlamadas">Calls Price list</string>
     <string name="aj_tarifaLlamadas_des">Only price: per minute, in cents and taxes not included.</string>
     <string name="aj_tarifaSMS">Text  messages prices</string>
@@ -93,4 +90,98 @@
 	<string name="estadisticas_activity">Gastos Móvil</string>
 	
 	<string name="mensaje_existeoerror">The number is already associated with any fees or clerical error in the SD memory.</string>
+
+	<string name="mn_tarifas">Configurar Tarifas</string>
+	<string name="aj_tarifa_defecto">Tarifa por defecto (en desuso)</string>
+	<string name="aj_tarifa_defecto_des">Tarifa, con franja horaria, que se aplica cuando un numero de tlf. no está esociado a una tarifa (en desuso).</string>
+	
+	<string name="mn_nueva_tarifa">New Price</string>
+	<string name="mn_nueva_tarifa_predefinida">New Predetermined Price</string>
+	<string name="mn_eliminar_tarifa">Deleting Price</string>
+	<string name="mn_nueva_franja">New Band</string>
+	<string name="mn_eliminar_franja">Deleting Band</string>
+	<string name="tituloInputBox">Introduce text</string>
+	<string name="cabTarifa">Price</string>
+	<string name="cabTarifas">Prices</string>
+	<string name="cabFranja">Band... </string>
+	<string name="lista_vacia">There is no data in the call register or there are no defined Prices -> Menu + Price with band.</string>
+	<string name="tarifas_vacias">There are no defined prices. To define a new Price -> Menu + new price o Menu + New Predetermined Price</string>
+	
+	<string name="aj_franja_nombre_des">Identifying band name.</string>
+	<string name="aj_franja_dias">Select days of the week</string>
+	<string name="aj_franja_coste_des">Call Price when it doesn’t exceed the time limit or when there is no time limit. In cents and taxes not included.</string>
+	<string name="aj_franja_establecimiento_des">Connection fee when the time limit is exceeded or when there is no time limit. In cents and taxes not included.</string>
+	<string name="aj_franja_coste_limite_des">Call Price when it exceeds the time limit. In cents and taxes not included.</string>
+	<string name="aj_franja_establecimiento_limite_des">Connection fee when the time limit is exceeded. In cents and taxes not included.</string>
+	<string name="aj_tarifa_nombre_des">Identifying  Price  name.</string>
+	<string name="aj_tarifa_gastoMinimo_des">Minimal monthly expense (expressed in euros, taxes not included).</string>
+	<string name="aj_tarifa_limite_des">Minutes limit per month, expressed in minutes.</string>
+	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma. Tambien es valido números de 2, 3, 4 ... dígitos y se interpretará como "Numeros que empiezan por ...". Ejemplo: 959, será números que empiecen por 959.</string>
+	<string name="aj_SMSGratis">SMS free</string>
+	<string name="aj_SMSGratis_des">free SMS per month.</string>
+	<string name="conflicto_hora">Check the band timetables. There are double hours or without ascribing.</string>
+	<string name="acercade_ayuda_cab">Video handbooks</string>
+	<string name="acercade_ayuda">Link with youtube videos which explain how to adjust the application parameters and examples from real prices and how to configure in the application.</string>
+	<string name="acercade_youtube1">Configuration - http://www.youtube.com/watch?v=x3T1JDW86JY</string>
+	<string name="acercade_webGastoMovil">http://gastosmovil.simahuelva.es/</string>
+	<string name="aj_tarifaActivada">Activating only price</string>
+    <string name="aj_tarifaActivada_des">Activating or deactivating only Price.</string>
+    <string name="aj_tarifaNormal">Only price.</string>
+    <string name="aj_tarifaNormal_des">Only Price with no time band. Same Price at any time and company.</string>
+    <string name="aj_impuestos">Taxes.</string>
+    
+    
+    
+    <string name="aj_impuestos_des">Impuestos aplicable a las llamadas telefónicas (en %).</string>
+    
+    <string name="Gastado">Gastado </string>
+    <string name="Hablado">Hablado </string>
+    <string name="Limite">Limite </string>
+    <string name="Gasto_minimo">Mín.</string>
+    <string name="Sin_gasto_minimo">Sin gasto mínimo</string>
+    
+    <string name="pref_tarifa_nombre">Nombre</string>
+    <string name="pref_tarifa_minimo">Gasto Mínimo Mensual</string>
+    <string name="pref_tarifa_limite">Límite del mes (min.)</string>
+    
+    <string name="pref_tarifa_color">Color</string>
+    <string name="pref_tarifa_numeros">"Numeros Asociados a la tarifa"</string>
+    <string name="pref_tarifa_franja">Franja Horaria</string>
+    
+    
+    <string name="aj_nombreAgenda">Nombre de contacto</string>
+    <string name="aj_nombreAgenda_des">Mostrar en el listado el nombre de contacto.</string>
+    
+    
+    <string name="pref_tarifa_limite_dia">Límite de un día (min.)</string>
+    <string name="aj_tarifa_limite_dia_des">Límite de llamadas, al día y en minutos.</string>
+    <string name="aj_descuento">Descuento</string>
+    <string name="aj_descuento_des">Porcentaje de descuento que la operadora nos aplica a la factura.</string>
+    <string name="aj_decimales">Decimales en las llamadas</string>
+    <string name="aj_decimales_des">Números de decimales que deben aparecer al calcular el coste de las llamadas (entre 2 y 4 decimales).</string>
+    <string name="aj_cuota">Cuota Mensual</string>
+    <string name="aj_cuota_des">Cuota mensual de la línea teléfonica (sin iva).</string>
+    <string name="aj_tarifaPlana">Tarifa Plana Internet</string>
+    <string name="aj_tarifaPlana_des">Coste de la tarifa plana de internet (sin iva).</string>
+    <string name="pliego_descargo">Los resultados mostrados en esta factura no tienen valor legal y deben se usado solo a modo orientativo.</string>
+    <string name="simulacion_factura_activity">Simulación de factura.</string>
+    <string name="mn_factura">Simulación de Factura</string>
+    <string name="mn_compartir">Enviar Tarifas</string>
+    <string name="mn_recuperar">Cargar Tarifas recibidas</string>
+    <string name="coste_llamada">Coste de las llamadas: </string>
+    <string name="aj_presentarIVA">Impuesto</string>
+    <string name="aj_presentarIVA_des">Mostrar el coste de las llamadas con impuestos incluidos.</string>
+    <string name="pref_tarifa_defecto">Tarifa por defecto</string>
+    <string name="mensaje_tarifa_defecto_no_definida">No hay ninguna tarifa definida como "Por defecto".</string>
+    <string name="mensaje_noexiste_tarifa_compartida">No hay tarifa compartida en \\sdcard\download.</string>
+    <string name="mensaje_tarifas_defecto_incompatibles">Las tarifas que se han definido como por defecto, tienes horarios incompatibles.</string>
+    <string name="mensaje_no_tarifas_defecto">No hay tarifas por defecto definidas.</string>
+    <string name="acercade_donacion_cab">Donaciones.</string>
+    <string name="acercade_donacion_texto">A través de PayPal se pueden hacer donaciones y contribuir al desarrollo y mantenimiento de esta aplicación. Hacerlo a través de la web de la aplicación. </string>
+    <string name="mn_donacion">Donación</string>
+    <string name="txtDuracionMedia">  * Dur. media llamada .. </string>
+    <string name="tarifaDefecto">Tarifa aplicada por defecto</string>
+	
+	
+	
 </resources> 

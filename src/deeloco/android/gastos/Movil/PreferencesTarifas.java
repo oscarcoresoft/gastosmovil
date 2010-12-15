@@ -2,10 +2,8 @@ package deeloco.android.gastos.Movil;
 
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,22 +201,21 @@ public class PreferencesTarifas extends ListActivity{
 
             	        	 //Existe fichero de tarifa compartida. Copiarla a /gastosmovil
             	        		try{
-            	                	FileReader fReader=new FileReader(fRecuperacion);
+            	                	/*FileReader fReader=new FileReader(fRecuperacion);
             	                	FileWriter fWriter= new FileWriter(path);
             	                	char[] xml=new char[(int)fRecuperacion.length()];
             	                	fReader.read(xml,0,(int)fRecuperacion.length());
             	                	fReader.close();
             	                    fWriter.write(xml);
             	                    fWriter.flush();
-            	                    fWriter.close();
-            	                    
-            	                    
+            	                    fWriter.close();*/
             	                    
             	                    /* Cargamos los valores de las tarifas */
             	                    try
             	                    {
             	                    	//Comprobamos si el fichero esta creado. Si es que no, se crea.
-            	                    	File f=new File(path);
+            	                    	File f=fRecuperacion;
+            	                    	
             	                    	if (!f.exists())
             	                    	{
             	                    		//El fichero no existe, hay que crearlo
@@ -246,6 +243,7 @@ public class PreferencesTarifas extends ListActivity{
             	            	        xr.setContentHandler(tarifasXML);
             	            	        xr.parse(new InputSource (new FileReader(path)));
             	            	        /* Parsing has finished. */
+            	            	        Log.d(TAG,"NOmbre tarifa importada->"+ts.getTarifas().get(0).getNombre());
             	            	        Intent resultIntent=new Intent();
             	    			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
             	    			    	setResult(Activity.RESULT_OK, resultIntent);

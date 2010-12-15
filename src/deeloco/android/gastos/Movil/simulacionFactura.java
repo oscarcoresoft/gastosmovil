@@ -1,13 +1,9 @@
 package deeloco.android.gastos.Movil;
 
-import java.nio.channels.GatheringByteChannel;
 
-import android.R.integer;
 import android.app.Activity;
-import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.LinearLayout;

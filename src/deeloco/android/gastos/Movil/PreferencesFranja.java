@@ -1,7 +1,6 @@
 package deeloco.android.gastos.Movil;
 
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +25,8 @@ public class PreferencesFranja extends ListActivity{
 	
 	private static final int ELIMINAR_FRANJA = Menu.FIRST;
 	private static final String FRANJA_RETORNO = "franja_retorno";
-	private static final String TAG = "PreferencesFranja";
-	private static final int RETURN_PREFERENCES_FRANJA=1;
+	//private static final String TAG = "PreferencesFranja";
+	//private static final int RETURN_PREFERENCES_FRANJA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
 	static final int TIME_DIALOG_HORA_FINAL = 1;
 	private Franja f;

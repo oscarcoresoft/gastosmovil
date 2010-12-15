@@ -3,21 +3,14 @@ package deeloco.android.gastos.Movil;
 import java.io.FileWriter;
 import java.io.Serializable;
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Date;
-import java.util.SimpleTimeZone;
-
-import android.widget.Toast;
-
 
 import android.content.Context;
 import android.util.Log;
-import android.app.Activity;
 
 
 public class tarifas implements Serializable{
@@ -28,12 +21,6 @@ public class tarifas implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private static final String TAG = "clase tarifas";
 	private static String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
-	private static final int COSTE=0;
-	private static final int ESTABLECIMIENTO=1;
-	private static final int GASTOMINIMO=2;
-	private static final int LIMITE=3;
-	private static final int COSTE_FUERA_LIMITE=4;
-	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;;
 	
 	/**
 	 * Conjunto de franjas horarias definidas por el usuario
@@ -190,16 +177,6 @@ public class tarifas implements Serializable{
 	 * @param nombre
 	 * @return
 	 */
-	private int getIndice(String nombre){
-        for (int i=0;i<this.tarifas.size();i++)
-        {
-        	if (nombre.equals(this.tarifas.get(i).getNombre()))
-        	{
-        		return i;
-        	}
-        }
-        return -1;
-	}
 	
 	private int getIndice(int identificador){
         for (int i=0;i<this.tarifas.size();i++)

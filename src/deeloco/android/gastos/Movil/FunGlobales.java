@@ -2,13 +2,9 @@ package deeloco.android.gastos.Movil;
 
 import java.util.Calendar;
 import java.util.Currency;
-import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.Contacts;
 import android.util.Log;
 
 public class FunGlobales extends Activity{

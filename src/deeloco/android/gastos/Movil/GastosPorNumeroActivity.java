@@ -10,7 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Contacts;
-import android.util.Log;
 import android.widget.ListView;
 
 public class GastosPorNumeroActivity extends Activity {
