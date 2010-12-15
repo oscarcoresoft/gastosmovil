@@ -1,7 +1,6 @@
 package deeloco.android.gastos.Movil;
 
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +12,12 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.EditText;
 import android.app.TimePickerDialog;
 
 
@@ -31,7 +27,7 @@ public class PreferencesTarifa extends ListActivity{
 	private static final int ELIMINAR_TARIFA = Menu.FIRST+1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String FRANJA_RETORNO = "franja_retorno";
-	private static final String TAG = "PreferencesTarifa";
+	//private static final String TAG = "PreferencesTarifa";
 	private static final int RETURN_PREFERENCES_FRANJA=1;
 	static final int TIME_DIALOG_HORA_INICIO = 0;
 	private tarifa t;

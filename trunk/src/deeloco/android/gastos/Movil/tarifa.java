@@ -4,12 +4,9 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.*;
-
-import android.util.Log;
 
 
 /**
@@ -20,14 +17,8 @@ import android.util.Log;
 
 public class tarifa implements Serializable{
 
-	
-	private static final String TAG = "clase tarifa";
-	private static final int COSTE=0;
-	private static final int ESTABLECIMIENTO=1;
 	private static final int GASTOMINIMO=2;
 	private static final int LIMITE=3;
-	private static final int COSTE_FUERA_LIMITE=4;
-	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
 	
 	/**
 	 * Atributos relacionados con el total de segundos consumidos para una tarifa

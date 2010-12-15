@@ -26,7 +26,6 @@ import deeloco.android.gastos.Movil.R;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -37,7 +36,7 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
 	//private PreferenceScreen psRaiz=getPreferenceScreen();
 	
 	ValoresPreferencias vp=new ValoresPreferencias(this);
-	private PreferenceScreen ps;
+	//private PreferenceScreen ps;
 
 	
 	

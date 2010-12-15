@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 public class TextBox extends AlertDialog implements OnClickListener{
 
-	private static final String TAG = "TextBox";
     private static final String BUNDLE_TAGS = "tags";
     protected static final int DIALOG_ID_NO_FILE_MANAGER_AVAILABLE = 2;
 
