@@ -12,7 +12,6 @@ String datosElemento;
 Franja f;
 tarifa t;
 tarifas ts;
-double iva=1.18;
 
 public tarifas getTarifas(){
 	return ts;
@@ -21,9 +20,6 @@ public void setTarifas(tarifas ts){
 	this.ts=ts;
 }
 
-public void setIva(double iva){
-	this.iva=iva;
-}
 /**
  * Evento que se lanza al inicio del documento XML
  */

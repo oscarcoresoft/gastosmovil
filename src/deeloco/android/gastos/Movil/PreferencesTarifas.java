@@ -9,6 +9,12 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+
 import deeloco.android.gastos.Movil.TextBox.TextBoxListener;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -190,7 +196,7 @@ public class PreferencesTarifas extends ListActivity{
         	if (fRecuperacion.exists() && fRecuperacion.canRead())
         	{
             	AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-            	builder2.setMessage("Se perderá la configuración actual.¿Quieres continuar?")
+            	builder2.setMessage("Se perderá la configuración actual. ¿Quieres continuar?")
             	       .setCancelable(false)
             	       .setPositiveButton("Si", new DialogInterface.OnClickListener() {
             	           public void onClick(DialogInterface dialog, int id) {
@@ -205,13 +211,63 @@ public class PreferencesTarifas extends ListActivity{
             	                    fWriter.write(xml);
             	                    fWriter.flush();
             	                    fWriter.close();
+            	                    
+            	                    
+            	                    
+            	                    /* Cargamos los valores de las tarifas */
+            	                    try
+            	                    {
+            	                    	//Comprobamos si el fichero esta creado. Si es que no, se crea.
+            	                    	File f=new File(path);
+            	                    	if (!f.exists())
+            	                    	{
+            	                    		//El fichero no existe, hay que crearlo
+            	                    		try{
+            	                    			boolean dir = new File("/sdcard/gastosmovil").mkdir(); //Creamos el directorio
+            	                    			if (dir) //Si se ha creado correctamente el directorio
+            	                    			{
+            	                    				f.createNewFile(); //Creamos el fichero 
+            	                    			}
+            	                    		}
+            	                    		catch (Exception e){ //Error al crear el directorio o el fichero
+            	                    			e.printStackTrace();
+            	                    		}
+            	                    	}
+            	                    	
+            	            	        SAXParserFactory spf = SAXParserFactory.newInstance();
+            	            	        SAXParser sp = spf.newSAXParser();
+            	            	        /* Get the XMLReader of the SAXParser we created. */
+            	            	        XMLReader xr = sp.getXMLReader();
+            	            	        /* Create a new ContentHandler and apply it to the XML-Reader*/
+            	            	        TarifasParserXML tarifasXML = new TarifasParserXML();
+            	            	        ts=null;
+            	            	        ts=new tarifas();
+            	            	        tarifasXML.setTarifas(ts);
+            	            	        xr.setContentHandler(tarifasXML);
+            	            	        xr.parse(new InputSource (new FileReader(path)));
+            	            	        /* Parsing has finished. */
+            	            	        Intent resultIntent=new Intent();
+            	    			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
+            	    			    	setResult(Activity.RESULT_OK, resultIntent);
+            	            	        onStart();
+            	            	        
+            	            	        
+            	                    }
+            	                    catch (Exception e)
+            	                    {
+            	                    	//Si el error se produce porque no existe el fichero xml, hay que crearlo.
+            	                    	//Tambien hay que crear el directorio
+            	                    	
+            	                    	System.out.println("ERROR:"+e.toString()+" ("+e.hashCode()+")");
+            	                    }
+
+            	                    
             	                 }
             	                catch(Exception e)
             	                {
             	                	Log.d(TAG,"No se puede copiar el fichero.");
-            	                 }
-            	        	   
-            	                
+            	                }
+ 
             	           }
             	       })
             	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
