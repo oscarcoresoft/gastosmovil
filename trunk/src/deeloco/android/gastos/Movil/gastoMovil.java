@@ -186,7 +186,6 @@ public class gastoMovil extends ListActivity {
         	//listado(vp.getPreferenciasMes());
            	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifas.class );
         	extras = new Bundle();
-        	extras.putString("tarifaDefecto", vp.getPreferenciasDefecto());
         	extras.putSerializable("tarifas", ts);
         	settingsActivity2.putExtras(extras);
         	//startActivity(settingsActivity2);
@@ -409,6 +408,8 @@ public class gastoMovil extends ListActivity {
         numLlamadas=0;
         double totalEstLlamadas=0;
         String fechaControl="01/01/1000";
+		tarifa t=null;
+		Franja f=null;
         //boolean sw_limite=false;
         
         //Si hay algún elemento
@@ -450,9 +451,8 @@ public class gastoMovil extends ListActivity {
         		String fechaHoy=fechaHora.substring(0, 10).trim();
         		
         		//t=tarifa a la que pertenece el número
-        		tarifa t=ts.getTarifa(telefono,fechaHora);
+        		t=ts.getTarifa(telefono,fechaHora);
         		//Si t=null no hay tarifa para el teléfono,fechayhora
-        		Franja f=null;
         		if (t!=null)
         			f=t.getFranja(fechaHora);
         		
@@ -470,7 +470,7 @@ public class gastoMovil extends ListActivity {
 	        			//Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
 	        			//lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
 	        			//inicio MODIFICACIÓN POR CONFIRMAR
-	        			if (t.getSegConsumidosDia()>1) //Si es igual a 1 seg. que no salga en el resumen del día
+	        			if (t.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día
 	        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", (t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",fechaControl,0.0));
 	        			//final MODIFICACIÓN POR CONFIRMAR
 	        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
@@ -589,6 +589,9 @@ public class gastoMovil extends ListActivity {
         			
         		
         	} while (c.moveToNext());
+        	//Incluimos el resumen de tiempos del último día
+        	if (t.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día
+				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", (t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",fechaControl,0.0));
         c.close();
         }
         
@@ -844,7 +847,6 @@ public class gastoMovil extends ListActivity {
 		        else
 		        	iva=1.00; //Sin IVA
 			     listado(vp.getPreferenciasMes());
-			     ts.setTarifaDefecto(vp.getPreferenciasDefecto());
 			     ts.guardarTarifas();
 			}
     		break;

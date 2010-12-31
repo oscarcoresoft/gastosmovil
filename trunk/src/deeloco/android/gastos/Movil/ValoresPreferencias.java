@@ -188,10 +188,26 @@ public class ValoresPreferencias {
     }
     
     
+    
+    /**
+     * Retorna si hay que mostrar los nombres de contacto conrrespondiente a cada número
+     * @return
+     */
     public boolean getNombreAgenda(){
-    	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("chbox_nombreAgenda", false);
+    	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("chbox_nombreAgenda", true);
     	return valor;
     }
+    
+    /**
+     * Retorna si hay que mostrar el resumen del total de tiempo hablado por cada día
+     * @return
+     */
+    public boolean getResumenDia(){
+    	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("chbox_resumenDia", true);
+    	return valor;
+    }
+    
+    
     
     /**
      * Retorna el valor de Duración, un parámetro de ajuste.
@@ -210,27 +226,6 @@ public class ValoresPreferencias {
     		duracion=0; //Valor en caso de una excepción.
     	}
     	return duracion; 
-    }
-    
-    
-    public boolean getPrefEsp1Activada(){
-    	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("cboxTarifaEsp1", true);
-    	return valor;
-    }
-    
-    public boolean getPrefEsp2Activada(){
-    	boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("cboxTarifaEsp2", true);
-    	return valor;
-    }
-    
-    public String getPrefEsp1Nombre(){
-    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtTarifaEsp1Nombre", "0");
-    	return valor; 
-    }
-    
-    public String getPrefEsp2Nombre(){
-    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtTarifaEsp2Nombre", "0");
-    	return valor; 
     }
     
     public Drawable getPreferenciasColor(int listaNumero){
@@ -294,7 +289,8 @@ public class ValoresPreferencias {
      * @return
      */
     public String getPreferenciasDefecto(){
-    	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("defecto", "");
+    	//String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("defecto", "");
+    	String valor="";
     	return valor;
     }
     

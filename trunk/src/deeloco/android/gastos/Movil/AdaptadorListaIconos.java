@@ -87,6 +87,10 @@ public class AdaptadorListaIconos extends BaseAdapter {
         LinearLayout datos = new LinearLayout(mContext);
         datos.setOrientation(LinearLayout.VERTICAL);
 
+        
+		vista.setBackgroundColor(Color.parseColor("#222222"));
+		datos.setBackgroundColor(Color.parseColor("#222222"));
+        
 		// Generamos el ImageView
         ImageView img = new ImageView(mContext);
         // Le establecemos la imagen a mostrar

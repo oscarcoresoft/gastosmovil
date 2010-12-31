@@ -59,24 +59,6 @@ public class PreferencesTarifas extends ListActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarifas);
         ts = (tarifas) getIntent().getExtras().get("tarifas");
-        /*String tarifaDef=getIntent().getExtras().getString("tarifaDefecto");
-        for (int a=0;a<ts.numTarifas();a++){
-        	
-        	if (ts.getTarifas().get(a).getNombre().compareTo(tarifaDef)==0)
-        	{
-        		
-        		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more), ts.getTarifas().get(a).getNombre(),"Defecto"));
-        		Log.d(TAG,"Defecto = "+listaIYT.get(a).subtitulo);
-        	}
-        	else
-        	{
-        		listaIYT.add(new IconoYTexto2(getResources().getDrawable(android.R.drawable.ic_menu_more), ts.getTarifas().get(a).getNombre(), "LLASKJ "));
-        		Log.d(TAG,"NO Defecto = "+listaIYT.get(a).subtitulo);
-        	}
-        }
-        
-        adaptadorTarifas ad = new adaptadorTarifas(this,listaIYT);
-        setListAdapter(ad);*/
 
     }
     
