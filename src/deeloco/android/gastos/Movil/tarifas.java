@@ -388,7 +388,7 @@ public class tarifas implements Serializable{
 	public boolean guardarTarifas(){
 		
 		ArrayList <Franja> franjas = new ArrayList <Franja>();
-		String xmlFinal="<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"; 
+		String xmlFinal="<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"; 
 		xmlFinal+="<tarifas>";
 		for (int t=0;t<this.tarifas.size();t++)
 		{
