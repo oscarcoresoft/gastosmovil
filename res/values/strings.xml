@@ -177,6 +177,9 @@
     <string name="mn_donacion">Donación</string>
     <string name="txtDuracionMedia">  * Dur. media llamada .. </string>
     <string name="tarifaDefecto">Tarifa aplicada por defecto</string>
+    
+	<string name="aj_resumenDia">Resumen Día</string>
+    <string name="aj_resumenDia_des">Mostrar total de tiempo hablado, por días.</string>    
 
 </resources> 
 

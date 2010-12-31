@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory android:title="Tarifas">	
-		<ListPreference
-           android:title="@string/aj_tarifa_defecto"
-           android:summary="@string/aj_tarifa_defecto_des"
-           android:key="defecto"/>
-	</PreferenceCategory>
 	<PreferenceCategory android:title="SMS">	
        <EditTextPreference
 			android:name="@string/aj_tarifaSMS"
@@ -22,7 +16,7 @@
 			android:title="@string/aj_SMSGratis"
 			android:key="txtSMSGratis" />	
 	</PreferenceCategory>
-	<PreferenceCategory android:title="Otros ajustes">
+	<PreferenceCategory android:title="Presentación de datos">
 		<ListPreference
             android:title="@string/aj_mes"
             android:summary="@string/aj_mes_des"
@@ -51,6 +45,12 @@
             android:title="@string/aj_nombreAgenda"
             android:summary="@string/aj_nombreAgenda_des" 
             android:defaultValue="true"/>
+            
+         <CheckBoxPreference
+            android:key="chbox_resumenDia"
+            android:title="@string/aj_resumenDia"
+            android:summary="@string/aj_resumenDia_des" 
+            android:defaultValue="true"/>    
            
         <CheckBoxPreference
             android:key="chbox_presentarIVA"

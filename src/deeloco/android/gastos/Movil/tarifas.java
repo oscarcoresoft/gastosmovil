@@ -84,7 +84,7 @@ public class tarifas implements Serializable{
 			return null;
 		
 		int idTarifa=indiceTarifa(numero);
-		Log.d(TAG,"indiceTarifa("+numero+")="+idTarifa);
+		//Log.d(TAG,"indiceTarifa("+numero+")="+idTarifa);
 		if (idTarifa==0)
 		{
 			//El numero no pertenece a ninguna tarifa. Aplicar la tarifa por defecto
@@ -94,16 +94,16 @@ public class tarifas implements Serializable{
 				if (this.tarifas.get(tt).getDefecto())
 				{
 					//Es una tarifa por defecto
-					Log.d(TAG,this.tarifas.get(tt).getNombre()+" .. es una tarifa por defecto");
+					//Log.d(TAG,this.tarifas.get(tt).getNombre()+" .. es una tarifa por defecto");
 					Franja f=this.tarifas.get(tt).getFranja(fechayhora);
 					if (f!=null)
 					{
-						Log.d(TAG,"Franja distinto de NULL");
+						//Log.d(TAG,"Franja distinto de NULL");
 						return this.tarifas.get(tt);
 					}
 					else
 					{
-						Log.d(TAG,"Franja NULL");
+						//Log.d(TAG,"Franja NULL");
 					}
 				}
 			}
@@ -341,8 +341,8 @@ public class tarifas implements Serializable{
 	void modificarTarifa(int id,tarifa t){
 		Log.i(TAG,"Modificar Tarifa");
 		tarifa tactual=this.getTarifa(id);
-		Log.i(TAG,"Defecto Actual-> "+tactual.getDefecto());
-		Log.i(TAG,"Defecto modificar-> "+t.getDefecto());
+		//Log.i(TAG,"Defecto Actual-> "+tactual.getDefecto());
+		//Log.i(TAG,"Defecto modificar-> "+t.getDefecto());
 		//Log.i(TAG,"Nombre de la tarifa que se va a añadir -> "+t.getNombre());
 		tactual.setNombre(t.getNombre());
 		tactual.setMinimo(t.getMinimo());
