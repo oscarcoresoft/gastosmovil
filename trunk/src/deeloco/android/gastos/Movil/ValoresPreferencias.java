@@ -120,8 +120,8 @@ public class ValoresPreferencias {
     		tarifa=9; //Valor en caso de una excepción (null, puntuación, ...)    		
     	}
     	tarifa=tarifa/100; //Ya lo tengo pasado a euros
-    	if (getcosteConIVA())
-    		tarifa=tarifa*iva; //Con IVA
+    	//if (getcosteConIVA())
+    	//	tarifa=tarifa*iva; //Con IVA
     	return  tarifa;
     }
     
@@ -304,10 +304,18 @@ public class ValoresPreferencias {
      */
     public double getPreferenciasImpuestos(){
     	String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtImpuestos", "18");
-    	double retorno=Double.parseDouble(valor);
+  		double retorno=18.0;
+    	try
+    	{
+    		retorno=Double.parseDouble(valor);
+    	}
+
+  	    catch (Exception e) {
+  		// TODO: handle exception
+  		Log.d(TAG,"getPreferenciasImpuestos: Error al parsear un double");
+  	    }
     	retorno=(retorno/100)+1;    	
     	return retorno;
-    	//return 1.36;
     }
     
     /**

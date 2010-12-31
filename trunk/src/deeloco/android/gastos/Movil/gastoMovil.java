@@ -468,6 +468,11 @@ public class gastoMovil extends ListActivity {
 	        		{
 	        			//No estamos en el mismo día
 	        			//Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
+	        			//lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
+	        			//inicio MODIFICACIÓN POR CONFIRMAR
+	        			if (t.getSegConsumidosDia()>1) //Si es igual a 1 seg. que no salga en el resumen del día
+	        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", (t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",fechaControl,0.0));
+	        			//final MODIFICACIÓN POR CONFIRMAR
 	        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
 	        			t.setSegConsumidosLimiteDia(0); //Se resetea
 	        			fechaControl=fechaHoy;
