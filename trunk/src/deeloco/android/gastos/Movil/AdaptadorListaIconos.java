@@ -88,8 +88,9 @@ public class AdaptadorListaIconos extends BaseAdapter {
         datos.setOrientation(LinearLayout.VERTICAL);
 
         
-		vista.setBackgroundColor(Color.parseColor("#222222"));
-		datos.setBackgroundColor(Color.parseColor("#222222"));
+		//vista.setBackgroundColor(Color.parseColor("#222222"));
+		vista.setBackgroundColor(Color.parseColor("#22ffffff"));
+		//datos.setBackgroundColor(Color.parseColor("#222222"));
         
 		// Generamos el ImageView
         ImageView img = new ImageView(mContext);
@@ -159,8 +160,9 @@ public class AdaptadorListaIconos extends BaseAdapter {
 		else
 		{
 			//No incluimos la línea de arriba y colocamos un fondo de escritorio diferente
-			vista.setBackgroundColor(Color.BLACK);
-			datos.setBackgroundColor(Color.BLACK);
+			//vista.setBackgroundColor(Color.BLACK);
+			//datos.setBackgroundColor(Color.BLACK);
+			vista.setBackgroundColor(Color.parseColor("#88000000"));
 		}
 		
         // Generamos el TextView para la fecha y hora

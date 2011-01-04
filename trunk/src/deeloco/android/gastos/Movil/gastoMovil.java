@@ -54,6 +54,7 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.Contacts;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Display;
 import android.view.Menu;
@@ -410,6 +411,7 @@ public class gastoMovil extends ListActivity {
         String fechaControl="01/01/1000";
 		tarifa t=null;
 		Franja f=null;
+		Drawable rIcono = null;
         //boolean sw_limite=false;
         
         //Si hay algún elemento
@@ -423,9 +425,11 @@ public class gastoMovil extends ListActivity {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
         	//Antes de recorrer todos los elementos, comprobamos que hay tarifa por defecto asignada.
         	//sino asignamos una
+        	Log.d("gastosMovil","Numero de tarifas por defecto="+ts.getNumTarifasDefecto());
         	if (ts.getNumTarifasDefecto()==0)
         	{
         		//Vamos hacer un dialogo para que el usuario pueda elegir la tarifa por defecto que prefiera
+        		Log.d("gastosMovil","Abrir Dialogo");
     			AlertDialog.Builder builder = new AlertDialog.Builder(this);
     			builder.setTitle("Selecciona Tarifa por defecto");
     			final String[] opciones= ts.getNombresTarifas();
@@ -441,7 +445,7 @@ public class gastoMovil extends ListActivity {
     			alert.show();
         	}
         	do{
-        		Drawable rIcono = null;
+        		
         		String telefono=c.getString(iTelefono);
         		long fecha=c.getLong(iFecha);
         		int duracion=c.getInt(iDuracion)+modifDuracion; //le añadimos la modificación de la duración de la llamada;
@@ -449,113 +453,88 @@ public class gastoMovil extends ListActivity {
         		
         		String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
         		String fechaHoy=fechaHora.substring(0, 10).trim();
-        		
-        		//t=tarifa a la que pertenece el número
-        		t=ts.getTarifa(telefono,fechaHora);
-        		//Si t=null no hay tarifa para el teléfono,fechayhora
-        		if (t!=null)
-        			f=t.getFranja(fechaHora);
-        		
-        		if (f!=null)
+        		//Si la duración es mayor que la duración modificada, se hace los cálculos.
+        		if (duracion>modifDuracion)
         		{
-        			//El día y la hora pertenece a una franja
-	        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
-	        		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
-	
-	        		t.addSegConsumidosMes(duracion);
-	        		//Comprobamos si estamos en el mismo día
-	        		if (fechaControl.compareTo(fechaHoy)!=0)
+	        		//t=tarifa a la que pertenece el número
+	        		t=ts.getTarifa(telefono,fechaHora);
+	        		//Si t=null no hay tarifa para el teléfono,fechayhora
+	        		if (t!=null)
 	        		{
-	        			//No estamos en el mismo día
-	        			//Log.d(TAG,"Cambio de día, hoy es "+fechaHoy+". Y en el día de ayer se consumio "+t.getSegConsumidosDia()+"min., de los cuales del límite eran "+t.getSegConsumidosLimiteDia()+" min.");
-	        			//lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
-	        			//inicio MODIFICACIÓN POR CONFIRMAR
-	        			if (t.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día
-	        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", (t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",fechaControl,0.0));
-	        			//final MODIFICACIÓN POR CONFIRMAR
-	        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
-	        			t.setSegConsumidosLimiteDia(0); //Se resetea
-	        			fechaControl=fechaHoy;
+	        			f=t.getFranja(fechaHora);
+	        			//Si no tiene franja y t no es por defecto
+	        			if (f==null&&!t.getDefecto())
+	            		{
+	        				//Forzamos a que compruebe con la que este definida 'por defecto'
+	            			t=ts.getTarifa("999999999",fechaHora); 
+	            			if (t!=null)
+	                			f=t.getFranja(fechaHora);
+	            		}
 	        		}
-	        		else
+	        		if (f!=null)
 	        		{
-	            		
-	            		t.addSegConsumidosDia(duracion);
-	        		}
-	        		//Añadimos los acumulados de limite, si la llamada esta en la franja del limite
-	        		if (f.getLimite())
-	        		{
-	        			//La franja cuenta para el límite
-	        			//Comprobar si la tarifa tiene limite mensual
-	        			if (t.getLimite()>0)
-	        			{
-	        				//Cuenta, añadirlo al contador de limite mensual
-	        				t.addSegConsumidosLimiteMes(duracion);
-	        				
-	        			}
-	        			//Comprobar si la tarifa tiene limite diario
-	        			if (t.getLimiteDia()>0)
-	        			{
-	        				//Cuenta, añadirlo al contador de limite diario
-	        				t.addSegConsumidosLimiteDia(duracion);	
-	        			}
-	        			
-	        		}
-	        		
-	        		coste=f.coste(t, duracion); //Coste sin iva
-	        		estLlamada=f.establecimiento(t);
-	        		
-	        		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60))
-	        		{
-	        			rIcono=vp.getColorIcon(t.getColor(),"relog_peligro",display.getHeight());
-	        		}
-	        		else
-	        		{
-	        			if (f.getLimite()) rIcono=vp.getColorIcon(t.getColor(),"relog_mas",display.getHeight()); 
-	        			else rIcono=vp.getColor(t.getColor());
-	        		}
-	        		
-	        		
-	        		
-	        		
-	        		/***************************************************************
-	        		//Array de retorno con
-	        		//COSTE=0;ESTABLECIMIENTO=1;GASTOMINIMO=2;LIMITE=3;COSTE_FUERA_LIMITE=4;ESTABLECIMIENTO_FUERA_LIMITE=5;
-	        		retorno=ts.costeLlamada(telefono,fechaHora, duracion,vp.getPreferenciasDefecto());
-	        		rIcono=vp.getColor(t.getColor());
-	        		
-	        		//Solo se acumula el limite de tiempo cuando el limite retornado sea > 0.0, es decir cuenta para el limite
-	
-	        		totalSegundos=totalSegundos+duracion;
-	        		t.addSegConsumidosMes(duracion);
-	        		if (retorno[LIMITE]!=0.0)
-	        		{
-	        			
-	        			//t.addSegConsumidosDia(duracion);
-	        			t.addSegConsumidosLimiteMes(duracion);
-	        			totalSegundosLimite=totalSegundosLimite+duracion;
-	        			limite=retorno[LIMITE];
-	        		}
-	        		
-	        		//El coste ha mostrar dependera del limite
-	        		if ((retorno[LIMITE]*60)>=totalSegundosLimite || retorno[LIMITE]==0.0)
-	        		{
-	        			coste=retorno[COSTE]; //limite < tiempo hablado
-	        			estLlamada=(((retorno[ESTABLECIMIENTO]/100)*iva)/coste)*100;
-	        		}
-	        		else
-	        		{
-	        			rIcono=getResources().getDrawable(android.R.drawable.presence_busy);
-	        			coste=retorno[COSTE_FUERA_LIMITE]; //limite > tiempo hablado
-	        			estLlamada=(((retorno[ESTABLECIMIENTO_FUERA_LIMITE]/100)*iva)/coste)*100;
-	        		} 
-	
-	        		//estLlamada=f.getEstablecimiento();
-	********************************************************************/
-					
-	        		//Esta condición habrá que ponerla antes, para no tener que hacer los calculos, sino es necesario.
-	        		if (duracion>modifDuracion)
-	        		{  
+	        			//El día y la hora pertenece a una franja
+		        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
+		        		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
+		
+		        		t.addSegConsumidosMes(duracion);
+		        		//Comprobamos si estamos en el mismo día
+		        		if (fechaControl.compareTo(fechaHoy)!=0)
+		        		{
+		        			//No estamos en el mismo día
+		        			//Incluimos el resumen del día si se ha seleccionado en ajustes y si seg. consumidos del día > 1
+		        			Log.d("GAstos Móvil", "Segundos consumidos día="+ts.getSegConsumidosDia());
+		        			if (ts.getSegConsumidosDia()>1&&vp.getResumenDia())
+		        			{
+		        				//rIcono=(t.getLimiteDia()>0&&t.getSegConsumidosDia()>(t.getLimiteDia()*60))? getResources().getDrawable(android.R.drawable.presence_busy):getResources().getDrawable(android.R.drawable.presence_away);
+		        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
+		        			}
+		        			//final MODIFICACIÓN POR CONFIRMAR
+		        			ts.resetSegundosConsumidosDia();
+		        			t.setSegConsumidosLimiteDia(0); //Se resetea
+		        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
+		        			fechaControl=fechaHoy;
+		        		}
+		        		else
+		        		{
+		            		
+		            		t.addSegConsumidosDia(duracion);
+		        		}
+		        		//Añadimos los acumulados de limite, si la llamada esta en la franja del limite
+		        		if (f.getLimite())
+		        		{
+		        			//La franja cuenta para el límite
+		        			//Comprobar si la tarifa tiene limite mensual
+		        			if (t.getLimite()>0)
+		        			{
+		        				//Cuenta, añadirlo al contador de limite mensual
+		        				t.addSegConsumidosLimiteMes(duracion);
+		        				
+		        			}
+		        			//Comprobar si la tarifa tiene limite diario
+		        			if (t.getLimiteDia()>0)
+		        			{
+		        				//Cuenta, añadirlo al contador de limite diario
+		        				t.addSegConsumidosLimiteDia(duracion);	
+		        			}
+		        			
+		        		}
+		        		
+		        		coste=f.coste(t, duracion); //Coste sin iva
+		        		estLlamada=f.establecimiento(t);
+		        		
+		        		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60))
+		        		{
+		        			rIcono=vp.getColorIcon(t.getColor(),"relog_peligro",display.getHeight());
+		        		}
+		        		else
+		        		{
+		        			if (f.getLimite()) rIcono=vp.getColorIcon(t.getColor(),"relog_mas",display.getHeight()); 
+		        			else rIcono=vp.getColor(t.getColor());
+		        		}
+						
+		        		//Esta condición habrá que ponerla antes, para no tener que hacer los calculos, sino es necesario.
+  
 	        			//Ya tenemos el coste y el numero y es una llamada > 0, lo metemos en GastosPorNumero
 	            		gpn.add(telefono, coste);
 	            		gph.add(new Date(fechaHora), coste);
@@ -579,19 +558,22 @@ public class gastoMovil extends ListActivity {
 	        			costeLlamadas=costeLlamadas+coste;
 	        			numLlamadas++;
 	        		}
-        		}
-	    		else
-	    		{
-	    			//El día y la hora no pertenecen a ninguna franja
-	    			lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
-	    			
-	    		}
-        			
+		    		else
+		    		{
+		    			//El día y la hora no pertenecen a ninguna franja
+		    			lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
+		    			
+		    		}
+	        	}	
         		
         	} while (c.moveToNext());
         	//Incluimos el resumen de tiempos del último día
-        	if (t.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día
-				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", (t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",fechaControl,0.0));
+        	if (ts.getNumTarifasDefecto()>0)  // hay tarifa por defecto definida (java.lang.NullPointerException)
+        		if (t.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
+        		{
+        			rIcono=(t.getLimiteDia()>0&&t.getSegConsumidosDia()>(t.getLimiteDia()*60))? getResources().getDrawable(android.R.drawable.presence_busy):getResources().getDrawable(android.R.drawable.presence_away);
+					lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
+        		}
         c.close();
         }
         
@@ -610,34 +592,7 @@ public class gastoMovil extends ListActivity {
         //Mostrando los datos en la cabecera de resumen de datos
         
         //tv_cabResumen.setText(R.string.cabDatos);
-        
-        /*
-        lyt_cabRegistro.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	Log.d(TAG, "Se ha pulsado texto registro de llamadas");
-            	LinearLayout linear2=(LinearLayout) findViewById(R.id.lytAreaResumen);
-            	//ImageView preImagen=(ImageView) findViewById(R.id.preImagen);
-            	//ImageView postImagen=(ImageView) findViewById(R.id.postImagen);
-            	 
-            	int altoPantalla = display.getHeight();
-            	if (linear2.getHeight()==0)
-            	{
-            		linear2.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,(altoPantalla/2)-60));
-            		preImagen.setImageResource(android.R.drawable.arrow_up_float);
-            		postImagen.setImageResource(android.R.drawable.arrow_up_float);
-            	}
-            	else
-            	{
-            		linear2.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,0));
-            		preImagen.setImageResource(android.R.drawable.arrow_down_float);
-            		postImagen.setImageResource(android.R.drawable.arrow_down_float);
-            	}
-            }
-            
-        });*/
-        
-        
-        
+
         //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
         
         LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
@@ -754,13 +709,6 @@ public class gastoMovil extends ListActivity {
         AdaptadorListaIconos ad = new AdaptadorListaIconos(this,listaInvertida);
         setListAdapter(ad);
         
-        //Controlar si vp.getPreferenciasDefecto es vacio o nulo
-    	/*if (ts.getNumTarifasDefecto()==0)
-    	{
-    		//No hay tarifa por defecto  o no corresponde a una tarifa definida
-    		Toast.makeText(this,R.string.mensaje_tarifa_defecto_no_definida,Toast.LENGTH_LONG).show();
-    	}
-		*/
         /*Añadir menu contextual */
         
         ListView listallamadas=(ListView) this.findViewById(android.R.id.list);
@@ -776,28 +724,35 @@ public class gastoMovil extends ListActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
+    		AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
     	  	menu.setHeaderTitle(R.string.mnctx_titulo);
     	  	ArrayList <tarifa> tarifas=ts.getTarifas();
-    	  	AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
-    	  	
-    	  	for (int a=0;a<tarifas.size();a++)
-    	  	{
-    	  		//La tarifa por defecto no debe aparecer en el menú contextual
-    	  		if (!tarifas.get(a).getDefecto())
-    	  		{
-    	  			//Log.d(TAG,"Pertenece "+listaInvertida.get(info.position).telefono+" a "+tarifas.get(a).getNombre()+" -- "+tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono));
-    	  			if (tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono))
-    	  			{
-        	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
-        	  			//menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
-    	  				menu.clear();
-    	  				menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
-    	  				a=tarifas.size()+1;
-    	  			}
-    	  			
-        	  		else
-        	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Añadir a "+tarifas.get(a).getNombre());
-    	  		}
+    	  	//Log.d("gastosMovil","Telefono=["+listaInvertida.get(info.position).telefono.trim()+"]");
+    	  	if (!(listaInvertida.get(info.position).telefono.trim().equals("")))
+    	  	{	
+	    	  	for (int a=0;a<tarifas.size();a++)
+	    	  	{
+	    	  		//La tarifa por defecto no debe aparecer en el menú contextual
+	    	  		if (!tarifas.get(a).getDefecto())
+	    	  		{
+	    	  			//Log.d(TAG,"Pertenece "+listaInvertida.get(info.position).telefono+" a "+tarifas.get(a).getNombre()+" -- "+tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono));
+	    	  			if (tarifas.get(a).pertenece(listaInvertida.get(info.position).telefono))
+	    	  			{
+	        	  			//Ya está en esa tarifa. Hay que darle opción de eliminar
+	        	  			//menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
+	    	  				menu.clear();
+	    	  				menu.add(0, tarifas.get(a).getIdentificador(), 0, "Eliminar de "+tarifas.get(a).getNombre());
+	    	  				a=tarifas.size()+1;
+	    	  			}
+	    	  			
+	        	  		else
+	        	  			menu.add(0, tarifas.get(a).getIdentificador(), 0, "Añadir a "+tarifas.get(a).getNombre());
+	    	  		}
+	    	  	}
+	    	  	if (menu.size()==0)
+	    	  	{
+	    	  		Toast.makeText(getApplicationContext(), "No existen tarifas seleccionable.", Toast.LENGTH_SHORT).show();
+	    	  	}
     	  	}
     }
     
