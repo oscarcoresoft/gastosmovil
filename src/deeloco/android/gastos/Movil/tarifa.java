@@ -364,11 +364,18 @@ public class tarifa implements Serializable{
 		this.segConsumidosDia=this.segConsumidosDia+segundos;
 	}
 	
-	
+	/**
+	 * Suma segundos al total de segundos consumidos para el límite del mes
+	 * @param segundos
+	 */
 	public void addSegConsumidosLimiteMes(int segundos){
 		this.segConsumidosLimiteMes+=segundos;
 	}
 	
+	/**
+	 * Suma segundos al total de segundos consumidos para el límite del día
+	 * @param segundos
+	 */
 	public void addSegConsumidosLimiteDia(int segundo) {
 		this.segConsumidosLimiteDia += segundo;
 	}

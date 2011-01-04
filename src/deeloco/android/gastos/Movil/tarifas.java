@@ -308,15 +308,18 @@ public class tarifas implements Serializable{
 	 * @return
 	 */
 	private int indiceTarifa (String numero){
-		
+		int retorno=0;
         for (int i=0;i<this.tarifas.size();i++)
         {
         	if (this.tarifas.get(i).pertenece(numero))
         	{
-        		return this.tarifas.get(i).getIdentificador();
+        		retorno= this.tarifas.get(i).getIdentificador();
+        		//Si el numero está entero (no es una expresión), nos quedamos con este.
+        		if (this.tarifas.get(i).getNumeros().indexOf(numero)>-1)
+        			return retorno;
         	}
         }
-		return 0; //Identificador de la tarifa normal
+		return retorno; //Identificador de la tarifa normal
 	}
 	
 	/**
@@ -498,8 +501,17 @@ public class tarifas implements Serializable{
         }
 	}
 	
-	
-	
+	/**
+	 * Resetea todos los contadores de segundos consumidos de un día de todas las tarifas
+	 */
+	public void resetSegundosConsumidosDia()
+	{
+        for (int i=0;i<this.tarifas.size();i++)
+        {
+        	this.tarifas.get(i).setSegConsumidosDia(0);
+        	this.tarifas.get(i).setSegConsumidosLimiteDia(0);
+        }
+	}
 	
 	
 	/**
@@ -598,12 +610,30 @@ public class tarifas implements Serializable{
 	}
 	
 	
+	/**
+	 * Retorna el total de segundo consumidos del mes, de todas las tarifas
+	 * @return
+	 */
 	public double getSegConsumidosMes()
 	{
 		double retorno=0.0;
 		for (int i=0;i<this.tarifas.size();i++)
 		{
 			retorno+=this.tarifas.get(i).getSegConsumidosMes();
+		}
+		return retorno;
+	}
+	
+	/**
+	 * Retorna el total de segundo consumidos del día, de todas las tarifas
+	 * @return
+	 */
+	public int getSegConsumidosDia()
+	{
+		int retorno=0;
+		for (int i=0;i<this.tarifas.size();i++)
+		{
+			retorno+=this.tarifas.get(i).getSegConsumidosDia();
 		}
 		return retorno;
 	}

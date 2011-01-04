@@ -183,14 +183,14 @@ public class PreferencesTarifas extends ListActivity{
 
             	        	 //Existe fichero de tarifa compartida. Copiarla a /gastosmovil
             	        		try{
-            	                	/*FileReader fReader=new FileReader(fRecuperacion);
+            	                	FileReader fReader=new FileReader(fRecuperacion);
             	                	FileWriter fWriter= new FileWriter(path);
             	                	char[] xml=new char[(int)fRecuperacion.length()];
             	                	fReader.read(xml,0,(int)fRecuperacion.length());
             	                	fReader.close();
             	                    fWriter.write(xml);
             	                    fWriter.flush();
-            	                    fWriter.close();*/
+            	                    fWriter.close();
             	                    
             	                    /* Cargamos los valores de las tarifas */
             	                    try
@@ -350,6 +350,7 @@ public class PreferencesTarifas extends ListActivity{
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+
 		//Retorno
     	Intent resultIntent=new Intent();
     	resultIntent.putExtra(TARIFAS_RETORNO, ts);
