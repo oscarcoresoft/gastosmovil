@@ -483,7 +483,7 @@ public class gastoMovil extends ListActivity {
 		        		{
 		        			//No estamos en el mismo día
 		        			//Incluimos el resumen del día si se ha seleccionado en ajustes y si seg. consumidos del día > 1
-		        			Log.d("GAstos Móvil", "Segundos consumidos día="+ts.getSegConsumidosDia());
+		        			//Log.d("GAstos Móvil", "Segundos consumidos día="+ts.getSegConsumidosDia());
 		        			if (ts.getSegConsumidosDia()>1&&vp.getResumenDia())
 		        			{
 		        				//rIcono=(t.getLimiteDia()>0&&t.getSegConsumidosDia()>(t.getLimiteDia()*60))? getResources().getDrawable(android.R.drawable.presence_busy):getResources().getDrawable(android.R.drawable.presence_away);
@@ -569,10 +569,10 @@ public class gastoMovil extends ListActivity {
         	} while (c.moveToNext());
         	//Incluimos el resumen de tiempos del último día
         	if (ts.getNumTarifasDefecto()>0)  // hay tarifa por defecto definida (java.lang.NullPointerException)
-        		if (t.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
+        		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
         		{
-        			rIcono=(t.getLimiteDia()>0&&t.getSegConsumidosDia()>(t.getLimiteDia()*60))? getResources().getDrawable(android.R.drawable.presence_busy):getResources().getDrawable(android.R.drawable.presence_away);
-					lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
+        			lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
+					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
         c.close();
         }
