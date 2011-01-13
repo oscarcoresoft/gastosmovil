@@ -68,7 +68,7 @@
     <string name="error_ajustes">Algunos ajustes tienen valores incorrectos o son nulos. Se tomaran sus valores por defecto.</string>
     <string name="actualizar">Actualizando...</string>
     <string name="acercade_activity">Acerca de ... GASTOS MÓVIL</string>
-    <string name="acercade_titulo">GASTOS MÓVIL v.2.1.beta</string>
+    <string name="acercade_titulo">GASTOS MÓVIL v.2.1.1.beta</string>
     <string name="acercade_texto">Controla tu gasto de teléfono y a tu operador.</string>
     <string name="acercade_autor_cab">Autor y Licencia</string>
     <string name="acercade_autor">Antonio C. A. Abellán - acabellan@gmail.com</string>
@@ -121,7 +121,8 @@
 	<string name="conflicto_hora">Revisa los horarios de las franjas. Hay horas duplicadas o sin asignar.</string>
 	<string name="acercade_ayuda_cab">Video Manuales</string>
 	<string name="acercade_ayuda">En breve, enlace con videos de youtube, donde se explica como ajustar los parámetros de la aplicación y ejemplos a partir de tarifas reales y como configurarlas en la aplicación.</string>
-	<string name="acercade_youtube1">Asociar Números - http://www.youtube.com/user/AmnesiacA#grid/user/21193F9B9ECAB90C</string>
+	<string name="acercade_youtube2">Asociar Números - http://youtu.be/XgG2LG-w8fg</string>
+	<string name="acercade_youtube1">Configurar Tarifas - http://youtu.be/6JbQH1CpzlA</string>
 	<string name="acercade_webGastoMovil">http://gastosmovil.simahuelva.es/</string>
 	<string name="aj_tarifaActivada">Activar tarifa única</string>
     <string name="aj_tarifaActivada_des">Activar o desactivar la tarifa única.</string>
