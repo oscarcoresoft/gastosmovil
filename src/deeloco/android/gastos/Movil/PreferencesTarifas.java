@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -113,6 +114,7 @@ public class PreferencesTarifas extends ListActivity{
         	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.mn_nueva_tarifa_predefinida);
+			
 			builder.setSingleChoiceItems(tsPre.nombresTarifas(),-1, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
@@ -191,28 +193,19 @@ public class PreferencesTarifas extends ListActivity{
             	                    fWriter.write(xml);
             	                    fWriter.flush();
             	                    fWriter.close();
+            	                    // Eliminamos el fichero de intercambio datosTarifas.xml.jpg
+            	                     try
+            	                     {
+            	                    	 fRecuperacion.delete();
+            	                     }
+            	                     catch(Exception e)
+            	                     {
+            	                    	 Log.e("PreferenciasTarifas.java", "Error al eliminar el fichero datosTarifas.xml.jpg"+e.toString()+" ("+e.hashCode()+")");
+            	                     }
             	                    
             	                    /* Cargamos los valores de las tarifas */
             	                    try
-            	                    {
-            	                    	//Comprobamos si el fichero esta creado. Si es que no, se crea.
-            	                    	File f=fRecuperacion;
-            	                    	
-            	                    	if (!f.exists())
-            	                    	{
-            	                    		//El fichero no existe, hay que crearlo
-            	                    		try{
-            	                    			boolean dir = new File("/sdcard/gastosmovil").mkdir(); //Creamos el directorio
-            	                    			if (dir) //Si se ha creado correctamente el directorio
-            	                    			{
-            	                    				f.createNewFile(); //Creamos el fichero 
-            	                    			}
-            	                    		}
-            	                    		catch (Exception e){ //Error al crear el directorio o el fichero
-            	                    			e.printStackTrace();
-            	                    		}
-            	                    	}
-            	                    	
+            	                    {            	                    	
             	            	        SAXParserFactory spf = SAXParserFactory.newInstance();
             	            	        SAXParser sp = spf.newSAXParser();
             	            	        /* Get the XMLReader of the SAXParser we created. */
@@ -230,8 +223,6 @@ public class PreferencesTarifas extends ListActivity{
             	    			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
             	    			    	setResult(Activity.RESULT_OK, resultIntent);
             	            	        onStart();
-            	            	        
-            	            	        
             	                    }
             	                    catch (Exception e)
             	                    {

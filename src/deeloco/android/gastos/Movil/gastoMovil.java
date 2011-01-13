@@ -60,6 +60,7 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ImageView;
@@ -71,7 +72,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.LinearLayout.LayoutParams;
 
 
-public class gastoMovil extends ListActivity {
+public class gastoMovil extends ListActivity{
     /** Called when the activity is first created. */
 		
 	private static final int TARIFAS = Menu.FIRST;
@@ -115,6 +116,7 @@ public class gastoMovil extends ListActivity {
     
     @Override
     public void onCreate(Bundle icicle) {
+    	this.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(icicle);
         setContentView(R.layout.main);
         if (vp.getcosteConIVA())
@@ -138,7 +140,7 @@ public class gastoMovil extends ListActivity {
         			}
         		}
         		catch (Exception e){ //Error al crear el directorio o el fichero
-        			e.printStackTrace();
+        			Log.e("Gastos Móvil","Error al crear el fichero o directorio: " + e.getMessage());
         		}
         	}
         	
@@ -162,7 +164,6 @@ public class gastoMovil extends ListActivity {
         	
         	System.out.println("ERROR:"+e.toString()+" ("+e.hashCode()+")");
         }
-        
 
     }
     
@@ -354,7 +355,6 @@ public class gastoMovil extends ListActivity {
 	// FUNCIÓN PRINCIPAL
 	//***************************************************
     
-    
     public void listado (int mes){
     	//List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     	lista.clear();
@@ -367,7 +367,8 @@ public class gastoMovil extends ListActivity {
     	   c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, CallLog.Calls.DEFAULT_SORT_ORDER);
        }
        else
-       {
+       {    	   
+    	   
        /*Vamos a hacer una consulta de un mes concreto*/
     	/*De momento, para las pruebas, estamos utilizando 2009, pero hay que utilizar el año en curso, el mes, ... */
     	   // Seleccionado un mes, tenemos que saber a que año corresponde
@@ -425,11 +426,11 @@ public class gastoMovil extends ListActivity {
         	//Recorrer todos los elementos de la consulta del registro de llamadas.
         	//Antes de recorrer todos los elementos, comprobamos que hay tarifa por defecto asignada.
         	//sino asignamos una
-        	Log.d("gastosMovil","Numero de tarifas por defecto="+ts.getNumTarifasDefecto());
+        	//Log.d("gastosMovil","Numero de tarifas por defecto="+ts.getNumTarifasDefecto());
         	if (ts.getNumTarifasDefecto()==0)
         	{
         		//Vamos hacer un dialogo para que el usuario pueda elegir la tarifa por defecto que prefiera
-        		Log.d("gastosMovil","Abrir Dialogo");
+        		//Log.d("gastosMovil","Abrir Dialogo");
     			AlertDialog.Builder builder = new AlertDialog.Builder(this);
     			builder.setTitle("Selecciona Tarifa por defecto");
     			final String[] opciones= ts.getNombresTarifas();
@@ -444,6 +445,7 @@ public class gastoMovil extends ListActivity {
     			AlertDialog alert = builder.create();
     			alert.show();
         	}
+        		
         	do{
         		
         		String telefono=c.getString(iTelefono);
@@ -565,8 +567,8 @@ public class gastoMovil extends ListActivity {
 		    			
 		    		}
 	        	}	
-        		
         	} while (c.moveToNext());
+        	
         	//Incluimos el resumen de tiempos del último día
         	if (ts.getNumTarifasDefecto()>0)  // hay tarifa por defecto definida (java.lang.NullPointerException)
         		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
