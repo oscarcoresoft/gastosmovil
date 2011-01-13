@@ -531,7 +531,7 @@ public class Franja implements Serializable{
 			}*/
 			
 			
-			Log.d(TAG,"IVA="+iva);
+			//Log.d(TAG,"IVA="+iva);
 			costePorSegundo=(this.costeFueraLimite/100)/60;
 			//conIvaPorSegundosEnEuros=costePorSegundo*iva;
 			conIvaPorSegundosEnEuros=costePorSegundo;
@@ -541,7 +541,7 @@ public class Franja implements Serializable{
 		}
 		else
 		{
-			Log.d(TAG,"IVA="+iva);
+			//Log.d(TAG,"IVA="+iva);
 			costePorSegundo=(this.coste/100)/60;
 			//conIvaPorSegundosEnEuros=costePorSegundo*iva;
 			conIvaPorSegundosEnEuros=costePorSegundo;
