@@ -489,7 +489,7 @@ public class tarifa implements Serializable{
 	 * @param numeros
 	 */
 	void addNumero(String numero){
-		if (numero.length()>5)
+		if (numero.length()>3)
 		 this.numeros.add(numero.trim());
 	}
 	

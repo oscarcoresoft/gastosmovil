@@ -34,9 +34,9 @@ public class NumCoste
     private ArrayList<String> numSC= new ArrayList <String>();
     private ArrayList<String> numEsp1= new ArrayList <String>();
     private ArrayList<String> numEsp2= new ArrayList <String>();
-    String path="\\sdcard\\gastosmovil\\num_sin_coste.txt";
-    String pathEsp1="\\sdcard\\gastosmovil\\num_especial1.txt";
-    String pathEsp2="\\sdcard\\gastosmovil\\num_especial2.txt";
+    String path="/sdcard/gastosmovil/num_sin_coste.txt";
+    String pathEsp1="/sdcard/gastosmovil/num_especial1.txt";
+    String pathEsp2="/sdcard/gastosmovil/num_especial2.txt";
     private final int NUMSC=1;
     private final int NUMESP1=2;
     private final int NUMESP2=3;

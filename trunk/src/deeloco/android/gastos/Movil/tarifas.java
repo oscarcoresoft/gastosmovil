@@ -20,7 +20,7 @@ public class tarifas implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String TAG = "clase tarifas";
-	private static String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
+	private static String path="/sdcard/gastosmovil/datosTarifas.xml";
 	
 	/**
 	 * Conjunto de franjas horarias definidas por el usuario
