@@ -87,7 +87,7 @@ public class gastoMovil extends ListActivity{
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     //private static final String TAG = "GastosMóvil";
     private double iva=1.18;
-    String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
+    String path="/sdcard/gastosmovil/datosTarifas.xml";
     int totalRegistros=0;
     private double costeLlamadas=0;
     private double costeSMS=0;
@@ -765,6 +765,7 @@ public class gastoMovil extends ListActivity{
     	  //REVISAR. 
     	  tarifa t=ts.getTarifa(item.getItemId());
     	  String tlf=listaInvertida.get(info.position).telefono;
+    	  
     	  if (t.pertenece(tlf))
     	  {
     		  //Eliminar

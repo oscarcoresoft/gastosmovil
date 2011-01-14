@@ -40,7 +40,7 @@ public class PreferencesTarifas extends ListActivity{
 	private static final String TAG = "PreferencesTarifas";
 	private static final String TARIFAS_RETORNO = "tarifas_retorno";
 	ValoresPreferencias vp=new ValoresPreferencias(this);
-	String path="\\sdcard\\gastosmovil\\datosTarifas.xml";
+	String path="/sdcard/gastosmovil/datosTarifas.xml";
 
 	private tarifas ts;
 	
@@ -174,7 +174,7 @@ public class PreferencesTarifas extends ListActivity{
         case RECUPERAR:
         	//Compartir el fichero de configuración de tarifas
 
-        	final File fRecuperacion=new File("\\sdcard\\download\\datosTarifas.xml.jpg");
+        	final File fRecuperacion=new File("/sdcard/download/datosTarifas.xml.jpg");
         	if (fRecuperacion.exists() && fRecuperacion.canRead())
         	{
             	AlertDialog.Builder builder2 = new AlertDialog.Builder(this);

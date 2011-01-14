@@ -11,7 +11,7 @@ public class TarifasPreDefinidas {
 	
 	//{"Nombre tarifa","numero de franjas","consumo minimo","limite de llamadas mensuales","limite de llamadas diarias","Color","numeros asociados","Defecto",
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
-	private int numTarifas=60;
+	private int numTarifas=62;
 	private String[][] tarifasPreDefinidas={
 			{"El Androide Libre - PepePhone","1","0","0","0","Rojo","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","4","15","No","0","0"},
@@ -210,7 +210,7 @@ public class TarifasPreDefinidas {
 		tarifaRetorno.setLimite(Integer.parseInt(this.tarifasPreDefinidas[indice][3])); //Limite mes
 		tarifaRetorno.setLimiteDia(Integer.parseInt(this.tarifasPreDefinidas[indice][4])); //Limite día
 		tarifaRetorno.setColor(this.tarifasPreDefinidas[indice][5]);//Color
-		tarifaRetorno.setNumeros("");//Numeros
+		tarifaRetorno.setNumeros(this.tarifasPreDefinidas[indice][6]);//Numeros
 		tarifaRetorno.setDefecto(this.tarifasPreDefinidas[indice][7]);
 		//Cargamos los valores de las franjas
 		int numFranjas=Integer.parseInt(this.tarifasPreDefinidas[indice][1]);
