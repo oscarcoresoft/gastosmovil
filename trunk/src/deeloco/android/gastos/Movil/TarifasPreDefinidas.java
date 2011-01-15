@@ -11,7 +11,7 @@ public class TarifasPreDefinidas {
 	
 	//{"Nombre tarifa","numero de franjas","consumo minimo","limite de llamadas mensuales","limite de llamadas diarias","Color","numeros asociados","Defecto",
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
-	private int numTarifas=62;
+	private int numTarifas=69;
 	private String[][] tarifasPreDefinidas={
 			{"El Androide Libre - PepePhone","1","0","0","0","Rojo","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","4","15","No","0","0"},
@@ -39,6 +39,18 @@ public class TarifasPreDefinidas {
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
 			{"Movistar - Planazo Global XXL","1","159.9","2000","0","Azul","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","18","15"},
+			{"Ono - Plan 9,90 Otros","1","0","100","0","Violeta","","Si",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","8","15"},
+			{"Ono - Plan 9,90 ONO","1","0","200","0","Violeta","","Si",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","8","15"},
+			{"Ono - Plan 19,90 Otros","1","0","200","0","Violeta","","Si",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","8","15"},
+			{"Ono - Plan 19,90 ONO","1","0","400","0","Violeta","","Si",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","8","15"},				
+			{"Ono - Plan 29,90 Otros","1","0","300","0","Violeta","","Si",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","8","15"},
+			{"Ono - Plan 29,90 ONO","1","0","600","0","Violeta","","Si",
+				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","8","15"},					
 			{"Orange - Ardilla 12","1","12","0","0","Naranja","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","17","15","No","0","0"},
 			{"Orange- Ardilla 9","3","9","300","0","Naranja","","Si",
@@ -110,6 +122,10 @@ public class TarifasPreDefinidas {
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","No","0","0"},
 			//{"Nombre tarifa","numero de franjas","consumo minimo","limite de llamadas mensuales","limite de llamadas diarias","Color","numeros asociados","Defecto",
 			//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
+			{"Vodafone - 90x1.","3","9","0","0","Rojo","","Si",
+					"Mañana","8:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie]","19.9","15","No","0","0",
+					"Tarde","18:00:00","08:00:00","[Lun,Mar,Mie,Jue,Vie]","0","34.9","No","0","0",
+					"Fin Sem.","00:00:00","00:00:00","[Sab,Dom]","0","34.9","No","0","0"},
 			{"Vodafone - XL-Tarde y Fin Sem.","2","0","1000","0","Rojo","","Si",
 				    "Tarde","18:00:00","08:00:00","[Lun,Mar,Mie,Jue,Vie]","0","0","Si","19.9","15",
 				    "Fin Sem.","00:00:00","00:00:00","[Sab,Dom]","0","0","Si","19.9","15"},
