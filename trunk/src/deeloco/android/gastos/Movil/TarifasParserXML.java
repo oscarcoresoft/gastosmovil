@@ -88,6 +88,10 @@ public void endElement(String uri, String localName, String qName) throws SAXExc
 	{
 		t.setLimiteDia(Integer.parseInt(this.datosElemento));
 	}
+	if (localName.compareTo("limiteLlamada")==0)
+	{
+		t.setLimiteLlamada(Integer.parseInt(this.datosElemento));
+	}
 	if (localName.compareTo("color")==0)
 	{
 		t.setColor(this.datosElemento);

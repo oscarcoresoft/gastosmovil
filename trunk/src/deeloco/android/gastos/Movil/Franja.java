@@ -501,12 +501,15 @@ public class Franja implements Serializable{
 		double costeTotal;
 		double costeTotalConEstablecimiento;
 		//Log.d(TAG,"Consumido="+t.getSegConsumidosLimiteMes()+" | Limite"+t.getLimite());
-		if ( ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))|| (t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60)))
+		//Calculamos si se han pasado los límites mensuales, diarios o de la llamada
+		if ( ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60)) || 
+				(t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60)) || 
+				(t.getLimiteLlamada()*60>duracion) )
 				&& this.getLimite() )
 		{
 			//Se han consumido más segundos de los limites mensuales
 			//El coste hay que calcularlo con los valores de coste fuera de limite
-			//Aqui hay que controlar la parte de la llamada que sobre pasa del limite
+			//Aqui hay que controlar la parte de la llamada que sobrepasa del limite
 			//MES
 			if ((t.getSegConsumidosLimiteMes()-duracion)<(t.getLimite()*60)&&((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))&&t.getLimite()>0))
 				duracion=t.getSegConsumidosLimiteMes()-(t.getLimite()*60);
@@ -514,22 +517,6 @@ public class Franja implements Serializable{
 				//DIA
 				if ((t.getSegConsumidosLimiteDia()-duracion)<(t.getLimiteDia()*60)&&((t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60))&&t.getLimiteDia()>0))
 					duracion=t.getSegConsumidosLimiteDia()-(t.getLimiteDia()*60);
-			
-			
-			/*
-			if (((t.getSegConsumidosLimiteMes()-duracion)<(t.getLimite()*60))||((t.getSegConsumidosLimiteDia()-duracion)<(t.getLimiteDia()*60)))
-			{
-				Log.d(TAG,"Duración Original ="+duracion);
-				//se ha sobrepasado los limite durante esta llamada
-				if ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))&&t.getLimite()>0)
-					duracion=t.getSegConsumidosLimiteMes()-(t.getLimite()*60);
-				
-				if ((t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60))&&t.getLimiteDia()>0)
-					duracion=t.getSegConsumidosLimiteDia()-(t.getLimiteDia()*60);
-					
-				Log.d(TAG,"Duración Modificada ="+duracion);
-			}*/
-			
 			
 			//Log.d(TAG,"IVA="+iva);
 			costePorSegundo=(this.costeFueraLimite/100)/60;
