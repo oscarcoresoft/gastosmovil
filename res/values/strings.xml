@@ -151,7 +151,9 @@
     
     
     <string name="pref_tarifa_limite_dia">Límite de un día (min.)</string>
+    <string name="pref_tarifa_limite_llamada">Límite de una llamada (min.)</string>
     <string name="aj_tarifa_limite_dia_des">Límite de llamadas, al día y en minutos.</string>
+    <string name="aj_tarifa_limite_llamada_des">Límite de una llamada, en minutos.</string>
     <string name="aj_descuento">Descuento</string>
     <string name="aj_descuento_des">Porcentaje de descuento que la operadora nos aplica a la factura.</string>
     <string name="aj_decimales">Decimales en las llamadas</string>

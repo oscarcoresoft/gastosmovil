@@ -478,8 +478,13 @@ public class gastoMovil extends ListActivity{
 	        			//El día y la hora pertenece a una franja
 		        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
 		        		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
-		
+	        			//Me esta dando un error en la consola del market. No se porque, pongo un try
+	        			try{
 		        		t.addSegConsumidosMes(duracion);
+	        			}catch (Exception e){
+	        				Log.e("Gastos Movil","t.addSegConsumidosMes(duracion):"+e.getMessage());
+	        				duracion=0;
+	        			}
 		        		//Comprobamos si estamos en el mismo día
 		        		if (fechaControl.compareTo(fechaHoy)!=0)
 		        		{
@@ -534,8 +539,6 @@ public class gastoMovil extends ListActivity{
 		        			if (f.getLimite()) rIcono=vp.getColorIcon(t.getColor(),"relog_mas",display.getHeight()); 
 		        			else rIcono=vp.getColor(t.getColor());
 		        		}
-						
-		        		//Esta condición habrá que ponerla antes, para no tener que hacer los calculos, sino es necesario.
   
 	        			//Ya tenemos el coste y el numero y es una llamada > 0, lo metemos en GastosPorNumero
 	            		gpn.add(telefono, coste);
@@ -566,7 +569,8 @@ public class gastoMovil extends ListActivity{
 		    			lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
 		    			
 		    		}
-	        	}	
+	        	}
+        		
         	} while (c.moveToNext());
         	
         	//Incluimos el resumen de tiempos del último día
