@@ -490,7 +490,7 @@ public class Franja implements Serializable{
 	
 	
 	/**
-	 * Calcula el coste con iva y establecimento, de una llamada, dado la tarifa a la que pertenece y la duración
+	 * Calcula el coste sin iva y establecimento, de una llamada, dado la tarifa a la que pertenece y la duración
 	 * @param t
 	 * @param duracion
 	 * @return
@@ -499,12 +499,14 @@ public class Franja implements Serializable{
 		double conIvaPorSegundosEnEuros;
 		double costePorSegundo;
 		double costeTotal;
-		double costeTotalConEstablecimiento;
+		double costeTotalConEstablecimiento=0;
+		double duracionDespues=duracion;
+		double duracionAntes=0;
 		//Log.d(TAG,"Consumido="+t.getSegConsumidosLimiteMes()+" | Limite"+t.getLimite());
 		//Calculamos si se han pasado los límites mensuales, diarios o de la llamada
 		if ( ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60)) || 
 				(t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60)) || 
-				(t.getLimiteLlamada()*60>duracion) )
+				(duracion>t.getLimiteLlamada()*60) )
 				&& this.getLimite() )
 		{
 			//Se han consumido más segundos de los limites mensuales
@@ -512,29 +514,58 @@ public class Franja implements Serializable{
 			//Aqui hay que controlar la parte de la llamada que sobrepasa del limite
 			//MES
 			if ((t.getSegConsumidosLimiteMes()-duracion)<(t.getLimite()*60)&&((t.getSegConsumidosLimiteMes()>(t.getLimite()*60))&&t.getLimite()>0))
-				duracion=t.getSegConsumidosLimiteMes()-(t.getLimite()*60);
+			{
+				duracionDespues=t.getSegConsumidosLimiteMes()-(t.getLimite()*60);
+				
+				
+			}
 			else
 				//DIA
 				if ((t.getSegConsumidosLimiteDia()-duracion)<(t.getLimiteDia()*60)&&((t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60))&&t.getLimiteDia()>0))
-					duracion=t.getSegConsumidosLimiteDia()-(t.getLimiteDia()*60);
+				{
+					duracionDespues=t.getSegConsumidosLimiteDia()-(t.getLimiteDia()*60);
 			
-			//Log.d(TAG,"IVA="+iva);
-			costePorSegundo=(this.costeFueraLimite/100)/60;
-			//conIvaPorSegundosEnEuros=costePorSegundo*iva;
+				}
+				else //LLAMADA
+				{
+					duracionDespues=duracion-(t.getLimiteLlamada()*60);
+			
+				}
+			
+			duracionAntes=duracion-duracionDespues;
+			Log.d("Franja.Coste", "duracion="+duracion+" || duracionDespues="+duracionDespues+" || duracionAntes="+duracionAntes);
+			
+			
+			
+			//Costes antes de sobrepasar los limite
+			costePorSegundo=(this.coste/100)/60;
 			conIvaPorSegundosEnEuros=costePorSegundo;
-			costeTotal=conIvaPorSegundosEnEuros*duracion;
-			//costeTotalConEstablecimiento=costeTotal+((this.establecimientoFueraLimite/100)*iva);
-			costeTotalConEstablecimiento=costeTotal+((this.establecimientoFueraLimite/100));
+			costeTotal=conIvaPorSegundosEnEuros*duracionAntes;
+			if (duracionAntes>0)
+				costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100));
+			else
+				costeTotalConEstablecimiento=costeTotal;
+			//Costes despues de sobrepasar los limite
+			costePorSegundo=(this.costeFueraLimite/100)/60;
+			conIvaPorSegundosEnEuros=costePorSegundo;
+			costeTotal=conIvaPorSegundosEnEuros*duracionDespues;
+			
+			if (duracionAntes==0)
+				costeTotalConEstablecimiento=costeTotalConEstablecimiento+costeTotal+((this.establecimientoFueraLimite/100));
+			else
+				costeTotalConEstablecimiento=costeTotalConEstablecimiento+costeTotal;
 		}
 		else
 		{
-			//Log.d(TAG,"IVA="+iva);
+			Log.d(TAG,"Coste="+this.coste);
 			costePorSegundo=(this.coste/100)/60;
-			//conIvaPorSegundosEnEuros=costePorSegundo*iva;
-			conIvaPorSegundosEnEuros=costePorSegundo;
-			costeTotal=conIvaPorSegundosEnEuros*duracion;
+			Log.d(TAG,"Coste Por Segundo="+costePorSegundo);
+			Log.d(TAG,"Duracion="+duracion);
+			costeTotal=costePorSegundo*duracion;
+			Log.d(TAG,"Coste total="+costeTotal);
 			//costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100)*iva);
 			costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100));
+			Log.d(TAG,"Coste total con establecimiento="+costeTotalConEstablecimiento);
 		}
 		return costeTotalConEstablecimiento;
 	}
