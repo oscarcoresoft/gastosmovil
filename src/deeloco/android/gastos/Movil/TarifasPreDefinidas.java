@@ -168,7 +168,7 @@ public class TarifasPreDefinidas {
 				    "Fin Sem.","00:00:00","00:00:00","[Sab,Dom]","0","0","Si","19.9","15"},
 		    {"Vodafone - XS+ -Mañana","1","0","150","0","0","Rojo","","Si",
 				    "Mañana","08:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie]","0","0","Si","19.9","15"},
-			{"Vodafone - Diminuto 8","1","6","0","0","0","Rojo","","Si",
+			{"Vodafone - Diminuto 8","1","8","0","0","0","Rojo","","Si",
 			    "24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","8","15","No","0","0"},
 			{"Vodafone - Super T. Plana","1","99.9","1000","0","0","Rojo","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","Si","19","15"},
