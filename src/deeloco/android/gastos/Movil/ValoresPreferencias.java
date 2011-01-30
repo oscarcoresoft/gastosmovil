@@ -481,5 +481,26 @@ public class ValoresPreferencias {
   }
   
   
+  
+  /**
+   * Devuelve el gasto minimo que se ha editado en los ajustes.
+   * @return
+   */
+  public double getGastoMinimo(){
+	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("txtGastoMinimo", "0");
+	  Double retorno=0.0;
+		 try
+		 {
+			 retorno=Double.parseDouble(valor);
+		 }
+		 catch (Exception e)
+		 {
+			 retorno=0.0;
+			 Log.d(TAG,"getGastoMinimo: Error al parsear un double");
+		 }
+		 return retorno;
+  }
+  
+  
 
 }

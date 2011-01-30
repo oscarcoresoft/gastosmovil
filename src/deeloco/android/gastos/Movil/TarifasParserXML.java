@@ -76,10 +76,6 @@ public void endElement(String uri, String localName, String qName) throws SAXExc
 	{
 		t.setNombre(this.datosElemento);
 	}
-	if (localName.compareTo("gastoMinimo")==0)
-	{
-		t.setMinimo(Double.parseDouble(this.datosElemento));
-	}
 	if (localName.compareTo("limiteLlamadas")==0)
 	{
 		t.setLimite(Integer.parseInt(this.datosElemento));

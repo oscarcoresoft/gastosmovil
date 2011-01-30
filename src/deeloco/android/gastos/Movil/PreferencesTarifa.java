@@ -76,8 +76,6 @@ public class PreferencesTarifa extends ListActivity{
     	//Editar una tarifa existente
     	//Nombre de la tarifa
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_nombre), t.getNombre()));
-    	//Gasto Mínimo
-    	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_minimo), ""+t.getMinimo()));
     	//Limite Mes
     	listaIYT.add(new IconoYTexto2(getResources().getDrawable(R.drawable.vacio), getString(R.string.pref_tarifa_limite), ""+t.getLimite()));
     	//Limite Día
@@ -179,32 +177,7 @@ public class PreferencesTarifa extends ListActivity{
         	//Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
         	
 			break;
-		case 1: // Gasto Mínimo
-			//tv=(TextView)v.findViewById(R.id.subtitulo);
-			TextBox dialog2 = new TextBox(this);
-			dialog2.setTitle(iyt.titulo);
-        	//Log.d(TAG,"Valor incial de Gastos Mínimo = "+tv.getText().toString());
-        	dialog2.setValorInicial(""+t.getMinimo());
-        	dialog2.setSubtitulo(getString(R.string.aj_tarifa_gastoMinimo_des));
-        	dialog2.setTextBoxListener(
-        			new TextBoxListener() {
-        				@Override
-        				public void onOkClick(String valor) {
-        					// TODO Auto-generated method stub
-        					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
-        					tv.setText(valor);
-        					t.setMinimo(valor);
-        					//Retorno
-        			    	Intent resultIntent=new Intent();
-        			    	resultIntent.putExtra(TARIFA_RETORNO, t);
-        			    	setResult(Activity.RESULT_OK, resultIntent);
-        			    	onStart();
-        				}
-        			});
-        	dialog2.show();
-        	//Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
-			break;
-		case 2: // Limite llamadas mes
+		case 1: // Limite llamadas mes
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			dialog.setTitle(iyt.titulo);
         	//Log.d(TAG,"Valor inicial de Limite llamadas = "+tv.getText().toString());
@@ -230,7 +203,7 @@ public class PreferencesTarifa extends ListActivity{
         	//Log.d(TAG, "Valor Subtitulo del TextVie -> "+tv.getText());
 			break;
 			
-		case 3: // Limite llamadas dia
+		case 2: // Limite llamadas dia
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			dialog.setTitle(iyt.titulo);
         	//Log.d(TAG,"Valor inicial de Limite llamadas = "+tv.getText().toString());
@@ -257,7 +230,7 @@ public class PreferencesTarifa extends ListActivity{
 			break;	
 			
 			
-		case 4: // Limite para una llamada
+		case 3: // Limite para una llamada
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			dialog.setTitle(iyt.titulo);
         	//Log.d(TAG,"Valor inicial de Limite llamadas = "+tv.getText().toString());
@@ -285,7 +258,7 @@ public class PreferencesTarifa extends ListActivity{
 			
 			
 			
-		case 5: // Color
+		case 4: // Color
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(iyt.titulo);
@@ -308,7 +281,7 @@ public class PreferencesTarifa extends ListActivity{
 			alert.show();
 			break;
 			
-		case 6: //Numeros
+		case 5: //Numeros
 			//tv=(TextView)v.findViewById(R.id.subtitulo);
         	dialog.setTitle(iyt.titulo);
         	dialog.setValorInicial(t.getNumeros());
@@ -331,7 +304,7 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.show();
 			break;
 			
-		case 7: //Defecto
+		case 6: //Defecto
 			AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
 			builder2.setTitle(iyt.titulo);
 			int defecto=1;

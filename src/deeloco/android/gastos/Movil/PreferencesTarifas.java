@@ -97,7 +97,6 @@ public class PreferencesTarifas extends ListActivity{
         	
         	tarifa t=new tarifa(0);
         	t.setNombre("Tarifa Nueva");
-        	t.setMinimo(0.0);
         	t.setColor("Blanco");
         	t.setNumeros("");
         	Intent settingsActivity2 = new Intent(getBaseContext(), PreferencesTarifa.class );
