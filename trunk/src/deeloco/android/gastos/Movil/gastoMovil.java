@@ -530,7 +530,10 @@ public class gastoMovil extends ListActivity{
 		        		coste=f.coste(t, duracion); //Coste sin iva
 		        		estLlamada=f.establecimiento(t);
 		        		
-		        		if ((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)||(t.getSegConsumidosLimiteMes()>t.getLimite()*60)||(duracion>t.getLimiteLlamada()*60))
+		        		if (
+	        				((t.getSegConsumidosLimiteDia()>t.getLimiteDia()*60)&&t.getLimiteDia()>0)||
+	        				((t.getSegConsumidosLimiteMes()>t.getLimite()*60)&&t.getLimite()>0)||
+	        				((duracion>t.getLimiteLlamada()*60)&&t.getLimiteLlamada()>0))
 		        		{
 		        			rIcono=vp.getColorIcon(t.getColor(),"relog_peligro",display.getHeight());
 		        		}

@@ -17,7 +17,6 @@ import java.util.regex.*;
 
 public class tarifa implements Serializable{
 
-	private static final int GASTOMINIMO=2;
 	private static final int LIMITE=3;
 	
 	/**
@@ -42,11 +41,6 @@ public class tarifa implements Serializable{
 	 * nombre de la tarifa
 	 */
 	private String nombre;
-	
-	/**
-	 * Consumo mínimo, en euros y sin iva. Si es 0 no tiene consumo mínimo.
-	 */
-	private double minimo;
 	
 	/**
 	 * Limite mensual, en minutos, para el que se aplica uno y otra tarifa de una franja
@@ -171,14 +165,6 @@ public class tarifa implements Serializable{
         	}
         }
 		return -1; //El nombre no pertenece a ninguna franja de esta tarifa
-	}
-	
-	/**
-	 * Devuelve el consumo mínimo que tiene la tarifa
-	 * @return
-	 */
-	double getMinimo(){
-		return this.minimo;
 	}
 	
 	/**
@@ -423,27 +409,6 @@ public class tarifa implements Serializable{
 		this.nombre=nombre;
 	}
 	
-	/**
-	 * Asigna el valor del gasto mínimo 
-	 * @param minimo
-	 */
-	void setMinimo(double minimo){
-		this.minimo=minimo;
-	}
-	
-	void setMinimo(String minimo){
-		
-		try
-		{
-			minimo=minimo.replace(",",".");
-			this.minimo=Double.parseDouble(minimo);
-		}
-		catch (Exception e)
-		{
-			this.minimo=0.0;
-		}
-
-	}
 	
 	/**
 	 * Asigna el valor limite a limite mensual de llamadas
@@ -642,6 +607,7 @@ public class tarifa implements Serializable{
 	 */
 	boolean pertenece(String numero){
 		
+		//Que el número coincifa entero
 		if (this.numeros.indexOf(numero)>-1)
 			return true;
 		
@@ -693,7 +659,6 @@ public class tarifa implements Serializable{
 				
 			}
 		}
-		retorno[GASTOMINIMO]=this.getMinimo();
 		//El retorno del limite, sera para aquellas franjas que se contabilicen para el limite
 		return retorno;
 	}

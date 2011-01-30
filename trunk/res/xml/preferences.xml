@@ -78,6 +78,13 @@
 			android:title="@string/aj_inicioMes"
 			android:key="txtInicioMes" />
 	   <EditTextPreference
+			android:name="@string/aj_gastoMinimo"
+			android:summary="@string/aj_gasto_minimo"
+			android:defaultValue="0"
+			android:inputType="phone"
+			android:title="@string/aj_gastoMinimo"
+			android:key="txtGastoMinimo" />	
+	   <EditTextPreference
 			android:name="@string/aj_impuestos"
 			android:summary="@string/aj_impuestos_des"
 			android:defaultValue="18"

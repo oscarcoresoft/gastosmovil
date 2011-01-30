@@ -348,7 +348,6 @@ public class tarifas implements Serializable{
 		//Log.i(TAG,"Defecto modificar-> "+t.getDefecto());
 		//Log.i(TAG,"Nombre de la tarifa que se va a añadir -> "+t.getNombre());
 		tactual.setNombre(t.getNombre());
-		tactual.setMinimo(t.getMinimo());
 		tactual.setLimite(t.getLimite());
 		tactual.setLimiteDia(t.getLimiteDia());
 		tactual.setLimiteLlamada(t.getLimiteLlamada());
@@ -398,7 +397,6 @@ public class tarifas implements Serializable{
 		{
 			xmlFinal+="<tarifa id=\""+this.tarifas.get(t).getIdentificador()+"\">";
 			xmlFinal+="<nombreTarifa>"+this.tarifas.get(t).getNombre()+"</nombreTarifa>";
-			xmlFinal+="<gastoMinimo>"+this.tarifas.get(t).getMinimo()+"</gastoMinimo>";
 			xmlFinal+="<limiteLlamadas>"+this.tarifas.get(t).getLimite()+"</limiteLlamadas>";
 			xmlFinal+="<limiteLlamadasDia>"+this.tarifas.get(t).getLimiteDia()+"</limiteLlamadasDia>";
 			xmlFinal+="<limiteLlamada>"+this.tarifas.get(t).getLimiteLlamada()+"</limiteLlamada>";
@@ -591,25 +589,7 @@ public class tarifas implements Serializable{
 			}
 		return conflicto;
 	}
-	
-	
-	
-	public double getGastoMinimo()
-	{
-		double retorno=0.0;
-		for (int i=0;i<this.tarifas.size();i++)
-		{
-			if (this.tarifas.get(i).getDefecto())
-			{
-				//Es una tarifa que se aplica por defecto
-				if (retorno<this.tarifas.get(i).getMinimo())
-				{
-					retorno=this.tarifas.get(i).getMinimo();
-				}
-			}
-		}
-		return retorno;
-	}
+
 	
 	
 	/**

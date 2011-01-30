@@ -156,6 +156,8 @@
     <string name="aj_tarifa_limite_llamada_des">Límite de una llamada, en minutos.</string>
     <string name="aj_descuento">Descuento</string>
     <string name="aj_descuento_des">Porcentaje de descuento que la operadora nos aplica a la factura.</string>
+    <string name="aj_gastoMinimo">Gasto Mínimo</string>
+    <string name="aj_gasto_minimo">Gasto mínimo que aplica la operadora. En euros</string>
     <string name="aj_decimales">Decimales en las llamadas</string>
     <string name="aj_decimales_des">Números de decimales que deben aparecer al calcular el coste de las llamadas (entre 2 y 4 decimales).</string>
     <string name="aj_cuota">Cuota Mensual</string>

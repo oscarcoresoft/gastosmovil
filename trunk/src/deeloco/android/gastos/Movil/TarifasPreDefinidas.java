@@ -222,7 +222,6 @@ public class TarifasPreDefinidas {
 		tarifa tarifaRetorno=new tarifa(0); //0= tarifa nueva
 		//Cargamos los valores de la tarifa
 		tarifaRetorno.setNombre(this.tarifasPreDefinidas[indice][0]); //Nombre
-		tarifaRetorno.setMinimo(Double.parseDouble(this.tarifasPreDefinidas[indice][2]));//Gasto minimo
 		tarifaRetorno.setLimite(Integer.parseInt(this.tarifasPreDefinidas[indice][3])); //Limite mes
 		tarifaRetorno.setLimiteDia(Integer.parseInt(this.tarifasPreDefinidas[indice][4])); //Limite día
 		tarifaRetorno.setLimiteLlamada(Integer.parseInt(this.tarifasPreDefinidas[indice][5])); //Limite día

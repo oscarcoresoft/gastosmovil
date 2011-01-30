@@ -78,7 +78,7 @@ public class simulacionFactura extends Activity {
 	  
 	  //Gasto Mínimo
 	  //double gastoMinimo=ts.getTarifa(ts.getId(vp.getPreferenciasDefecto())).getMinimo();
-	  double gastoMinimo=ts.getGastoMinimo();
+	  double gastoMinimo=vp.getGastoMinimo();
       TextView txtGastoMinimo = new TextView(this,null,android.R.attr.textAppearanceSmall);
       txtGastoMinimo.setTextSize(15);
       txtGastoMinimo.setTypeface(Typeface.MONOSPACE);
