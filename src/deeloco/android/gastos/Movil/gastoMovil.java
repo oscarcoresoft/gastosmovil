@@ -252,6 +252,9 @@ public class gastoMovil extends ListActivity{
         	ii.putExtra("Gastos",gastos);
         	ii.putExtra("Horas", horas);
         	ii.putExtra("Gastos2",gastos2);
+        	extras = new Bundle();
+        	extras.putSerializable("tarifas", ts);
+        	ii.putExtras(extras);
         	startActivity(ii);
         	break;
         }
@@ -479,8 +482,10 @@ public class gastoMovil extends ListActivity{
 		        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
 		        		//Añadimos los acumulados de tiempo que se pueden añadir en este punto
 	        			//Me esta dando un error en la consola del market. No se porque, pongo un try
-	        			try{
-		        		t.addSegConsumidosMes(duracion);
+	        			try
+	        			{
+			        		t.addSegConsumidosMes(duracion);
+			        		f.addSegundosConsumidos(telefono, duracion);
 	        			}catch (Exception e){
 	        				Log.e("Gastos Movil","t.addSegConsumidosMes(duracion):"+e.getMessage());
 	        				duracion=0;
