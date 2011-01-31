@@ -18,8 +18,8 @@ public class avisoLlamadaSaliente extends BroadcastReceiver {
                 
                 String phonenumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
 
-                Log.i("OutgoingCallReceiver",phonenumber);
-                Log.i("OutgoingCallReceiver",bundle.toString());
+                Log.i("avisoLlamadaSaliente",phonenumber);
+                Log.i("avisoLlamadaSaliente",bundle.toString());
                 
                 String info = "Detect Calls sample application\nOutgoing number: " + phonenumber;
                 
