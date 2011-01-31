@@ -34,6 +34,7 @@ public class GastosPorNumeroActivity extends Activity {
       
       //Construir el listview para presentar los datos de gastos por número y el porcentaje de cada uno con respecto al total
       Resources res = getResources();
+      
       Drawable rIcono = null;
       rIcono=res.getDrawable(android.R.drawable.sym_action_call);
       lista.clear();
@@ -69,6 +70,9 @@ public class GastosPorNumeroActivity extends Activity {
       //setListAdapter(ad);
       ListView listaGastos=(ListView) findViewById(R.id.lv_gastos);
       listaGastos.setAdapter(ad);
+
+      
+      
 
 
    }

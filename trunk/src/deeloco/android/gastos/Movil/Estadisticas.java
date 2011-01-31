@@ -9,6 +9,8 @@ import android.widget.TabHost;
 
 public class Estadisticas extends TabActivity {
 	
+	private tarifas ts;
+	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.pestanas);
@@ -24,6 +26,7 @@ public class Estadisticas extends TabActivity {
 	    intent.putExtra("total",extras.getString("total"));
 	    intent.putExtra("Numeros", extras.getStringArrayList("Numeros"));
 	    intent.putExtra("Gastos",extras.getStringArrayList("Gastos"));
+	    ts = (tarifas) getIntent().getExtras().get("tarifas");
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
 	    spec = tabHost.newTabSpec("numeros").setIndicator(getString(R.string.gpn_resumen),res.getDrawable(R.drawable.ic_menu_call)).setContent(intent);

@@ -20,6 +20,10 @@ public class Franja implements Serializable{
 	private static final int LIMITE=3;
 	private static final int COSTE_FUERA_LIMITE=4;
 	private static final int ESTABLECIMIENTO_FUERA_LIMITE=5;
+	
+	private ArrayList <String> numeros=new ArrayList <String>();
+	private ArrayList <Integer> segConsumidos=new ArrayList <Integer>();
+	
 
 	/**
 	 * Impuestos que se van a aplicar a la hora de calcular el coste de las llamadas. Por defecto 1.18
@@ -611,5 +615,24 @@ public class Franja implements Serializable{
 		}
 		
 		return retorno;
+	}
+	
+	/**
+	 * Añade segundos consumidos a un número gastado en esta franja
+	 * @param numero
+	 * @param gasto
+	 */
+	public void addSegundosConsumidos (String numero, int segundos)
+	{
+		int posicion=this.numeros.indexOf(numero);
+		if (posicion==-1) {//El número no existe
+			this.numeros.add(numero);
+			this.segConsumidos.add(segundos);
+		}
+		else { //El número existe, se le suma gastos
+			int suma;
+			suma=this.segConsumidos.get(posicion)+segundos;
+			this.segConsumidos.set(posicion, suma);
+		}
 	}
 }
