@@ -5,6 +5,8 @@ import java.util.Currency;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.provider.CallLog;
 import android.util.Log;
 
 public class FunGlobales extends Activity{

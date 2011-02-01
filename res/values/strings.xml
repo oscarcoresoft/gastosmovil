@@ -184,7 +184,8 @@
     <string name="tarifaDefecto">Tarifa aplicada por defecto</string>
     
 	<string name="aj_resumenDia">Resumen Día</string>
-    <string name="aj_resumenDia_des">Mostrar total de tiempo hablado, por días.</string>    
+    <string name="aj_resumenDia_des">Mostrar total de tiempo hablado, por días.</string>
+    <string name="mensaje_problemas_cargar_tarifa_predefinida">Problemas al cargar la tarifa predefinida. Intentelo manualmente.</string>    
 
 </resources> 
 
