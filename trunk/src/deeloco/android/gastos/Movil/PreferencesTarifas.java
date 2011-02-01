@@ -121,10 +121,17 @@ public class PreferencesTarifas extends ListActivity{
 			    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
 			    	//Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
 			    	tarifa t=tsPre.getTarifa(item);
-			    	ts.addTarifa(t);
-			    	Intent resultIntent=new Intent();
-			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
-			    	setResult(Activity.RESULT_OK, resultIntent);
+			    	if (t!=null) //Se ha retornado una tarifa predefinida
+			    	{
+				    	ts.addTarifa(t);
+				    	Intent resultIntent=new Intent();
+				    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
+				    	setResult(Activity.RESULT_OK, resultIntent);
+			    	}
+			    	else
+			    	{
+			    		Toast.makeText(getBaseContext(),getString(R.string.mensaje_problemas_cargar_tarifa_predefinida),Toast.LENGTH_LONG).show();
+			    	}
 			    	onStart();
 			    }
 			});

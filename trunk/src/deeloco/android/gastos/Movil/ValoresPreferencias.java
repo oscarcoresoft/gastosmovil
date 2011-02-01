@@ -210,7 +210,7 @@ public class ValoresPreferencias {
     
     
     /**
-     * Retorna el valor de Duración, un parámetro de ajuste.
+     * Retorna el valor de Duración modificada, un parámetro de ajuste.
      * @return
      */
     public int getPreferenciasDuracion(){

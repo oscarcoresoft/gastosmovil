@@ -2,6 +2,7 @@ package deeloco.android.gastos.Movil;
 
 
 import android.util.Log;
+import android.widget.Toast;
 
 public class TarifasPreDefinidas {
 	
@@ -118,7 +119,7 @@ public class TarifasPreDefinidas {
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","5","15","No","0","0"},
 			{"Simyo - Tarifa 8 cent","1","0","0","0","0","Naranja","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","8","15","No","0","0"},
-			{"Simyo - Numero Simyo","1","0","0","0","Verde","","Si",
+			{"Simyo - Numero Simyo","1","0","0","0","0","Verde","","No",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","0","No","0","0"},
 			//{"Nombre tarifa","numero de franjas","consumo minimo","limite mensuales","limite diario","limite por llamadas","Color","numeros asociados","Defecto",
 			//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
@@ -218,8 +219,11 @@ public class TarifasPreDefinidas {
 	 * @return
 	 */
 	public tarifa getTarifa(int indice){
-		//Log.d("TarifaPreDefinida","Inicio de la creación de tarifa predefinida="+this.tarifasPreDefinidas[indice][0]);
 		tarifa tarifaRetorno=new tarifa(0); //0= tarifa nueva
+		try
+		{
+		//Log.d("TarifaPreDefinida","Inicio de la creación de tarifa predefinida="+this.tarifasPreDefinidas[indice][0]);
+		//tarifa tarifaRetorno=new tarifa(0); //0= tarifa nueva
 		//Cargamos los valores de la tarifa
 		tarifaRetorno.setNombre(this.tarifasPreDefinidas[indice][0]); //Nombre
 		tarifaRetorno.setLimite(Integer.parseInt(this.tarifasPreDefinidas[indice][3])); //Limite mes
@@ -248,6 +252,11 @@ public class TarifasPreDefinidas {
         	nuevaFranja.setEstablecimientoFueraLimite(this.tarifasPreDefinidas[indice][indiceDatosFranja+8]); //Establecimiento fuera limite
         	tarifaRetorno.addFranja(nuevaFranja);
         }
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			tarifaRetorno=null;
+		}
 		//Log.d("TarifaPreDefinida","Se ha creado una tarifa predefinida="+tarifaRetorno.getNombre());
 		return tarifaRetorno;
 	}
