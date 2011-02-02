@@ -1,6 +1,7 @@
 package deeloco.android.gastos.Movil;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,7 +10,8 @@ import android.provider.CallLog;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
-import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.widget.RemoteViews;
 
 public class avisoEstadoTelefono extends  BroadcastReceiver {
 	
@@ -51,6 +53,13 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
                     String info = "Detectada final de llamada\nnumero: "+telefono+" | Duración="+duracion;
                       
                     Toast.makeText(context, info, Toast.LENGTH_LONG).show();
+                    
+                    
+            		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+                    ComponentName thisWidget = new ComponentName(context, widgetProvider.class);
+                    remoteViews.setTextViewText(R.id.widgettext, info);
+                    appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                 }
         }
 
