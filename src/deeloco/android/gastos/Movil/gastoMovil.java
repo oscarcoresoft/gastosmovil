@@ -43,9 +43,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -65,6 +68,7 @@ import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -869,11 +873,30 @@ public class gastoMovil extends ListActivity{
 		// TODO Auto-generated method stub
 		super.onStop();
 		ts.guardarTarifas();
+		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getBaseContext());
+        RemoteViews remoteViews = new RemoteViews(getBaseContext().getPackageName(), R.layout.widget);
+        ComponentName thisWidget = new ComponentName(getBaseContext(), widgetProvider.class);
+        remoteViews.setTextViewText(R.id.txt_costeLlamadas, FunGlobales.redondear(costeLlamadas*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
+        remoteViews.setTextViewText(R.id.txt_costeSMS, FunGlobales.redondear(costeSMS*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
+        remoteViews.setTextViewText(R.id.txt_tiempoLimite, ts.getTextoConsumidosMesLimite());
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 		
 	}
     
     
-    
+    /**
+     * Guarda una preferencia con la dupla clave valor
+     * @param key
+     * 		Clave de la preferencia.
+     * @param value
+     * 		Valor de la preferencia.
+     */
+	  private void guardarPreferences(String key, String value){
+		    SharedPreferences sharedPreferences = getSharedPreferences("MIS_PREFERENCIAS", MODE_PRIVATE);
+		    SharedPreferences.Editor editor = sharedPreferences.edit();
+		    editor.putString(key, value);
+		    editor.commit();
+		   }
     
     
     

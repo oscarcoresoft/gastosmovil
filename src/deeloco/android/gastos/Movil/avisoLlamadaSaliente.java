@@ -21,8 +21,8 @@ public class avisoLlamadaSaliente extends BroadcastReceiver {
                 Log.i("avisoLlamadaSaliente",phonenumber);
                 Log.i("avisoLlamadaSaliente",bundle.toString());
                 
-                String info = "Detect Calls sample application\nOutgoing number: " + phonenumber;
+                //String info = "Detect Calls sample application\nOutgoing number: " + phonenumber;
                 
-                Toast.makeText(context, info, Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, info, Toast.LENGTH_LONG).show();
         }
 }

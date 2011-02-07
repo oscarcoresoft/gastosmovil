@@ -1,5 +1,7 @@
 package deeloco.android.gastos.Movil;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Serializable;
 import java.sql.Time;
@@ -8,6 +10,12 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 import android.content.Context;
 import android.util.Log;
@@ -31,7 +39,7 @@ public class tarifas implements Serializable{
 	
 	tarifas(){
 		//cuando se instance un objeto, se debe cargar los valores de las franjas 
-		cargarFranjas();
+		//cargarFranjas();
 	}
 	
 	/**
@@ -41,7 +49,47 @@ public class tarifas implements Serializable{
 	boolean cargarFranjas(){
 		//Leere fichero XML
 		//Recorrer XML y cargar valores en franjas
-		return false;
+		boolean retorno;
+		 try
+	        {
+	        	//Comprobamos si el fichero esta creado. Si es que no, se crea.
+	        	File f=new File(path);
+	        	if (!f.exists())
+	        	{
+	        		//El fichero no existe, hay que crearlo
+	        		try{
+	        			boolean dir = new File("/sdcard/gastosmovil").mkdir(); //Creamos el directorio
+	        			if (dir) //Si se ha creado correctamente el directorio
+	        			{
+	        				f.createNewFile(); //Creamos el fichero 
+	        			}
+	        		}
+	        		catch (Exception e){ //Error al crear el directorio o el fichero
+	        			Log.e("GM:Tarifas.java","Error al crear el fichero o directorio: " + e.getMessage());
+	        			retorno=false;
+	        		}
+	        	}
+	        	
+		        SAXParserFactory spf = SAXParserFactory.newInstance();
+		        SAXParser sp = spf.newSAXParser();
+		        /* Get the XMLReader of the SAXParser we created. */
+		        XMLReader xr = sp.getXMLReader();
+		        /* Create a new ContentHandler and apply it to the XML-Reader*/
+		        TarifasParserXML tarifasXML = new TarifasParserXML();
+		        tarifasXML.setTarifas(this);
+		        xr.setContentHandler(tarifasXML);
+		        xr.parse(new InputSource (new FileReader(path)));
+		        /* Parsing has finished. */		   
+		        retorno=true;
+	        }
+	        catch (Exception e)
+	        {
+	        	//Si el error se produce porque no existe el fichero xml, hay que crearlo.
+	        	//Tambien hay que crear el directorio	        	
+	        	Log.e("GM:Tarifas.java", "Error al parsear. "+e.toString()+" ("+e.hashCode()+")");
+	        	retorno=false;
+	        }
+		return retorno;
 	}
 	
 	//get y set
@@ -594,7 +642,7 @@ public class tarifas implements Serializable{
 	
 	/**
 	 * Retorna el total de segundo consumidos del mes, de todas las tarifas
-	 * @return
+	 * @return double
 	 */
 	public double getSegConsumidosMes()
 	{
@@ -608,7 +656,7 @@ public class tarifas implements Serializable{
 	
 	/**
 	 * Retorna el total de segundo consumidos del día, de todas las tarifas
-	 * @return
+	 * @return int
 	 */
 	public int getSegConsumidosDia()
 	{
@@ -616,6 +664,30 @@ public class tarifas implements Serializable{
 		for (int i=0;i<this.tarifas.size();i++)
 		{
 			retorno+=this.tarifas.get(i).getSegConsumidosDia();
+		}
+		return retorno;
+	}
+	
+	
+	
+	
+	/**
+	 * Retorna el total de segundo consumidos del limite del mes, de todas las tarifas.
+	 * @return String
+	 */
+	public String getTextoConsumidosMesLimite()
+	{
+		String retorno="";
+		for (int i=0;i<this.tarifas.size();i++)
+		{
+			if (this.tarifas.get(i).getLimite()>0)
+			{
+				retorno+=FunGlobales.segundosAHoraMinutoSegundo(this.tarifas.get(i).getSegConsumidosLimiteMes())+" de "+FunGlobales.segundosAHoraMinutoSegundo(this.tarifas.get(i).getLimite()*60)+" @ ";
+			}
+			else
+			{
+				retorno+="Sin Límite"+" @ ";
+			}
 		}
 		return retorno;
 	}
