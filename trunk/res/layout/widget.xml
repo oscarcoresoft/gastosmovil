@@ -3,11 +3,119 @@
  android:orientation="vertical"
  android:layout_width="fill_parent"
  android:layout_height="fill_parent"
- android:background="@android:drawable/toast_frame"
- >
-	<TextView
-	android:id="@+id/widgettext"
-	 android:layout_width="fill_parent"
-	 android:layout_height="wrap_content"
-	 android:textColor="#ffffff"/>
+ android:background="@android:drawable/toast_frame">
+ 
+ 
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:orientation="horizontal"
+ android:layout_width="fill_parent"
+ android:layout_height="wrap_content">
+ 
+    <ImageView android:id="@+id/image"
+  			android:layout_width="20dp"
+           	android:layout_height="20dp"
+           	android:paddingRight="5dp"
+           	android:src="@android:drawable/stat_sys_phone_call"
+           	android:scaleType="centerInside"/>
+           	
+	<TextView android:id="@+id/widgettext"
+ 			android:layout_width="fill_parent"
+			 android:layout_height="wrap_content"
+		 	android:textColor="#ffffff"/>
+</LinearLayout>
+
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:orientation="horizontal"
+ android:layout_width="fill_parent"
+ android:layout_height="wrap_content">
+ 
+    <ImageView android:id="@+id/image"
+  			android:layout_width="20dp"
+           	android:layout_height="20dp"
+           	android:paddingRight="5dp"
+           	android:src="@android:drawable/sym_action_call"
+           	android:scaleType="centerInside"/>
+           	
+    <TextView android:id="@+id/etq_costeLlamada"
+ 			android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:text="Llamadas: "
+		 	android:textColor="#ffffff"/>       	
+           	
+	<TextView android:id="@+id/txt_costeLlamadas"
+			android:paddingRight="10dp"
+ 			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		 	android:textColor="#ffffff"/>
+		 	
+		 	
+	<ImageView android:id="@+id/image"
+  			android:layout_width="20dp"
+           	android:layout_height="20dp"
+           	android:paddingRight="5dp"
+           	android:src="@android:drawable/sym_action_email"
+           	android:scaleType="centerInside"/>
+           	
+    <TextView android:id="@+id/etq_costeSMS"
+ 			android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:text="SMS: "
+		 	android:textColor="#ffffff"/>       	
+           	
+	<TextView android:id="@+id/txt_costeSMS"
+ 			android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+		 	android:textColor="#ffffff"/>
+		 	
+</LinearLayout>
+
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:orientation="horizontal"
+ android:layout_width="fill_parent"
+ android:layout_height="wrap_content">
+ 
+	<ImageView android:id="@+id/image"
+  			android:layout_width="20dp"
+           	android:layout_height="20dp"
+           	android:paddingRight="5dp"
+           	android:src="@android:drawable/presence_away"
+           	android:scaleType="centerInside"/>
+           	
+    <TextView android:id="@+id/etq_tiempoLimite"
+ 			android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:text=" "
+		 	android:textColor="#ffffff"/>       	
+           	
+	<TextView android:id="@+id/txt_tiempoLimite"
+ 			android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+		 	android:textColor="#ffffff"/>	
+		 	
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </LinearLayout>

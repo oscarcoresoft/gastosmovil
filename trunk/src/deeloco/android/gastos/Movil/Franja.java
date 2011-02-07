@@ -510,7 +510,7 @@ public class Franja implements Serializable{
 		//Calculamos si se han pasado los límites mensuales, diarios o de la llamada
 		if ( ((t.getSegConsumidosLimiteMes()>(t.getLimite()*60)) || 
 				(t.getSegConsumidosLimiteDia()>(t.getLimiteDia()*60)) || 
-				(duracion>t.getLimiteLlamada()*60) )
+				((duracion>t.getLimiteLlamada()*60)&&(t.getLimiteLlamada()!=0)) )
 				&& this.getLimite() )
 		{
 			//Se han consumido más segundos de los limites mensuales
