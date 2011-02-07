@@ -79,10 +79,10 @@ public class widgetProvider extends AppWidgetProvider {
         }
 
         //Montamos la cadena donde se van a presentar los datos
-        String info = telefono+" | "+FunGlobales.segundosAHoraMinutoSegundo(duracion);
+        String info = telefono+"|"+FunGlobales.segundosAHoraMinutoSegundo(duracion);
         if (f!=null)
         {
-        	info +=" | "+FunGlobales.redondear((f.coste(t, duracion)*((vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1)),vp.getPreferenciasDecimales())+FunGlobales.monedaLocal();
+        	info +="|"+FunGlobales.redondear((f.coste(t, duracion)*((vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1)),vp.getPreferenciasDecimales())+FunGlobales.monedaLocal();
         }
         info+=Html.fromHtml(" @ <b>"+DateFormat.format("kk:mm",new Date()).toString()+"</b>");
 		RemoteViews updateViews = new RemoteViews(context.getPackageName(), R.layout.widget);
