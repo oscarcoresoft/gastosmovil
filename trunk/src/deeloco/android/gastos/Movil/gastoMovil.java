@@ -54,8 +54,10 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.Contacts;
+import android.text.Html;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -590,6 +592,7 @@ public class gastoMovil extends ListActivity{
         		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
         		{
         			lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
+        			guardarPreferences("consumoDia", ""+ts.getSegConsumidosDia());
 					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
         c.close();
@@ -686,7 +689,7 @@ public class gastoMovil extends ListActivity{
     	txtMediaLlamadas.setTypeface(Typeface.MONOSPACE);
 	  	linear.addView(txtMediaLlamadas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 	  	if (numLlamadas>0)
-	  		txtMediaLlamadas.setText(getString(R.string.txtDuracionMedia)+FunGlobales.segundosAHoraMinutoSegundo((int) ts.getSegConsumidosMes()/numLlamadas));
+	  		txtMediaLlamadas.setText(getString(R.string.txtDuracionMedia)+FunGlobales.segundosAHoraMinutoSegundo(ts.getSegConsumidosMes()/numLlamadas));
 	  	else
 	  		txtMediaLlamadas.setText(getString(R.string.txtDuracionMedia));
 	  	
@@ -878,7 +881,14 @@ public class gastoMovil extends ListActivity{
         ComponentName thisWidget = new ComponentName(getBaseContext(), widgetProvider.class);
         remoteViews.setTextViewText(R.id.txt_costeLlamadas, FunGlobales.redondear(costeLlamadas*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
         remoteViews.setTextViewText(R.id.txt_costeSMS, FunGlobales.redondear(costeSMS*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
-        remoteViews.setTextViewText(R.id.txt_tiempoLimite, ts.getTextoConsumidosMesLimite());
+        remoteViews.setTextViewText(R.id.txt_tiempo, Html.fromHtml("<font color='green'>"+FunGlobales.segundosAHoraMinutoSegundo(ts.getSegConsumidosMes())+"</font>"));
+        
+        SharedPreferences sharedPreferences = getSharedPreferences("MIS_PREFERENCIAS", MODE_PRIVATE);
+        String consumoDia = sharedPreferences.getString("consumoDia", "1");
+        remoteViews.setTextViewText(R.id.txt_tiempoLimite, "D:"+consumoDia);
+        //Añadir las vistas correspondientes a los consumos de las tarifas
+        
+        
         appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 		
 	}
