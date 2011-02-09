@@ -65,6 +65,8 @@
     		</intent-filter>
     		<meta-data android:name="android.appwidget.provider" android:resource="@xml/widgetproviderinfo" />
  		</receiver>
+ 		
+ 		<service android:name=".widgetProvider$UpdateService" />
 
     </application>
     <uses-sdk android:minSdkVersion="4" />
