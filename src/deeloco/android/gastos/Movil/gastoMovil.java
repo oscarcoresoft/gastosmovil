@@ -90,6 +90,7 @@ public class gastoMovil extends ListActivity{
     
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
     private static final int RETURN_PREFERENCES_TARIFAS=2;
+    private static final String PREFERENCIAS_WIDGET="MIS_PREFERENCIAS_WIDGET";
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     //private static final String TAG = "GastosMóvil";
     private double iva=1.18;
@@ -592,7 +593,7 @@ public class gastoMovil extends ListActivity{
         		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
         		{
         			lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
-        			guardarPreferences("consumoDia", ""+ts.getSegConsumidosDia());
+        			guardarPreferences("consumoDia", ts.getSegConsumidosDia());
 					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
         c.close();
@@ -883,9 +884,9 @@ public class gastoMovil extends ListActivity{
         remoteViews.setTextViewText(R.id.txt_costeSMS, FunGlobales.redondear(costeSMS*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
         remoteViews.setTextViewText(R.id.txt_tiempo, Html.fromHtml("<font color='green'>"+FunGlobales.segundosAHoraMinutoSegundo(ts.getSegConsumidosMes())+"</font>"));
         
-        SharedPreferences sharedPreferences = getSharedPreferences("MIS_PREFERENCIAS", MODE_PRIVATE);
+        /*SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, MODE_PRIVATE);
         String consumoDia = sharedPreferences.getString("consumoDia", "1");
-        remoteViews.setTextViewText(R.id.txt_tiempoLimite, "D:"+consumoDia);
+        remoteViews.setTextViewText(R.id.txt_tiempoLimite, "D:"+consumoDia);*/
         //Añadir las vistas correspondientes a los consumos de las tarifas
         
         
@@ -902,9 +903,16 @@ public class gastoMovil extends ListActivity{
      * 		Valor de la preferencia.
      */
 	  private void guardarPreferences(String key, String value){
-		    SharedPreferences sharedPreferences = getSharedPreferences("MIS_PREFERENCIAS", MODE_PRIVATE);
+		    SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, MODE_PRIVATE);
 		    SharedPreferences.Editor editor = sharedPreferences.edit();
 		    editor.putString(key, value);
+		    editor.commit();
+		   }
+	  
+	  private void guardarPreferences(String key, int value){
+		    SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
+		    SharedPreferences.Editor editor = sharedPreferences.edit();
+		    editor.putInt(key, value);
 		    editor.commit();
 		   }
     
