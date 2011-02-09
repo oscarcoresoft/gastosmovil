@@ -19,9 +19,16 @@
            	android:scaleType="centerInside"/>
            	
 	<TextView android:id="@+id/widgettext"
- 			android:layout_width="fill_parent"
+ 			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="10dp"
+		 	android:textColor="#ffffff"/>
+			 	
+		<TextView android:id="@+id/txt_semaforo"
+ 			android:layout_width="wrap_content"
 			 android:layout_height="wrap_content"
 		 	android:textColor="#ffffff"/>
+		 	
 </LinearLayout>
 
  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -39,7 +46,7 @@
     <TextView android:id="@+id/etq_costeLlamada"
  			android:layout_width="wrap_content"
 			 android:layout_height="wrap_content"
-			 android:text="Llamadas: "
+			 android:text=" "
 		 	android:textColor="#ffffff"/>       	
            	
 	<TextView android:id="@+id/txt_costeLlamadas"
@@ -59,21 +66,42 @@
     <TextView android:id="@+id/etq_costeSMS"
  			android:layout_width="wrap_content"
 			 android:layout_height="wrap_content"
-			 android:text="SMS: "
+			 android:text=" "
 		 	android:textColor="#ffffff"/>       	
            	
 	<TextView android:id="@+id/txt_costeSMS"
+			android:paddingRight="10dp"
+ 			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		 	android:textColor="#ffffff"/>
+		 	
+	<ImageView android:id="@+id/image"
+  			android:layout_width="20dp"
+           	android:layout_height="20dp"
+           	android:paddingRight="5dp"
+           	android:src="@android:drawable/presence_away"
+           	android:scaleType="centerInside"/>
+           	
+    <TextView android:id="@+id/etq_tiempo"
+ 			android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:text=" "
+		 	android:textColor="#ffffff"/>       	
+           	
+	<TextView android:id="@+id/txt_tiempo"
  			android:layout_width="wrap_content"
 			 android:layout_height="wrap_content"
 		 	android:textColor="#ffffff"/>
+
 		 	
 </LinearLayout>
 
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- android:orientation="horizontal"
- android:layout_width="fill_parent"
- android:layout_height="wrap_content">
- 
+ <LinearLayout 
+	android:id="@+id/ll_tiempoTarifas"
+	android:orientation="horizontal"	
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+
 	<ImageView android:id="@+id/image"
   			android:layout_width="20dp"
            	android:layout_height="20dp"
@@ -91,31 +119,7 @@
  			android:layout_width="wrap_content"
 			 android:layout_height="wrap_content"
 		 	android:textColor="#ffffff"/>	
-		 	
+		  	
 </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </LinearLayout>

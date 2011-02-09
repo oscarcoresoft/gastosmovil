@@ -644,9 +644,9 @@ public class tarifas implements Serializable{
 	 * Retorna el total de segundo consumidos del mes, de todas las tarifas
 	 * @return double
 	 */
-	public double getSegConsumidosMes()
+	public int getSegConsumidosMes()
 	{
-		double retorno=0.0;
+		int retorno=0;
 		for (int i=0;i<this.tarifas.size();i++)
 		{
 			retorno+=this.tarifas.get(i).getSegConsumidosMes();
@@ -682,10 +682,12 @@ public class tarifas implements Serializable{
 		{
 			if (this.tarifas.get(i).getLimite()>0)
 			{
+				//tarifa que tiene limite xxx de xxxx
 				retorno+=FunGlobales.segundosAHoraMinutoSegundo(this.tarifas.get(i).getSegConsumidosLimiteMes())+" de "+FunGlobales.segundosAHoraMinutoSegundo(this.tarifas.get(i).getLimite()*60)+" @ ";
 			}
 			else
 			{
+				//tarifa que no tiene limite
 				retorno+="Sin Límite"+" @ ";
 			}
 		}
