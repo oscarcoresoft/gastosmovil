@@ -91,6 +91,9 @@ public class gastoMovil extends ListActivity{
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
     private static final int RETURN_PREFERENCES_TARIFAS=2;
     private static final String PREFERENCIAS_WIDGET="MIS_PREFERENCIAS_WIDGET";
+    private static final String PREF_COSTE="COSTE_MES";
+    private static final String PREF_SEGUNDOS="SEGUNDOS_MES";
+    
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     //private static final String TAG = "GastosMóvil";
     private double iva=1.18;
@@ -705,6 +708,7 @@ public class gastoMovil extends ListActivity{
         txtEstablecimiento.setText(" * % Establec. Llamada .. "+FunGlobales.redondear(totalEstLlamadas,0)+"%");
         
         txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal());
+        
 
         //Calculamos el coste de los SMS
         numSMS=getNumSMS_send();
@@ -715,6 +719,8 @@ public class gastoMovil extends ListActivity{
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
         txtSMS.setText(" Mensajes ("+numSMS+")..."+FunGlobales.redondear(costeSMS*iva,2)+FunGlobales.monedaLocal());
+        Log.d("gastosMovil","coste+sms="+FunGlobales.redondear(costeLlamadas+costeSMS,2));
+        guardarPreferences(PREF_COSTE, ""+FunGlobales.redondear(costeLlamadas+costeSMS,2));
         
         //MOntamos el literal que se va ha presentar en el desplegable
         TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
@@ -876,13 +882,17 @@ public class gastoMovil extends ListActivity{
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+		guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
 		ts.guardarTarifas();
-		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getBaseContext());
+		
+		Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
+        getBaseContext().startService(forceUpIntent);
+		/*AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getBaseContext());
         RemoteViews remoteViews = new RemoteViews(getBaseContext().getPackageName(), R.layout.widget);
         ComponentName thisWidget = new ComponentName(getBaseContext(), widgetProvider.class);
         remoteViews.setTextViewText(R.id.txt_costeLlamadas, FunGlobales.redondear(costeLlamadas*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
         remoteViews.setTextViewText(R.id.txt_costeSMS, FunGlobales.redondear(costeSMS*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
-        remoteViews.setTextViewText(R.id.txt_tiempo, Html.fromHtml("<font color='green'>"+FunGlobales.segundosAHoraMinutoSegundo(ts.getSegConsumidosMes())+"</font>"));
+        remoteViews.setTextViewText(R.id.txt_tiempo, Html.fromHtml("<font color='green'>"+FunGlobales.segundosAHoraMinutoSegundo(ts.getSegConsumidosMes())+"</font>"));*/
         
         /*SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, MODE_PRIVATE);
         String consumoDia = sharedPreferences.getString("consumoDia", "1");
@@ -890,7 +900,7 @@ public class gastoMovil extends ListActivity{
         //Añadir las vistas correspondientes a los consumos de las tarifas
         
         
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+        //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 		
 	}
     

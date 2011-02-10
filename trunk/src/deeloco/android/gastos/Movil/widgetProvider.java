@@ -20,12 +20,14 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import deeloco.android.gastos.Movil.gastoMovil;
 
 public class widgetProvider extends AppWidgetProvider {
 	
 
 	Context contexto;
 	private static final String PREFERENCIAS_WIDGET="MIS_PREFERENCIAS_WIDGET";
+	private static final String TAG="GastosMovil (widgetProvider)";
 	
 	
 	
@@ -37,13 +39,14 @@ public class widgetProvider extends AppWidgetProvider {
 	public void onDeleted(Context context, int[] appWidgetIds) {
 		// TODO Auto-generated method stub
 		super.onDeleted(context, appWidgetIds);
+		Log.d(TAG,"onDelete");
         try
         {
             context.stopService(new Intent(context, UpdateService.class));//unregisterReceiver(mBI);
         }
         catch(Exception e)
         {
-        	Log.d("widgetProvider","Exception onDelete: ",e);
+        	Log.d(TAG,"Exception onDelete: ",e);
         	}
 		//super.onDeleted(context, appWidgetIds);
 		//Toast.makeText(context, "onDeleted()", Toast.LENGTH_LONG).show();
@@ -53,6 +56,7 @@ public class widgetProvider extends AppWidgetProvider {
 	public void onDisabled(Context context) {
 		// TODO Auto-generated method stub
         super.onDisabled(context);
+        Log.d(TAG,"onDisable");
         try
         {
             context.stopService(new Intent(context, UpdateService.class));//unregisterReceiver(mBI);
@@ -100,6 +104,9 @@ public class widgetProvider extends AppWidgetProvider {
 		private static final String PREF_NUMERO="NUMERO_ULTIMA";
 		private static final String PREF_DURACION="DURACION_ULTIMA";
 		private static final String PREF_FECHA="FECHA_ULTIMA";
+	    private static final String PREF_COSTE="COSTE_MES";
+	    private static final String PREF_SMS="SMS_MES";
+	    private static final String PREF_SEGUNDOS="SEGUNDOS_MES";
 		
 		@Override
 		public IBinder onBind(Intent arg0) {
@@ -126,6 +133,7 @@ public class widgetProvider extends AppWidgetProvider {
 			AppWidgetManager manager = AppWidgetManager.getInstance(this);
 			ComponentName thisWidget = new ComponentName(this, widgetProvider.class);
             manager.updateAppWidget(thisWidget, updateViews);
+            Log.d(TAG,"UpdateService.onDisable");
             
 			// TODO Auto-generated method stub
 			//super.onStart(intent, startId);
@@ -166,7 +174,14 @@ public class widgetProvider extends AppWidgetProvider {
 		       	String fechaHora = sharedPreferences.getString(PREF_FECHA, "0");
 		       	int duracion = sharedPreferences.getInt(PREF_DURACION, 0);
 		       	int consumoDia = sharedPreferences.getInt("consumoDia", 1);
+		       	//Datos resumen del me
+		       	double costeLlamadas=Double.parseDouble(sharedPreferences.getString(PREF_COSTE, "0"));
+		       	int segConsumidosMes=sharedPreferences.getInt(PREF_SEGUNDOS, 0);
+
+		       	
 		        
+		       	double iva=(vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1;
+		       	
 		        //Hay que ver que tarifa y franja conrresponde a la llamada realizada
 		        ts=new tarifas();
 		        ts.cargarFranjas();
@@ -176,15 +191,14 @@ public class widgetProvider extends AppWidgetProvider {
 		        	f=t.getFranja(fechaHora);
 		        }
 		        
-		        //Montamos la cadena donde se van a presentar los datos
+		        //Montamos la cadena donde se van a presentar los datos de la última llamada
 		        String info = telefono+"|"+FunGlobales.segundosAHoraMinutoSegundo(duracion);
 		        if (f!=null)
 		        {
-		        	info +="|"+FunGlobales.redondear((f.coste(t, duracion)*((vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1)),vp.getPreferenciasDecimales())+FunGlobales.monedaLocal();
+		        	info +="|"+FunGlobales.redondear((f.coste(t, duracion)*(iva)),vp.getPreferenciasDecimales())+FunGlobales.monedaLocal();
 		        }
 		        //info+=Html.fromHtml(" @ <strong>"+DateFormat.format("kk:mm",new Date()).toString()+"</strong>");
 				updateViews.setTextViewText(R.id.widgettext, info);
-				
 				
 				//SEMAFORO
 				fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date()).toString();
@@ -207,8 +221,12 @@ public class widgetProvider extends AppWidgetProvider {
 		        else
 		        	updateViews.setTextViewText(R.id.txt_semaforo,Html.fromHtml("<font color='white'>@</font>"));
 
+		        //Datos resumen del mes
+		        updateViews.setTextViewText(R.id.txt_costeLlamadas,"M-"+ FunGlobales.redondear(costeLlamadas*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
+		        updateViews.setTextViewText(R.id.txt_tiempo, "M-"+FunGlobales.segundosAHoraMinutoSegundo(segConsumidosMes)+"D-"+FunGlobales.segundosAHoraMinutoSegundo(consumoDia));
 		        
-		        updateViews.setTextViewText(R.id.txt_tiempoLimite, "D:"+consumoDia+" @ "+DateFormat.format("kk:mm",new Date()).toString());
+		        //Datos de las tarifas
+		        updateViews.setTextViewText(R.id.txt_tiempoLimite, " @ "+DateFormat.format("kk:mm",new Date()).toString());
 		        
 		      //Evento onClick en el widget  
 		      Intent launchIntent = new Intent(context,gastoMovil.class);
@@ -229,13 +247,6 @@ public class widgetProvider extends AppWidgetProvider {
 	  		    SharedPreferences sharedPreferences = this.getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
 	  		    SharedPreferences.Editor editor = sharedPreferences.edit();
 	  		    editor.putInt(key, value);
-	  		    editor.commit();
-	  		   }
-	    	  
-	    	  private void guardarPreferences(String key, double value){
-	  		    SharedPreferences sharedPreferences = this.getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
-	  		    SharedPreferences.Editor editor = sharedPreferences.edit();
-	  		    editor.putFloat(key, new Float(value));
 	  		    editor.commit();
 	  		   }
 

@@ -537,7 +537,7 @@ public class Franja implements Serializable{
 				}
 			
 			duracionAntes=duracion-duracionDespues;
-			Log.d("Franja.Coste", "duracion="+duracion+" || duracionDespues="+duracionDespues+" || duracionAntes="+duracionAntes);
+			//Log.d("Franja.Coste", "duracion="+duracion+" || duracionDespues="+duracionDespues+" || duracionAntes="+duracionAntes);
 			
 			
 			
@@ -561,15 +561,15 @@ public class Franja implements Serializable{
 		}
 		else
 		{
-			Log.d(TAG,"Coste="+this.coste);
+			//Log.d(TAG,"Coste="+this.coste);
 			costePorSegundo=(this.coste/100)/60;
-			Log.d(TAG,"Coste Por Segundo="+costePorSegundo);
-			Log.d(TAG,"Duracion="+duracion);
+			//Log.d(TAG,"Coste Por Segundo="+costePorSegundo);
+			//Log.d(TAG,"Duracion="+duracion);
 			costeTotal=costePorSegundo*duracion;
-			Log.d(TAG,"Coste total="+costeTotal);
+			//Log.d(TAG,"Coste total="+costeTotal);
 			//costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100)*iva);
 			costeTotalConEstablecimiento=costeTotal+((this.establecimiento/100));
-			Log.d(TAG,"Coste total con establecimiento="+costeTotalConEstablecimiento);
+			//Log.d(TAG,"Coste total con establecimiento="+costeTotalConEstablecimiento);
 		}
 		return costeTotalConEstablecimiento;
 	}
