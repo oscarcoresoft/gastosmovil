@@ -107,6 +107,8 @@ public class TarifasPreDefinidas {
 			    "Fin de Semana","00:00:00","00:00:00","[Sab,Dom]","0","0","Si","18","15"},
 		    {"PepePhone - NavegaYHabla","1","0","0","0","0","Rojo","","Si",
 		        "24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","9","0","No","0","0"},
+	        {"PepePhone - RatoncitoYElefante","1","0","0","0","0","Rojo","","Si",
+		        "24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","2.9","15","No","0","0"},
 			{"PepePhone - Tarifa 4 cent","1","0","0","0","0","Rojo","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","4","15","No","0","0"},	
 			{"PepePhone - Tarifa 5 cent","1","0","0","0","0","Rojo","","Si",

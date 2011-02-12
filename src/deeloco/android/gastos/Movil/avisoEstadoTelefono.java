@@ -22,10 +22,11 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 		private tarifas ts=null;
 		private tarifa t=null;
 		private Franja f=null;
-		private static final String PREFERENCIAS_WIDGET="MIS_PREFERENCIAS_WIDGET";
-		private static final String PREF_NUMERO="NUMERO_ULTIMA";
-		private static final String PREF_DURACION="DURACION_ULTIMA";
-		private static final String PREF_FECHA="FECHA_ULTIMA";
+		static final String PREFERENCIAS_WIDGET="MIS_PREFERENCIAS_WIDGET";
+		static final String PREF_NUMERO="NUMERO_ULTIMA";
+		static final String PREF_DURACION="DURACION_ULTIMA";
+		static final String PREF_FECHA="FECHA_ULTIMA";
+		static final String PREF_LLAMADA="LLAMADA_ULTIMA";
 		Context contexto;
 
         @Override
@@ -67,6 +68,7 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 	                    guardarPreferences(PREF_NUMERO,telefono);
 	                    guardarPreferences(PREF_FECHA, fechaHora);
 	                    guardarPreferences(PREF_DURACION, duracion);
+	                    guardarPreferences(PREF_LLAMADA, 1);
 	                    
 	                    Intent forceUpIntent = new Intent(context, widgetProvider.UpdateService.class);
 	                    context.startService(forceUpIntent);
