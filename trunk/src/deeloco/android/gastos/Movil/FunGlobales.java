@@ -75,6 +75,13 @@ public class FunGlobales extends Activity{
     	return "€";
     }
     
+    /**
+     * Convierte segundos en una cadena de caracteres formateados horas, min. y seg.
+     * @param totalsegundos
+     * Segundos a formatear
+     * @return
+     * String con las horas, min. y seg. que corresponden a los segundos pasados como parámetros.
+     */
     public static String segundosAHoraMinutoSegundo(int totalsegundos){
     	int horas=0;
     	int minutos=0;
@@ -95,6 +102,24 @@ public class FunGlobales extends Activity{
     		retorno=minutos+"m. "+segundos+"s.";
     	}
     	
+    	return retorno;
+    }
+    
+
+    /**
+     * Convierte segundos en una cadena de caracteres formateados en min. y seg.
+     * @param totalsegundos
+     * Segundos a formatear
+     * @return
+     * String con los min. y seg. que corresponden a los segundos pasados como parámetros.
+     */
+    public static String segundosAMinutoSegundo(int totalsegundos){
+    	int minutos=0;
+    	int segundos=0;
+    	String retorno="";
+    	minutos=totalsegundos/60;
+    	segundos=totalsegundos%60;
+    	retorno=minutos+"m. "+segundos+"s.";
     	return retorno;
     }
     

@@ -266,7 +266,7 @@ public class tarifas implements Serializable{
 	 * Devuelve el ultimo id que se puede asignar
 	 * @return
 	 */
-	private int ultimoId(){
+	public int ultimoId(){
 		int ultimo=0;
 		for (int i=0;i<this.tarifas.size();i++)
 		{

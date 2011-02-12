@@ -23,11 +23,13 @@
  			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:paddingRight="10dp"
+			android:textSize="11sp"
 		 	android:textColor="#ffffff"/>
 			 	
 		<TextView android:id="@+id/txt_semaforo"
  			android:layout_width="wrap_content"
 			 android:layout_height="wrap_content"
+			 android:textSize="11sp"
 		 	android:textColor="#ffffff"/>
 		 	
 </LinearLayout>
@@ -46,12 +48,14 @@
            	
     <TextView android:id="@+id/etq_costeLlamada"
  			android:layout_width="wrap_content"
-			 android:layout_height="wrap_content"
-			 android:text=" "
+			android:layout_height="wrap_content"
+			android:text=" "
+			android:textSize="11sp"
 		 	android:textColor="#ffffff"/>       	
            	
 	<TextView android:id="@+id/txt_costeLlamadas"
 			android:paddingRight="10dp"
+			android:textSize="11sp"
  			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 		 	android:textColor="#ffffff"/>
@@ -60,18 +64,21 @@
   			android:layout_width="20dp"
            	android:layout_height="20dp"
            	android:paddingRight="5dp"
+           	android:textSize="11sp"
            	android:src="@android:drawable/presence_away"
            	android:scaleType="centerInside"/>
            	
     <TextView android:id="@+id/etq_tiempo"
  			android:layout_width="wrap_content"
-			 android:layout_height="wrap_content"
-			 android:text=" "
+			android:layout_height="wrap_content"
+			android:text=" "
+			android:textSize="11sp"
 		 	android:textColor="#ffffff"/>       	
            	
 	<TextView android:id="@+id/txt_tiempo"
+			android:textSize="11sp"
  			android:layout_width="wrap_content"
-			 android:layout_height="wrap_content"
+			android:layout_height="wrap_content"
 		 	android:textColor="#ffffff"/>
 
 		 	
@@ -87,18 +94,21 @@
   			android:layout_width="20dp"
            	android:layout_height="20dp"
            	android:paddingRight="5dp"
+           	android:textSize="11sp"
            	android:src="@android:drawable/presence_away"
            	android:scaleType="centerInside"/>
            	
     <TextView android:id="@+id/etq_tiempoLimite"
  			android:layout_width="wrap_content"
-			 android:layout_height="wrap_content"
-			 android:text=" "
+			android:layout_height="wrap_content"
+			android:text=" "
+			android:textSize="11sp"
 		 	android:textColor="#ffffff"/>       	
            	
 	<TextView android:id="@+id/txt_tiempoLimite"
  			android:layout_width="wrap_content"
-			 android:layout_height="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="11sp"
 		 	android:textColor="#ffffff"/>	
 		  	
 </LinearLayout>
