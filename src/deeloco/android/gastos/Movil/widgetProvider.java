@@ -236,11 +236,24 @@ public class widgetProvider extends AppWidgetProvider {
 		        
 		        //Datos de las tarifas
 		        String datosTarifas="";
+		        
+		        boolean sw=true;
 		        for (int i=1;i<ts.ultimoId();i++)
 		        {
+		        	
 		        	if (sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_MES+i, -1)!=-1)
 		        	{
 		        	//Hay valor en preferencias
+		        		if (sw)
+		        		{
+		        			updateViews.setImageViewResource(R.id.colorTarifa, ts.getColorDrawble());
+		        			sw=false;
+		        		}
+		        		else
+		        		{
+		        			//updateViews.addView(R.id.ll_tiempoTarifas,new RemoteViews(context.getPackageName(), R.layout.widget));
+		        		}
+		        			
 		        		int seg_consumidos_mes=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_MES+i,0);
 		        		int seg_consumidos_dia=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_DIA+i,0);
 		        		int seg_consumidos_limite_mes=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_LIMITE_MES+i,0);

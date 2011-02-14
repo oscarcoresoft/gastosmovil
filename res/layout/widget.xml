@@ -90,10 +90,10 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 
-	<ImageView android:id="@+id/image"
-  			android:layout_width="20dp"
-           	android:layout_height="20dp"
-           	android:paddingRight="5dp"
+	<ImageView android:id="@+id/colorTarifa"
+  			android:layout_width="15dp"
+           	android:layout_height="15dp"
+           	android:paddingRight="0dp"
            	android:textSize="11sp"
            	android:src="@android:drawable/presence_away"
            	android:scaleType="centerInside"/>
