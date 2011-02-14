@@ -202,6 +202,20 @@ public class tarifa implements Serializable{
 		return this.color;
 	}
 
+	public int getColorDrawble(){
+		int retorno=0;
+		if (this.color.equals("Blanco"))  retorno=R.drawable.line7;
+	  	if (this.color.equals("Amarillo"))  retorno=R.drawable.line1;
+	  	if (this.color.equals("Azul"))  retorno=R.drawable.line2;
+	  	if (this.color.equals("Naranja"))  retorno=R.drawable.line3;
+	  	if (this.color.equals("Rojo"))  retorno=R.drawable.line4;
+	  	if (this.color.equals("Verde"))  retorno=R.drawable.line5;
+	  	if (this.color.equals("Violeta"))  retorno=R.drawable.line6;
+	  	if (this.color.equals("Transparente"))  retorno=R.drawable.line0;
+	  	return retorno;
+	}
+	
+	
 	/**
 	 * Devuelve una cadena, separada por comas, con todos los numeros que pertenece a la tarifa
 	 * @return
