@@ -246,7 +246,7 @@ public class widgetProvider extends AppWidgetProvider {
 		        	//Hay valor en preferencias
 		        		if (sw)
 		        		{
-		        			updateViews.setImageViewResource(R.id.colorTarifa, ts.getColorDrawble());
+		        			updateViews.setImageViewResource(R.id.colorTarifa, ts.getTarifas().get(i).getColorDrawble());
 		        			sw=false;
 		        		}
 		        		else
