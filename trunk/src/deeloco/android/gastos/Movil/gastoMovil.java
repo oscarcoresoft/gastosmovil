@@ -495,7 +495,8 @@ public class gastoMovil extends ListActivity{
 	                			f=t.getFranja(fechaHora);
 	            		}
 	        		}
-	        		if (f!=null)
+	        		
+	        		if (f!=null&&t!=null)
 	        		{
 	        			//El día y la hora pertenece a una franja
 		        		//Log.d(TAG,"Nombre de la franja="+f.getNombre()+" -> Fecha y hora"+fechaHora);
@@ -593,7 +594,8 @@ public class gastoMovil extends ListActivity{
 		    		else
 		    		{
 		    			//El día y la hora no pertenecen a ninguna franja
-		    			lista.add(new IconoYTexto(rIcono, telefono,"Sin Franja", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
+		    			rIcono=vp.getColor("Transparente");
+		    			lista.add(new IconoYTexto(rIcono, telefono,"SIN FRANJA", fechaHora,(duracion/60)+"m."+(duracion%60)+"s.",-1.0));
 		    			
 		    		}
 	        	}
@@ -898,11 +900,14 @@ public class gastoMovil extends ListActivity{
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+		/*
 		guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
 		ts.guardarTarifas();
 		
 		Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
         getBaseContext().startService(forceUpIntent);
+        
+        */
 		/*AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getBaseContext());
         RemoteViews remoteViews = new RemoteViews(getBaseContext().getPackageName(), R.layout.widget);
         ComponentName thisWidget = new ComponentName(getBaseContext(), widgetProvider.class);
@@ -919,6 +924,9 @@ public class gastoMovil extends ListActivity{
         //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 		
 	}
+	
+	
+	
     
     
     /**
@@ -941,6 +949,17 @@ public class gastoMovil extends ListActivity{
 		    editor.putInt(key, value);
 		    editor.commit();
 		   }
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
+		ts.guardarTarifas();
+		
+		Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
+        getBaseContext().startService(forceUpIntent);
+	}
     
     
     

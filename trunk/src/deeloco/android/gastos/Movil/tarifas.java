@@ -244,7 +244,7 @@ public class tarifas implements Serializable{
 	 * @return
 	 */
 	
-	int getId(String nombre){
+	public int getId(String nombre){
 		
         for (int i=0;i<this.tarifas.size();i++)
         {
@@ -276,6 +276,22 @@ public class tarifas implements Serializable{
 			}
 		}
 		return ++ultimo;
+	}
+	
+	
+	
+	public boolean existeTarifa(int id)
+	{
+		
+        for (int i=0;i<this.tarifas.size();i++)
+        {
+        	if (this.tarifas.get(i).getIdentificador()==id)
+        	{
+        		return true;
+        	}
+        }
+		
+        return false;
 	}
 	
 	/**
