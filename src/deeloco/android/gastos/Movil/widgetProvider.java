@@ -172,12 +172,9 @@ public class widgetProvider extends AppWidgetProvider {
 			        
                     guardarPreferences(avisoEstadoTelefono.PREF_NUMERO,telefono);
                     guardarPreferences(avisoEstadoTelefono.PREF_FECHA, fechaHora);
-                    guardarPreferences(avisoEstadoTelefono.PREF_DURACION, duracion);
-		    	   
+                    guardarPreferences(avisoEstadoTelefono.PREF_DURACION, duracion); 
 		       }
-		       
-		       
-				
+
 		       	SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
 		       	String telefono = sharedPreferences.getString(avisoEstadoTelefono.PREF_NUMERO, "0");
 		       	String fechaHora = sharedPreferences.getString(avisoEstadoTelefono.PREF_FECHA, "0");
@@ -187,8 +184,6 @@ public class widgetProvider extends AppWidgetProvider {
 		       	double costeLlamadas=Double.parseDouble(sharedPreferences.getString(gastoMovil.PREF_COSTE, "0"));
 		       	int segConsumidosMes=sharedPreferences.getInt(gastoMovil.PREF_SEGUNDOS, 0);
 
-		       	
-		        
 		       	double iva=(vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1;
 		       	
 		        //Hay que ver que tarifa y franja conrresponde a la llamada realizada
@@ -202,14 +197,19 @@ public class widgetProvider extends AppWidgetProvider {
 		        
 		        //Montamos la cadena donde se van a presentar los datos de la última llamada
 		        String info = telefono+"|"+FunGlobales.segundosAHoraMinutoSegundo(duracion);
-		        if (f!=null)
+		        if (f!=null&&t!=null)
 		        {
 		        	info +="|"+FunGlobales.redondear((f.coste(t, duracion)*(iva)),vp.getPreferenciasDecimales())+FunGlobales.monedaLocal();
+		        }
+		        else
+		        {
+		        	info += "| LLAMADA SIN FRANJA";
 		        }
 		        //info+=Html.fromHtml(" @ <strong>"+DateFormat.format("kk:mm",new Date()).toString()+"</strong>");
 				updateViews.setTextViewText(R.id.widgettext, info);
 				
 				//SEMAFORO
+				/*
 				fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date()).toString();
 		        t=ts.getTarifa("00000000",fechaHora);
 		        if (t!=null)
@@ -229,7 +229,7 @@ public class widgetProvider extends AppWidgetProvider {
 		        }
 		        else
 		        	updateViews.setTextViewText(R.id.txt_semaforo,Html.fromHtml("<font color='white'>@</font>"));
-
+				*/	
 		        //Datos resumen del mes
 		        updateViews.setTextViewText(R.id.txt_costeLlamadas,"M-"+ FunGlobales.redondear(costeLlamadas*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
 		        updateViews.setTextViewText(R.id.txt_tiempo, "M-"+FunGlobales.segundosAHoraMinutoSegundo(segConsumidosMes)+"D-"+FunGlobales.segundosAHoraMinutoSegundo(consumoDia));
@@ -241,12 +241,21 @@ public class widgetProvider extends AppWidgetProvider {
 		        for (int i=1;i<ts.ultimoId();i++)
 		        {
 		        	
-		        	if (sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_MES+i, -1)!=-1)
+		        	Log.d(TAG,"PREF_TS_SEG_LIMITE_MES("+i+")="+(sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_MES+i, -1)));
+		        	if ((sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_MES+i, -1)!=-1)&&ts.existeTarifa(i))
 		        	{
 		        	//Hay valor en preferencias
 		        		if (sw)
 		        		{
-		        			updateViews.setImageViewResource(R.id.colorTarifa, ts.getTarifas().get(i).getColorDrawble());
+		        			try
+		        			{
+		        				updateViews.setImageViewResource(R.id.colorTarifa, ts.getTarifas().get(i).getColorDrawble());
+		        			}
+		        			catch (Exception e)
+		        			{
+		        				Log.d(TAG,"Indice tarifa="+i);
+		        				updateViews.setImageViewResource(R.id.colorTarifa,R.drawable.line0);
+		        			}
 		        			sw=false;
 		        		}
 		        		else
@@ -264,17 +273,17 @@ public class widgetProvider extends AppWidgetProvider {
 		        		if (seg_limite_mes>0)
 		        		{
 		        			//Tiene limite mensual
-		        			datosTarifas+="{T"+i+"}"+FunGlobales.segundosAMinutoSegundo(seg_consumidos_limite_mes)+"(L."+seg_limite_mes+") @";
+		        			datosTarifas+="<font color='red'></font> "+FunGlobales.segundosAMinutoSegundo(seg_consumidos_limite_mes)+"(L."+seg_limite_mes+") ";
 		        		}
 		        		else
 		        		{
-		        			datosTarifas+="{T"+i+"}"+FunGlobales.segundosAMinutoSegundo(seg_consumidos_mes)+" @";
+		        			datosTarifas+="# "+FunGlobales.segundosAMinutoSegundo(seg_consumidos_mes);
 		        		}
 		        		
 		        	}
 		        }
 		        
-		        updateViews.setTextViewText(R.id.txt_tiempoLimite, datosTarifas+DateFormat.format("kk:mm",new Date()).toString());
+		        updateViews.setTextViewText(R.id.txt_tiempoLimite, Html.fromHtml(datosTarifas+DateFormat.format("kk:mm",new Date()).toString()));
 		        
 		      //Evento onClick en el widget  
 		      Intent launchIntent = new Intent(context,gastoMovil.class);
