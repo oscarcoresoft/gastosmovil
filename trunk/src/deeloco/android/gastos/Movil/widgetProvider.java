@@ -1,7 +1,5 @@
 package deeloco.android.gastos.Movil;
 
-import java.io.ObjectInputStream.GetField;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.PendingIntent;
@@ -14,20 +12,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.provider.CallLog;
-import android.text.Html;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 import deeloco.android.gastos.Movil.gastoMovil;
 
 public class widgetProvider extends AppWidgetProvider {
 	
 
 	Context contexto;
-	private static final String PREFERENCIAS_WIDGET="MIS_PREFERENCIAS_WIDGET";
 	private static final String TAG="GastosMovil (widgetProvider)";
 	
 	
@@ -124,15 +118,6 @@ public class widgetProvider extends AppWidgetProvider {
 		@Override
 		public void onStart(Intent intent, int startId) {
 
-			SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
-			if (sharedPreferences.getInt(avisoEstadoTelefono.PREF_LLAMADA, 0)==1)
-			{
-				//Se ha llamado al servicio despues de terminar una llamada saliente
-				//Hay que sumar los segundos de la llamada y el coste de la misma donde corresponda
-				Log.d(TAG, "Actualzando valores...");
-				actualizarDatos(this);
-				
-			}
 			RemoteViews updateViews = buildUpdate(this);
 			AppWidgetManager manager = AppWidgetManager.getInstance(this);
 			ComponentName thisWidget = new ComponentName(this, widgetProvider.class);
@@ -152,6 +137,7 @@ public class widgetProvider extends AppWidgetProvider {
 		       //RemoteViews updateView = null;
 		       ValoresPreferencias vp=new ValoresPreferencias(context);
 		       RemoteViews updateViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+		       int totalRegistros=1;
 				
 		       SharedPreferences preferencias = getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
 		       if (preferencias!=null)
@@ -163,200 +149,74 @@ public class widgetProvider extends AppWidgetProvider {
 			        int iTelefono = c.getColumnIndex(CallLog.Calls.NUMBER);
 			        int iFecha = c.getColumnIndex(CallLog.Calls.DATE);
 			        int iDuracion = c.getColumnIndex(CallLog.Calls.DURATION);
+			        String telefono;
+			        String fechaHora;
+			        int duracion;
 			        c.moveToFirst();
-			        String telefono=c.getString(iTelefono);
-					long fecha=c.getLong(iFecha);
-					int duracion=c.getInt(iDuracion); //le añadimos la modificación de la duración de la llamada;
+			        totalRegistros=c.getCount();
+			        if (totalRegistros>0)
+			        {
+				        telefono=c.getString(iTelefono);
+						long fecha=c.getLong(iFecha);
+						duracion=c.getInt(iDuracion); //le añadimos la modificación de la duración de la llamada;
+				        fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
+			        }
+			        else
+			        {
+			        	telefono="SIN DATOS";
+						duracion=0; //le añadimos la modificación de la duración de la llamada;
+				        fechaHora="SIN DATOS";
+			        }
 			        c.close();
-			        String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
-			        
                     guardarPreferences(avisoEstadoTelefono.PREF_NUMERO,telefono);
                     guardarPreferences(avisoEstadoTelefono.PREF_FECHA, fechaHora);
-                    guardarPreferences(avisoEstadoTelefono.PREF_DURACION, duracion); 
+                    guardarPreferences(avisoEstadoTelefono.PREF_DURACION, duracion);
+                    
 		       }
 
 		       	SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
 		       	String telefono = sharedPreferences.getString(avisoEstadoTelefono.PREF_NUMERO, "0");
 		       	String fechaHora = sharedPreferences.getString(avisoEstadoTelefono.PREF_FECHA, "0");
 		       	int duracion = sharedPreferences.getInt(avisoEstadoTelefono.PREF_DURACION, 0);
-		       	int consumoDia = sharedPreferences.getInt("consumoDia", 1);
-		       	//Datos resumen del me
-		       	double costeLlamadas=Double.parseDouble(sharedPreferences.getString(gastoMovil.PREF_COSTE, "0"));
-		       	int segConsumidosMes=sharedPreferences.getInt(gastoMovil.PREF_SEGUNDOS, 0);
-
+		       
 		       	double iva=(vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1;
-		       	
-		        //Hay que ver que tarifa y franja conrresponde a la llamada realizada
-		        ts=new tarifas();
-		        ts.cargarFranjas();
-		        t=ts.getTarifa(telefono,fechaHora);
-		        if (t!=null)
-		        {
-		        	f=t.getFranja(fechaHora);
-		        }
-		        
-		        //Montamos la cadena donde se van a presentar los datos de la última llamada
-		        String info = telefono+"|"+FunGlobales.segundosAHoraMinutoSegundo(duracion);
-		        if (f!=null&&t!=null)
-		        {
-		        	info +="|"+FunGlobales.redondear((f.coste(t, duracion)*(iva)),vp.getPreferenciasDecimales())+FunGlobales.monedaLocal();
-		        }
-		        else
-		        {
-		        	info += "| LLAMADA SIN FRANJA";
-		        }
+		       	String coste = "SIN FRANJA";
+		       	if (totalRegistros>0)
+		       	{
+			        //Hay que ver que tarifa y franja conrresponde a la llamada realizada
+			        ts=new tarifas();
+			        ts.cargarFranjas();
+			        t=ts.getTarifa(telefono,fechaHora);
+			        if (t!=null)
+			        {
+			        	f=t.getFranja(fechaHora);
+			        }
+			        
+			        //Montamos la cadena donde se van a presentar los datos de la última llamada
+			        coste = "SIN FRANJA";
+			        if (f!=null&&t!=null)
+			        {
+			        	coste =FunGlobales.redondear((f.coste(t, duracion)*(iva)),vp.getPreferenciasDecimales())+FunGlobales.monedaLocal();
+			        }
+		       	}
+		       	else
+		       	{
+		       		coste="SIN DATOS";
+		       	}
+
 		        //info+=Html.fromHtml(" @ <strong>"+DateFormat.format("kk:mm",new Date()).toString()+"</strong>");
-				updateViews.setTextViewText(R.id.widgettext, info);
+				updateViews.setTextViewText(R.id.txt_numero, telefono);
+				updateViews.setTextViewText(R.id.txt_duracion, ""+FunGlobales.segundosAHoraMinutoSegundo(duracion));
+				updateViews.setTextViewText(R.id.txt_fecha, fechaHora);
+				updateViews.setTextViewText(R.id.txt_coste, coste);
 				
-				//SEMAFORO
-				/*
-				fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date()).toString();
-		        t=ts.getTarifa("00000000",fechaHora);
-		        if (t!=null)
-		        {
-		        	f=t.getFranja(fechaHora);
-		        }
-		        if ((t.getLimite()>0||t.getLimiteDia()>0))
-		        {
-		        	if (f.getLimite())
-		        	{
-		        		updateViews.setTextViewText(R.id.txt_semaforo,Html.fromHtml("<font color='green'>@</font>"));
-		        	}
-		        	else
-		        	{
-		        		updateViews.setTextViewText(R.id.txt_semaforo,Html.fromHtml("<font color='red'>@</font>"));
-		        	}
-		        }
-		        else
-		        	updateViews.setTextViewText(R.id.txt_semaforo,Html.fromHtml("<font color='white'>@</font>"));
-				*/	
-		        //Datos resumen del mes
-		        updateViews.setTextViewText(R.id.txt_costeLlamadas,"M-"+ FunGlobales.redondear(costeLlamadas*iva,vp.getPreferenciasDecimales())+FunGlobales.monedaLocal());
-		        updateViews.setTextViewText(R.id.txt_tiempo, "M-"+FunGlobales.segundosAHoraMinutoSegundo(segConsumidosMes)+"D-"+FunGlobales.segundosAHoraMinutoSegundo(consumoDia));
-		        
-		        //Datos de las tarifas
-		        String datosTarifas="";
-		        
-		        boolean sw=true;
-		        for (int i=1;i<ts.ultimoId();i++)
-		        {
-		        	
-		        	Log.d(TAG,"PREF_TS_SEG_LIMITE_MES("+i+")="+(sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_MES+i, -1)));
-		        	if ((sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_MES+i, -1)!=-1)&&ts.existeTarifa(i))
-		        	{
-		        	//Hay valor en preferencias
-		        		if (sw)
-		        		{
-		        			try
-		        			{
-		        				updateViews.setImageViewResource(R.id.colorTarifa, ts.getTarifas().get(i).getColorDrawble());
-		        			}
-		        			catch (Exception e)
-		        			{
-		        				Log.d(TAG,"Indice tarifa="+i);
-		        				updateViews.setImageViewResource(R.id.colorTarifa,R.drawable.line0);
-		        			}
-		        			sw=false;
-		        		}
-		        		else
-		        		{
-		        			//updateViews.addView(R.id.ll_tiempoTarifas,new RemoteViews(context.getPackageName(), R.layout.widget));
-		        		}
-		        			
-		        		int seg_consumidos_mes=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_MES+i,0);
-		        		int seg_consumidos_dia=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_DIA+i,0);
-		        		int seg_consumidos_limite_mes=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_LIMITE_MES+i,0);
-		        		int seg_consumidos_limite_dia=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_LIMITE_DIA+i,0);
-		        		int seg_limite_mes=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_MES+i,0);
-		        		int seg_limite_dia=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_LIMITE_DIA+i,0);
-		        		
-		        		if (seg_limite_mes>0)
-		        		{
-		        			//Tiene limite mensual
-		        			datosTarifas+="<font color='red'></font> "+FunGlobales.segundosAMinutoSegundo(seg_consumidos_limite_mes)+"(L."+seg_limite_mes+") ";
-		        		}
-		        		else
-		        		{
-		        			datosTarifas+="# "+FunGlobales.segundosAMinutoSegundo(seg_consumidos_mes);
-		        		}
-		        		
-		        	}
-		        }
-		        
-		        updateViews.setTextViewText(R.id.txt_tiempoLimite, Html.fromHtml(datosTarifas+DateFormat.format("kk:mm",new Date()).toString()));
-		        
+				
+		       
 		      //Evento onClick en el widget  
 		      Intent launchIntent = new Intent(context,gastoMovil.class);
 		      PendingIntent intent = PendingIntent.getActivity(context, 0, launchIntent, 0);
 		      updateViews.setOnClickPendingIntent(R.id.widget, intent);
 		      return updateViews;
-		   }
-		   
-		   
-		   private void actualizarDatos (Context context)
-		   {
-			   SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
-			   ValoresPreferencias vp=new ValoresPreferencias(context);
-			   //Valores de la última llamada
-			   String telefono = sharedPreferences.getString(avisoEstadoTelefono.PREF_NUMERO, "0");
-			   String fechaHora = sharedPreferences.getString(avisoEstadoTelefono.PREF_FECHA, "0");
-			   int duracion = sharedPreferences.getInt(avisoEstadoTelefono.PREF_DURACION, 0);
-			 //Hay que ver que tarifa y franja conrresponde a la llamada realizada
-		        ts=new tarifas();
-		        ts.cargarFranjas();
-		        t=ts.getTarifa(telefono,fechaHora);
-		        if (t!=null)
-		        {
-		        	f=t.getFranja(fechaHora);
-		        }
-
-		        double coste=f.coste(t, duracion)*((vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1);
-		        
-		       	Log.d(TAG,"Actualizar datos de la tarifa "+t.getIdentificador());
-		       //Valores que hay que actualizar	de tiempo
-		        int consumoDia = sharedPreferences.getInt("consumoDia", 1)+duracion;
-			   	int segConsumidosMes=sharedPreferences.getInt(gastoMovil.PREF_SEGUNDOS, 0)+duracion;
-			   	Log.d(TAG,"seg_consumidos_mes "+sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_MES+t.getIdentificador(),0));
-   				int seg_consumidos_mes=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_MES+t.getIdentificador(),0)+duracion;
-				int seg_consumidos_dia=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_DIA+t.getIdentificador(),0)+duracion;
-				int seg_consumidos_limite_mes=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_LIMITE_MES+t.getIdentificador(),0);
-				int seg_consumidos_limite_dia=sharedPreferences.getInt(gastoMovil.PREF_TS_SEG_CONSUMIDOS_LIMITE_DIA+t.getIdentificador(),0);
-				Log.d(TAG,"seg_consumidos_mes actualizado "+seg_consumidos_mes);
-				//seg_consumidos_dia=+duracion;
-				//seg_consumidos_mes=+duracion;
-				
-
-			   if (t.getLimite()>0)
-			   {
-				   //Tiene límite mensual
-				   if (f.getLimiteSiNo().equals("Si"))
-				   {
-					   seg_consumidos_limite_mes=+duracion;
-				   }
-			   }
-			   if (t.getLimiteDia()>0)
-			   {
-				   //Tiene límite diario
-				   if (f.getLimiteSiNo().equals("Si"))
-				   {
-					   seg_consumidos_limite_dia=+duracion;
-				   }
-			   }
-			   
-			   //Valores que hay que actualizar de coste
-			   double costeLlamadas=Double.parseDouble(sharedPreferences.getString(gastoMovil.PREF_COSTE, "0"))+coste;
-			   
-			   //Ya estan los valores actualizados, guardarlo en preferencias.
-			   guardarPreferences("consumoDia", consumoDia);
-			   guardarPreferences(gastoMovil.PREF_SEGUNDOS, segConsumidosMes);
-			   guardarPreferences(gastoMovil.PREF_TS_SEG_CONSUMIDOS_MES+t.getIdentificador(), seg_consumidos_mes);
-			   guardarPreferences(gastoMovil.PREF_TS_SEG_CONSUMIDOS_DIA+t.getIdentificador(), seg_consumidos_dia);
-			   guardarPreferences(gastoMovil.PREF_TS_SEG_CONSUMIDOS_LIMITE_MES+t.getIdentificador(), seg_consumidos_limite_mes);
-			   guardarPreferences(gastoMovil.PREF_TS_SEG_CONSUMIDOS_LIMITE_DIA+t.getIdentificador(), seg_consumidos_limite_dia);
-			   guardarPreferences(gastoMovil.PREF_COSTE, ""+FunGlobales.redondear(costeLlamadas,2));
-			   guardarPreferences(avisoEstadoTelefono.PREF_LLAMADA, 0);
-			   
-			   
 		   }
 		   
 		  /**

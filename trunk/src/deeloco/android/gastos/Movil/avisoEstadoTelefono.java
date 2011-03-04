@@ -126,13 +126,7 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
   		    editor.putInt(key, value);
   		    editor.commit();
   		   }
-    	  
-    	  private void guardarPreferences(String key, double value){
-  		    SharedPreferences sharedPreferences = contexto.getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
-  		    SharedPreferences.Editor editor = sharedPreferences.edit();
-  		    editor.putFloat(key, new Float(value));
-  		    editor.commit();
-  		   }
+
         
         
         

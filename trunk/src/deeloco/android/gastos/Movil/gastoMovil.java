@@ -91,18 +91,6 @@ public class gastoMovil extends ListActivity{
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
     private static final int RETURN_PREFERENCES_TARIFAS=2;
     
-    static final String PREFERENCIAS_WIDGET="MIS_PREFERENCIAS_WIDGET";
-    static final String PREF_COSTE="COSTE_MES";
-    static final String PREF_SEGUNDOS="SEGUNDOS_MES";
-    
-    static final String PREF_TS_SEG_CONSUMIDOS_MES="SEG_CONSUMIDOS_MES";
-    static final String PREF_TS_SEG_CONSUMIDOS_DIA="SEG_CONSUMIDOS_DIA";
-    static final String PREF_TS_SEG_CONSUMIDOS_LIMITE_MES="SEG_CONSUMIDOS_LIMITE_MES";
-    static final String PREF_TS_SEG_CONSUMIDOS_LIMITE_DIA="SEG_CONSUMIDOS_LIMITE_DIA";
-
-    static final String PREF_TS_SEG_LIMITE_MES="SEG_LIMITE_MES";
-    static final String PREF_TS_SEG_LIMITE_DIA="SEG_LIMITE_DIA";
-    
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     //private static final String TAG = "GastosMóvil";
     private double iva=1.18;
@@ -607,7 +595,6 @@ public class gastoMovil extends ListActivity{
         		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
         		{
         			lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
-        			guardarPreferences("consumoDia", ts.getSegConsumidosDia());
 					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
         c.close();
@@ -679,10 +666,7 @@ public class gastoMovil extends ListActivity{
         		datos+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|Límite de "+ts.getTarifas().get(i).getLimite()+"m.\n";
         		datos+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+"s.|Fuera de límite.\n";
         		numLineas+=3;
-        		Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
-        		guardarPreferences(PREF_TS_SEG_CONSUMIDOS_LIMITE_MES+ts.getTarifas().get(i).getIdentificador(), ts.getTarifas().get(i).getSegConsumidosLimiteMes());
-        		guardarPreferences(PREF_TS_SEG_CONSUMIDOS_MES+ts.getTarifas().get(i).getIdentificador(), ts.getTarifas().get(i).getSegConsumidosMes());
-        		guardarPreferences(PREF_TS_SEG_LIMITE_MES+ts.getTarifas().get(i).getIdentificador(), ts.getTarifas().get(i).getLimite());
+        		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
     		}
@@ -690,9 +674,7 @@ public class gastoMovil extends ListActivity{
     		{
     			datos+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+"s.|Sin Límites\n";
     			numLineas+=2;
-    			Log.d("gastosmovil.java","CM:"+ts.getTarifas().get(i).getSegConsumidosMes());
-    			guardarPreferences(PREF_TS_SEG_CONSUMIDOS_MES+ts.getTarifas().get(i).getIdentificador(), ts.getTarifas().get(i).getSegConsumidosMes());
-    			guardarPreferences(PREF_TS_SEG_LIMITE_MES+ts.getTarifas().get(i).getIdentificador(), ts.getTarifas().get(i).getLimite());
+    			//Log.d("gastosmovil.java","CM:"+ts.getTarifas().get(i).getSegConsumidosMes());
     		}
     	}
     	txtTarifas.setLines(numLineas);
@@ -737,8 +719,7 @@ public class gastoMovil extends ListActivity{
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
         txtSMS.setText(" Mensajes ("+numSMS+")..."+FunGlobales.redondear(costeSMS*iva,2)+FunGlobales.monedaLocal());
-        Log.d("gastosMovil","coste+sms="+FunGlobales.redondear(costeLlamadas+costeSMS,2));
-        guardarPreferences(PREF_COSTE, ""+FunGlobales.redondear(costeLlamadas+costeSMS,2));
+        //Log.d("gastosMovil","coste+sms="+FunGlobales.redondear(costeLlamadas+costeSMS,2));
         
         //MOntamos el literal que se va ha presentar en el desplegable
         TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
@@ -925,36 +906,12 @@ public class gastoMovil extends ListActivity{
 		
 	}
 	
-	
-	
-    
-    
-    /**
-     * Guarda una preferencia con la dupla clave valor
-     * @param key
-     * 		Clave de la preferencia.
-     * @param value
-     * 		Valor de la preferencia.
-     */
-	  private void guardarPreferences(String key, String value){
-		    SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, MODE_PRIVATE);
-		    SharedPreferences.Editor editor = sharedPreferences.edit();
-		    editor.putString(key, value);
-		    editor.commit();
-		   }
-	  
-	  private void guardarPreferences(String key, int value){
-		    SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
-		    SharedPreferences.Editor editor = sharedPreferences.edit();
-		    editor.putInt(key, value);
-		    editor.commit();
-		   }
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
+		//guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
 		ts.guardarTarifas();
 		
 		Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
