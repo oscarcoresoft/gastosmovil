@@ -1,116 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
  android:orientation="vertical"
  android:layout_width="fill_parent"
  android:layout_height="fill_parent"
  android:id="@+id/widget"
- android:background="@android:drawable/toast_frame">
- 
- 
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- android:orientation="horizontal"
- android:layout_width="fill_parent"
- android:layout_height="wrap_content">
- 
-    <ImageView android:id="@+id/image"
-  			android:layout_width="20dp"
-           	android:layout_height="20dp"
-           	android:paddingRight="5dp"
-           	android:src="@android:drawable/stat_sys_phone_call"
-           	android:scaleType="centerInside"/>
-           	
-	<TextView android:id="@+id/widgettext"
- 			android:layout_width="wrap_content"
+ android:background="@drawable/btn_keyboard_key_trans_normal">
+
+	<TextView android:id="@+id/txt_titulo"
+ 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:paddingRight="10dp"
-			android:textSize="11sp"
+			
+			android:background="#B40404"
+			android:textSize="9sp"
+			android:textStyle="bold"
+			android:text="ÚLTIM.LLAM."
+			android:gravity="center_horizontal"
+		 	android:textColor="#ffffff"/>
+		 	
+	<TextView android:id="@+id/txt_numero"
+ 			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textSize="10sp"
+			android:text="959246327"
+			android:gravity="center_horizontal"
 		 	android:textColor="#ffffff"/>
 			 	
-		<TextView android:id="@+id/txt_semaforo"
- 			android:layout_width="wrap_content"
-			 android:layout_height="wrap_content"
-			 android:textSize="11sp"
+		<TextView android:id="@+id/txt_duracion"
+ 			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textSize="10sp"
+			android:text="3m. 24s."
+			android:gravity="center_horizontal"
 		 	android:textColor="#ffffff"/>
 		 	
-</LinearLayout>
-
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- android:orientation="horizontal"
- android:layout_width="fill_parent"
- android:layout_height="wrap_content">
- 
-    <ImageView android:id="@+id/image"
-  			android:layout_width="20dp"
-           	android:layout_height="20dp"
-           	android:paddingRight="5dp"
-           	android:src="@android:drawable/sym_action_call"
-           	android:scaleType="centerInside"/>
-           	
-    <TextView android:id="@+id/etq_costeLlamada"
- 			android:layout_width="wrap_content"
+	<TextView android:id="@+id/txt_fecha"
+ 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text=" "
-			android:textSize="11sp"
-		 	android:textColor="#ffffff"/>       	
-           	
-	<TextView android:id="@+id/txt_costeLlamadas"
-			android:paddingRight="10dp"
-			android:textSize="11sp"
- 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:textSize="10sp"
+			android:text="23/12 21:45"
+			android:gravity="center_horizontal"
 		 	android:textColor="#ffffff"/>
 		 	
-	<ImageView android:id="@+id/image"
-  			android:layout_width="20dp"
-           	android:layout_height="20dp"
-           	android:paddingRight="5dp"
-           	android:textSize="11sp"
-           	android:src="@android:drawable/presence_away"
-           	android:scaleType="centerInside"/>
-           	
-    <TextView android:id="@+id/etq_tiempo"
- 			android:layout_width="wrap_content"
+	<TextView android:id="@+id/txt_coste"
+ 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text=" "
-			android:textSize="11sp"
-		 	android:textColor="#ffffff"/>       	
-           	
-	<TextView android:id="@+id/txt_tiempo"
-			android:textSize="11sp"
- 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-		 	android:textColor="#ffffff"/>
-
-		 	
-</LinearLayout>
-
- <LinearLayout 
-	android:id="@+id/ll_tiempoTarifas"
-	android:orientation="horizontal"	
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content">
-
-	<ImageView android:id="@+id/colorTarifa"
-  			android:layout_width="15dp"
-           	android:layout_height="15dp"
-           	android:paddingRight="0dp"
-           	android:textSize="11sp"
-           	android:src="@android:drawable/presence_away"
-           	android:scaleType="centerInside"/>
-           	
-    <TextView android:id="@+id/etq_tiempoLimite"
- 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text=" "
-			android:textSize="11sp"
-		 	android:textColor="#ffffff"/>       	
-           	
-	<TextView android:id="@+id/txt_tiempoLimite"
- 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="11sp"
-		 	android:textColor="#ffffff"/>	
-		  	
-</LinearLayout>
-
+			android:textSize="10sp"
+			android:textStyle="bold"
+			android:text="0.1234 €"
+			android:gravity="center_horizontal"
+		 	android:textColor="#ffffff"/>		 	
 </LinearLayout>
