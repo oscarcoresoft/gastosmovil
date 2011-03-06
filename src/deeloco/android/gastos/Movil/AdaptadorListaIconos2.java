@@ -71,11 +71,11 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		IconoYTexto ti = elementos.get(position);
-		return generarFila(ti.icono, ti.telefono, ti.fecha, ti.duracion, ti.coste);
+		return generarFila(ti.icono, ti.telefono, ti.nombre,ti.fecha, ti.duracion, ti.coste);
 		
 	}
 	
-	public View generarFila(Drawable icono, String telefono, String fecha, String duracion, double coste)
+	public View generarFila(Drawable icono, String telefono, String nombre,String fecha, String duracion, double coste)
 	{
 		// Generamos un LinearLayout
 		LinearLayout vista = new LinearLayout(mContext);
@@ -86,6 +86,8 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
         img.setImageDrawable(icono);
         // Lo ponemos un "margen" (Hacia adentro)
         img.setPadding(10, 10, 10, 10);
+        // Tamaño
+        img.setMinimumHeight(50);
         // Lo añadimos al LinearLayout creado
         vista.addView(img,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         
@@ -115,7 +117,17 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
             
             // Inicio
             TextView txtLinea1Der = new TextView(mContext,null,android.R.attr.textAppearanceMedium);
-            txtLinea1Der.setText(coste+"€");
+            if (nombre.compareTo("")==0)
+            {
+            	//Gastos por numero
+            	txtLinea1Der.setText(coste+"€");
+            }
+            else
+            {
+            	//Duración por numero. nombre=duración
+            	txtLinea1Der.setText(nombre);
+            }
+            
             txtLinea1Der.setTextAppearance(mContext,android.R.attr.textAppearanceLarge);
             txtLinea1Der.setGravity(Gravity.RIGHT);
             txtLinea1Der.setPadding(0,0,15,0);

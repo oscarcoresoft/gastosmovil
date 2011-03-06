@@ -185,7 +185,10 @@
     
 	<string name="aj_resumenDia">Resumen Día</string>
     <string name="aj_resumenDia_des">Mostrar total de tiempo hablado, por días.</string>
-    <string name="mensaje_problemas_cargar_tarifa_predefinida">Problemas al cargar la tarifa predefinida. Intentelo manualmente.</string>    
+    <string name="mensaje_problemas_cargar_tarifa_predefinida">Problemas al cargar la tarifa predefinida. Intentelo manualmente.</string>
+    
+    <string name="dpn_resumen">Números - Tiempo por números</string>
+	<string name="dpn_titulo">Total tiempo hablado por números</string>
 
 </resources> 
 

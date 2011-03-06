@@ -209,6 +209,9 @@ public class gastoMovil extends ListActivity{
             
         case ACERCADE:
         	//showDialog(DIALOG_ACERCADE);
+        	
+        	gpn.ordenaDuracion();
+        	gpn.ordenaGastos();
         	Intent i = new Intent(getBaseContext(), AcercaDe.class);
         	startActivity(i);
         	break;
@@ -240,25 +243,50 @@ public class gastoMovil extends ListActivity{
         	ArrayList<String> gastos=new ArrayList <String>();
         	ArrayList<String> horas=new ArrayList <String>();
         	ArrayList<String> gastos2=new ArrayList <String>();
+        	ArrayList<String> numeros2=new ArrayList <String>();
+        	ArrayList<String> duracion=new ArrayList <String>();
         	
         	String total= FunGlobales.redondear(costeLlamadas+costeSMS,2)+"";
         	
+        	//Preparamos los datos estadísticos de gastos por numero
         	numeros=(ArrayList<String>) gpn.getNumeros();
+        	//CAMBIAR EL ROLLO ESTE, POR UNA FUNCIÓN EN LA CLASE CORRESPONDIENTE QUE ME DEVUELVA UN ARRALIST DE STRING
         	Object ObjGastos[]=gpn.getGastos().toArray();
         	for (Object x:ObjGastos){
         		gastos.add(""+x);
         	}
         	
+        	//Preparamos los datos estadísticos de gastos por horas
         	horas=(ArrayList<String>) gph.gethoras();
+        	//CAMBIAR EL ROLLO ESTE, POR UNA FUNCIÓN EN LA CLASE CORRESPONDIENTE QUE ME DEVUELVA UN ARRALIST DE STRING
         	Object ObjGastos2[]=gph.getGastos().toArray();
         	for (Object x:ObjGastos2){
         		gastos2.add(""+x);
         	}
+        	
+        	//Preparamos los datos estadísticos de duración por numero
+        	gpn.ordenaDuracion();
+        	numeros2=(ArrayList<String>) gpn.getNumeros();
+        	//CAMBIAR EL ROLLO ESTE, POR UNA FUNCIÓN EN LA CLASE CORRESPONDIENTE QUE ME DEVUELVA UN ARRALIST DE STRING
+        	Object ObjDuracion[]=gpn.getDuracion().toArray();
+        	for (Object x:ObjDuracion){
+        		duracion.add(""+x);
+        	}
+        	
+        	
+        	//Estadísticas gastos por numero
         	ii.putExtra("total",total);
         	ii.putExtra("Numeros", numeros);
         	ii.putExtra("Gastos",gastos);
+        	//Estadísticas gastos por hora
         	ii.putExtra("Horas", horas);
         	ii.putExtra("Gastos2",gastos2);
+        	//Estadísticas duración por numero
+        	String totalSegundos=ts.getSegConsumidosMes()+"";
+        	ii.putExtra("totalSegundos",totalSegundos);
+        	ii.putExtra("Numeros2", numeros2);
+        	ii.putExtra("Duracion",duracion);
+        	
         	extras = new Bundle();
         	extras.putSerializable("tarifas", ts);
         	ii.putExtras(extras);
@@ -557,7 +585,7 @@ public class gastoMovil extends ListActivity{
 		        		}
   
 	        			//Ya tenemos el coste y el numero y es una llamada > 0, lo metemos en GastosPorNumero
-	            		gpn.add(telefono, coste);
+	            		gpn.add(telefono, coste,duracion);
 	            		gph.add(new Date(fechaHora), coste);
 	            		
 	        			if (coste>0)

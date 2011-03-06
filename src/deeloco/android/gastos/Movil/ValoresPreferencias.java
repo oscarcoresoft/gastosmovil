@@ -368,7 +368,7 @@ public class ValoresPreferencias {
 	  	Drawable c=null;
 	  	Bitmap linea=null;
 	  	Bitmap icono=null;
-	  	Log.d(TAG,"COLOR= "+color);
+	  	//Log.d(TAG,"COLOR= "+color);
 	  	
 	  	if (color.equals("Blanco"))  linea=BitmapFactory.decodeResource(r, R.drawable.line7).copy(Config.ARGB_8888, true);
 	  	if (color.equals("Amarillo"))  linea=BitmapFactory.decodeResource(r, R.drawable.line1).copy(Config.ARGB_8888, true);
