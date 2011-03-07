@@ -678,35 +678,72 @@ public class gastoMovil extends ListActivity{
 	  	txtTarifas.setTypeface(Typeface.MONOSPACE);
 	  	linear.addView(txtTarifas, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 	  	
-    	String datos="";
-    	int numLineas=0;
+    	String datosMes="";
+    	String datosDia="";
+    	int numLineasMes=0;
+    	int numLineasDia=0;
+    	
     	for (int i=0;i<ts.numTarifas();i++)
     	{
     		String nombreTarifa=ts.getTarifas().get(i).getNombre();
+    		datosMes+="RESUMEN MES.\n";
+    		datosMes+="------------\n";
+    		datosDia+="\nRESUMEN ÚLTIMO DÍA.\n";
+    		datosDia+="-------------------\n";
+    		numLineasMes+=2;
+    		numLineasDia+=3;
     		if (nombreTarifa.length()>28)
-    			datos+=" "+nombreTarifa.substring(0, 28)+".\n";
+    		{
+    			datosMes+=" "+nombreTarifa.substring(0, 28)+".\n";
+    			datosDia+=" "+nombreTarifa.substring(0, 28)+".\n";
+    		}	
     		else
-    			datos+=" "+nombreTarifa+"\n";
+    		{
+    			datosMes+=" "+nombreTarifa+"\n";
+    			datosDia+=" "+nombreTarifa+"\n";
+    		}
     		
+    		//Datos mensual
     		if (ts.getTarifas().get(i).getLimite()>0)
     		{
     			//Tiene limite mensual
-        		datos+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|Límite de "+ts.getTarifas().get(i).getLimite()+"m.\n";
-        		datos+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+"s.|Fuera de límite.\n";
-        		numLineas+=3;
+        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|Límite de "+ts.getTarifas().get(i).getLimite()+"m.\n";
+        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+"s.|Fuera de límite.\n";
+        		numLineasMes+=3;
         		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
     		}
     		else
     		{
-    			datos+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+"s.|Sin Límites\n";
-    			numLineas+=2;
+    			datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+"s.|Sin Límites\n";
+    			numLineasMes+=2;
     			//Log.d("gastosmovil.java","CM:"+ts.getTarifas().get(i).getSegConsumidosMes());
     		}
+    		
+    		//Datos del último día
+    		if (ts.getTarifas().get(i).getLimiteDia()>0)
+    		{
+    			//Tiene limite mensual
+        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()%60)+"s.|Límite de "+ts.getTarifas().get(i).getLimiteDia()+"m.\n";
+        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())%60+"s.|Fuera de límite.\n";
+        		numLineasDia+=3;
+        		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
+        		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
+        		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
+    		}
+    		else
+    		{
+    			datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosDia()%60)+"s.|Sin Límites\n";
+    			numLineasDia+=2;
+    			//Log.d("gastosmovil.java","CM:"+ts.getTarifas().get(i).getSegConsumidosMes());
+    		}
+    		
+    		
     	}
-    	txtTarifas.setLines(numLineas);
-    	txtTarifas.setText(datos);
+    	txtTarifas.setLines(numLineasMes+numLineasDia);
+    	txtTarifas.setText(datosMes+datosDia);
+    	
     	
   	  	//Separador
   	  	ImageView separador2 = new ImageView(this);
