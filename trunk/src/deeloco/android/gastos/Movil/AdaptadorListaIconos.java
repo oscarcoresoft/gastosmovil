@@ -124,7 +124,7 @@ public class AdaptadorListaIconos extends BaseAdapter {
 	        		txtLinea1Izq.setText(nombre.subSequence(0, this.longCadena)+" | "+telefono);
 	        	else
 	        		txtLinea1Izq.setText(nombre+" | "+telefono);
-	        	txtLinea1Izq.setMaxWidth(200);
+	        	txtLinea1Izq.setMaxWidth(250);
 	        }
 	        
 	        //txtLinea1Izq.setMaxWidth(250);
