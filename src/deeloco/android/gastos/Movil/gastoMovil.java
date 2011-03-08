@@ -682,16 +682,18 @@ public class gastoMovil extends ListActivity{
     	String datosDia="";
     	int numLineasMes=0;
     	int numLineasDia=0;
-    	
+
+		datosMes+=getString(R.string.res_mes)+"\n";
+		datosMes+="------------\n";
+		datosDia+="\n"+getString(R.string.res_dia)+" "+fechaControl+"\n";
+		datosDia+="-----------------------\n";
+		numLineasMes+=2;
+		numLineasDia+=3;
+		
     	for (int i=0;i<ts.numTarifas();i++)
     	{
     		String nombreTarifa=ts.getTarifas().get(i).getNombre();
-    		datosMes+="RESUMEN MES.\n";
-    		datosMes+="------------\n";
-    		datosDia+="\nRESUMEN ÚLTIMO DÍA.\n";
-    		datosDia+="-------------------\n";
-    		numLineasMes+=2;
-    		numLineasDia+=3;
+
     		if (nombreTarifa.length()>28)
     		{
     			datosMes+=" "+nombreTarifa.substring(0, 28)+".\n";
@@ -707,7 +709,7 @@ public class gastoMovil extends ListActivity{
     		if (ts.getTarifas().get(i).getLimite()>0)
     		{
     			//Tiene limite mensual
-        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|Límite de "+ts.getTarifas().get(i).getLimite()+"m.\n";
+        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|"+getString(R.string.res_limite)+" "+ts.getTarifas().get(i).getLimite()+"m.\n";
         		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+"s.|Fuera de límite.\n";
         		numLineasMes+=3;
         		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
@@ -716,7 +718,7 @@ public class gastoMovil extends ListActivity{
     		}
     		else
     		{
-    			datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+"s.|Sin Límites\n";
+    			datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+"s.|"+getString(R.string.res_sin_limite)+"\n";
     			numLineasMes+=2;
     			//Log.d("gastosmovil.java","CM:"+ts.getTarifas().get(i).getSegConsumidosMes());
     		}
@@ -725,7 +727,7 @@ public class gastoMovil extends ListActivity{
     		if (ts.getTarifas().get(i).getLimiteDia()>0)
     		{
     			//Tiene limite mensual
-        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()%60)+"s.|Límite de "+ts.getTarifas().get(i).getLimiteDia()+"m.\n";
+        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()%60)+"s.|"+getString(R.string.res_limite)+" "+ts.getTarifas().get(i).getLimiteDia()+"m.\n";
         		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())%60+"s.|Fuera de límite.\n";
         		numLineasDia+=3;
         		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
@@ -734,7 +736,7 @@ public class gastoMovil extends ListActivity{
     		}
     		else
     		{
-    			datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosDia()%60)+"s.|Sin Límites\n";
+    			datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosDia()%60)+"s.|"+getString(R.string.res_sin_limite)+"\n";
     			numLineasDia+=2;
     			//Log.d("gastosmovil.java","CM:"+ts.getTarifas().get(i).getSegConsumidosMes());
     		}
@@ -770,9 +772,10 @@ public class gastoMovil extends ListActivity{
 	  	linear.addView(txtEstablecimiento, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         //-- Porcentaje del establecimiento de llamadas
         totalEstLlamadas=totalEstLlamadas/numLlamadas;
-        txtEstablecimiento.setText(" * % Establec. Llamada .. "+FunGlobales.redondear(totalEstLlamadas,0)+"%");
+        txtEstablecimiento.setText(getString(R.string.res_establecimiento)+FunGlobales.redondear(totalEstLlamadas,0)+"%");
         
-        txtLlamadas.setText(" LLamadas ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal());
+        //Numero de llamadas, coste de las llamadas
+        txtLlamadas.setText(getString(R.string.res_llamadas) +" ("+numLlamadas+")..."+FunGlobales.redondear(costeLlamadas*iva,2)+FunGlobales.monedaLocal());
         
 
         //Calculamos el coste de los SMS
@@ -783,7 +786,7 @@ public class gastoMovil extends ListActivity{
         else
         	costeSMS=0; //Se han enviados menos SMS que los que hay gratuitos
         
-        txtSMS.setText(" Mensajes ("+numSMS+")..."+FunGlobales.redondear(costeSMS*iva,2)+FunGlobales.monedaLocal());
+        txtSMS.setText(getString(R.string.res_mensajes)+" ("+numSMS+")..."+FunGlobales.redondear(costeSMS*iva,2)+FunGlobales.monedaLocal());
         //Log.d("gastosMovil","coste+sms="+FunGlobales.redondear(costeLlamadas+costeSMS,2));
         
         //MOntamos el literal que se va ha presentar en el desplegable

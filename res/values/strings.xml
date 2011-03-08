@@ -180,7 +180,7 @@
     <string name="acercade_donacion_cab">Donaciones.</string>
     <string name="acercade_donacion_texto">A través de PayPal se pueden hacer donaciones y contribuir al desarrollo y mantenimiento de esta aplicación. Hacerlo a través de la web de la aplicación. </string>
     <string name="mn_donacion">Donación</string>
-    <string name="txtDuracionMedia">  * Dur. media llamada .. </string>
+    <string name="txtDuracionMedia">* Dur. media llamada .. </string>
     <string name="tarifaDefecto">Tarifa aplicada por defecto</string>
     
 	<string name="aj_resumenDia">Resumen Día</string>
@@ -189,6 +189,15 @@
     
     <string name="dpn_resumen">Números - Tiempo por números</string>
 	<string name="dpn_titulo">Total tiempo hablado por números</string>
+	
+	<string name="res_establecimiento">* % Establec. Llamada .. </string>
+	<string name="res_llamadas">* Llamadas</string>
+	<string name="res_mensajes">* Mensajes</string>
+	<string name="res_mes">RESUMEN MES</string>
+	<string name="res_dia">RESUMEN DEL</string>
+	<string name="res_limite">Límite de</string>
+	<string name="res_sin_limite">Sin Límites</string>
+	
 
 </resources> 
 
