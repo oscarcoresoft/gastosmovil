@@ -68,7 +68,7 @@
     <string name="error_ajustes">Algunos ajustes tienen valores incorrectos o son nulos. Se tomaran sus valores por defecto.</string>
     <string name="actualizar">Actualizando...</string>
     <string name="acercade_activity">Acerca de ... GASTOS MÓVIL</string>
-    <string name="acercade_titulo">GASTOS MÓVIL v.2.1.1.beta</string>
+    <string name="acercade_titulo">GASTOS MÓVIL v.2.2.beta</string>
     <string name="acercade_texto">Controla tu gasto de teléfono y a tu operador.</string>
     <string name="acercade_autor_cab">Autor y Licencia</string>
     <string name="acercade_autor">Antonio C. A. Abellán - acabellan@gmail.com</string>
@@ -195,8 +195,10 @@
 	<string name="res_mensajes">* Mensajes</string>
 	<string name="res_mes">RESUMEN MES</string>
 	<string name="res_dia">RESUMEN DEL</string>
-	<string name="res_limite">Límite de</string>
+	<string name="res_limite_mes">Lím. Mes</string>
+	<string name="res_limite_dia">Lím. Dia</string>
 	<string name="res_sin_limite">Sin Límites</string>
+	<string name="res_fuera_limite">Fuera de límite</string>
 	
 
 </resources> 
