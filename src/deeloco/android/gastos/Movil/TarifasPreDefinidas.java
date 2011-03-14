@@ -187,7 +187,7 @@ public class TarifasPreDefinidas {
 				"Mañana","08:00:00","18:00:00","[Lun,Mar,Mie,Jue,Vie]","19","15","No","0","0",
 				"Tarde","18:00:00","8:00:00","[Lun,Mar,Mie,Jue,Vie]","0","0","Si","19","15",
 				"Fin de Semana","00:00:00","00:00:00","[Sab,Dom]","0","0","No","0","0"},
-			{"Yoigo - La del cero a yoigo","1","6","0","0","60","Verde","","Si",
+			{"Yoigo - La del cero a yoigo","1","6","0","60","0","Verde","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","0","15","Si","12","15"},
 			{"Yoigo - La del cero al resto ","1","6","0","0","0","Verde","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","12","15","No","0","0"},
