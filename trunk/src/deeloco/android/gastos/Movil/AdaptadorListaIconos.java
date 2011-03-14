@@ -27,6 +27,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -182,7 +183,14 @@ public class AdaptadorListaIconos extends BaseAdapter {
         
         
         // Lo añadimos al LinearLayout "datos"
+        
         datos.addView(vFecha, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        
+        if (fecha.equals(" "))
+        {
+        	Log.d("", "Ampliar la línea");
+        	datos.setPadding(0, 20, 0, 20);
+        }
     
           // Lo añadimos al LinearLayout creado
           vista.addView(datos, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); 

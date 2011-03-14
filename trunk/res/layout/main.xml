@@ -16,6 +16,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="@string/lista_vacia"/>
+
 	
 	<SlidingDrawer
      android:id="@+id/drawer"
@@ -24,6 +25,8 @@
      android:handle="@+id/handle"
      android:content="@+id/lytResumen"
      android:keepScreenOn="true">
+     
+     	
      
      	<LinearLayout 
      	android:id="@id/handle"
@@ -62,7 +65,11 @@
          android:padding="10dp">
          
 	     </LinearLayout>
+	     
+
 
  	</SlidingDrawer>
+ 	
+
  
 </FrameLayout>
