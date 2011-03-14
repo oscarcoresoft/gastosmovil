@@ -646,7 +646,7 @@ public class gastoMovil extends ListActivity{
 
         //Mostrando los datos de minutos llamadas en la cabecera de registro de llamadas
         
-        LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumen);
+        LinearLayout linear=(LinearLayout) findViewById(R.id.lytResumenMesDia);
         linear.removeAllViewsInLayout();
         
         
@@ -709,8 +709,8 @@ public class gastoMovil extends ListActivity{
     		if (ts.getTarifas().get(i).getLimite()>0)
     		{
     			//Tiene limite mensual
-        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|"+getString(R.string.res_limite)+" "+ts.getTarifas().get(i).getLimite()+"m.\n";
-        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+"s.|Fuera de límite.\n";
+        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|"+getString(R.string.res_limite_mes)+" "+ts.getTarifas().get(i).getLimite()+"m.\n";
+        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+"s.|"+getString(R.string.res_fuera_limite)+"\n";
         		numLineasMes+=3;
         		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
@@ -727,8 +727,8 @@ public class gastoMovil extends ListActivity{
     		if (ts.getTarifas().get(i).getLimiteDia()>0)
     		{
     			//Tiene limite mensual
-        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()%60)+"s.|"+getString(R.string.res_limite)+" "+ts.getTarifas().get(i).getLimiteDia()+"m.\n";
-        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())%60+"s.|Fuera de límite.\n";
+        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteDia()%60)+"s.|"+getString(R.string.res_limite_dia)+" "+ts.getTarifas().get(i).getLimiteDia()+"m.\n";
+        		datosDia+="  * "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosDia()-ts.getTarifas().get(i).getSegConsumidosLimiteDia())%60+"s.|"+getString(R.string.res_fuera_limite)+"\n";
         		numLineasDia+=3;
         		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
         		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
