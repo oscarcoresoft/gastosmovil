@@ -11,7 +11,7 @@
  			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			
-			android:background="#B40404"
+			android:background="#000000"
 			android:textSize="9sp"
 			android:textStyle="bold"
 			android:text="ÚLTIM.LLAM."

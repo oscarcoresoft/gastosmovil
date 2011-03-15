@@ -534,7 +534,7 @@ public class gastoMovil extends ListActivity{
 		        			//Log.d("GAstos Móvil", "Segundos consumidos día="+ts.getSegConsumidosDia());
 		        			if (ts.getSegConsumidosDia()>1&&vp.getResumenDia())
 		        			{
-		        				//rIcono=(t.getLimiteDia()>0&&t.getSegConsumidosDia()>(t.getLimiteDia()*60))? getResources().getDrawable(android.R.drawable.presence_busy):getResources().getDrawable(android.R.drawable.presence_away);
+		        				//Resumen día
 		        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
 		        			}
 		        			//final MODIFICACIÓN POR CONFIRMAR
@@ -622,7 +622,7 @@ public class gastoMovil extends ListActivity{
         	if (ts.getNumTarifasDefecto()>0)  // hay tarifa por defecto definida (java.lang.NullPointerException)
         		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
         		{
-        			lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
+        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
 					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
         c.close();
