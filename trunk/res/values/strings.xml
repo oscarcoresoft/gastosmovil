@@ -194,7 +194,7 @@
 	<string name="res_llamadas">* Llamadas</string>
 	<string name="res_mensajes">* Mensajes</string>
 	<string name="res_mes">RESUMEN MES</string>
-	<string name="res_dia">RESUMEN DEL</string>
+	<string name="res_dia">RESUMEN DIA</string>
 	<string name="res_limite_mes">Lím. Mes</string>
 	<string name="res_limite_dia">Lím. Dia</string>
 	<string name="res_sin_limite">Sin Límites</string>
