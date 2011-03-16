@@ -12,7 +12,7 @@ public class TarifasPreDefinidas {
 	
 	//{"Nombre tarifa","numero de franjas","consumo minimo","limite de llamadas mensuales","limite de llamadas diarias","limite de llamada","Color","numeros asociados","Defecto",
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
-	private int numTarifas=72;
+	private int numTarifas=76;
 	private String[][] tarifasPreDefinidas={
 			{"El Androide Libre - PepePhone","1","0","0","0","0","Rojo","","Si",
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","4","15","No","0","0"},
