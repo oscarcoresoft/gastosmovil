@@ -53,6 +53,13 @@
 	         android:gravity="center"
 	         android:textColor="#d0a6a6"
 	         android:padding="10dp"/>
+	         
+   	        <ImageView android:id="@+id/imagePersianaEstado"
+			android:layout_width="wrap_content"
+	       	android:layout_height="wrap_content"
+	       	android:layout_gravity="center"
+	       	android:padding="5dp"
+	   	  	android:src="@android:drawable/presence_online"/>
 	         	         
 	    </LinearLayout>
 

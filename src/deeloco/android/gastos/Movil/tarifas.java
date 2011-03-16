@@ -711,6 +711,52 @@ public class tarifas implements Serializable{
 	}
 	
 	
+	/**
+	 * Retorna el estado en que se encuentran las tarifas en relación a si se han sobrepadado los límites o no
+	 * @return int
+	 * Si retorno=0 no tiene limite de tiempo en ninguna de sus tarifas
+	 * Si retorno=1 ninguna tarifa ha sobrepasado los límites
+	 * Si retorno=2 alguna tarifa ha sobrepasado los límites
+	 */
+	public int getEstadoLimite()
+	{
+		int retorno=0;
+		for (int i=0;i<this.tarifas.size();i++)
+		{
+			//Limite mensual
+			//Log.d("","Limite Mensual="+this.tarifas.get(i).getLimite()*60+" | Consumido="+this.tarifas.get(i).getSegConsumidosLimiteMes());
+			if (this.tarifas.get(i).getLimite()>0)
+			{
+				//limite mes < segundos consumidos del limite mensual
+				if ((this.tarifas.get(i).getLimite()*60)>this.tarifas.get(i).getSegConsumidosLimiteMes())
+				{
+					retorno=1;
+				}
+				else
+				{
+					return 2;
+				}
+			}
+			
+			//Limite diaria
+			//Log.d("","Limite Diario="+this.tarifas.get(i).getLimiteDia()*60+" | Consumido="+this.tarifas.get(i).getSegConsumidosLimiteDia());
+			if (this.tarifas.get(i).getLimiteDia()>0)
+			{
+				//limite dia < segundos consumidos del limite diario
+				if ((this.tarifas.get(i).getLimiteDia()*60)>this.tarifas.get(i).getSegConsumidosLimiteDia())
+				{
+					retorno=1;
+				}
+				else
+				{
+					return 2;
+				}
+			}
+			
+		}
+		return retorno;
+	}
+	
 	
 	public String[] getNombresTarifas()
 	{

@@ -708,13 +708,11 @@ public class gastoMovil extends ListActivity{
     		//Datos mensual
     		if (ts.getTarifas().get(i).getLimite()>0)
     		{
-    			//Tiene limite mensual
-        		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|"+getString(R.string.res_limite_mes)+" "+ts.getTarifas().get(i).getLimite()+"m.\n";
+    			//Tiene limite mensual Html.fromHtml("<font color='red'>@</font>")
+    			
+   				datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()/60)+"m. "+(ts.getTarifas().get(i).getSegConsumidosLimiteMes()%60)+"s.|"+getString(R.string.res_limite_mes)+" "+ts.getTarifas().get(i).getLimite()+"m.\n";
         		datosMes+="  * "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())/60+"m. "+(ts.getTarifas().get(i).getSegConsumidosMes()-ts.getTarifas().get(i).getSegConsumidosLimiteMes())%60+"s.|"+getString(R.string.res_fuera_limite)+"\n";
         		numLineasMes+=3;
-        		//Log.d("gastosmovil.java","CLM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes()+" CM:"+ts.getTarifas().get(i).getSegConsumidosMes()+" LM:"+ts.getTarifas().get(i).getSegConsumidosLimiteMes());
-        		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre()+":"+getString(R.string.Gastado)+" "+(totalSegundosLimite/60)+" m. "+(totalSegundosLimite%60)+" s. "+ getString(R.string.Limite)+" "+limite+" m.");//TEXTO
-        		//tv_cabRegistro.setText(ts.getTarifas().get(i).getNombre().subSequence(0, 10)+":"+getString(R.string.Gastado)+" "+(ts.getTarifas().get(i).getSegConsumidosMes()/60)+" m. "+(ts.getTarifas().get(i).getSegConsumidosMes()%60)+" s. "+ getString(R.string.Limite)+" "+ts.getTarifas().get(i).getLimite()+" m.");//TEXTO
     		}
     		else
     		{
@@ -792,7 +790,21 @@ public class gastoMovil extends ListActivity{
         //MOntamos el literal que se va ha presentar en el desplegable
         TextView txtMes=(TextView) findViewById(R.id.txtPersiana);
   	  	txtMes.setText(getString(R.string.cabDatos) +" "+textoMes+" ("+FunGlobales.redondear((costeLlamadas+costeSMS)*iva,2)+FunGlobales.monedaLocal()+")");
-  	  	
+  	  	//Montamos la señal de estado
+  	  	ImageView imgEstado=(ImageView) findViewById(R.id.imagePersianaEstado);
+  	  	//Log.d("gastosMovil.java",""+ts.getEstadoLimite());
+  	  	switch (ts.getEstadoLimite())
+  	  	{
+  	  	case 0: //Imagen vacia
+  	  		imgEstado.setImageDrawable(getResources().getDrawable(R.drawable.line0));
+  	  		break;
+  	  	case 1: //Imagen verde
+  	  		imgEstado.setImageDrawable(getResources().getDrawable(R.drawable.relog_mas));
+  	  		break;
+  	  	case 2: //Imagen roja
+  	  		imgEstado.setImageDrawable(getResources().getDrawable(R.drawable.relog_peligro));
+  	  		break;
+  	  	}
 
         //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
         //listaInvertida=lista;
