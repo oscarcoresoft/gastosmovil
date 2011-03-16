@@ -799,10 +799,10 @@ public class gastoMovil extends ListActivity{
   	  		imgEstado.setImageDrawable(getResources().getDrawable(R.drawable.line0));
   	  		break;
   	  	case 1: //Imagen verde
-  	  		imgEstado.setImageDrawable(getResources().getDrawable(R.drawable.relog_mas));
+  	  		imgEstado.setImageDrawable(getResources().getDrawable(android.R.drawable.presence_online));
   	  		break;
   	  	case 2: //Imagen roja
-  	  		imgEstado.setImageDrawable(getResources().getDrawable(R.drawable.relog_peligro));
+  	  		imgEstado.setImageDrawable(getResources().getDrawable(android.R.drawable.presence_busy));
   	  		break;
   	  	}
 
