@@ -157,6 +157,28 @@ public class AdaptadorListaIconos extends BaseAdapter {
 	        linea1.addView(txtLinea1Der, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,1));
 	        //Final
 	        datos.addView(linea1, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+	        
+	     // Generamos el TextView para la fecha y hora
+	        TextView vFecha = new TextView(mContext,null,android.R.attr.textAppearanceSmall);
+	        // Le establecemos el texto a mostrar
+	        
+
+	        if (duracion.equals(" ")&&fecha.equals(" "))
+	        	vFecha.setText(" ");
+	        else
+	        	vFecha.setText(duracion+ "|" +fecha);
+	        vFecha.setTextAppearance(mContext,android.R.attr.textAppearanceSmall);
+	        //vFecha.setTextSize(15);
+	        if ((telefono.equals(" ")&&nombre.equals(" "))) //Si no tiene telefono y nombre = Una sola línea
+			{
+	        	vFecha.setTextColor(Color.parseColor("#FF8000"));
+			}
+	        
+	        
+	        
+	        // Lo añadimos al LinearLayout "datos"
+	        
+	        datos.addView(vFecha, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		}
 		else
 		{
@@ -164,27 +186,35 @@ public class AdaptadorListaIconos extends BaseAdapter {
 			//vista.setBackgroundColor(Color.BLACK);
 			//datos.setBackgroundColor(Color.BLACK);
 			vista.setBackgroundColor(Color.parseColor("#88000000"));
+			
+			LinearLayout linea2=new LinearLayout(mContext);
+		    linea2.setOrientation(LinearLayout.HORIZONTAL);
+		    
+		    TextView txtLinea2Izq = new TextView(mContext,null,android.R.attr.textAppearanceSmall);
+			txtLinea2Izq.setText(duracion+ "|" +fecha);
+			txtLinea2Izq.setTextAppearance(mContext,android.R.attr.textAppearanceSmall);
+			txtLinea2Izq.setSingleLine(true);
+			txtLinea2Izq.setTextColor(Color.parseColor("#FF8000"));
+			txtLinea2Izq.setMaxWidth(250);
+			txtLinea2Izq.setSingleLine(true);
+			txtLinea2Izq.setGravity(Gravity.LEFT);
+	        
+	        linea2.addView(txtLinea2Izq, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,2));
+		    
+			TextView txtLinea2Der = new TextView(mContext,null,android.R.attr.textAppearanceSmall);
+			txtLinea2Der.setText(coste+FunGlobales.monedaLocal());
+			txtLinea2Der.setTextAppearance(mContext,android.R.attr.textAppearanceSmall);
+			txtLinea2Der.setGravity(Gravity.RIGHT);
+			txtLinea2Der.setPadding(0,0,15,0);
+			txtLinea2Der.setTextColor(Color.parseColor("#FF8000"));
+			linea2.addView(txtLinea2Der, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,1));
+			
+	        datos.addView(linea2, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+			
 		}
 		
-        // Generamos el TextView para la fecha y hora
-        TextView vFecha = new TextView(mContext,null,android.R.attr.textAppearanceSmall);
-        // Le establecemos el texto a mostrar
-        if (duracion.equals(" ")&&fecha.equals(" "))
-        	vFecha.setText(" ");
-        else
-        	vFecha.setText(duracion+ "|" +fecha);
-        vFecha.setTextAppearance(mContext,android.R.attr.textAppearanceSmall);
-        //vFecha.setTextSize(15);
-        if ((telefono.equals(" ")&&nombre.equals(" "))) //Si no tiene telefono y nombre = Una sola línea
-		{
-        	vFecha.setTextColor(Color.parseColor("#FF8000"));
-		}
         
-        
-        
-        // Lo añadimos al LinearLayout "datos"
-        
-        datos.addView(vFecha, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
         
         if (fecha.equals(" "))
         {
