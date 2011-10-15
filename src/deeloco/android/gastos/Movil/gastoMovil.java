@@ -443,7 +443,8 @@ public class gastoMovil extends ListActivity{
         int modifDuracion=vp.getPreferenciasDuracion(); //modificación de la duración de la llamada
         costeLlamadas=0;
         costeSMS=0;
-        double coste;
+        double coste=0.0;
+        double costeDia=0.0;
         double estLlamada=0;
         numLlamadas=0;
         double totalEstLlamadas=0;
@@ -535,11 +536,12 @@ public class gastoMovil extends ListActivity{
 		        			if (ts.getSegConsumidosDia()>1&&vp.getResumenDia())
 		        			{
 		        				//Resumen día
-		        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
+		        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s. ",FunGlobales.redondear((costeDia*iva),vp.getPreferenciasDecimales())));
 		        			}
 		        			//final MODIFICACIÓN POR CONFIRMAR
 		        			ts.resetSegundosConsumidosDia();
 		        			t.setSegConsumidosLimiteDia(0); //Se resetea
+		        			costeDia=0.0;
 		        			t.setSegConsumidosDia(duracion); //Segundos consumidos solo los de hoy
 		        			fechaControl=fechaHoy;
 		        		}
@@ -569,6 +571,7 @@ public class gastoMovil extends ListActivity{
 		        		}
 		        		
 		        		coste=f.coste(t, duracion); //Coste sin iva
+		        		costeDia+=coste;
 		        		estLlamada=f.establecimiento(t);
 		        		
 		        		if (
@@ -622,7 +625,7 @@ public class gastoMovil extends ListActivity{
         	if (ts.getNumTarifasDefecto()>0)  // hay tarifa por defecto definida (java.lang.NullPointerException)
         		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
         		{
-        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",0.0));
+        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",FunGlobales.redondear((costeDia*iva),vp.getPreferenciasDecimales())));
 					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
         c.close();
