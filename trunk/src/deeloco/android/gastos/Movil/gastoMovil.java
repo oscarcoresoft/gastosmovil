@@ -997,8 +997,8 @@ public class gastoMovil extends ListActivity{
 		//guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
 		ts.guardarTarifas();
 		
-		Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
-        getBaseContext().startService(forceUpIntent);
+		//Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
+        //getBaseContext().startService(forceUpIntent);
 	}
     
     
