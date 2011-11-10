@@ -110,7 +110,7 @@ public class PreferencesTarifas extends ListActivity{
         case NUEVA_TARIFA_PREDEFINIDA:
         	//Creamos un objeto tarifa con id=0 y se lo pasamos a la activity PreferencesTarifa
 
-        	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
+        	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.mn_nueva_tarifa_predefinida);
 			
@@ -118,7 +118,7 @@ public class PreferencesTarifas extends ListActivity{
 			    public void onClick(DialogInterface dialog, int item) {
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
 					//Retorno
-			    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas();
+			    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
 			    	//Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
 			    	tarifa t=tsPre.getTarifa(item);
 			    	if (t!=null) //Se ha retornado una tarifa predefinida
@@ -179,7 +179,15 @@ public class PreferencesTarifas extends ListActivity{
 
         case RECUPERAR:
         	//Compartir el fichero de configuración de tarifas
-
+        	String url="http://www.simahuelva.es/deeloco/tarifas/";
+    		String path="/sdcard/gastosmovil/";
+    		String nombre="datosTarifasPre.xml";
+        	descargar_fichero download=new descargar_fichero(getApplicationContext(), url, nombre, path);
+        	if (!download.download())
+    		{
+    			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+    		}
+        	/*
         	final File fRecuperacion=new File("/sdcard/download/datosTarifas.xml.jpg");
         	if (fRecuperacion.exists() && fRecuperacion.canRead())
         	{
@@ -209,21 +217,21 @@ public class PreferencesTarifas extends ListActivity{
             	                    	 Log.e("PreferenciasTarifas.java", "Error al eliminar el fichero datosTarifas.xml.jpg"+e.toString()+" ("+e.hashCode()+")");
             	                     }
             	                    
-            	                    /* Cargamos los valores de las tarifas */
+            	                    // Cargamos los valores de las tarifas 
             	                    try
             	                    {            	                    	
             	            	        SAXParserFactory spf = SAXParserFactory.newInstance();
             	            	        SAXParser sp = spf.newSAXParser();
-            	            	        /* Get the XMLReader of the SAXParser we created. */
+            	            	        // Get the XMLReader of the SAXParser we created. 
             	            	        XMLReader xr = sp.getXMLReader();
-            	            	        /* Create a new ContentHandler and apply it to the XML-Reader*/
+            	            	        // Create a new ContentHandler and apply it to the XML-Reader
             	            	        TarifasParserXML tarifasXML = new TarifasParserXML();
             	            	        ts=null;
             	            	        ts=new tarifas();
             	            	        tarifasXML.setTarifas(ts);
             	            	        xr.setContentHandler(tarifasXML);
             	            	        xr.parse(new InputSource (new FileReader(path)));
-            	            	        /* Parsing has finished. */
+            	            	        // Parsing has finished. 
             	            	        Log.d(TAG,"NOmbre tarifa importada->"+ts.getTarifas().get(0).getNombre());
             	            	        Intent resultIntent=new Intent();
             	    			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
@@ -260,6 +268,8 @@ public class PreferencesTarifas extends ListActivity{
         	{
         		Toast.makeText(getBaseContext(),getString(R.string.mensaje_noexiste_tarifa_compartida),Toast.LENGTH_LONG).show();
         	}
+        	*/
+        	
         	break;
         	
         	
