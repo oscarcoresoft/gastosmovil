@@ -168,7 +168,7 @@
     <string name="simulacion_factura_activity">Simulación de factura.</string>
     <string name="mn_factura">Simulación de Factura</string>
     <string name="mn_compartir">Enviar Tarifas</string>
-    <string name="mn_recuperar">Cargar Tarifas recibidas</string>
+    <string name="mn_recuperar">Descargar Tarifas</string>
     <string name="coste_llamada">Coste de las llamadas: </string>
     <string name="aj_presentarIVA">Impuesto</string>
     <string name="aj_presentarIVA_des">Mostrar el coste de las llamadas con impuestos incluidos.</string>
@@ -200,6 +200,9 @@
 	<string name="res_sin_limite">Sin Límites</string>
 	<string name="res_fuera_limite">Fuera de límite</string>
 	
+	<!-- ESTAS CADENAS NO SE TRADUCEN -->
+	
+	<string name="url_tarifas_xml">http://www.simahuelva.es/deeloco/tarifas/datosTarifasPre.xml</string>
 
 </resources> 
 

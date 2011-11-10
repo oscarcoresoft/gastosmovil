@@ -806,7 +806,7 @@ public class gastoMovil extends ListActivity{
   	  		break;
   	  	case 2: //Imagen roja
   	  		imgEstado.setImageDrawable(getResources().getDrawable(android.R.drawable.presence_busy));
-  	  		break;
+  	  		break; 
   	  	}
 
         //Hay que invertir la lista de llamadas, para presentarlo en pantalla y que apareccan
@@ -896,7 +896,9 @@ public class gastoMovil extends ListActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
     {
     	super.onActivityResult(requestCode, resultCode, data);
-    	switch (requestCode){
+    	//Log.v("Prueba", "RESULTADO(reques/result/OK)="+requestCode+"/"+resultCode+"/"+Activity.RESULT_OK+"/"+Activity.RESULT_CANCELED);
+    	switch (requestCode)
+    	{
     	case RETURN_PREFERENCES_AJUSTES:
 			if (resultCode == RESULT_OK) 
 			{
@@ -912,6 +914,7 @@ public class gastoMovil extends ListActivity{
 		        	iva=vp.getPreferenciasImpuestos();
 		        else
 		        	iva=1.00; //Sin IVA
+		        
 			     listado(vp.getPreferenciasMes());
 			     ts.guardarTarifas();
 			}
@@ -928,11 +931,32 @@ public class gastoMovil extends ListActivity{
 			break;
 
 		default:
+			if (resultCode == Activity.RESULT_OK) 
+			{
+				Log.v("Prueba", "OPERADOR");
+				String operadora=data.getStringExtra("operadora");
+
+				
+				if (operadora.equals("KPN"))
+				{
+					operadora="SIMYO";
+				}
+				Toast.makeText(getApplicationContext(), "Operadora - "+operadora, Toast.LENGTH_SHORT).show();
+				//Log.v("Prueba", data.getStringExtra("operadora"));
+			}
+			if (resultCode == Activity.RESULT_CANCELED) 
+			{
+				Toast.makeText(getApplicationContext(), "Error en el calculo de la operadora. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show();
+				//Log.v("Prueba", data.getStringExtra("operadora"));
+			}
 			break; 
     	
     	
     	}
     }
+    
+    
+    
     
     
     /**
@@ -1000,6 +1024,49 @@ public class gastoMovil extends ListActivity{
 		//Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
         //getBaseContext().startService(forceUpIntent);
 	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		//String numero=listaInvertida.get(position).telefono.trim();
+		
+		String num=listaInvertida.get(position).telefono.trim();
+		//Si no tenemos números
+		if (num.length()==0)
+		{
+			return;
+		}
+		
+		//Si tiene código de pais, se lo quitamos
+		if (num.length()>9)
+		{
+			num=num.substring(3);
+		}
+		
+		//Controlamos que sea un móvil
+		if ((num.substring(0, 1).equals("9"))||(num.length()<6))
+		{
+			Toast.makeText(getApplicationContext(), "Solo teléfonos móviles", Toast.LENGTH_SHORT).show();
+		}
+		else
+		{
+			try
+			{
+				String action = "es.ieeesb.androidoperator.COMPRUEBA_NUM";
+		        String n= "numero://telefono/" + num;
+		        Uri data = Uri.parse(n);
+		        Intent numIntent = new Intent(action,data);
+		        startActivityForResult(numIntent,0);
+			}
+			catch (Exception e)
+			{
+				Log.e("gastosMovil.java","Error:"+e.getMessage());
+			}
+		}
+		super.onListItemClick(l, v, position, id);
+	}
+
+
     
     
     

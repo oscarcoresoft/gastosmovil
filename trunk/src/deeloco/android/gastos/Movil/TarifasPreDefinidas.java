@@ -1,6 +1,18 @@
 package deeloco.android.gastos.Movil;
 
 
+import android.app.Activity;
+import android.content.Context;
+
+import java.io.File;
+import java.io.FileReader;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,6 +24,8 @@ public class TarifasPreDefinidas {
 	
 	//{"Nombre tarifa","numero de franjas","consumo minimo","limite de llamadas mensuales","limite de llamadas diarias","limite de llamada","Color","numeros asociados","Defecto",
 	//	"Nombre franja","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","coste","establecimiento","cuenta?","coste pasado limites","establecimiento pasado limites"},
+	private tarifas ts=new tarifas();
+	private Context contexto;
 	private int numTarifas=78;
 	private String[][] tarifasPreDefinidas={
 			{"El Androide Libre - PepePhone","1","0","0","0","0","Rojo","","Si",
@@ -225,8 +239,58 @@ public class TarifasPreDefinidas {
 				"24 Horas","00:00:00","00:00:00","[Lun,Mar,Mie,Jue,Vie,Sab,Dom]","8","15","No","0","0"}	
 	};
 
-	public TarifasPreDefinidas() {
-		super();
+	public TarifasPreDefinidas(Context contexto) {
+		//super();
+		//Cargamos en la clase tarifas todas las tarifas predefinidas, que tienen que estar en
+		//sd/gastosmovil/datosTarifasPre.xml
+		this.contexto=contexto;
+		//Comprobamos si el fichero existe.
+		String url="http://www.simahuelva.es/deeloco/tarifas/";
+		String path="/sdcard/gastosmovil/";
+		String nombre="datosTarifasPre.xml";
+		descargar_fichero download=new descargar_fichero(this.contexto, url, nombre, path);
+		try
+        {
+        	//Comprobamos si el fichero esta creado. Si es que no, se crea.
+        	File f=new File(path+nombre);
+        	if (f.exists())
+        	{
+        		//Parseamos el xml
+    	        SAXParserFactory spf = SAXParserFactory.newInstance();
+    	        SAXParser sp = spf.newSAXParser();
+    	        /* Get the XMLReader of the SAXParser we created. */
+    	        XMLReader xr = sp.getXMLReader();
+    	        /* Create a new ContentHandler and apply it to the XML-Reader*/
+    	        TarifasParserXML tarifasXML = new TarifasParserXML();
+    	        tarifasXML.setTarifas(ts);
+    	        xr.setContentHandler(tarifasXML);
+    	        xr.parse(new InputSource (new FileReader(path+nombre)));
+    	        /* Parsing has finished. */
+        	}
+        	else
+        	{
+        		//Descargamos el fichero
+        		
+        		if (!download.download())
+        		{
+        			Toast.makeText(this.contexto,"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+        		}
+        		
+        	}
+        	
+
+	        
+        }
+        catch (Exception e)
+        {
+        	//Si el error se produce porque no existe el fichero xml, hay que crearlo.
+        	//Tambien hay que crear el directorio
+        	System.out.println("ERROR:"+e.toString()+" ("+e.hashCode()+")");
+        	if (!download.download())
+    		{
+    			Toast.makeText(this.contexto,"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+    		}
+        }
 	}
 
 	
@@ -235,13 +299,16 @@ public class TarifasPreDefinidas {
 	 * @return
 	 */
 	public CharSequence[] nombresTarifas(){
+		int numTarifas=ts.numTarifas();
+		//CharSequence[] nomTarifas= new CharSequence[numTarifas];
 		CharSequence[] nomTarifas= new CharSequence[numTarifas];
+		nomTarifas=ts.getNombresTarifas();
 		//Recorrer la matriz y devuelve el nombre de las tarifas predefinidas
-        for (int f=0;f<this.numTarifas;f++)
+        /*for (int f=0;f<this.numTarifas;f++)
         {
         	nomTarifas[f]=this.tarifasPreDefinidas[f][0];
         	//System.out.println(this.tarifas.get(i).getNombre());
-        }
+        }*/
 		return nomTarifas;
 	}
 	
@@ -251,7 +318,10 @@ public class TarifasPreDefinidas {
 	 * @return
 	 */
 	public tarifa getTarifa(int indice){
+		return ts.getTarifa(++indice);
+		/*
 		tarifa tarifaRetorno=new tarifa(0); //0= tarifa nueva
+		
 		try
 		{
 		//Log.d("TarifaPreDefinida","Inicio de la creación de tarifa predefinida="+this.tarifasPreDefinidas[indice][0]);
@@ -291,6 +361,7 @@ public class TarifasPreDefinidas {
 		}
 		//Log.d("TarifaPreDefinida","Se ha creado una tarifa predefinida="+tarifaRetorno.getNombre());
 		return tarifaRetorno;
+		*/
 	}
 	
 }
