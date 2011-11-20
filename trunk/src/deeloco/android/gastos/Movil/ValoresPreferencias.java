@@ -503,7 +503,7 @@ public class ValoresPreferencias {
   
   public String getOperadora()
   {
-	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("listOperadora", "todas");
+	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("listOperadora", "Todas");
 	  return valor;
   }
 
