@@ -118,7 +118,7 @@ public class PreferencesTarifas extends ListActivity{
 
         	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(getString(R.string.mn_nueva_tarifa_predefinida)+" "+vp.getOperadora());
+			builder.setTitle(getString(R.string.cabTarifas)+" "+vp.getOperadora());
 			
 			builder.setSingleChoiceItems(tsPre.nombresTarifas(),-1, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {

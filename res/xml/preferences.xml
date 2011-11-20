@@ -8,7 +8,7 @@
             android:defaultValue="Todas"
             android:entries="@array/operadoras"
             android:entryValues="@array/operadoras"
-            android:dialogTitle="MESES" />
+            android:dialogTitle="OPERADORAS" />
     </PreferenceCategory>
 	<PreferenceCategory android:title="SMS">	
        <EditTextPreference
