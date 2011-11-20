@@ -26,8 +26,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.http.util.ByteArrayBuffer;
 
@@ -35,6 +39,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+
+import android.widget.Toast;
 
 
 public class descargar_fichero {
@@ -149,12 +155,14 @@ public class descargar_fichero {
 	/**
 	 * Realiza la descarga del fichero en la URL especificada y la guarda en pathSD
 	 * @return
-	 * Boolean, 'true' si la descarga se ha realizado correctamente y 'false' si ha habido un error.
+	 * int: 0 - si la descarga se ha realizado correctamente
+	 * 		1 - Error en la descarga del fichero
+	 * 		2 - No hay conexión a Internet
 	 */
-	public boolean download()
+	public int download()
 	{
-		boolean retorno=true;
-
+		//boolean retorno=true;
+		int retorno=1;
 		if (HaveNetworkConnection())
 		{
 			try
@@ -165,7 +173,8 @@ public class descargar_fichero {
 				
 				/* Abrir una conexión a la URL. */
 	            URLConnection ucon = url.openConnection();
-	            
+	            ucon.setConnectTimeout(3000);
+	            ucon.setReadTimeout(3000);
 	            /*
 	             * Define InputStreams para leer desde el URLConnection.
 	             */
@@ -187,13 +196,14 @@ public class descargar_fichero {
 	            FileOutputStream fos = new FileOutputStream(file);
 	            fos.write(baf.toByteArray());
 	            fos.close();
+	            retorno=0;
 	            Log.d(tag, "Descarga realizada en "+ ((System.currentTimeMillis() - startTime) / 1000)+ " sec, de"+url);
 	
 			}
 			catch (IOException e)
 			{
 				//Error en la descarga del fichero
-				retorno=false;
+				retorno=1;
 				Log.d(tag, "Error al descargar el fichero "+this.nombreFichero+" : "+e.getMessage());
 			}
 			return retorno;
@@ -202,11 +212,16 @@ public class descargar_fichero {
 		{
 			//Error en la descarga porque no hay conexión a Internet
 			Log.d(tag, "Sin Conexión");
-			retorno=false;
+			retorno=2;
 		}
 		return retorno;
 	}
 	
+	/**
+	 * Retorna si hay o no conexión a Internet, sea wifi o móvil
+	 * @return
+	 * Boolean: true si hay conexión a Internet, false si no hay.
+	 */
 	private boolean HaveNetworkConnection()
 	{
 	    boolean HaveConnectedWifi = false;
@@ -242,6 +257,87 @@ public class descargar_fichero {
 	}
 	
 	
+	/**
+	 * Comprueba si existe una nueva versión del fichero en el servidor. 
+	 * Para ello se basa en las fechas del fichero en la máquina local y en la fecha del fichero en el servidor 
+	 * @return
+	 */
+	public boolean nuevaVersionServidor()
+	{
+		boolean retorno=false;	
+		
+		if (HaveNetworkConnection())
+		{
+		//Comprobar si existen tarifas nuevas en el servidor
+		//Ver si se puede meter dentro de la clase descargar_fichero.
+		
+		//File file = new File("/sdcard/gastosmovil/datosTarifasPre.xml");
+		File file = new File(this.pathSD+this.nombreFichero);
+		Date lastModDate = new Date(file.lastModified());
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy%20HH:mm:00");
+		String fecha_fichero_local=sdf.format(lastModDate);
+		HttpURLConnection urlConnection;
+		try 
+		   	{
+				Log.d(tag,this.URL+"controlVer.php?fecha="+fecha_fichero_local+"&nombre="+this.nombreFichero);
+			   	URL url = new URL(this.URL+"controlVer.php?fecha="+fecha_fichero_local+"&nombre="+this.nombreFichero);
+			   	//URL url = new URL("http://gastosmovil.simahuelva.es/deeloco/tarifas/controlVer.php?fecha=10-10-2011%2018:00:00&nombre=datosTarifasPre.xml");
+			   	urlConnection= (HttpURLConnection) url.openConnection();
+			   	InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+		     	byte[] buffer = new byte[1];
+		     	in.read(buffer);
+		     	String respuesta = new String(buffer);
+		     	int respuestaWS;
+		     	respuestaWS=Integer.parseInt(respuesta);	     	
+		     	urlConnection.disconnect();
+		     	
+		     	Log.d(tag,"Respuesta WS:"+respuesta);
+		     	switch (respuestaWS) 
+		     	{
+		     		case 0:
+		     			//No hay actualizaciones
+		     			retorno=false;
+		     			break;
+		     		case 1:
+		     			//Hay actualizaciones
+		     			retorno=true;
+		     			break;
+		     		case 2:
+		     			Toast.makeText(this.contexto,"No se ha podido descargar el fichero. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+		     			retorno=false;
+		     		default:
+		     			break;
+				}
+		     	
+		   	}
+		   	catch (MalformedURLException m)
+		   	{
+			   Log.e("PreferenciasTarifas.java",m.getMessage());
+		   	}
+		   	catch (IOException e)
+		   	{
+			   Log.e("PreferenciasTarifas.java",e.getMessage());
+		   	}
+		   	catch (Exception e)
+		   	{
+		   		Log.e("PreferenciasTarifas.java",e.getMessage());
+		   	}
+		}
+		else
+		{
+			Toast.makeText(this.contexto,"Sin Conexion a Internet",Toast.LENGTH_LONG).show();
+		}
+		return retorno;
+	}
+	
+	
+	/**
+	 * Devulve si existe un fichero o no
+	 * @param nombreFichero: Nombre del fichero
+	 * @param pathSD: Path de la SD donde está el fichero
+	 * @return
+	 * Boolean: true si existe y false si no existe
+	 */
 	public boolean existeFichero(String nombreFichero, String pathSD)
 	{
 		
