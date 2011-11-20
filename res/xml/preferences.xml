@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="Operadora">
+		<ListPreference
+            android:title="@string/aj_operadora"
+            android:summary="@string/aj_operadora_des"
+            android:key="listOperadora"
+            android:defaultValue="Todas"
+            android:entries="@array/operadoras"
+            android:entryValues="@array/operadoras"
+            android:dialogTitle="MESES" />
+    </PreferenceCategory>
 	<PreferenceCategory android:title="SMS">	
        <EditTextPreference
 			android:name="@string/aj_tarifaSMS"

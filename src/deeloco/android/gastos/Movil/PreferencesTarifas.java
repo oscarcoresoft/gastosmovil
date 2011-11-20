@@ -1,22 +1,14 @@
 package deeloco.android.gastos.Movil;
 
-
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
 
 import deeloco.android.gastos.Movil.TextBox.TextBoxListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,10 +32,11 @@ public class PreferencesTarifas extends ListActivity{
 	private static final String TARIFAS_RETORNO = "tarifas_retorno";
 	ValoresPreferencias vp=new ValoresPreferencias(this);
 	String path="/sdcard/gastosmovil/datosTarifas.xml";
-
-	private tarifas ts;
 	
+	private descargar_fichero ficheroServidor;
+	private tarifas ts;
 	private List<IconoYTexto2> listaIYT = new ArrayList<IconoYTexto2>();
+	private ProgressDialog pd;
 	
     public boolean onCreateOptionsMenu(Menu menu){
     	menu.add(Menu.NONE, NUEVA_TARIFA, 0, R.string.mn_nueva_tarifa).setIcon(android.R.drawable.ic_menu_add);
@@ -54,6 +46,20 @@ public class PreferencesTarifas extends ListActivity{
     	return true;
     }
 	
+    
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+    	MenuItem itemTarifasPre = menu.findItem(NUEVA_TARIFA_PREDEFINIDA);
+    	MenuItem itemDescargar = menu.findItem(RECUPERAR);
+    	this.ficheroServidor=new descargar_fichero(getApplicationContext(), getString(R.string.tarifasPre_url), getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext), getString(R.string.tarifasPre_path));
+    	//Comprobamos si hemos descargado el fichero de tarifas predefinidas
+    	File f=new File(getString(R.string.tarifasPre_path)+getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext));
+    	itemTarifasPre.setEnabled(f.exists());
+    	//Comprobar si hay nueva versión en el servidor
+    	itemDescargar.setEnabled(ficheroServidor.nuevaVersionServidor());
+
+        return true;
+    }
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +118,7 @@ public class PreferencesTarifas extends ListActivity{
 
         	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(R.string.mn_nueva_tarifa_predefinida);
+			builder.setTitle(getString(R.string.mn_nueva_tarifa_predefinida)+" "+vp.getOperadora());
 			
 			builder.setSingleChoiceItems(tsPre.nombresTarifas(),-1, new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int item) {
@@ -143,136 +149,27 @@ public class PreferencesTarifas extends ListActivity{
         	//Compartir el fichero de configuración de tarifas
         	Intent xmlMessageIntent = new Intent(android.content.Intent.ACTION_SEND);  
         	xmlMessageIntent.setType("text/plain");  
-        	File f=new File(path);
-
-        	//Copiamos el fichero con extensión jpg, para que gmail pueda descargarlo
         	
-            try{
-            	FileReader fReader=new FileReader(f);;
-            	FileWriter fWriter= new FileWriter(path+".jpg");;
-            	char[] xml=new char[(int)f.length()];
-            	fReader.read(xml,0,(int)f.length());
-            	fReader.close();
-                fWriter.write(xml);
-                fWriter.flush();
-                fWriter.close();
-             }
-            catch(Exception e)
-            {
-
-            	Log.d(TAG,"No se puede copiar el fichero.");
-             }
-        	
-         	File f2=new File(path+".jpg");
+         	File f2=new File(this.path);
         	if (f2.exists() && f2.canRead())
         	{
 	        	xmlMessageIntent.putExtra(Intent.EXTRA_SUBJECT, "Gastos Móvil: Fichero configuración tarifa.");
-	        	xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/gastosmovil/datosTarifas.xml.jpg"));
+	        	xmlMessageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///sdcard/gastosmovil/datosTarifas.xml"));
 	        	startActivity(xmlMessageIntent);
         	}
         	else
         	{
         		Log.d(TAG,"No se puede leer el fichero a adjuntar");
         	}
-        	//Volver a poner la extensión xml.
         	break;
 
         case RECUPERAR:
-        	//Compartir el fichero de configuración de tarifas
-        	String url="http://www.simahuelva.es/deeloco/tarifas/";
-    		String path="/sdcard/gastosmovil/";
-    		String nombre="datosTarifasPre.xml";
-        	descargar_fichero download=new descargar_fichero(getApplicationContext(), url, nombre, path);
-        	if (!download.download())
-    		{
-    			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
-    		}
-        	/*
-        	final File fRecuperacion=new File("/sdcard/download/datosTarifas.xml.jpg");
-        	if (fRecuperacion.exists() && fRecuperacion.canRead())
-        	{
-            	AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-            	builder2.setMessage("Se perderá la configuración actual. ¿Quieres continuar?")
-            	       .setCancelable(false)
-            	       .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-            	           public void onClick(DialogInterface dialog, int id) {
-
-            	        	 //Existe fichero de tarifa compartida. Copiarla a /gastosmovil
-            	        		try{
-            	                	FileReader fReader=new FileReader(fRecuperacion);
-            	                	FileWriter fWriter= new FileWriter(path);
-            	                	char[] xml=new char[(int)fRecuperacion.length()];
-            	                	fReader.read(xml,0,(int)fRecuperacion.length());
-            	                	fReader.close();
-            	                    fWriter.write(xml);
-            	                    fWriter.flush();
-            	                    fWriter.close();
-            	                    // Eliminamos el fichero de intercambio datosTarifas.xml.jpg
-            	                     try
-            	                     {
-            	                    	 fRecuperacion.delete();
-            	                     }
-            	                     catch(Exception e)
-            	                     {
-            	                    	 Log.e("PreferenciasTarifas.java", "Error al eliminar el fichero datosTarifas.xml.jpg"+e.toString()+" ("+e.hashCode()+")");
-            	                     }
-            	                    
-            	                    // Cargamos los valores de las tarifas 
-            	                    try
-            	                    {            	                    	
-            	            	        SAXParserFactory spf = SAXParserFactory.newInstance();
-            	            	        SAXParser sp = spf.newSAXParser();
-            	            	        // Get the XMLReader of the SAXParser we created. 
-            	            	        XMLReader xr = sp.getXMLReader();
-            	            	        // Create a new ContentHandler and apply it to the XML-Reader
-            	            	        TarifasParserXML tarifasXML = new TarifasParserXML();
-            	            	        ts=null;
-            	            	        ts=new tarifas();
-            	            	        tarifasXML.setTarifas(ts);
-            	            	        xr.setContentHandler(tarifasXML);
-            	            	        xr.parse(new InputSource (new FileReader(path)));
-            	            	        // Parsing has finished. 
-            	            	        Log.d(TAG,"NOmbre tarifa importada->"+ts.getTarifas().get(0).getNombre());
-            	            	        Intent resultIntent=new Intent();
-            	    			    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
-            	    			    	setResult(Activity.RESULT_OK, resultIntent);
-            	            	        onStart();
-            	                    }
-            	                    catch (Exception e)
-            	                    {
-            	                    	//Si el error se produce porque no existe el fichero xml, hay que crearlo.
-            	                    	//Tambien hay que crear el directorio
-            	                    	
-            	                    	System.out.println("ERROR:"+e.toString()+" ("+e.hashCode()+")");
-            	                    }
-
-            	                    
-            	                 }
-            	                catch(Exception e)
-            	                {
-            	                	Log.d(TAG,"No se puede copiar el fichero.");
-            	                }
- 
-            	           }
-            	       })
-            	       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            	           public void onClick(DialogInterface dialog, int id) {
-            	                dialog.cancel();
-            	           }
-            	       });
-            	AlertDialog alert2 = builder2.create();
-            	alert2.show();
-        		
-        	}
-        	else
-        	{
-        		Toast.makeText(getBaseContext(),getString(R.string.mensaje_noexiste_tarifa_compartida),Toast.LENGTH_LONG).show();
-        	}
-        	*/
+        	//Descargar fichero de tarifas predefinidas
+        	pd = ProgressDialog.show(this, "", "Descargando datos ...", true,false);
+    		new segundoPlano().start();
         	
         	break;
-        	
-        	
+
         }
         return true;
 	}
@@ -365,7 +262,29 @@ public class PreferencesTarifas extends ListActivity{
 	}
 	
 	
-
+	//Clase runable
+	private class segundoPlano extends Thread
+	{
+    	public void run() {
+           try {
+	        	   	Log.d("SegundoPlano","URL="+ficheroServidor.getURL()+ficheroServidor.getNombreFichero());
+	        	   	switch (ficheroServidor.download())
+	           		{
+	           		case 1:
+	           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+	       				break;
+	           		case 2:
+	           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Sin conexión a Internet.",Toast.LENGTH_LONG).show();
+	           			break;
+	           		}
+	        	   	pd.dismiss();
+               }
+           	catch (Exception e) {
+               // if something fails do something smart
+           	 pd.dismiss();
+           	}
+       }
+	}
 
 	
 }

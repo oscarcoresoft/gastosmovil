@@ -501,6 +501,10 @@ public class ValoresPreferencias {
 		 return retorno;
   }
   
-  
+  public String getOperadora()
+  {
+	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("listOperadora", "todas");
+	  return valor;
+  }
 
 }
