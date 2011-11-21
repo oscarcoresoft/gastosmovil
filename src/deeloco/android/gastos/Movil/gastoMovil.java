@@ -495,14 +495,15 @@ public class gastoMovil extends ListActivity{
         		String nombreLlamada=c.getString(iNombre);
         		long fecha=c.getLong(iFecha);
         		int duracion=c.getInt(iDuracion)+modifDuracion; //le añadimos la modificación de la duración de la llamada;
-        		//Log.d("gastosMovil.java", "TELÉFONO"+c.getString(iTelefono));
-        		if (telefono.equals("609804996")||telefono.equals("+34609804996"))
+        		
+        		/*if (telefono.equals("609804996")||telefono.equals("+34609804996"))
         		{
         		Log.d("gastosMovil.java", "CACHE_NAME="+c.getString(iNombre));
         		Log.d("gastosMovil.java", "CACHE_NUMBER_LABEL="+c.getString(iLabel));
         		Log.d("gastosMovil.java", "CACHE_NUMBER_TYPE="+c.getString(iType));
         		
-        		}
+        		}*/
+        		
         		String sDuracion;
         		
         		String fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
