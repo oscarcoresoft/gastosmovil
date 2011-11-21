@@ -26,6 +26,7 @@ public class PreferencesTarifas extends ListActivity{
 	private static final int NUEVA_TARIFA_PREDEFINIDA = Menu.FIRST+1;
 	private static final int COMPARTIR= Menu.FIRST+2;
 	private static final int RECUPERAR= Menu.FIRST+3;
+	private static final int SOLICITAR= Menu.FIRST+4;
 	private static final int RETURN_PREFERENCES_TARIFA=1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesTarifas";
@@ -43,6 +44,7 @@ public class PreferencesTarifas extends ListActivity{
     	menu.add(Menu.NONE, NUEVA_TARIFA_PREDEFINIDA, 0, R.string.mn_nueva_tarifa_predefinida).setIcon(android.R.drawable.ic_menu_add);
     	menu.add(Menu.NONE, COMPARTIR, 0, R.string.mn_compartir).setIcon(android.R.drawable.ic_menu_share);
     	menu.add(Menu.NONE, RECUPERAR, 0, R.string.mn_recuperar).setIcon(android.R.drawable.ic_menu_set_as);
+    	menu.add(Menu.NONE, SOLICITAR, 0, "Solicitar Nueva Tarifa").setIcon(android.R.drawable.ic_menu_edit);
     	return true;
     }
 	
@@ -167,6 +169,13 @@ public class PreferencesTarifas extends ListActivity{
         	//Descargar fichero de tarifas predefinidas
         	pd = ProgressDialog.show(this, "", "Descargando datos ...", true,false);
     		new segundoPlano().start();
+        	
+        	break;
+        	
+        case SOLICITAR:
+        	//Descargar fichero de tarifas predefinidas
+        	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/spreadsheet/viewform?hl=es&formkey=dGwwb1ZYTkd6d3pUTHE0TFFIYmJ5WUE6MQ#gid=0"));
+        	startActivity(browserIntent);
         	
         	break;
 
