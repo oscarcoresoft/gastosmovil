@@ -621,15 +621,29 @@ public class tarifa implements Serializable{
 	 */
 	boolean pertenece(String numero){
 		
-		//Que el número coincifa entero
+		//Que el número coincida entero
 		if (this.numeros.indexOf(numero)>-1)
 			return true;
 		
-		
-		for (int i=0;i<this.numeros.size();i++)
+		Pattern p;
+		for (String num : this.numeros)
 		{
-			//Log.d(TAG,"Patrón="+this.numeros.get(i));
-			Pattern p=Pattern.compile('^'+this.numeros.get(i));
+			p=Pattern.compile("999999999");
+			if (num.contains("empieza por"))
+			{
+				String inicio[]=num.split("por");
+				inicio[1].trim();
+				p=Pattern.compile(inicio[1].trim()+"[0-9]{1,6}");
+			}
+			if (num.contains("movil"))
+			{
+				p=Pattern.compile("[6|71|72|73|74][0-9]{7,8}");
+			}
+			if (num.contains("fijo"))
+			{
+				p=Pattern.compile("[9][1-8][0-9]{7}");
+			}
+			
 			Matcher m=p.matcher(numero);
 			if (m.find())
 			{
