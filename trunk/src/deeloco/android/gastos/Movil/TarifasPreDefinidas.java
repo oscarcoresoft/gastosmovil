@@ -297,7 +297,7 @@ public class TarifasPreDefinidas {
 	 */
 	public tarifa getTarifa(int indice){
 		ts.getTarifa(++indice).setIdentificador(0);
-		return ts.getTarifa(++indice);
+		return ts.getTarifa(indice);
 		/*
 		tarifa tarifaRetorno=new tarifa(0); //0= tarifa nueva
 		
