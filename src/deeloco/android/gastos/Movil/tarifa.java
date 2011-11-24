@@ -631,9 +631,18 @@ public class tarifa implements Serializable{
 			p=Pattern.compile("999999999");
 			if (num.contains("empieza por"))
 			{
+				String patron="";
 				String inicio[]=num.split("por");
 				inicio[1].trim();
-				p=Pattern.compile(inicio[1].trim()+"[0-9]{1,6}");
+				if (num.contains("+"))
+				{
+					patron="\\"+inicio[1].trim()+"[0-9]{1,6}";
+				}
+				else
+				{
+					patron=inicio[1].trim()+"[0-9]{1,6}";
+				}
+				p=Pattern.compile(patron);
 			}
 			if (num.contains("movil"))
 			{
