@@ -107,7 +107,7 @@ public class PreferencesTarifa extends ListActivity{
         	Franja f=new Franja(0);
         	f.setNombre("Franja Nueva");
         	f.setHoraInicio("00:00:00");
-        	f.setHoraFinal("23:00:00");
+        	f.setHoraFinal("00:00:00");
         	f.setDias("[Lun,Mar,Mie,Jue,Vie,Sab,Dom]");
         	f.setCoste(0.0);
         	f.setEstablecimiento(0.0);

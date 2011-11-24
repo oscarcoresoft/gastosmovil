@@ -103,11 +103,6 @@ public class PreferencesFranja extends ListActivity{
 	}
     
     
-    
-    
-    
-    
-    
 	public boolean onOptionsItemSelected (MenuItem item) {
 		
         switch(item.getItemId()) {
