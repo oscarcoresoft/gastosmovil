@@ -439,7 +439,7 @@ public class gastoMovil extends ListActivity{
         int iDuracion = c.getColumnIndex(CallLog.Calls.DURATION);
         int iNombre = c.getColumnIndex(CallLog.Calls.CACHED_NAME);
         int iLabel = c.getColumnIndex(CallLog.Calls.CACHED_NUMBER_LABEL);
-        int iType = c.getColumnIndex(CallLog.Calls.CACHED_NUMBER_TYPE);
+        //int iType = c.getColumnIndex(CallLog.Calls.CACHED_NUMBER_TYPE);
         
         int numSMS=0;
         int numSMSGratis=0;
@@ -495,6 +495,8 @@ public class gastoMovil extends ListActivity{
         		String nombreLlamada=c.getString(iNombre);
         		long fecha=c.getLong(iFecha);
         		int duracion=c.getInt(iDuracion)+modifDuracion; //le añadimos la modificación de la duración de la llamada;
+        		String viber=c.getString(iLabel);
+        		Log.d("gastosMovil.java", "CACHE_NUMBER_LABEL="+c.getString(iLabel));
         		
         		/*if (telefono.equals("609804996")||telefono.equals("+34609804996"))
         		{
@@ -619,7 +621,6 @@ public class gastoMovil extends ListActivity{
 	        			if (vp.getNombreAgenda()&&(nombreLlamada!=null))
 	        				nombre=""+nombreLlamada;
 	        				//nombre=getContactNumber(telefono);
-	        			
 	        			lista.add(new IconoYTexto(rIcono, telefono,nombre, fechaHora,sDuracion,FunGlobales.redondear((coste*iva),vp.getPreferenciasDecimales())));
 	        			//valores acumulados
 	        			costeLlamadas=costeLlamadas+coste;
