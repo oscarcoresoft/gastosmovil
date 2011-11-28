@@ -204,9 +204,12 @@
 	<string name="aj_operadora_des">Selecciona la operadora a la que pertenece</string>
 	
 	<!-- ESTAS CADENAS NO SE TRADUCEN -->
-	
+	<!-- 
 	<string name="url_tarifas_xml">http://www.simahuelva.es/deeloco/tarifas/datosTarifasPre.xml</string>
 	<string name="tarifasPre_url">http://www.simahuelva.es/deeloco/tarifas/</string>
+	 -->
+	<string name="url_tarifas_xml">http://masmovil.t-conectamos.com/datosTarifasPre.xml</string>
+	<string name="tarifasPre_url">http://masmovil.t-conectamos.com/</string>
 	<string name="tarifasPre_path">/sdcard/gastosmovil/</string>
 	<string name="tarifasPre_pre">datosTarifasPre_</string>
 	<string name="tarifasPre_ext">.xml</string>
