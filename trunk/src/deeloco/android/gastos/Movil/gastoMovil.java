@@ -949,20 +949,17 @@ public class gastoMovil extends ListActivity{
 		default:
 			if (resultCode == Activity.RESULT_OK) 
 			{
-				Log.v("Prueba", "OPERADOR");
 				String operadora=data.getStringExtra("operadora");
 
-				
 				if (operadora.equals("KPN"))
 				{
 					operadora="SIMYO";
 				}
 				Toast.makeText(getApplicationContext(), "Operadora - "+operadora, Toast.LENGTH_SHORT).show();
-				//Log.v("Prueba", data.getStringExtra("operadora"));
 			}
 			if (resultCode == Activity.RESULT_CANCELED) 
 			{
-				Toast.makeText(getApplicationContext(), "Error en el calculo de la operadora. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), "Error en el calculo de la operadora. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show();
 				//Log.v("Prueba", data.getStringExtra("operadora"));
 			}
 			break; 
@@ -1076,6 +1073,9 @@ public class gastoMovil extends ListActivity{
 			}
 			catch (Exception e)
 			{
+				if (e.getMessage().contains("No Activity"))
+					Toast.makeText(getApplicationContext(), "Instala AndroidOperator desde el Market", Toast.LENGTH_SHORT).show();
+					
 				Log.e("gastosMovil.java","Error:"+e.getMessage());
 			}
 		}
