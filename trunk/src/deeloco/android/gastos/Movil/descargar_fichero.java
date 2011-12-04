@@ -47,7 +47,7 @@ public class descargar_fichero {
 	
 	private Context contexto;
 	
-	private String tag="meteoclimatic.descargar_fichero";
+	private String tag="descargar_fichero";
 	
 	/**
 	 * URL del fichero que se quiere descargar

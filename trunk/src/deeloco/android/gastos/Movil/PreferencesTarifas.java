@@ -27,6 +27,7 @@ public class PreferencesTarifas extends ListActivity{
 	private static final int COMPARTIR= Menu.FIRST+2;
 	private static final int RECUPERAR= Menu.FIRST+3;
 	private static final int SOLICITAR= Menu.FIRST+4;
+	private static final int OPERADOR= Menu.FIRST+5;
 	private static final int RETURN_PREFERENCES_TARIFA=1;
 	private static final String TARIFA_RETORNO = "tarifa_retorno";
 	private static final String TAG = "PreferencesTarifas";
@@ -44,7 +45,8 @@ public class PreferencesTarifas extends ListActivity{
     	menu.add(Menu.NONE, NUEVA_TARIFA_PREDEFINIDA, 0, R.string.mn_nueva_tarifa_predefinida).setIcon(android.R.drawable.ic_menu_add);
     	menu.add(Menu.NONE, COMPARTIR, 0, R.string.mn_compartir).setIcon(android.R.drawable.ic_menu_share);
     	menu.add(Menu.NONE, RECUPERAR, 0, R.string.mn_recuperar).setIcon(android.R.drawable.ic_menu_set_as);
-    	menu.add(Menu.NONE, SOLICITAR, 0, "Solicitar Nueva Tarifa").setIcon(android.R.drawable.ic_menu_edit);
+    	menu.add(Menu.NONE, SOLICITAR, 0, R.string.mn_solicitar).setIcon(android.R.drawable.ic_menu_edit);
+    	menu.add(Menu.NONE, OPERADOR, 0, R.string.mn_operador).setIcon(android.R.drawable.ic_menu_edit);
     	return true;
     }
 	
@@ -53,12 +55,12 @@ public class PreferencesTarifas extends ListActivity{
     public boolean onPrepareOptionsMenu (Menu menu) {
     	MenuItem itemTarifasPre = menu.findItem(NUEVA_TARIFA_PREDEFINIDA);
     	MenuItem itemDescargar = menu.findItem(RECUPERAR);
-    	this.ficheroServidor=new descargar_fichero(getApplicationContext(), getString(R.string.tarifasPre_url), getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext), getString(R.string.tarifasPre_path));
+    	//this.ficheroServidor=new descargar_fichero(getApplicationContext(), getString(R.string.tarifasPre_url), getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext), getString(R.string.tarifasPre_path));
     	//Comprobamos si hemos descargado el fichero de tarifas predefinidas
-    	File f=new File(getString(R.string.tarifasPre_path)+getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext));
-    	itemTarifasPre.setEnabled(f.exists());
+    	//File f=new File(getString(R.string.tarifasPre_path)+getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext));
+    	//itemTarifasPre.setEnabled(f.exists());
     	//Comprobar si hay nueva versión en el servidor
-    	itemDescargar.setEnabled(ficheroServidor.nuevaVersionServidor());
+    	//itemDescargar.setEnabled(ficheroServidor.nuevaVersionServidor());
 
         return true;
     }
@@ -117,34 +119,42 @@ public class PreferencesTarifas extends ListActivity{
             
         case NUEVA_TARIFA_PREDEFINIDA:
         	//Creamos un objeto tarifa con id=0 y se lo pasamos a la activity PreferencesTarifa
-
-        	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(getString(R.string.cabTarifas)+" "+vp.getOperadora());
-			
-			builder.setSingleChoiceItems(tsPre.nombresTarifas(),-1, new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog, int item) {
-			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
-					//Retorno
-			    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
-			    	//Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
-			    	tarifa t=tsPre.getTarifa(item);
-			    	if (t!=null) //Se ha retornado una tarifa predefinida
-			    	{
-				    	ts.addTarifa(t);
-				    	Intent resultIntent=new Intent();
-				    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
-				    	setResult(Activity.RESULT_OK, resultIntent);
-			    	}
-			    	else
-			    	{
-			    		Toast.makeText(getBaseContext(),getString(R.string.mensaje_problemas_cargar_tarifa_predefinida),Toast.LENGTH_LONG).show();
-			    	}
-			    	onStart();
-			    }
-			});
-			AlertDialog alert = builder.create();
-			alert.show();
+        	//Comprobamos que tenemos el fichero de tarifas predefinidas para una operadora
+        	File f=new File(getString(R.string.tarifasPre_path)+getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext));
+        	if (f.exists())
+        	{
+	        	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setTitle(getString(R.string.cabTarifas)+" "+vp.getOperadora());
+				
+				builder.setSingleChoiceItems(tsPre.nombresTarifas(),-1, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+						//Retorno
+				    	TarifasPreDefinidas tsPre=new TarifasPreDefinidas(getBaseContext());
+				    	//Log.d(TAG,"Vamos a añadir la tarifa con indice="+item);
+				    	tarifa t=tsPre.getTarifa(item);
+				    	if (t!=null) //Se ha retornado una tarifa predefinida
+				    	{
+					    	ts.addTarifa(t);
+					    	Intent resultIntent=new Intent();
+					    	resultIntent.putExtra(TARIFAS_RETORNO, ts);
+					    	setResult(Activity.RESULT_OK, resultIntent);
+				    	}
+				    	else
+				    	{
+				    		Toast.makeText(getBaseContext(),getString(R.string.mensaje_problemas_cargar_tarifa_predefinida),Toast.LENGTH_LONG).show();
+				    	}
+				    	onStart();
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+        	}
+        	else
+        	{
+        		Toast.makeText(getBaseContext(),"No tienes tarifas predefinidas para "+vp.getOperadora()+". Menú + Descargar tarifas.",Toast.LENGTH_LONG).show();
+        	}
             break;
             
         case COMPARTIR:
@@ -166,9 +176,25 @@ public class PreferencesTarifas extends ListActivity{
         	break;
 
         case RECUPERAR:
-        	//Descargar fichero de tarifas predefinidas
-        	pd = ProgressDialog.show(this, "", "Descargando datos ...", true,false);
-    		new segundoPlano().start();
+        	//Comprobamos si hay una nueva versión de la tarifa
+        	this.ficheroServidor=new descargar_fichero(getApplicationContext(), getString(R.string.tarifasPre_url), getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext), getString(R.string.tarifasPre_path));
+        	File f3=new File(getString(R.string.tarifasPre_path)+getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext));
+
+        	//Comprobar si hay nueva versión en el servidor
+        	if (this.ficheroServidor.nuevaVersionServidor()||!(f3.exists()))
+        	{
+        		//Existe unan nueva versión
+        		//Descargar fichero de tarifas predefinidas
+        		pd = ProgressDialog.show(this, "", "Descargando datos ...", true,false);
+        		new segundoPlano().start();
+        	}
+        	else
+        	{
+        		//No existe nueva versión
+        		Toast.makeText(getBaseContext(),"No hay nuevas tarifas.",Toast.LENGTH_LONG).show();
+        	}
+        	
+        	
         	
         	break;
         	
@@ -176,6 +202,39 @@ public class PreferencesTarifas extends ListActivity{
         	//Descargar fichero de tarifas predefinidas
         	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/spreadsheet/viewform?hl=es&formkey=dGwwb1ZYTkd6d3pUTHE0TFFIYmJ5WUE6MQ#gid=0"));
         	startActivity(browserIntent);
+        	
+        	break;
+        	
+        case OPERADOR:
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(getString(R.string.mn_operador));
+			
+			//Buscamos la operadora que hay en las preferencias en el R.array.operadoras
+			String operadoras[]=getResources().getStringArray(R.array.operadoras);
+			String operadora=vp.getOperadora();
+			int indiceOperadora=-1;
+			for (int i=0;i<operadoras.length;i++)
+			{
+				if (operadoras[i].equals(operadora))
+				{
+					indiceOperadora=i;
+					break;
+				}
+			}
+			
+			builder.setSingleChoiceItems(R.array.operadoras,indiceOperadora, new DialogInterface.OnClickListener() {
+			    public void onClick(DialogInterface dialog, int item) {
+			        //Meter la operadora seleccionada en preferencias
+			    	vp.guardarPreferences("listOperadora", getResources().getStringArray(R.array.operadoras)[item]);
+			    	
+			    }
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
+        	
+        	
+        	
         	
         	break;
 
