@@ -829,8 +829,8 @@ public class gastoMovil extends ListActivity{
         //listaInvertida=lista;
         for (int a=lista.size()-1;a>=0;a--)
         	listaInvertida.add(lista.get(a));
-        if (lista.size()>0)
-        	listaInvertida.add(new IconoYTexto(vp.getColor("Transparente"), " "," ", " "," ",0.0));
+        //if (lista.size()>0)
+        //	listaInvertida.add(new IconoYTexto(vp.getColor("Transparente"), " "," ", " "," ",0.0));
         //dialog.dismiss();
         AdaptadorListaIconos ad = new AdaptadorListaIconos(this,listaInvertida);
         setListAdapter(ad);
