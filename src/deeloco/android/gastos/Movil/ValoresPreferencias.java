@@ -3,6 +3,7 @@ package deeloco.android.gastos.Movil;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -506,5 +507,19 @@ public class ValoresPreferencias {
 	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("listOperadora", "Todas");
 	  return valor;
   }
+  
+  public void guardarPreferences(String key, String value){
+	    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(contexto);
+	    SharedPreferences.Editor editor = sharedPreferences.edit();
+	    editor.putString(key, value);
+	    editor.commit();
+	   }
+
+	public void guardarPreferences(String key, int value){
+	    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(contexto);
+	    SharedPreferences.Editor editor = sharedPreferences.edit();
+	    editor.putInt(key, value);
+	    editor.commit();
+	   }
 
 }

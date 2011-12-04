@@ -168,7 +168,7 @@
     <string name="simulacion_factura_activity">Simulación de factura.</string>
     <string name="mn_factura">Simulación de Factura</string>
     <string name="mn_compartir">Enviar Tarifas</string>
-    <string name="mn_recuperar">Descargar Tarifas Servidor</string>
+    <string name="mn_recuperar">Descargar Tarifas</string>
     <string name="coste_llamada">Coste de las llamadas: </string>
     <string name="aj_presentarIVA">Impuesto</string>
     <string name="aj_presentarIVA_des">Mostrar el coste de las llamadas con impuestos incluidos.</string>
@@ -202,14 +202,20 @@
 	
 	<string name="aj_operadora">Operadora</string>
 	<string name="aj_operadora_des">Selecciona la operadora a la que pertenece</string>
+	<string name="tarifaPre_noexiste">No tienes tarifas predefinidas. Descarga las tarifas.</string>
+	<string name="mn_solicitar">Solicitar Tarifa</string>
+	<string name="mn_operador">Selecc. Operador</string>
 	
 	<!-- ESTAS CADENAS NO SE TRADUCEN -->
-	<!-- 
+	 
 	<string name="url_tarifas_xml">http://www.simahuelva.es/deeloco/tarifas/datosTarifasPre.xml</string>
 	<string name="tarifasPre_url">http://www.simahuelva.es/deeloco/tarifas/</string>
-	 -->
+	 
+	 <!--
 	<string name="url_tarifas_xml">http://masmovil.t-conectamos.com/datosTarifasPre.xml</string>
 	<string name="tarifasPre_url">http://masmovil.t-conectamos.com/</string>
+	-->
+	
 	<string name="tarifasPre_path">/sdcard/gastosmovil/</string>
 	<string name="tarifasPre_pre">datosTarifasPre_</string>
 	<string name="tarifasPre_ext">.xml</string>
