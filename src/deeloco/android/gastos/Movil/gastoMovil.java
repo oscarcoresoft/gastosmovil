@@ -91,6 +91,7 @@ public class gastoMovil extends ListActivity{
     private static final int RETURN_PREFERENCES_AJUSTES = 1;
     private static final int RETURN_PREFERENCES_TARIFAS=2;
     
+    private descargar_fichero ficheroServidor;
     private static final String TARIFAS_RETORNO = "tarifas_retorno";
     //private static final String TAG = "GastosMóvil";
     private double iva=1.18;
@@ -161,6 +162,42 @@ public class gastoMovil extends ListActivity{
 	        xr.setContentHandler(tarifasXML);
 	        xr.parse(new InputSource (new FileReader(path)));
 	        /* Parsing has finished. */
+	        /*Comprobamos si tiene seleccionado operadora*/
+	        if (vp.getOperadora().equals("SinOperadora"))
+	        {
+	        	//Toast.makeText(getBaseContext(),"Sin Operadora",Toast.LENGTH_LONG).show();
+	        	//Dialogo de selección de operadora
+	        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setTitle(getString(R.string.mn_operador));
+				builder.setSingleChoiceItems(R.array.operadoras,-1, new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int item) {
+				        //Meter la operadora seleccionada en preferencias
+				    	vp.guardarPreferences("listOperadora", getResources().getStringArray(R.array.operadoras)[item]);
+				    	dialog.cancel();
+				    	//Descargamos las tarifas
+				    	if (!vp.getOperadora().equals("SinOperadora"))
+				    	{
+	 		        	   	ficheroServidor=new descargar_fichero(getApplicationContext(), getString(R.string.tarifasPre_url), getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext), getString(R.string.tarifasPre_path));
+	 		        	   	Log.d("AlertDialog","URL="+ficheroServidor.getURL()+ficheroServidor.getNombreFichero());
+	 		        	   	switch (ficheroServidor.download())
+	 		           		{
+	 		           		case 1:
+	 		           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+	 		       				break;
+	 		           		case 2:
+	 		           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Sin conexión a Internet.",Toast.LENGTH_LONG).show();
+	 		           			break;
+	 		           		default:
+	 		           			Toast.makeText(getApplicationContext(),"Tarifas descargadas.",Toast.LENGTH_LONG).show();
+	 		           			break;
+	 		           		}
+				    	}				    	
+				    }
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+	        }
+
 	        listado(vp.getPreferenciasMes());
 	        
         }
