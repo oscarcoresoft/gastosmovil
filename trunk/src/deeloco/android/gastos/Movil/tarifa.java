@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.*;
 
+import android.util.Log;
+
 
 /**
  * Clase franja
@@ -634,23 +636,28 @@ public class tarifa implements Serializable{
 				String patron="";
 				String inicio[]=num.split("por");
 				inicio[1].trim();
+				patron="^"+inicio[1].trim();
+				/*
 				if (num.contains("+"))
 				{
-					patron="\\"+inicio[1].trim()+"[0-9]{1,6}";
+					patron="\\"+inicio[1].trim()+"^[0-9]{1,6}";
 				}
 				else
 				{
-					patron=inicio[1].trim()+"[0-9]{1,6}";
+					patron=inicio[1].trim()+"^[0-9]{1,6}";
 				}
+				*/
 				p=Pattern.compile(patron);
+				Log.d("tarifa.java", "patron="+patron);
+		
 			}
 			if (num.contains("movil"))
 			{
-				p=Pattern.compile("[6|71|72|73|74][0-9]{7,8}");
+				p=Pattern.compile("^[6|71|72|73|74][0-9]{7,8}");
 			}
 			if (num.contains("fijo"))
 			{
-				p=Pattern.compile("[9][1-8][0-9]{7}");
+				p=Pattern.compile("^[8-9][1-8][0-9]{7}");
 			}
 			
 			Matcher m=p.matcher(numero);

@@ -43,21 +43,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.CallLog;
-import android.provider.Contacts;
-import android.text.Html;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -70,7 +64,6 @@ import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -182,13 +175,13 @@ public class gastoMovil extends ListActivity{
 	 		        	   	switch (ficheroServidor.download())
 	 		           		{
 	 		           		case 1:
-	 		           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+	 		           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_masTarde),Toast.LENGTH_LONG).show();
 	 		       				break;
 	 		           		case 2:
-	 		           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Sin conexión a Internet.",Toast.LENGTH_LONG).show();
+	 		           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_sinConexion),Toast.LENGTH_LONG).show();
 	 		           			break;
 	 		           		default:
-	 		           			Toast.makeText(getApplicationContext(),"Tarifas descargadas.",Toast.LENGTH_LONG).show();
+	 		           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_ok),Toast.LENGTH_LONG).show();
 	 		           			break;
 	 		           		}
 				    	}				    	
@@ -439,7 +432,7 @@ public class gastoMovil extends ListActivity{
        Cursor c; //Cursor con el que recorreremos la base de datos de registros de llamadas
        if (mes==0) //Consulta de todo el año.
        {
-    	   c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, CallLog.Calls.DEFAULT_SORT_ORDER);
+    	   c=this.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, "date ASC");
        }
        else
        {    	   
@@ -477,6 +470,7 @@ public class gastoMovil extends ListActivity{
         int iNombre = c.getColumnIndex(CallLog.Calls.CACHED_NAME);
         int iLabel = c.getColumnIndex(CallLog.Calls.CACHED_NUMBER_LABEL);
         //int iType = c.getColumnIndex(CallLog.Calls.CACHED_NUMBER_TYPE);
+        
         
         int numSMS=0;
         int numSMSGratis=0;
@@ -528,20 +522,12 @@ public class gastoMovil extends ListActivity{
         		
         	do{
         		
-        		String telefono=c.getString(iTelefono);
+        		String telefono=FunGlobales.quitarPrePais(c.getString(iTelefono));
         		String nombreLlamada=c.getString(iNombre);
         		long fecha=c.getLong(iFecha);
         		int duracion=c.getInt(iDuracion)+modifDuracion; //le añadimos la modificación de la duración de la llamada;
         		String viber=c.getString(iLabel);
-        		Log.d("gastosMovil.java", "CACHE_NUMBER_LABEL="+c.getString(iLabel));
-        		
-        		/*if (telefono.equals("609804996")||telefono.equals("+34609804996"))
-        		{
-        		Log.d("gastosMovil.java", "CACHE_NAME="+c.getString(iNombre));
-        		Log.d("gastosMovil.java", "CACHE_NUMBER_LABEL="+c.getString(iLabel));
-        		Log.d("gastosMovil.java", "CACHE_NUMBER_TYPE="+c.getString(iType));
-        		
-        		}*/
+        		//Log.d("gastosMovil.java", "CACHE_NUMBER_LABEL="+c.getString(iLabel));
         		
         		String sDuracion;
         		
@@ -589,7 +575,7 @@ public class gastoMovil extends ListActivity{
 		        			if (ts.getSegConsumidosDia()>1&&vp.getResumenDia())
 		        			{
 		        				//Resumen día
-		        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s. ",FunGlobales.redondear((costeDia*iva),vp.getPreferenciasDecimales())));
+		        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl+" "+FunGlobales.diaSemana(fechaControl),(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s. ",FunGlobales.redondear((costeDia*iva),vp.getPreferenciasDecimales())));
 		        			}
 		        			//final MODIFICACIÓN POR CONFIRMAR
 		        			ts.resetSegundosConsumidosDia();
@@ -678,7 +664,7 @@ public class gastoMovil extends ListActivity{
         	if (ts.getNumTarifasDefecto()>0)  // hay tarifa por defecto definida (java.lang.NullPointerException)
         		if (ts.getSegConsumidosDia()>1&&vp.getResumenDia()) //Si es igual a 1 seg. que no salga en el resumen del día y esta activado el resumen del día en los ajustes        			
         		{
-        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl,(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",FunGlobales.redondear((costeDia*iva),vp.getPreferenciasDecimales())));
+        				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl+" "+FunGlobales.diaSemana(fechaControl),(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",FunGlobales.redondear((costeDia*iva),vp.getPreferenciasDecimales())));
 					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
         c.close();
@@ -996,7 +982,7 @@ public class gastoMovil extends ListActivity{
 			}
 			if (resultCode == Activity.RESULT_CANCELED) 
 			{
-				//Toast.makeText(getApplicationContext(), "Error en el calculo de la operadora. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Error en el calculo de la operadora. Vuelva a intentarlo.", Toast.LENGTH_SHORT).show();
 				//Log.v("Prueba", data.getStringExtra("operadora"));
 			}
 			break; 
@@ -1005,35 +991,6 @@ public class gastoMovil extends ListActivity{
     	}
     }
     
-    
-    
-    
-    
-    /**
-     * Devuelve el nombre del contacto para un número determinado. Si no existe, devuelve el número
-     * @param number
-     * @return
-     */
-    private String getContactNumber(String number) {
- 	   
- 	   	String[] projection = new String[] {
- 	   	Contacts.Phones.DISPLAY_NAME,
- 	   	Contacts.Phones.NUMBER};
- 	   	String retorno=number;
- 	
- 	   	Uri contactUri = Uri.withAppendedPath(Contacts.Phones.CONTENT_FILTER_URL, Uri.encode(number));
- 	   	Cursor c =  managedQuery(contactUri, projection,null, null, null);
- 	
- 	   	if (c.moveToFirst()) 
- 	   	{
- 	   		String name = c.getString(c.getColumnIndex(Contacts.Phones.DISPLAY_NAME));
- 	   		retorno= name;
- 	   	}
- 	   	
- 	   	c.close();
- 	   	return retorno;
-    	}
-
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
@@ -1078,31 +1035,95 @@ public class gastoMovil extends ListActivity{
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
-		//String numero=listaInvertida.get(position).telefono.trim();
 		
+		
+		//String numero=listaInvertida.get(position).telefono.trim();
+		String action = "es.ieeesb.androidoperator.COMPRUEBA_NUM";
 		String num=listaInvertida.get(position).telefono.trim();
-		//Si no tenemos números
-		if (num.length()==0)
+		if (num.length()==0) return;
+		
+	   	AlertDialog.Builder dialogMarket = new AlertDialog.Builder(gastoMovil.this);
+		
+	   	//Comprobamos si AndroidOperator estça disponible en el dispositivo
+		if (!FunGlobales.estaIntentDisponible(getApplicationContext(), action,Uri.parse("numero://telefono/")))
 		{
-			return;
+			//No lo está. Damos opcińo a descargarlo del Market, si tiene el Market instalado
+			//Comprobamos si el market esta instalado
+			if (FunGlobales.estaMarketInstalado(getApplicationContext()))
+			{
+				//EL market esta disponible
+				dialogMarket.setMessage(R.string.msg_dialog_market);
+	    		dialogMarket.setPositiveButton("Si", new DialogInterface.OnClickListener() 
+		       		{
+	    				public void onClick(DialogInterface dialog, int id) 
+	 		           	{
+	 		        	   //Enlazar con el market
+	 		        	   	dialog.cancel();
+	 		        	   	Intent intent = new Intent(Intent.ACTION_VIEW);
+	 		        	   	intent.setData(Uri.parse("market://details?id=es.ieeesb.androidoperator"));
+	 		        	   	startActivity(intent);
+	 		        	   
+	 		           	}
+		       		});
+	    		dialogMarket.setNegativeButton("No", new DialogInterface.OnClickListener() 
+	 		       {
+	 		           public void onClick(DialogInterface dialog, int id) 
+	 		           {
+	 		                dialog.cancel();
+	 		           }
+	 		       });
+			}
+			else
+			{
+				//EL market no esta disponible
+				dialogMarket.setMessage(R.string.msg_dialog_androidOperator);
+				dialogMarket.setNeutralButton("OK", new DialogInterface.OnClickListener() 
+		       		{
+	    				public void onClick(DialogInterface dialog, int id) 
+	 		           	{
+	 		        	   //Enlazar con el market
+	 		        	   	dialog.cancel();
+	 		           	}
+		       		});
+				
+				
+			}
+			
+			//No existe el contexto
+			
+			
+			dialogMarket.setCancelable(false);
+    		dialogMarket.show();
+    		return;
 		}
 		
+		
+		//Si no tenemos números
+		
 		//Si tiene código de pais, se lo quitamos
-		if (num.length()>9)
+		if (num.length()==12)
 		{
+			//Puede ser +34
+			
 			num=num.substring(3);
+		}
+		if (num.length()==13)
+		{
+			//Puede ser 0034
+			
+			num=num.substring(4);
 		}
 		
 		//Controlamos que sea un móvil
 		if ((num.substring(0, 1).equals("9"))||(num.length()<6))
 		{
-			Toast.makeText(getApplicationContext(), "Solo teléfonos móviles", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.msg_dialog_soloMoviles), Toast.LENGTH_SHORT).show();
 		}
 		else
 		{
 			try
 			{
-				String action = "es.ieeesb.androidoperator.COMPRUEBA_NUM";
+				
 		        String n= "numero://telefono/" + num;
 		        Uri data = Uri.parse(n);
 		        Intent numIntent = new Intent(action,data);
@@ -1110,9 +1131,6 @@ public class gastoMovil extends ListActivity{
 			}
 			catch (Exception e)
 			{
-				if (e.getMessage().contains("No Activity"))
-					Toast.makeText(getApplicationContext(), "Instala AndroidOperator desde el Market", Toast.LENGTH_SHORT).show();
-					
 				Log.e("gastosMovil.java","Error:"+e.getMessage());
 			}
 		}

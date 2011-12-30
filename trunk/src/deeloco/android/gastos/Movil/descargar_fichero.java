@@ -296,6 +296,7 @@ public class descargar_fichero {
 		     	{
 		     		case 0:
 		     			//No hay actualizaciones
+		     			Toast.makeText(this.contexto,"No hay nuevas tarifas.",Toast.LENGTH_LONG).show();
 		     			retorno=false;
 		     			break;
 		     		case 1:

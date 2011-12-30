@@ -2,10 +2,17 @@ package deeloco.android.gastos.Movil;
 
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.CallLog;
 import android.util.Log;
 
@@ -104,7 +111,6 @@ public class FunGlobales extends Activity{
     	
     	return retorno;
     }
-    
 
     /**
      * Convierte segundos en una cadena de caracteres formateados en min. y seg.
@@ -113,6 +119,7 @@ public class FunGlobales extends Activity{
      * @return
      * String con los min. y seg. que corresponden a los segundos pasados como parámetros.
      */
+
     public static String segundosAMinutoSegundo(int totalsegundos){
     	int minutos=0;
     	int segundos=0;
@@ -123,4 +130,116 @@ public class FunGlobales extends Activity{
     	return retorno;
     }
     
+    
+    /**
+     * Comprueba si un Intent está disponible en el sistema 
+     * @param context
+     * @param action
+     * @return boolean
+     */
+
+    public static boolean estaIntentDisponible(Context context, String action) 
+    {
+        final PackageManager packageManager = context.getPackageManager();
+        final Intent intent = new Intent(action);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,0);
+        return list.size() > 0;
+    }
+    
+    /**
+     * Comprueba si un Intent está disponible en el sistema
+     * @param context
+     * @param action
+     * @param uri
+     * @return boolean
+     */
+
+    public static boolean estaIntentDisponible(Context context, String action,Uri uri) 
+    {
+        final PackageManager packageManager = context.getPackageManager();
+        final Intent intent = new Intent(action,uri);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,0);
+        return list.size() > 0;
+    }
+    
+    /**
+     * Comprueba si en Market esta instalado en el dispositivo
+     * @param context
+     * @return boolean
+     * True si está instalado y False si no lo está.
+     */
+    public static boolean estaMarketInstalado(Context context)
+    {
+    	
+    	final PackageManager packageManager = context.getPackageManager();
+    	String packagename = context.getPackageName();
+    	String url = "market://details?id=" + packagename;
+
+    	Intent intentMarket = new Intent(Intent.ACTION_VIEW);
+    	intentMarket.setData(Uri.parse(url));
+
+    	List<ResolveInfo> list = packageManager.queryIntentActivities(intentMarket,PackageManager.MATCH_DEFAULT_ONLY);
+
+    	return list.size() > 0;
+    }
+    
+    /**
+     * Dado una fecha devuelve una cadena con el día de la semana correspondiente.
+     * @param fecha String con la fecha
+     * @return String con el día de la semana.
+     */
+    public static String diaSemana(String fecha)
+    {
+    	String diasCortos[] = {"Lun.","Mar.","Mie.","Jue.","Vie.","Sab.","Dom."};
+    	
+    	String sFecha =fecha.substring(0, 10).trim();
+		String sHora=fecha.substring(10, fecha.length()).trim();
+		String sDia=sFecha.substring(0,2);
+		String sMes=sFecha.substring(3, 5);
+		String sAno=sFecha.substring(6, 10);
+
+		int ano= Integer.parseInt(sAno);
+		int mes= Integer.parseInt(sMes)-1;
+		int dia= Integer.parseInt(sDia);
+		
+		Calendar calendario=new GregorianCalendar(ano,mes,dia);
+		calendario.setFirstDayOfWeek(Calendar.MONDAY);
+		int diaSemana=calendario.get(Calendar.DAY_OF_WEEK);
+		String shora=sHora;
+		
+		switch (diaSemana) {
+		case Calendar.SUNDAY:
+			diaSemana=6;
+			break;
+
+		default:
+			diaSemana=diaSemana-2;
+			break;
+		}
+
+
+    	return diasCortos[diaSemana];
+    }
+    
+    /**
+     * Dado un numero de teléfono, le quita el prefijo del pais, si tiene. Si no tiene prefijo, devuelve el numero. 
+     * @param numero String al que hay que quitar el prefijo, si tiene.
+     * @return String con el numero sin el prefijo.
+     */
+    public static String quitarPrePais(String numero)
+    {
+    	String retorno="";
+    	String prePais="34"; //España
+    	//Comprobamos si tiene prefijo de pais
+    	if (numero.contains(prePais))
+    	{
+    		//Tiene prefijo
+    		String inicio[]=numero.split(prePais);
+    		retorno=inicio[1].trim();
+    	}
+    	else
+    		retorno=numero; //Retornamos el numero, que no tiene prefijo de pais
+    	
+    	return retorno;
+    }
 }

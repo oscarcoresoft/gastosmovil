@@ -68,7 +68,7 @@
     <string name="error_ajustes">Algunos ajustes tienen valores incorrectos o son nulos. Se tomaran sus valores por defecto.</string>
     <string name="actualizar">Actualizando...</string>
     <string name="acercade_activity">Acerca de ... GASTOS MÓVIL</string>
-    <string name="acercade_titulo">GASTOS MÓVIL v.2.2.beta</string>
+    <string name="acercade_titulo">GASTOS MÓVIL v.2.3.1.beta</string>
     <string name="acercade_texto">Controla tu gasto de teléfono y a tu operador.</string>
     <string name="acercade_autor_cab">Autor y Licencia</string>
     <string name="acercade_autor">Antonio C. A. Abellán - acabellan@gmail.com</string>
@@ -115,7 +115,7 @@
 	<string name="aj_tarifa_nombre_des">Nombre que identifica a la tarifa.</string>
 	<string name="aj_tarifa_gastoMinimo_des">Gasto Mínimo al mes (en euros y sin iva).</string>
 	<string name="aj_tarifa_limite_des">Límite de llamadas, al mes y en minutos.</string>
-	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma. Tambien es valido números de 2, 3, 4 ... dígitos y se interpretará como "Numeros que empiezan por ...". Ejemplo: 959, será números que empiecen por 959.</string>
+	<string name="aj_tarifa_numeros_des">Números asociados a la tarifa y a los que se le aplica los coste de la misma, separados por coma. Se puede incluir palabras claves: [movil], [fijo] para seleccionar los números correspodientes y [empieza por xxx] para números que empiecen por unos digitos concretos, ejemplo [empieza por 902,fijos,600655434]. Los demas se consideran números enteros.</string>
 	<string name="aj_SMSGratis">SMS Gratuitos</string>
 	<string name="aj_SMSGratis_des">Número de SMS gratuitos al mes.</string>
 	<string name="conflicto_hora">Revisa los horarios de las franjas. Hay horas duplicadas o sin asignar.</string>
@@ -123,7 +123,7 @@
 	<string name="acercade_ayuda">En breve, enlace con videos de youtube, donde se explica como ajustar los parámetros de la aplicación y ejemplos a partir de tarifas reales y como configurarlas en la aplicación.</string>
 	<string name="acercade_youtube2">Asociar Números - http://youtu.be/XgG2LG-w8fg</string>
 	<string name="acercade_youtube1">Configurar Tarifas - http://youtu.be/6JbQH1CpzlA</string>
-	<string name="acercade_webGastoMovil">http://gastosmovil.simahuelva.es/</string>
+	<string name="acercade_webGastoMovil">http://deeloco.simahuelva.es/</string>
 	<string name="aj_tarifaActivada">Activar tarifa única</string>
     <string name="aj_tarifaActivada_des">Activar o desactivar la tarifa única.</string>
     <string name="aj_tarifaNormal">Tarifa Única.</string>
@@ -202,14 +202,25 @@
 	
 	<string name="aj_operadora">Operadora</string>
 	<string name="aj_operadora_des">Selecciona la operadora a la que pertenece</string>
+	<string name="aj_comportamientoWidget">Comportamiento Widget</string>
+	<string name="aj_comportamientoWidget_des">Al pulsar el widget, podrás llamar al número que aparece en el Widget.</string>
 	<string name="tarifaPre_noexiste">No tienes tarifas predefinidas. Descarga las tarifas.</string>
 	<string name="mn_solicitar">Solicitar Tarifa</string>
 	<string name="mn_operador">Selecc. Operador</string>
+	<string name="msg_dialog_androidOperator">Para utilizar esta función y saber el operador del numero seleccionado, tienes que instalar [AndroidOperator].</string>
+	<string name="msg_dialog_market">¿Quieres descargarlo del Market?.</string>
+	<string name="msg_dialog_soloMoviles">Solo teléfonos móviles.</string>
+	<string name="msg_descarga_masTarde">No se ha podido descargar las tarifas. Intentelo más tarde.</string>
+	<string name="msg_descarga_sinConexion">No se ha podido descargar las tarifas. Sin conexión a Internet.</string>
+	<string name="msg_descarga_ok">Tarifas descargadas.</string>
+	<string name="msg_descargando">Descargando las tarifas de</string>
+	
+	<string name="widget_titulo">Gastos Móvil</string>
 	
 	<!-- ESTAS CADENAS NO SE TRADUCEN -->
 	 
-	<string name="url_tarifas_xml">http://www.simahuelva.es/deeloco/tarifas/datosTarifasPre.xml</string>
-	<string name="tarifasPre_url">http://www.simahuelva.es/deeloco/tarifas/</string>
+	<string name="url_tarifas_xml">http://www.simahuelva.es/tarifas/datosTarifasPre.xml</string>
+	<string name="tarifasPre_url">http://www.simahuelva.es/tarifas/</string>
 	 
 	 <!--
 	<string name="url_tarifas_xml">http://masmovil.t-conectamos.com/datosTarifasPre.xml</string>

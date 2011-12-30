@@ -14,7 +14,7 @@
 			android:background="#000000"
 			android:textSize="9sp"
 			android:textStyle="bold"
-			android:text="ÚLTIM.LLAM."
+			android:text="@string/widget_titulo"
 			android:gravity="center_horizontal"
 		 	android:textColor="#ffffff"/>
 		 	
@@ -22,7 +22,7 @@
  			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:textSize="10sp"
-			android:text="959246327"
+			android:text="XXXXXXXXX"
 			android:gravity="center_horizontal"
 		 	android:textColor="#ffffff"/>
 			 	
@@ -30,7 +30,7 @@
  			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:textSize="10sp"
-			android:text="3m. 24s."
+			android:text="0m. 00s."
 			android:gravity="center_horizontal"
 		 	android:textColor="#ffffff"/>
 		 	
@@ -47,7 +47,7 @@
 			android:layout_height="wrap_content"
 			android:textSize="10sp"
 			android:textStyle="bold"
-			android:text="0.1234 €"
+			android:text="0.0000 €"
 			android:gravity="center_horizontal"
 		 	android:textColor="#ffffff"/>		 	
 </LinearLayout>

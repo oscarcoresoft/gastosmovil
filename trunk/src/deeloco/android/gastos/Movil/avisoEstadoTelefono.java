@@ -29,6 +29,7 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 		static final String PREF_DURACION="DURACION_ULTIMA";
 		static final String PREF_FECHA="FECHA_ULTIMA";
 		static final String PREF_LLAMADA="LLAMADA_ULTIMA";
+		static final String PREF_NOMBRE="NOMBRE_ULTIMA";
 		Context contexto;
 
         @Override
@@ -53,6 +54,7 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
                 	try
                 	{
                 		//Actualizamos el widget
+                		
                 		RemoteViews updateView = buildUpdate(context);
                 		ComponentName myComponentName = new ComponentName(context, widgetProvider.class);
                 		AppWidgetManager manager = AppWidgetManager.getInstance(context);
@@ -87,20 +89,22 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 	       ValoresPreferencias vp=new ValoresPreferencias(context);
 	       RemoteViews updateViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 	       int totalRegistros=1;
-			
+	       String telefono;
+	       String fechaHora;
+	       int duracion=0;
+	       String nombre="";			
 	       SharedPreferences preferencias = context.getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
 	       if (preferencias!=null)
 	       {
-	    	   Log.i("widgetProvider","Preferencias=null");
+	    	   //Log.i("widgetProvider","Preferencias=null");
 	    	 //Cursor con el que recorreremos la base de datos de registros de llamadas para obtener los valores de la última llamada
+	    	   android.os.SystemClock.sleep(1000);
 	    	   	Cursor c; 
 		    	c=context.getContentResolver().query(CallLog.Calls.CONTENT_URI,null, CallLog.Calls.DURATION+">1 and "+CallLog.Calls.TYPE+"="+CallLog.Calls.OUTGOING_TYPE , null, CallLog.Calls.DEFAULT_SORT_ORDER);
 		        int iTelefono = c.getColumnIndex(CallLog.Calls.NUMBER);
 		        int iFecha = c.getColumnIndex(CallLog.Calls.DATE);
 		        int iDuracion = c.getColumnIndex(CallLog.Calls.DURATION);
-		        String telefono;
-		        String fechaHora;
-		        int duracion;
+		        int iNombre = c.getColumnIndex(CallLog.Calls.CACHED_NAME);
 		        c.moveToFirst();
 		        totalRegistros=c.getCount();
 		        if (totalRegistros>0)
@@ -108,6 +112,7 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 			        telefono=c.getString(iTelefono);
 					long fecha=c.getLong(iFecha);
 					duracion=c.getInt(iDuracion); //le añadimos la modificación de la duración de la llamada;
+					nombre=c.getString(iNombre);
 			        fechaHora=DateFormat.format("dd/MM/yyyy kk:mm:ss",new Date(fecha)).toString();
 		        }
 		        else
@@ -115,19 +120,23 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 		        	telefono="SIN DATOS";
 					duracion=0; //le añadimos la modificación de la duración de la llamada;
 			        fechaHora="SIN DATOS";
+			        nombre="Gastos Móvil";
 		        }
 		        c.close();
                 guardarPreferences(avisoEstadoTelefono.PREF_NUMERO,telefono);
                 guardarPreferences(avisoEstadoTelefono.PREF_FECHA, fechaHora);
                 guardarPreferences(avisoEstadoTelefono.PREF_DURACION, duracion);
+                guardarPreferences(avisoEstadoTelefono.PREF_NOMBRE, nombre);
                 
 	       }
-
-	       	SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
-	       	String telefono = sharedPreferences.getString(avisoEstadoTelefono.PREF_NUMERO, "0");
-	       	String fechaHora = sharedPreferences.getString(avisoEstadoTelefono.PREF_FECHA, "0");
-	       	int duracion = sharedPreferences.getInt(avisoEstadoTelefono.PREF_DURACION, 0);
-	       
+	       else
+	       {
+	    	   	SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCIAS_WIDGET, Context.MODE_PRIVATE);
+		       	telefono = sharedPreferences.getString(avisoEstadoTelefono.PREF_NUMERO, "0");
+		       	fechaHora = sharedPreferences.getString(avisoEstadoTelefono.PREF_FECHA, "0");
+		       	duracion = sharedPreferences.getInt(avisoEstadoTelefono.PREF_DURACION, 0);
+		       	nombre=sharedPreferences.getString(avisoEstadoTelefono.PREF_NOMBRE, "SIN NOMBRE");
+	       }
 	       	double iva=(vp.getcosteConIVA())?vp.getPreferenciasImpuestos():1;
 	       	String coste = "SIN FRANJA";
 	       	if (totalRegistros>0)
@@ -152,30 +161,37 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 	       	{
 	       		coste="SIN DATOS";
 	       	}
-
 	        //info+=Html.fromHtml(" @ <strong>"+DateFormat.format("kk:mm",new Date()).toString()+"</strong>");
-			updateViews.setTextViewText(R.id.txt_numero, telefono);
+	       	if (nombre==null)
+	       		updateViews.setTextViewText(R.id.txt_numero, telefono); //No tiene nombre de contactos
+	       	else
+		       	if (nombre.length()>10)
+		       		updateViews.setTextViewText(R.id.txt_numero, nombre.subSequence(0, 10)+"...");
+		       	else
+		       		updateViews.setTextViewText(R.id.txt_numero, nombre);
 			updateViews.setTextViewText(R.id.txt_duracion, ""+FunGlobales.segundosAHoraMinutoSegundo(duracion));
 			updateViews.setTextViewText(R.id.txt_fecha, fechaHora);
 			updateViews.setTextViewText(R.id.txt_coste, coste);
-			
-			
-	       
-	      //Evento onClick en el widget  
-	      /*Intent launchIntent = new Intent(context,gastoMovil.class);
-	      PendingIntent intent = PendingIntent.getActivity(context, 0, launchIntent, 0);
-      	updateViews.setOnClickPendingIntent(R.id.widget, intent);*/			
-		//updateViews.getTextViewText()
-		String number = "tel:" + telefono.trim();
-        Intent launchIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(number));
-		
-		//Intent launchIntent = new Intent(Intent.ACTION_DIAL);
-		//startActivity(intent);
-		
-		//Intent launchIntent = new Intent(context,gastoMovil.class);
-    	PendingIntent pIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
-    	updateViews.setOnClickPendingIntent(R.id.widget, pIntent);	      
-    	return updateViews;
+
+			//Evento onClick en el widget 
+			if (vp.getComportamientoWidget())
+			{
+				//Arrancamos el dialer
+				String number = "tel:" + telefono.trim();
+				Intent launchIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(number));
+				PendingIntent pIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
+				updateViews.setOnClickPendingIntent(R.id.widget, pIntent);
+				
+			}
+			else
+			{
+				//Arrancamos gastos móvil
+				Intent launchIntent = new Intent(context,gastoMovil.class);
+		      	PendingIntent intent = PendingIntent.getActivity(context, 0, launchIntent, 0);
+	  			updateViews.setOnClickPendingIntent(R.id.widget, intent);
+				
+			}
+			return updateViews;
 	   }
   
         
