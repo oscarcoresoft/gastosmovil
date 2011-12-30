@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -153,7 +154,47 @@ public class PreferencesTarifas extends ListActivity{
         	}
         	else
         	{
-        		Toast.makeText(getBaseContext(),"No tienes tarifas predefinidas para "+vp.getOperadora()+". Menú + Descargar tarifas.",Toast.LENGTH_LONG).show();
+        		//Toast.makeText(getBaseContext(),"No tienes tarifas predefinidas para "+vp.getOperadora()+". Menú + Descargar tarifas.",Toast.LENGTH_LONG).show();
+        		
+        		AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesTarifas.this);
+        		builder.setMessage("No tienes tarifas predefinidas para "+vp.getOperadora()+".¿Quieres descargarlas?")
+        		       .setCancelable(false)
+        		       .setPositiveButton("Si", new DialogInterface.OnClickListener() 
+        		       {
+        		           public void onClick(DialogInterface dialog, int id) 
+        		           {
+        		                //Descargamos las tarifas
+        		        	   ficheroServidor=new descargar_fichero(getApplicationContext(), getString(R.string.tarifasPre_url), getString(R.string.tarifasPre_pre)+vp.getOperadora()+getString(R.string.tarifasPre_ext), getString(R.string.tarifasPre_path));
+        		        	   Log.d("AlertDialog","URL="+ficheroServidor.getURL()+ficheroServidor.getNombreFichero());
+        		        	   	switch (ficheroServidor.download())
+        		           		{
+        		           		case 1:
+        		           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_masTarde),Toast.LENGTH_LONG).show();
+        		       				break;
+        		           		case 2:
+        		           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_sinConexion),Toast.LENGTH_LONG).show();
+        		           			break;
+        		           		default:
+        		           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_ok),Toast.LENGTH_LONG).show();
+        		           			break;
+        		           		}
+        		        	   	dialog.cancel();
+        		        	   /*android.os.SystemClock.sleep(10000);*/
+        		           		
+        		        	   //pd = ProgressDialog.show(getBaseContext(), "", "Descargando tarifas de "+vp.getOperadora(), true,false);
+        		        	   //new segundoPlano().start();
+        		           }
+        		       })
+        		       .setNegativeButton("No", new DialogInterface.OnClickListener() 
+        		       {
+        		           public void onClick(DialogInterface dialog, int id) 
+        		           {
+        		                dialog.cancel();
+        		           }
+        		       });
+
+        		builder.show();
+        		
         	}
             break;
             
@@ -185,13 +226,13 @@ public class PreferencesTarifas extends ListActivity{
         	{
         		//Existe unan nueva versión
         		//Descargar fichero de tarifas predefinidas
-        		pd = ProgressDialog.show(this, "", "Descargando datos ...", true,false);
+        		pd = ProgressDialog.show(this, "", getString(R.string.msg_descargando)+" "+vp.getOperadora(), true,false);
         		new segundoPlano().start();
         	}
         	else
         	{
         		//No existe nueva versión
-        		Toast.makeText(getBaseContext(),"No hay nuevas tarifas.",Toast.LENGTH_LONG).show();
+        		//Toast.makeText(getBaseContext(),"No hay nuevas tarifas.",Toast.LENGTH_LONG).show();
         	}
         	
         	
@@ -227,6 +268,7 @@ public class PreferencesTarifas extends ListActivity{
 			    public void onClick(DialogInterface dialog, int item) {
 			        //Meter la operadora seleccionada en preferencias
 			    	vp.guardarPreferences("listOperadora", getResources().getStringArray(R.array.operadoras)[item]);
+			    	dialog.cancel();
 			    	
 			    }
 			});
@@ -339,10 +381,13 @@ public class PreferencesTarifas extends ListActivity{
 	        	   	switch (ficheroServidor.download())
 	           		{
 	           		case 1:
-	           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Intentelo más tarde.",Toast.LENGTH_LONG).show();
+	           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_masTarde),Toast.LENGTH_LONG).show();
 	       				break;
 	           		case 2:
-	           			Toast.makeText(getApplicationContext(),"No se ha podido descargar las tarifas. Sin conexión a Internet.",Toast.LENGTH_LONG).show();
+	           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_sinConexion),Toast.LENGTH_LONG).show();
+	           			break;
+	           		default:
+	           			Toast.makeText(getApplicationContext(),getString(R.string.msg_descarga_ok),Toast.LENGTH_LONG).show();
 	           			break;
 	           		}
 	        	   	pd.dismiss();

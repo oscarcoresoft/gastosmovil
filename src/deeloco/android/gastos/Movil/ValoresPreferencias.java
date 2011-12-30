@@ -502,11 +502,28 @@ public class ValoresPreferencias {
 		 return retorno;
   }
   
+  /**
+   * Devuelve el operador seleccionado por el usuario
+   * @return
+   * String Operadora
+   */
   public String getOperadora()
   {
-	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("listOperadora", "Todas");
+	  String valor=PreferenceManager.getDefaultSharedPreferences(contexto).getString("listOperadora", "SinOperadora");
 	  return valor;
   }
+  
+  /**
+   * Devuelve el comportamiento seleccionado para el widget
+   * @return
+   * boolean true=llamadas false=arranca gastos móvil
+   */
+  public boolean getComportamientoWidget()
+  {
+	  boolean valor=PreferenceManager.getDefaultSharedPreferences(contexto).getBoolean("chbox_comportamientoWidget", true);
+	  return valor;
+  }
+  
   
   public void guardarPreferences(String key, String value){
 	    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(contexto);

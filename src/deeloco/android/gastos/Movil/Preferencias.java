@@ -26,9 +26,16 @@ import deeloco.android.gastos.Movil.R;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 public class Preferencias extends PreferenceActivity  implements OnSharedPreferenceChangeListener {
@@ -100,6 +107,37 @@ public class Preferencias extends PreferenceActivity  implements OnSharedPrefere
     	}
     	else 
     		setResult(RESULT_CANCELED);
+    	
+    	if (key.equals("chbox_comportamientoWidget"))
+    	{
+    		RemoteViews updateViews = new RemoteViews(getBaseContext().getPackageName(), R.layout.widget);
+    		//Evento onClick en el widget 
+			if (vp.getComportamientoWidget())
+			{
+				//Arrancamos el dialer
+		       	String telefono = sharedPreferences.getString(avisoEstadoTelefono.PREF_NUMERO, "");
+				String number = "tel:" + telefono;
+				
+				
+				Intent launchIntent = new Intent(Intent.ACTION_DIAL, Uri.parse(number));
+				PendingIntent pIntent = PendingIntent.getActivity(getBaseContext(), 0, launchIntent, 0);
+				updateViews.setOnClickPendingIntent(R.id.widget, pIntent);
+				
+			}
+			else
+			{
+				//Arrancamos gastos móvil
+				Intent launchIntent = new Intent(getBaseContext(),gastoMovil.class);
+		      	PendingIntent intent = PendingIntent.getActivity(getBaseContext(), 0, launchIntent, 0);
+	  			updateViews.setOnClickPendingIntent(R.id.widget, intent);
+				
+			}
+			
+			ComponentName myComponentName = new ComponentName(getBaseContext(), widgetProvider.class);
+    		AppWidgetManager manager = AppWidgetManager.getInstance(getBaseContext());
+    		manager.updateAppWidget(myComponentName, updateViews);
+    		
+    	}
     }
 
 }
