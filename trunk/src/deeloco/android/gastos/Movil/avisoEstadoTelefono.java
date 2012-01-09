@@ -109,7 +109,7 @@ public class avisoEstadoTelefono extends  BroadcastReceiver {
 		        totalRegistros=c.getCount();
 		        if (totalRegistros>0)
 		        {
-			        telefono=c.getString(iTelefono);
+			        telefono=FunGlobales.quitarPrePais(c.getString(iTelefono));
 					long fecha=c.getLong(iFecha);
 					duracion=c.getInt(iDuracion); //le añadimos la modificación de la duración de la llamada;
 					nombre=c.getString(iNombre);
