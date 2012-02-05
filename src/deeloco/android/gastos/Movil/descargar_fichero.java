@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -46,6 +47,7 @@ import android.widget.Toast;
 public class descargar_fichero {
 	
 	private Context contexto;
+	private int retorno;
 	
 	private String tag="descargar_fichero";
 	
@@ -162,7 +164,78 @@ public class descargar_fichero {
 	public int download()
 	{
 		//boolean retorno=true;
-		int retorno=1;
+		retorno=1;
+		
+		
+		Thread t=new Thread() 
+			{
+			public void run() 
+				{
+            	 
+					if (HaveNetworkConnection())
+					{
+						try
+						{
+							URL url = new URL(URL+nombreFichero);
+							File file = new File(pathSD+nombreFichero);
+							long startTime = System.currentTimeMillis();
+							
+							// Abrir una conexión a la URL. 
+				            URLConnection ucon = url.openConnection();
+				            ucon.setConnectTimeout(3000);
+				            ucon.setReadTimeout(3000);
+				            //
+				             // Define InputStreams para leer desde el URLConnection.
+				             //
+				            InputStream is = ucon.getInputStream();
+				            BufferedInputStream bis = new BufferedInputStream(is);
+				            
+				            //
+				             // Leer bytes del buffer hasta que no haya más que leer (-1)
+				             //
+				            
+				            ByteArrayBuffer baf = new ByteArrayBuffer(50);
+				            int current = 0;
+				            while ((current = bis.read()) != -1) 
+				            {
+				            	baf.append((byte) current);
+				            }
+				            
+				            // Convert the Bytes read to a String. 
+				            FileOutputStream fos = new FileOutputStream(file);
+				            fos.write(baf.toByteArray());
+				            fos.close();
+				            retorno=0;
+				            Log.d(tag, "Descarga realizada en "+ ((System.currentTimeMillis() - startTime) / 1000)+ " sec, de"+url);
+				
+						}
+						catch (SocketTimeoutException e)
+						{
+							retorno=1;
+							Log.d(tag, "Error TimeOut al descargar el fichero "+nombreFichero+" : "+e.getMessage());
+						}
+						catch (IOException e)
+						{
+							//Error en la descarga del fichero
+							retorno=1;
+							Log.d(tag, "Error al descargar el fichero "+nombreFichero+" : "+e.getMessage());
+						}
+					}
+					else
+					{
+						//Error en la descarga porque no hay conexión a Internet
+						Log.d(tag, "Sin Conexión");
+						retorno=2;
+					}
+            	                  
+				}
+			}; 
+       t.start(); 
+		
+		
+		return retorno;
+		
+		/*
 		if (HaveNetworkConnection())
 		{
 			try
@@ -171,19 +244,19 @@ public class descargar_fichero {
 				File file = new File(this.pathSD+this.nombreFichero);
 				long startTime = System.currentTimeMillis();
 				
-				/* Abrir una conexión a la URL. */
+				// Abrir una conexión a la URL. 
 	            URLConnection ucon = url.openConnection();
 	            ucon.setConnectTimeout(3000);
 	            ucon.setReadTimeout(3000);
-	            /*
-	             * Define InputStreams para leer desde el URLConnection.
-	             */
+	            //
+	             // Define InputStreams para leer desde el URLConnection.
+	             //
 	            InputStream is = ucon.getInputStream();
 	            BufferedInputStream bis = new BufferedInputStream(is);
 	            
-	            /*
-	             * Leer bytes del buffer hasta que no haya más que leer (-1)
-	             */
+	            //
+	             // Leer bytes del buffer hasta que no haya más que leer (-1)
+	             //
 	            
 	            ByteArrayBuffer baf = new ByteArrayBuffer(50);
 	            int current = 0;
@@ -192,13 +265,18 @@ public class descargar_fichero {
 	            	baf.append((byte) current);
 	            }
 	            
-	            /* Convert the Bytes read to a String. */
+	            // Convert the Bytes read to a String. 
 	            FileOutputStream fos = new FileOutputStream(file);
 	            fos.write(baf.toByteArray());
 	            fos.close();
 	            retorno=0;
 	            Log.d(tag, "Descarga realizada en "+ ((System.currentTimeMillis() - startTime) / 1000)+ " sec, de"+url);
 	
+			}
+			catch (SocketTimeoutException e)
+			{
+				retorno=1;
+				Log.d(tag, "Error TimeOut al descargar el fichero "+this.nombreFichero+" : "+e.getMessage());
 			}
 			catch (IOException e)
 			{
@@ -215,6 +293,7 @@ public class descargar_fichero {
 			retorno=2;
 		}
 		return retorno;
+		*/
 	}
 	
 	/**

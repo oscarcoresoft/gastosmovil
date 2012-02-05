@@ -93,6 +93,7 @@ public class gastoMovil extends ListActivity{
     private double costeLlamadas=0;
     private double costeSMS=0;
     int numLlamadas=0;
+    private Cursor c;
     
     private List<IconoYTexto> lista = new ArrayList<IconoYTexto>();
     private List<IconoYTexto> listaInvertida = new ArrayList<IconoYTexto>();
@@ -340,7 +341,7 @@ public class gastoMovil extends ListActivity{
 		int retorno=0;
 		int mes=vp.getPreferenciasMes();
 		
-       Cursor c;
+       //Cursor c;
        if (mes==0)
        {
            try
@@ -348,7 +349,7 @@ public class gastoMovil extends ListActivity{
                c=this.getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
                this.startManagingCursor(c);
                retorno=c.getCount();
-               c.close();
+               //c.close();
            }
            catch (Exception e)
            {
@@ -407,7 +408,7 @@ public class gastoMovil extends ListActivity{
             		   
             	   } while (c.moveToNext());
                }
-               c.close();
+               //c.close();
            }
            catch (Exception e)
            {
@@ -667,7 +668,7 @@ public class gastoMovil extends ListActivity{
         				lista.add(new IconoYTexto(getResources().getDrawable(android.R.drawable.presence_away), " "," ", fechaControl+" "+FunGlobales.diaSemana(fechaControl),(ts.getSegConsumidosDia()/60)+"m."+(ts.getSegConsumidosDia()%60)+"s.",FunGlobales.redondear((costeDia*iva),vp.getPreferenciasDecimales())));
 					//lista.add(new IconoYTexto(rIcono, " "," ", fechaControl,(t.getSegConsumidosDia()/60)+"m."+(t.getSegConsumidosDia()%60)+"s.",0.0));
         		}
-        c.close();
+        //c.close();
         }
         
         //Resumen de datos del mes seleccionado g 
@@ -1027,6 +1028,7 @@ public class gastoMovil extends ListActivity{
 		super.onDestroy();
 		//guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
 		ts.guardarTarifas();
+		c.close();
 		
 		//Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
         //getBaseContext().startService(forceUpIntent);
