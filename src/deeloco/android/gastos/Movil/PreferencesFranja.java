@@ -194,7 +194,6 @@ public class PreferencesFranja extends ListActivity{
 			//Log.d(TAG,"Valor incial de Color = "+tv.getText().toString()+", con indice "+indColor);
 			builder.setMultiChoiceItems(R.array.semana,f.diasSeleccionados(), new DialogInterface.OnMultiChoiceClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 					// TODO Auto-generated method stub
 			        //Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
@@ -222,7 +221,6 @@ public class PreferencesFranja extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_franja_coste_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -244,7 +242,6 @@ public class PreferencesFranja extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_franja_establecimiento_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -291,7 +288,6 @@ public class PreferencesFranja extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_franja_coste_limite_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -314,7 +310,6 @@ public class PreferencesFranja extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_franja_establecimiento_limite_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -343,7 +338,6 @@ public class PreferencesFranja extends ListActivity{
 	TextBoxListener tbListener=new TextBoxListener() {
 		
 		
-		@Override
 		public void onOkClick(String valor) {
 			// TODO Auto-generated method stub
 			Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
