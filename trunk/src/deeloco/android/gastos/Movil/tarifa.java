@@ -636,20 +636,15 @@ public class tarifa implements Serializable{
 				String patron="";
 				String inicio[]=num.split("por");
 				inicio[1].trim();
-				patron="^"+inicio[1].trim();
-				/*
 				if (num.contains("+"))
 				{
-					patron="\\"+inicio[1].trim()+"^[0-9]{1,6}";
+					patron="\\"+inicio[1].trim()+"[0-9]{1,6}";
 				}
 				else
 				{
-					patron=inicio[1].trim()+"^[0-9]{1,6}";
+					patron=inicio[1].trim()+"[0-9]{1,6}";
 				}
-				*/
 				p=Pattern.compile(patron);
-				Log.d("tarifa.java", "patron="+patron);
-		
 			}
 			if (num.contains("movil"))
 			{
