@@ -159,7 +159,6 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_tarifa_nombre_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -185,7 +184,6 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_tarifa_limite_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -211,7 +209,6 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_tarifa_limite_dia_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -238,7 +235,6 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_tarifa_limite_llamada_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -288,7 +284,6 @@ public class PreferencesTarifa extends ListActivity{
         	dialog.setSubtitulo(getString(R.string.aj_tarifa_numeros_des));
         	dialog.setTextBoxListener(
         			new TextBoxListener() {
-        				@Override
         				public void onOkClick(String valor) {
         					// TODO Auto-generated method stub
         					//Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();
@@ -345,7 +340,6 @@ public class PreferencesTarifa extends ListActivity{
 	TextBoxListener tbListener=new TextBoxListener() {
 		
 		
-		@Override
 		public void onOkClick(String valor) {
 			// TODO Auto-generated method stub
 			Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();

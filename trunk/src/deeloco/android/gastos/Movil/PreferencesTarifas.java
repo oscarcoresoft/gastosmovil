@@ -345,7 +345,6 @@ public class PreferencesTarifas extends ListActivity{
 	TextBoxListener tbListener=new TextBoxListener() {
 		
 		
-		@Override
 		public void onOkClick(String valor) {
 			// TODO Auto-generated method stub
 			Toast.makeText(getBaseContext(),"Retorno de : "+valor,Toast.LENGTH_LONG).show();

@@ -42,28 +42,24 @@ public class adaptadorTarifas extends BaseAdapter {
 		this.elementos = elementos;
 	}	
 	
-	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
 		// Devolvemos el total de elementos
 		return elementos.size();
 	}
 
-	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
 		// Devolvemos el objeto en la posición position
 		return elementos.get(position);
 	}
 
-	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		// Haremos que el identificador de cada elemento sea su posición
 		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		IconoYTexto2 elemento = elementos.get(position);

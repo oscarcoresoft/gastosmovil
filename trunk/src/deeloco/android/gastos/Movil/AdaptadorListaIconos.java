@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with GastosMovil.  If not, see <http://www.gnu.org/licenses/>.
     
-    Autor: Antonio Cristóbal Álvarez Abellán -> acabellan@gmail.com
+    Autor: Antonio CristÃ³bal Ã�lvarez AbellÃ¡n -> acabellan@gmail.com
     
     */
 
@@ -50,28 +50,24 @@ public class AdaptadorListaIconos extends BaseAdapter {
 		this.elementos = elementos;
 	}	
 	
-	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
 		// Devolvemos el total de elementos
 		return elementos.size();
 	}
 
-	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		// Devolvemos el objeto en la posición position
+		// Devolvemos el objeto en la posiciÃ³n position
 		return elementos.get(position);
 	}
 
-	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		// Haremos que el identificador de cada elemento sea su posición
+		// Haremos que el identificador de cada elemento sea su posiciÃ³n
 		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		IconoYTexto ti = elementos.get(position);
@@ -84,7 +80,7 @@ public class AdaptadorListaIconos extends BaseAdapter {
 		// Generamos un LinearLayout
 		LinearLayout vista = new LinearLayout(mContext);
 		
-		// Contendrá el nombre en una línea y debajo la fecha
+		// ContendrÃ¡ el nombre en una lÃ­nea y debajo la fecha
         LinearLayout datos = new LinearLayout(mContext);
         datos.setOrientation(LinearLayout.VERTICAL);
 
@@ -100,10 +96,10 @@ public class AdaptadorListaIconos extends BaseAdapter {
         // Lo ponemos un "margen" (Hacia adentro)
         img.setPadding(5, 5, 10, 5);
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        // Lo añadimos al LinearLayout creado
+        // Lo aÃ±adimos al LinearLayout creado
         vista.addView(img,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT));
 
-		if (!(telefono.equals(" ")&&nombre.equals(" "))) //Si no tiene telefono y nombre = Una sola línea
+		if (!(telefono.equals(" ")&&nombre.equals(" "))) //Si no tiene telefono y nombre = Una sola lÃ­nea
 		{
 			 
 	        //Contendra dos lineas de texto en horozantal, una al lado de la otra
@@ -169,20 +165,20 @@ public class AdaptadorListaIconos extends BaseAdapter {
 	        	vFecha.setText(duracion+ "|" +fecha);
 	        vFecha.setTextAppearance(mContext,android.R.attr.textAppearanceSmall);
 	        //vFecha.setTextSize(15);
-	        if ((telefono.equals(" ")&&nombre.equals(" "))) //Si no tiene telefono y nombre = Una sola línea
+	        if ((telefono.equals(" ")&&nombre.equals(" "))) //Si no tiene telefono y nombre = Una sola lÃ­nea
 			{
 	        	vFecha.setTextColor(Color.parseColor("#FF8000"));
 			}
 	        
 	        
 	        
-	        // Lo añadimos al LinearLayout "datos"
+	        // Lo aÃ±adimos al LinearLayout "datos"
 	        
 	        datos.addView(vFecha, new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		}
 		else
 		{
-			//No incluimos la línea de arriba y colocamos un fondo de escritorio diferente
+			//No incluimos la lÃ­nea de arriba y colocamos un fondo de escritorio diferente
 			//vista.setBackgroundColor(Color.BLACK);
 			//datos.setBackgroundColor(Color.BLACK);
 			vista.setBackgroundColor(Color.parseColor("#88000000"));
@@ -218,11 +214,11 @@ public class AdaptadorListaIconos extends BaseAdapter {
         
         if (fecha.equals(" "))
         {
-        	Log.d("", "Ampliar la línea");
+        	Log.d("", "Ampliar la lÃ­nea");
         	datos.setPadding(0, 20, 0, 20);
         }
     
-          // Lo añadimos al LinearLayout creado
+          // Lo aÃ±adimos al LinearLayout creado
           vista.addView(datos, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); 
         
         

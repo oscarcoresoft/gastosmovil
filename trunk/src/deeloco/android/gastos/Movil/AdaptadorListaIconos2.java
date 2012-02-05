@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with GastosMovil.  If not, see <http://www.gnu.org/licenses/>.
     
-    Autor: Antonio Cristóbal Álvarez Abellán -> acabellan@gmail.com
+    Autor: Antonio CristÃ³bal Ã�lvarez AbellÃ¡n -> acabellan@gmail.com
     
     */
 
@@ -46,28 +46,24 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
 		this.elementos = elementos;
 	}	
 	
-	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
 		// Devolvemos el total de elementos
 		return elementos.size();
 	}
 
-	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		// Devolvemos el objeto en la posición position
+		// Devolvemos el objeto en la posiciÃ³n position
 		return elementos.get(position);
 	}
 
-	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		// Haremos que el identificador de cada elemento sea su posición
+		// Haremos que el identificador de cada elemento sea su posiciÃ³n
 		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		IconoYTexto ti = elementos.get(position);
@@ -86,14 +82,14 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
         img.setImageDrawable(icono);
         // Lo ponemos un "margen" (Hacia adentro)
         img.setPadding(10, 10, 10, 10);
-        // Tamaño
+        // TamaÃ±o
         img.setMinimumHeight(50);
-        // Lo añadimos al LinearLayout creado
+        // Lo aÃ±adimos al LinearLayout creado
         vista.addView(img,  new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         
       
       
-        // Contendrá el nombre en una línea y debajo la fecha
+        // ContendrÃ¡ el nombre en una lÃ­nea y debajo la fecha
         LinearLayout datos = new LinearLayout(mContext);
         datos.setOrientation(LinearLayout.VERTICAL);
         
@@ -120,11 +116,11 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
             if (nombre.compareTo("")==0)
             {
             	//Gastos por numero
-            	txtLinea1Der.setText(coste+"€");
+            	txtLinea1Der.setText(coste+"â‚¬");
             }
             else
             {
-            	//Duración por numero. nombre=duración
+            	//DuraciÃ³n por numero. nombre=duraciÃ³n
             	txtLinea1Der.setText(nombre);
             }
             
@@ -154,7 +150,7 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
 	        
             
             
-          // Lo añadimos al LinearLayout creado
+          // Lo aÃ±adimos al LinearLayout creado
           vista.addView(datos, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); 
         
         
