@@ -1,0 +1,4 @@
+uses-small-icon:impact=2:Icon size must be 86x86
+uses-feature:impact=2:android.hardware.telephony
+
+impact-summary: [5]=0; [4]=0; [3]=0; [2]=2; [1]=0;

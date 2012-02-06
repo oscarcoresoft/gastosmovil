@@ -71,6 +71,7 @@ public class PreferencesTarifas extends ListActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarifas);
         ts = (tarifas) getIntent().getExtras().get("tarifas");
+        gastoMovil.tracker.trackPageView("/PreferenciasTarifas");
 
     }
     
