@@ -116,7 +116,7 @@ public class AdaptadorListaIconos2 extends BaseAdapter {
             if (nombre.compareTo("")==0)
             {
             	//Gastos por numero
-            	txtLinea1Der.setText(coste+"â‚¬");
+            	txtLinea1Der.setText(coste+FunGlobales.monedaLocal());
             }
             else
             {

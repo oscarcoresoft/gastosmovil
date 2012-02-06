@@ -70,6 +70,8 @@ import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.google.android.apps.analytics.*;;
+
 
 public class gastoMovil extends ListActivity{
     /** Called when the activity is first created. */
@@ -103,6 +105,9 @@ public class gastoMovil extends ListActivity{
     private tarifas ts=new tarifas();
     ProgressDialog dialog;
     Display display;
+    
+    public static GoogleAnalyticsTracker tracker;
+
 
     //******************** AQUI ***************************
 
@@ -202,6 +207,10 @@ public class gastoMovil extends ListActivity{
         	
         	System.out.println("ERROR:"+e.toString()+" ("+e.hashCode()+")");
         }
+
+        tracker = GoogleAnalyticsTracker.getInstance();
+        tracker.startNewSession("UA-1630192-4", 30, this);
+        tracker.trackPageView("/gastosMovil");
 
     }
     
@@ -1029,6 +1038,8 @@ public class gastoMovil extends ListActivity{
 		//guardarPreferences(PREF_SEGUNDOS, ts.getSegConsumidosMes());
 		ts.guardarTarifas();
 		c.close();
+		tracker.dispatch();
+		tracker.stopSession();
 		
 		//Intent forceUpIntent = new Intent(getBaseContext(), widgetProvider.UpdateService.class);
         //getBaseContext().startService(forceUpIntent);
