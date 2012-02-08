@@ -209,7 +209,7 @@ public class gastoMovil extends ListActivity{
         }
 
         tracker = GoogleAnalyticsTracker.getInstance();
-        tracker.startNewSession("UA-1630192-4", 30, this);
+        tracker.startNewSession("UA-1630192-5", 30, this);
         tracker.trackPageView("/gastosMovil");
 
     }
