@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Gastos Móvil</string>
+    <string name="app_name">Gastos Móvil Plus</string>
     <string name="cabDatos">Resumen de </string>
     <string name="cabRegistros">Registro de llamadas</string>
     <string name="separador">    </string>
