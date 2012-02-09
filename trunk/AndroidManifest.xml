@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="deeloco.android.gastos.Movil.plus" android:versionCode="13" android:versionName="2.3.1.beta">
+      package="deeloco.android.gastos.Movil.plus" android:versionCode="1" android:versionName="2.3.1.beta">
       
       <supports-screens
           android:largeScreens="true"
